@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='2'>
+  <unit id='org.eclipse.vorto.codegen.ble.alpwise' version='0.10.0.M2'>
+    <update id='org.eclipse.vorto.codegen.ble.alpwise' range='[0.0.0,0.10.0.M2)' severity='0'/>
+    <properties size='5'>
+      <property name='org.eclipse.equinox.p2.name' value='Vorto Alpwise BLE Stack Generator'/>
+      <property name='org.eclipse.equinox.p2.provider' value='Eclipse.org/Vorto'/>
+      <property name='maven-groupId' value='org.eclipse.vorto'/>
+      <property name='maven-artifactId' value='org.eclipse.vorto.codegen.ble.alpwise'/>
+      <property name='maven-version' value='0.10.0.M2'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.vorto.codegen.ble.alpwise' version='0.10.0.M2'/>
+      <provided namespace='osgi.bundle' name='org.eclipse.vorto.codegen.ble.alpwise' version='0.10.0.M2'/>
+      <provided namespace='java.package' name='org.eclipse.vorto.codegen.ble.alpwise' version='0.0.0'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='7'>
+      <required namespace='osgi.bundle' name='org.eclipse.vorto.core' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='com.google.guava' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.xtext.xbase.lib' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.xtend.lib' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.xtend.lib.macro' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.vorto.codegen' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.vorto.codegen.ble' range='0.0.0'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='org.eclipse.vorto.codegen.ble.alpwise' version='0.10.0.M2'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: org.eclipse.vorto.codegen.ble.alpwise;singleton:=true&#xA;Bundle-Version: 0.10.0.M2&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+  <unit id='org.eclipse.vorto.codegen.ble.alpwise.source' version='0.10.0.M2' singleton='false'>
+    <update id='org.eclipse.vorto.codegen.ble.alpwise.source' range='[0.0.0,0.10.0.M2)' severity='0'/>
+    <properties size='9'>
+      <property name='df_LT.bundleVendor' value='Eclipse.org/Vorto'/>
+      <property name='df_LT.bundleName' value='Vorto Alpwise BLE Stack Generator Source'/>
+      <property name='org.eclipse.equinox.p2.name' value='%bundleName'/>
+      <property name='org.eclipse.equinox.p2.provider' value='%bundleVendor'/>
+      <property name='org.eclipse.equinox.p2.bundle.localization' value='OSGI-INF/l10n/bundle-src'/>
+      <property name='maven-groupId' value='org.eclipse.vorto'/>
+      <property name='maven-artifactId' value='org.eclipse.vorto.codegen.ble.alpwise'/>
+      <property name='maven-version' value='0.10.0.M2'/>
+      <property name='maven-classifier' value='sources'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.vorto.codegen.ble.alpwise.source' version='0.10.0.M2'/>
+      <provided namespace='osgi.bundle' name='org.eclipse.vorto.codegen.ble.alpwise.source' version='0.10.0.M2'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='source' version='1.0.0'/>
+      <provided namespace='org.eclipse.equinox.p2.localization' name='df_LT' version='1.0.0'/>
+    </provides>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='org.eclipse.vorto.codegen.ble.alpwise.source' version='0.10.0.M2'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: org.eclipse.vorto.codegen.ble.alpwise.source&#xA;Bundle-Version: 0.10.0.M2&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>

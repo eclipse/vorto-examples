@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.vorto.codegen.ble.alpwise;singleton:=
+ true
+Export-Package: org.eclipse.vorto.codegen.ble.alpwise
+Bundle-Name: Vorto Alpwise BLE Stack Generator
+Bundle-Version: 0.10.0.M2
+Require-Bundle: org.eclipse.vorto.core,com.google.guava,org.eclipse.xt
+ ext.xbase.lib,org.eclipse.xtend.lib,org.eclipse.xtend.lib.macro,org.e
+ clipse.vorto.codegen,org.eclipse.vorto.codegen.ble
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: Eclipse.org/Vorto
+
