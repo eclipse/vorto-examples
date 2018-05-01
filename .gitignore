@@ -1,0 +1,6 @@
+generators/org.eclipse.vorto.codegen.examples.coap/xtend-gen
+generators/org.eclipse.vorto.codegen.examples.javabean/xtend-gen
+generators/org.eclipse.vorto.codegen.examples.latex/xtend-gen
+xtendbin
+xtend-gen*
+generators/org.eclipse.vorto.codegen.examples.thingworx/target
