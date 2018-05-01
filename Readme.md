@@ -16,7 +16,7 @@ Vorto Code Generators convert an Information Model into executable code that is 
 
 - [Device Web Dashboard Generator](generators/org.eclipse.vorto.codegen.examples.webui/Readme.md)
 - [Javabean Generator](generators/org.eclipse.vorto.codegen.examples.javabean/Readme.md)
-- [AngularJS Web UI Generator](generators/org.eclipse.vorto.codegen.examples.webdevice/Readme.md)
+- [AngularJS Web UI Generator](generators/org.eclipse.vorto.codegen.examples.webui/Readme.md)
 - [LaTeX Documentation Generator](generators/org.eclipse.vorto.codegen.examples.latex/Readme.md)
 - [Markdown Documentation Generator](generators/org.eclipse.vorto.codegen.examples.markdown/Readme.md)
  
