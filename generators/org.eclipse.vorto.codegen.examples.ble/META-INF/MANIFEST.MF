@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Vorto BLE Utilities
 Bundle-SymbolicName: org.eclipse.vorto.codegen.ble;singleton:=true
-Bundle-Version: 0.10.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Oliver Meili
 Bundle-Localization: plugin
