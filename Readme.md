@@ -1,22 +1,19 @@
+# Vorto Code Generator Examples
 
-# Vorto Example Code Generators
+Vorto Code Generators convert Vorto Information Models into platform-specific source code that integrates a device with the IoT Backend.
+For more information about Eclipse Vorto, check out the [Eclipse Vorto Web Site](https://www.eclipse.org/vorto)
 
-Vorto Code Generators convert an Information Model into executable code that is specific for the platform. Here are some example generators for different platforms: 
- 
- - [AWS IoT Generator](generators/org.eclipse.vorto.codegen.examples.aws/Readme.md)
-
- - [Eclipse Californium Generator](generators/org.eclipse.vorto.codegen.examples.coap/Readme.md)
- - [Eclipse Leshan Generator](generators/org.eclipse.vorto.codegen.examples.lwm2m/Readme.md)
- - [Eclipse Paho Generator](generators/org.eclipse.vorto.codegen.examples.mqtt/Readme.md)
- - [Eclipse Kura Generator](generators/org.eclipse.vorto.codegen.examples.kura/Readme.md)
-
-- [iOS Generator](generators/org.eclipse.vorto.codegen.examples.ios/Readme.md)
-
-- [PTC ThingWorx Generator](generators/org.eclipse.vorto.codegen.examples.thingworx/Readme.md)
-
-- [Device Web Dashboard Generator](generators/org.eclipse.vorto.codegen.examples.webui/Readme.md)
-- [Javabean Generator](generators/org.eclipse.vorto.codegen.examples.javabean/Readme.md)
-- [AngularJS Web UI Generator](generators/org.eclipse.vorto.codegen.examples.webui/Readme.md)
-- [LaTeX Documentation Generator](generators/org.eclipse.vorto.codegen.examples.latex/Readme.md)
-- [Markdown Documentation Generator](generators/org.eclipse.vorto.codegen.examples.markdown/Readme.md)
- 
+ - [AWS IoT Generator](org.eclipse.vorto.codegen.aws/Readme.md)
+ - [Eclipse Californium Generator](org.eclipse.vorto.codegen.coap/Readme.md)
+ - [iOS Generator](org.eclipse.vorto.codegen.ios/Readme.md)
+ - [Javabean Generator](org.eclipse.vorto.codegen.javabean/Readme.md)
+ - [LaTeX Documentation Generator](org.eclipse.vorto.codegen.latex/Readme.md)
+ - [Eclipse Leshan Generator](org.eclipse.vorto.codegen.lwm2m/Readme.md)
+ - [Markdown Documentation Generator](org.eclipse.vorto.codegen.markdown/Readme.md)
+ - [Eclipse Paho Generator](org.eclipse.vorto.codegen.mqtt/Readme.md)
+ - [PTC ThingWorx Generator](org.eclipse.vorto.codegen.thingworx/Readme.md)
+ - [Device Web Dashboard Generator](org.eclipse.vorto.codegen.webui/Readme.md)
+ - [AngularJS Web UI Generator](org.eclipse.vorto.codegen.webdevice/Readme.md)
+ - [Eclipse Kura Generator](org.eclipse.vorto.codegen.kura/Readme.md)
+ - [Google Protobuf Generator](org.eclipse.vorto.codegen.protobuf/Readme.md)
+ - [Samsung ARTIK Generator](org.eclipse.vorto.codegen.artik/Readme.md)
