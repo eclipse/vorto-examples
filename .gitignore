@@ -14,3 +14,4 @@ bin/
 .project
 generated-sources
 *.orig
+*.versionsBackup

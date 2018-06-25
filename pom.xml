@@ -1,24 +1,71 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="MACROMAN"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.eclipse.vorto</groupId>
-	<artifactId>examples</artifactId>
-	<version>0.10.0-SNAPSHOT</version>
+
+	<groupId>org.eclipse.vorto.examples</groupId>
+	<artifactId>parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>Vorto Examples Parent</name>
+
 	<packaging>pom</packaging>
 
-	<name>Eclipse Vorto Code Generator Examples</name>
-    <description>Vorto Code Generator Examples</description>
+	<description>Eclipse Vorto</description>
 	<url>http://www.eclipse.org/vorto</url>
-	
-	<modules>	
-		<module>org.eclipse.vorto.codegen.artik</module>
+
+	<organization>
+		<name>Eclipse.org</name>
+		<url>http://www.eclipse.org/vorto</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>Eclipse Public License</name>
+			<url>http://www.eclipse.org/legal/epl-v10.html</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<developerConnection>scm:git:https://github.com/eclipse/vorto-examples.git</developerConnection>
+		<url>https://github.com/eclipse/vorto-examples</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/eclipse/vorto/issues</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<id>aedelmann</id>
+			<name>Alexander Edelmann</name>
+			<email>alexander.edelmann@bosch-si.com</email>
+			<roles>
+				<role>Lead</role>
+				<role>Committer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<properties>
+		<xtext.version>2.9.0</xtext.version>
+		<vorto.version>0.10.0-SNAPSHOT</vorto.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<spring.boot.version>1.5.12.RELEASE</spring.boot.version>
+	</properties>
+
+	<modules>
 		<module>org.eclipse.vorto.codegen.aws</module>
+		<module>org.eclipse.vorto.codegen.artik</module>
 		<module>org.eclipse.vorto.codegen.ble</module>
 		<module>org.eclipse.vorto.codegen.ble.alpwise</module>
 		<module>org.eclipse.vorto.codegen.coap</module>
-		<module>org.eclipse.vorto.codegen.ios</module>
 		<module>org.eclipse.vorto.codegen.javabean</module>
-		<module>org.eclipse.vorto.codegen.json</module>
 		<module>org.eclipse.vorto.codegen.kura</module>
 		<module>org.eclipse.vorto.codegen.latex</module>
 		<module>org.eclipse.vorto.codegen.lwm2m</module>
@@ -27,77 +74,12 @@
 		<module>org.eclipse.vorto.codegen.thingworx</module>
 		<module>org.eclipse.vorto.codegen.webdevice</module>
 		<module>org.eclipse.vorto.codegen.webui</module>
+		<module>generator-runner</module>
 	</modules>
-
-	<properties>
-		<tycho-version>1.2.0</tycho-version>
-		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-	</properties>
-
+	
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<pluginManagement>
 			<plugins>
-				<plugin>
-					<groupId>org.sonatype.tycho</groupId>
-					<artifactId>maven-osgi-packaging-plugin</artifactId>
-					<configuration>
-						<strictVersions>false</strictVersions>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>2.5</version>
-					<configuration>
-						<filesets combine.children="append">
-							<fileset>
-								<directory>${basedir}/xtend-gen</directory>
-								<includes>
-									<include>**</include>
-								</includes>
-								<excludes>
-									<exclude>.gitignore</exclude>
-								</excludes>
-							</fileset>
-							<fileset>
-								<directory>${basedir}/src/main/generated-sources/xtend</directory>
-								<includes>
-									<include>**</include>
-								</includes>
-								<excludes>
-									<exclude>.gitignore</exclude>
-								</excludes>
-							</fileset>
-						</filesets>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.xtend</groupId>
-					<artifactId>xtend-maven-plugin</artifactId>
-					<version>${xtext.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>compile</goal>
-								<goal>testCompile</goal>
-							</goals>
-						</execution>
-					</executions>
-					<configuration>
-						<outputDirectory>xtend-gen</outputDirectory>
-					</configuration>
-					<dependencies>
-						<!-- these dependencies are contributed in Eclipse by the "Xtend Library" 
-							classpath container -->
-						<dependency>
-							<groupId>org.eclipse.xtend</groupId>
-							<artifactId>org.eclipse.xtend.lib</artifactId>
-							<version>${xtext.version}</version>
-							<type>pom</type>
-						</dependency>
-					</dependencies>
-				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
@@ -111,101 +93,58 @@
 							</goals>
 							<configuration>
 								<sources>
-									<source>xtend-gen</source>
-									<source>src-gen</source>
+									<source>${basedir}/src/main/xtend-gen</source>
 								</sources>
 							</configuration>
 						</execution>
 					</executions>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-packaging-plugin</artifactId>
-					<version>${tycho-version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-versions-plugin</artifactId>
-					<version>${tycho-version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-source-plugin</artifactId>
-					<version>${tycho-version}</version>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtext.version}</version>
 					<executions>
 						<execution>
-							<id>attach-sources</id>
 							<goals>
-								<goal>plugin-source</goal>
+								<goal>compile</goal>
 							</goals>
+							<configuration>
+								<outputDirectory>${basedir}/src/main/xtend-gen</outputDirectory>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-maven-plugin</artifactId>
-					<version>${tycho-version}</version>
-					<extensions>true</extensions>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-compiler-plugin</artifactId>
-					<version>${tycho-version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>1.2.1</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>maven-bundle-plugin</artifactId>
-					<version>3.0.1</version>
-					<extensions>true</extensions>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.4.1</version>
 					<configuration>
-						<supportedProjectTypes>
-							<supportedProjectType>jar</supportedProjectType>
-							<supportedProjectType>bundle</supportedProjectType>
-							<supportedProjectType>eclipse-plugin</supportedProjectType>
-						</supportedProjectTypes>
+						<filesets>
+							<fileset>
+								<directory>${basedir}/src/main/xtend-gen</directory>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-versions-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-source-plugin</artifactId>
-			</plugin>
-		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>doclint-java8-disable</id>
+			<activation>
+				<jdk>[1.8,)</jdk>
+			</activation>
+			<properties>
+				<javadoc.opts>-Xdoclint:none</javadoc.opts>
+			</properties>
+		</profile>
+	</profiles>
 </project>
+

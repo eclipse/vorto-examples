@@ -2,16 +2,40 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.eclipse.vorto</groupId>
-		<artifactId>generators</artifactId>
-		<version>0.10.0-SNAPSHOT</version>
+		<groupId>org.eclipse.vorto.examples</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>org.eclipse.vorto.codegen.javabean</artifactId>
-	<packaging>eclipse-plugin</packaging>
 
 	<name>Vorto Javabean Generator</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>org.eclipse.vorto.core</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>org.eclipse.vorto.codegen.templates.java</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.vorto.utilities</groupId>
+			<artifactId>dsl-reader</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>org.eclipse.vorto.codegen</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
