@@ -209,7 +209,6 @@
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
-			</plugins>
 			<plugin>
 				    <groupId>com.spotify</groupId>
 				    <artifactId>dockerfile-maven-plugin</artifactId>
@@ -250,6 +249,7 @@
 				     </configuration>
 
 				</plugin>
+			</plugins>
 		</pluginManagement>
 		<plugins>
 			<plugin>
@@ -280,6 +280,10 @@
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
