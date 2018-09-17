@@ -49,10 +49,21 @@
 			</roles>
 		</developer>
 	</developers>
+	
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<properties>
 		<xtext.version>2.9.0</xtext.version>
-		<vorto.version>0.10.0.M4</vorto.version>
+		<vorto.version>0.10.0.M5</vorto.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
