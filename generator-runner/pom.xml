@@ -209,46 +209,6 @@
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
-			<plugin>
-				    <groupId>com.spotify</groupId>
-				    <artifactId>dockerfile-maven-plugin</artifactId>
-				    <version>1.4.4</version>
-				    <executions>
-					  <execution>
-						<id>tag-latest</id>
-						<phase>deploy</phase>
-						<goals>
-						  <goal>build</goal>
-						  <goal>tag</goal>
-						  <goal>push</goal>
-						</goals>
-						<configuration>
-						  <tag>latest</tag>
-						</configuration>
-					  </execution>
-					  <execution>
-						<id>tag-version</id>
-						<phase>deploy</phase>
-						<goals>
-						  <goal>build</goal>
-						  <goal>tag</goal>
-						  <goal>push</goal>
-						</goals>
-						<configuration>
-						  <tag>${project.version}</tag>
-						</configuration>
-					  </execution>
-					</executions>
-				    <configuration>
-				      <repository>eclipsevorto/vorto-generators-3rd-party</repository>
-					      <buildArgs>
-						    <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-						    <https_proxy>${env.https_proxy}</https_proxy>
-						    <http_proxy>${env.http_proxy}</http_proxy>
-					      </buildArgs>
-				     </configuration>
-
-				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -287,5 +247,53 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+		<id>include-docker</id>
+			<build>
+				<plugins>
+			<plugin>
+				    <groupId>com.spotify</groupId>
+				    <artifactId>dockerfile-maven-plugin</artifactId>
+				    <version>1.4.4</version>
+				    <executions>
+					  <execution>
+						<id>tag-latest</id>
+						<phase>deploy</phase>
+						<goals>
+						  <goal>build</goal>
+						  <goal>tag</goal>
+						  <goal>push</goal>
+						</goals>
+						<configuration>
+						  <tag>latest</tag>
+						</configuration>
+					  </execution>
+					  <execution>
+						<id>tag-version</id>
+						<phase>deploy</phase>
+						<goals>
+						  <goal>build</goal>
+						  <goal>tag</goal>
+						  <goal>push</goal>
+						</goals>
+						<configuration>
+						  <tag>${project.version}</tag>
+						</configuration>
+					  </execution>
+					</executions>
+				    <configuration>
+				      <repository>eclipsevorto/vorto-generators-3rd-party</repository>
+					      <buildArgs>
+						    <JAR_FILE>${project.build.finalName}-exec.jar</JAR_FILE>
+						    <https_proxy>${env.https_proxy}</https_proxy>
+						    <http_proxy>${env.http_proxy}</http_proxy>
+					      </buildArgs>
+				     </configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
