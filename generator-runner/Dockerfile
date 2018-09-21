@@ -4,8 +4,8 @@ RUN mkdir /gen
 WORKDIR /gen
 ARG JAR_FILE
 ADD target/${JAR_FILE} /gen/generators.jar
-ADD ./wait-for-it.sh /gen
-ADD ./run_generators.sh /gen/run_generators.sh
+ADD ./docker/wait-for-it.sh /gen
+ADD ./docker/run_generators.sh /gen/run_generators.sh
 
 # Wait for repository to become avaliable
 # Read mounted config file, remove newlines from file and write to variable, run spring boot after that
