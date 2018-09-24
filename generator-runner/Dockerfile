@@ -4,6 +4,8 @@ RUN mkdir /gen
 WORKDIR /gen
 ARG JAR_FILE
 ADD target/${JAR_FILE} /gen/generators.jar
+RUN chmod +x /gen/wait-for-it.sh
+RUN chmod +x /gen/run_generators.sh
 ADD ./docker/wait-for-it.sh /gen
 ADD ./docker/run_generators.sh /gen/run_generators.sh
 
