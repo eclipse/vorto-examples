@@ -1,8 +1,8 @@
 server:
   host: localhost
-  port: 8081
+  port: 8082
   contextPath: /example-generators
-  serviceUrl: http://localhost:8081/example-generators
+  serviceUrl: http://localhost:8082/example-generators
 
 vorto:
   serverUrl: http://localhost:8080/infomodelrepository

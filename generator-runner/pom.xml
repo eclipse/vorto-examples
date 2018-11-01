@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>repository-generators</artifactId>
+			<artifactId>generator-runner-spi</artifactId>
 			<version>${vorto.version}</version>
 		</dependency>
 		
