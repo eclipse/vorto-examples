@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>repository-generators</artifactId>
+			<artifactId>generator-runner-spi</artifactId>
 			<version>${vorto.version}</version>
 		</dependency>
 		
@@ -43,25 +43,6 @@
 			<artifactId>httpclient</artifactId>
 		</dependency>
 		
-		<!-- Vorto -->
-		<dependency>
-			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>org.eclipse.vorto.core</artifactId>
-			<version>${vorto.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.vorto.utilities</groupId>
-			<artifactId>dsl-reader</artifactId>
-			<version>${vorto.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>org.eclipse.vorto.codegen</artifactId>
-			<version>${vorto.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
 			<artifactId>org.eclipse.vorto.codegen.templates.java</artifactId>
