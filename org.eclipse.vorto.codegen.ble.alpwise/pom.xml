@@ -12,11 +12,6 @@
 	<name>Vorto Alpwise BLE Generator</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>org.eclipse.vorto.core</artifactId>
-			<version>${vorto.version}</version>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.eclipse.vorto.examples</groupId>
@@ -25,14 +20,19 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.eclipse.vorto.utilities</groupId>
-			<artifactId>dsl-reader</artifactId>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>org.eclipse.vorto.core</artifactId>
 			<version>${vorto.version}</version>
 		</dependency>
-
+	
+	<dependency>
+			<groupId>org.eclipse.xtend</groupId>
+			<artifactId>org.eclipse.xtend.lib</artifactId>
+			<version>${xtext.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>org.eclipse.vorto.codegen</artifactId>
+			<artifactId>generator-api</artifactId>
 			<version>${vorto.version}</version>
 		</dependency>
 	</dependencies>

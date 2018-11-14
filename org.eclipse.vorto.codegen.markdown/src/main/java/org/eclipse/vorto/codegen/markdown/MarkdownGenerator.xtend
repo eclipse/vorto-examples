@@ -14,13 +14,13 @@
  *******************************************************************************/
 package org.eclipse.vorto.codegen.markdown
 
+import org.eclipse.vorto.codegen.api.GenerationResultZip
 import org.eclipse.vorto.codegen.api.GeneratorInfo
 import org.eclipse.vorto.codegen.api.ICodeGeneratorTask
 import org.eclipse.vorto.codegen.api.IGenerationResult
 import org.eclipse.vorto.codegen.api.IVortoCodeGenProgressMonitor
 import org.eclipse.vorto.codegen.api.IVortoCodeGenerator
 import org.eclipse.vorto.codegen.api.InvocationContext
-import org.eclipse.vorto.codegen.api.SingleGenerationResult
 import org.eclipse.vorto.codegen.api.VortoCodeGeneratorException
 import org.eclipse.vorto.codegen.markdown.tasks.MarkdownInformationModelGeneratorTask
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
@@ -34,7 +34,7 @@ class MarkdownGenerator implements IVortoCodeGenerator {
 	
 	override IGenerationResult generate(InformationModel infomodel, InvocationContext invocationContext,
 			IVortoCodeGenProgressMonitor monitor) throws VortoCodeGeneratorException {
-		var output = new SingleGenerationResult("text/x-markdown");
+		var output = new GenerationResultZip(infomodel,getServiceKey());
 		TASK.generate(infomodel, invocationContext, output);
 		return output;
 	}
@@ -47,5 +47,4 @@ class MarkdownGenerator implements IVortoCodeGenerator {
 	override GeneratorInfo getInfo() {
 		return GeneratorInfo.basicInfo("Markdown Documentation","Generates a full documentation of information models in the markdown format which can then be converted to other output formats.","Vorto Community");
 	}
-	
 }
