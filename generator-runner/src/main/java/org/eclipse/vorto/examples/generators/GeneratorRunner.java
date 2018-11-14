@@ -14,7 +14,6 @@
  */
 package org.eclipse.vorto.examples.generators;
 
-import org.eclipse.vorto.codegen.gateway.GatewayInit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -23,12 +22,11 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"org.eclipse.vorto.codegen.gateway.config",
-							"org.eclipse.vorto.codegen.gateway.controllers",
-							"org.eclipse.vorto.codegen.gateway.repository",
-							"org.eclipse.vorto.codegen.gateway.service","org.eclipse.vorto.examples.generators"},excludeFilters = {@ComponentScan.Filter(
-	    type = FilterType.ASSIGNABLE_TYPE,
-	    value = {GatewayInit.class})})
+@ComponentScan(basePackages={"org.eclipse.vorto.codegen.spi.config",
+		"org.eclipse.vorto.codegen.spi.controllers",
+		"org.eclipse.vorto.codegen.spi.repository",
+		"org.eclipse.vorto.codegen.spi.service","org.eclipse.vorto.examples.generators"},excludeFilters = {@ComponentScan.Filter(
+type = FilterType.ASSIGNABLE_TYPE)})
 public class GeneratorRunner {
 
 	@Bean

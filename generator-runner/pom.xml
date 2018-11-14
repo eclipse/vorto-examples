@@ -7,20 +7,20 @@
 		<artifactId>parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>generator-runner</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>Generator Runner</name>
 	<description>Runs all the example generators as a micro service</description>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>repository-generators</artifactId>
+			<artifactId>generator-runner-spi</artifactId>
 			<version>${vorto.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -42,29 +42,10 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 		</dependency>
-		
-		<!-- Vorto -->
-		<dependency>
-			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>org.eclipse.vorto.core</artifactId>
-			<version>${vorto.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.vorto.utilities</groupId>
-			<artifactId>dsl-reader</artifactId>
-			<version>${vorto.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>org.eclipse.vorto.codegen</artifactId>
-			<version>${vorto.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>org.eclipse.vorto.codegen.templates.java</artifactId>
+			<artifactId>generator-templates-java</artifactId>
 			<version>${vorto.version}</version>
 		</dependency>
 
@@ -142,7 +123,7 @@
 			<version>3.6</version>
 		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -154,7 +135,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -181,6 +162,13 @@
 					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
 					<version>${xtext.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.platform</groupId>
+							<artifactId>org.eclipse.equinox.common</artifactId>
+							<version>3.10.0</version>
+						</dependency>
+					</dependencies>
 					<executions>
 						<execution>
 							<goals>
@@ -220,9 +208,9 @@
 						<goals>
 							<goal>repackage</goal>
 						</goals>
-						 <configuration>
+						<configuration>
 							<classifier>exec</classifier>
-						 </configuration>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -249,47 +237,47 @@
 	</build>
 	<profiles>
 		<profile>
-		<id>include-docker</id>
+			<id>include-docker</id>
 			<build>
 				<plugins>
-			<plugin>
-				    <groupId>com.spotify</groupId>
-				    <artifactId>dockerfile-maven-plugin</artifactId>
-				    <version>1.4.4</version>
-				    <executions>
-					  <execution>
-						<id>tag-latest</id>
-						<phase>deploy</phase>
-						<goals>
-						  <goal>build</goal>
-						  <goal>tag</goal>
-						  <goal>push</goal>
-						</goals>
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<version>1.4.4</version>
+						<executions>
+							<execution>
+								<id>tag-latest</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>build</goal>
+									<goal>tag</goal>
+									<goal>push</goal>
+								</goals>
+								<configuration>
+									<tag>latest</tag>
+								</configuration>
+							</execution>
+							<execution>
+								<id>tag-version</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>build</goal>
+									<goal>tag</goal>
+									<goal>push</goal>
+								</goals>
+								<configuration>
+									<tag>${project.version}</tag>
+								</configuration>
+							</execution>
+						</executions>
 						<configuration>
-						  <tag>latest</tag>
+							<repository>eclipsevorto/vorto-generators-3rd-party</repository>
+							<buildArgs>
+								<JAR_FILE>${project.build.finalName}-exec.jar</JAR_FILE>
+								<https_proxy>${env.https_proxy}</https_proxy>
+								<http_proxy>${env.http_proxy}</http_proxy>
+							</buildArgs>
 						</configuration>
-					  </execution>
-					  <execution>
-						<id>tag-version</id>
-						<phase>deploy</phase>
-						<goals>
-						  <goal>build</goal>
-						  <goal>tag</goal>
-						  <goal>push</goal>
-						</goals>
-						<configuration>
-						  <tag>${project.version}</tag>
-						</configuration>
-					  </execution>
-					</executions>
-				    <configuration>
-				      <repository>eclipsevorto/vorto-generators-3rd-party</repository>
-					      <buildArgs>
-						    <JAR_FILE>${project.build.finalName}-exec.jar</JAR_FILE>
-						    <https_proxy>${env.https_proxy}</https_proxy>
-						    <http_proxy>${env.http_proxy}</http_proxy>
-					      </buildArgs>
-				     </configuration>
 					</plugin>
 				</plugins>
 			</build>

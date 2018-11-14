@@ -31,6 +31,7 @@ import org.eclipse.vorto.codegen.utils.Utils
 import org.eclipse.vorto.core.api.model.datatype.Enum
 import org.eclipse.vorto.core.api.model.informationmodel.FunctionblockProperty
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
+import org.eclipse.vorto.codegen.api.GeneratorInfo.ChoiceItem
 
 /**
  * @author Alexander Edelmann (Robert Bosch (SEA) Pte. Ltd)
@@ -76,7 +77,7 @@ class AWSGenerator implements IVortoCodeGenerator {
 		return GeneratorInfo.basicInfo("AWS IoT",
 			"Generates an Alexa skillset that updates and reads device data to/from the AWS IoT Thing Shadow Service.",
 			"Vorto Community")
-			.withChoiceConfigurationItem("cloud","Choose Digital Twin backend for Alexa","bosch","aws");
+			.withChoiceConfigurationItem("cloud","Choose Digital Twin backend for Alexa",ChoiceItem.of("Bosch IoT Things","bosch"),ChoiceItem.of("AWS IoT Shadow","aws"));
 		}
 	}
 	
