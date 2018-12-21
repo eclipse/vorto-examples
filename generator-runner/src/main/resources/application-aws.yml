@@ -1,0 +1,11 @@
+server:
+  host: 
+  port: 8080
+  contextPath: /
+  serviceUrl: ${generator_server_url}
+  config:
+    generatorUser: ${generator_user}
+    generatorPassword: ${generator_password}
+
+vorto:
+  serverUrl: ${repository_server_url} 
