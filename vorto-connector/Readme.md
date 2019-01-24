@@ -15,7 +15,7 @@ Here is a short youtube video about the integration: [Link to Video](https://www
 
 ## Prerequisite
 
-* Bosch ID Account
+* [Bosch ID User Account](https://accounts.bosch-iot-suite.com)
 * Subscription to Asset Communication for Bosch IoT Suite (Free plan, no credit card required)
 
 * Tools
