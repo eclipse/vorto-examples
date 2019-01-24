@@ -87,6 +87,10 @@ Once the app starts up, you should be able to see synchronization messages that 
 
 ![](images/data_verification_console.png)
 
+## What's next ? 
+
+* Access the camera data via REST. Simply click on **!Code** icon in the console dashboard to find out how.
+* [Build an Alexa Skillset](https://github.com/eclipse/vorto/blob/development/docs/tutorials/voice_control_alexa.md) that let you request the camera data via the Amazon Alexa Service
 
 ## Extending the Vorto Connector 
 
