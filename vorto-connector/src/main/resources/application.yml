@@ -1,0 +1,25 @@
+server:
+  contextPath: /
+  use-forward-headers: true
+    
+logging:
+  level:
+    com:
+      bosch:
+        si:
+          dx:
+            btint: DEBUG 
+
+hono:
+  mqttEndpoint: ssl://mqtt.bosch-iot-hub.com:8883
+  tenant: 
+  registryEndpoint: https://manage.bosch-iot-hub.com
+  registryUsername: 
+  registryPassword: 
+  devicePassword:  
+
+http:
+  proxyHost: 
+  proxyPort: 8080
+  proxyUser: 
+  proxyPassword: 

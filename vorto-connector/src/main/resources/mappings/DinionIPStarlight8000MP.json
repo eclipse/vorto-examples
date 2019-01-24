@@ -1,0 +1,309 @@
+{
+  "infoModel" : {
+    "targetPlatformKey" : "BT_Platform",
+    "stereotypes" : [ ],
+    "mappingReference" : null,
+    "id" : {
+      "name" : "DinionIPStarlight8000MP",
+      "namespace" : "com.bosch.bt.camera",
+      "version" : "0.0.1",
+      "prettyFormat" : "com.bosch.bt.camera:DinionIPStarlight8000MP:0.0.1"
+    },
+    "type" : "InformationModel",
+    "displayName" : "DinionIPStarlight8000MP",
+    "description" : "Bosch Building Technology Dinion IP Starlight 8000 MP Security Camera",
+    "fileName" : null,
+    "references" : [ {
+      "name" : "Image",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Image:1.0.0"
+    }, {
+      "name" : "Presence",
+      "namespace" : "com.ipso.smartobjects",
+      "version" : "1.1.0",
+      "prettyFormat" : "com.ipso.smartobjects:Presence:1.1.0"
+    } ],
+    "functionblocks" : [ {
+      "targetPlatformKey" : "BT_Platform",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "ImageMapping",
+        "namespace" : "com.bosch.bt.camera.mapping",
+        "version" : "0.0.2",
+        "prettyFormat" : "com.bosch.bt.camera.mapping:ImageMapping:0.0.2"
+      },
+      "mandatory" : false,
+      "name" : "image",
+      "description" : "Image being captured by the camera",
+      "type" : {
+        "name" : "Image",
+        "namespace" : "org.eclipse.vorto",
+        "version" : "1.0.0",
+        "prettyFormat" : "org.eclipse.vorto:Image:1.0.0"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "BT_Platform",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "PresenceMapping",
+        "namespace" : "com.bosch.bt.camera.mapping",
+        "version" : "0.0.2",
+        "prettyFormat" : "com.bosch.bt.camera.mapping:PresenceMapping:0.0.2"
+      },
+      "mandatory" : false,
+      "name" : "objectsDetected",
+      "description" : "Information whether the camera has detected any objects in the monitored area",
+      "type" : {
+        "name" : "Presence",
+        "namespace" : "com.ipso.smartobjects",
+        "version" : "1.1.0",
+        "prettyFormat" : "com.ipso.smartobjects:Presence:1.1.0"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    } ]
+  },
+  "properties" : {
+    "image" : {
+      "targetPlatformKey" : "BT_Platform",
+      "stereotypes" : [ {
+        "name" : "binding",
+        "attributes" : {
+          "endpoint" : "${cameraIP}/snap.jpg",
+          "method" : "GET",
+          "mediaType" : "image/jpeg",
+          "type" : "http"
+        }
+      } ],
+      "mappingReference" : null,
+      "id" : {
+        "name" : "Image",
+        "namespace" : "org.eclipse.vorto",
+        "version" : "1.0.0",
+        "prettyFormat" : "org.eclipse.vorto:Image:1.0.0"
+      },
+      "type" : "Functionblock",
+      "displayName" : "Image",
+      "description" : "Object that should be used when a device is cabable of handling images.",
+      "fileName" : null,
+      "references" : [ ],
+      "configurationProperties" : [ ],
+      "statusProperties" : [ {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : "/data"
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : true,
+        "name" : "content",
+        "description" : "The actual image content",
+        "type" : "BASE64_BINARY",
+        "constraints" : [ ],
+        "attributes" : [ {
+          "type" : "READABLE",
+          "value" : true
+        }, {
+          "type" : "WRITABLE",
+          "value" : false
+        } ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : "/mediaType"
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : true,
+        "name" : "mediaType",
+        "description" : "Two-part identifier for the file format and format content, e.g. image/jpeg",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ {
+          "type" : "READABLE",
+          "value" : true
+        }, {
+          "type" : "WRITABLE",
+          "value" : false
+        } ],
+        "multiple" : false,
+        "primitive" : true
+      } ],
+      "faultProperties" : [ ],
+      "events" : [ ],
+      "operations" : [ ]
+    },
+    "objectsDetected" : {
+      "targetPlatformKey" : "BT_Platform",
+      "stereotypes" : [ {
+        "name" : "binding",
+        "attributes" : {
+          "endpoint" : "${cameraIP}/rcp.xml?command=0x0b4a&type=P_OCTET&direction=read",
+          "method" : "GET",
+          "mediaType" : "application/xml",
+          "type" : "http"
+        }
+      }, {
+        "name" : "functions",
+        "attributes" : {
+          "isOccupied" : "function isOccupied(value) { return value > 0;}",
+          "convertCounter" : "function convertCounter(value) { return value;}"
+        }
+      } ],
+      "mappingReference" : null,
+      "id" : {
+        "name" : "Presence",
+        "namespace" : "com.ipso.smartobjects",
+        "version" : "1.1.0",
+        "prettyFormat" : "com.ipso.smartobjects:Presence:1.1.0"
+      },
+      "type" : "Functionblock",
+      "displayName" : "Presence",
+      "description" : "Presence sensor with digital sensing, optional delay parameters",
+      "fileName" : null,
+      "references" : [ ],
+      "configurationProperties" : [ {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "busytoCleardelay",
+        "description" : "Delay from the detection state to the clear state in ms",
+        "type" : "INT",
+        "constraints" : [ ],
+        "attributes" : [ {
+          "type" : "READABLE",
+          "value" : true
+        }, {
+          "type" : "WRITABLE",
+          "value" : true
+        } ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "cleartoBusydelay",
+        "description" : "Delay from the clear state to the busy state in ms",
+        "type" : "INT",
+        "constraints" : [ ],
+        "attributes" : [ {
+          "type" : "READABLE",
+          "value" : true
+        }, {
+          "type" : "WRITABLE",
+          "value" : true
+        } ],
+        "multiple" : false,
+        "primitive" : true
+      } ],
+      "statusProperties" : [ {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : "objectsdetected:isOccupied(conversion:byteArrayToInt(binaryString:parseHexBinary(string:deleteWhitespace(rcp/result/str)),array:length(binaryString:parseHexBinary(string:deleteWhitespace(rcp/result/str)))-1,0,0,1))"
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : true,
+        "name" : "digitalInputState",
+        "description" : "The current state of the presence sensor",
+        "type" : "BOOLEAN",
+        "constraints" : [ ],
+        "attributes" : [ {
+          "type" : "READABLE",
+          "value" : true
+        }, {
+          "type" : "WRITABLE",
+          "value" : false
+        } ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : "objectsdetected:convertCounter(conversion:byteArrayToInt(binaryString:parseHexBinary(string:deleteWhitespace(rcp/result/str)),array:length(binaryString:parseHexBinary(string:deleteWhitespace(rcp/result/str)))-1,0,0,1))"
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "digitalInputCounter",
+        "description" : "The cumulative value of active state detected.",
+        "type" : "INT",
+        "constraints" : [ ],
+        "attributes" : [ {
+          "type" : "READABLE",
+          "value" : true
+        }, {
+          "type" : "WRITABLE",
+          "value" : false
+        } ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "sensorType",
+        "description" : "The type of the sensor (for instance PIR type)",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ {
+          "type" : "READABLE",
+          "value" : true
+        }, {
+          "type" : "WRITABLE",
+          "value" : false
+        } ],
+        "multiple" : false,
+        "primitive" : true
+      } ],
+      "faultProperties" : [ ],
+      "events" : [ ],
+      "operations" : [ {
+        "targetPlatformKey" : "BT_Platform",
+        "stereotypes" : [ ],
+        "mappingReference" : null,
+        "name" : "digitalInputCounterReset",
+        "description" : "Reset the Counter value",
+        "result" : null,
+        "params" : [ ],
+        "breakable" : false
+      } ]
+    }
+  }
+}
