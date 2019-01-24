@@ -4,7 +4,7 @@ This Vorto Camera Connector takes care of integrating Bosch security cameras wit
 The connector supports all cameras having people detection - and image-snapshot capabilities.
 The capabilities are defined as Vorto Function Blocks. 
 
-<img src="images/overview.gif" width="80%"/>
+<img src="images/overview.gif"/>
 
 The following 2 camera types are available in the Vorto Repository and work out-of-the-box with this connector. But it is very easy to plug-in other types of cameras and make it work with this connector (Please refer to section "Extending the Vorto Connector")
 
