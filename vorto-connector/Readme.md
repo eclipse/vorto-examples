@@ -90,4 +90,23 @@ Once the app starts up, you should be able to see synchronization messages that 
 
 ## Extending the Vorto Connector 
 
+The connector is currently limited to process only image- and object detection capabilities. 
+This HowTo explains the necessary steps to "teach" the connector to process additional camera data.
+
+### Prerequisite
+
+* Github Account
+* Camera API Specification Document
+
+In short, these are the basic steps to add additional capabilities for the Flexidome Camera in the connector:
+
+1. Create a new or re-use an existing Vorto Function Block which describes the capability and manage it in the Vorto Repository
+2. Create a Vorto Mapping with target platform **BT_PLATFORM** , that maps the Camera API for this capability to the Vorto Function Block properties. Manage it in the Vorto Repository as well.
+3. Reference the new Function Block from the [Flexidome Panoramic](https://vorto.eclipse.org/#/details/com.bosch.bt.camera:FlexidomePanoramic7000IC:0.0.2) Information Model.
+4. Download the new Flexidome Mapping Specification from the Vorto Repository and store it in connector under _src/main/resources/mappings/FlexidomePanoramic7000IC.json_
+5. Re-register the device in the Bosch IoT Suite
+6. Run the Connector
+
+## Step-By-Step
+
 TBD
