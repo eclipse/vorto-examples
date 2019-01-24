@@ -45,8 +45,9 @@ This step by step explains how to connect a Bosch Flexidome camera to Bosch IoT 
 
 ### Step 2: Configure the connector for your solution
 
-1. Clone https://github.com/bsinno/iot-suite-console.git
+1. Clone https://github.com/eclipse/vorto-examples.git
 2. Check out branch **master**
+3. Change to directory **vorto-connector/**
 3. Open **application.yml** and add your Asset Communication package solution parameters, specifically for hono/hub:
 
 		hono:
