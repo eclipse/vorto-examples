@@ -80,7 +80,7 @@ This step by step explains how to connect a Bosch Flexidome camera to Bosch IoT 
 
 Once the app starts up, you should be able to see synchronization messages that reads the camera data and sends it to the Bosch IoT Suite every 5 seconds. 
 
-### Step 6: Verify camera data in Bosch IoT Things
+### Step 5: Verify camera data in Bosch IoT Things
 
 1. Open the Vorto Console https://vorto.eclipse.org/console
 2. Open the details page of your registered camera and verify if the incoming data:
