@@ -14,3 +14,9 @@ The following [Blog Post](https://blog.bosch-si.com/developer/avoid-tight-coupli
 In short, the connector processes Vorto Information Models to retrieve meta-data about the cameras on the one hand, as well as uses the [Vorto Mapping Engine](https://github.com/eclipse/vorto/tree/development/mapping-engine) to convert Camera Binary data to Vorto/Ditto compliant data.
 
 [Read tutorial](vorto-connector/Readme.md) to set it up and run it.
+
+## Using Vorto Models from your custom DSL
+
+If you would like to use and reference Vorto Models from your own custom DSL, the following tutorial shows you how that is done.
+ 
+[Read tutorial](vorto-dsl-integration/Readme.md)
