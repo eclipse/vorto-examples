@@ -31,7 +31,7 @@ class IdentityControllerTemplate implements IFileTemplate<InformationModel> {
 	
 	override getContent(InformationModel element, InvocationContext context) {
 		'''
-		package com.example.iot.xdk.web;
+		package com.example.iot.«element.name.toLowerCase».web;
 		
 		import java.lang.reflect.Type;
 		import java.util.Base64;
