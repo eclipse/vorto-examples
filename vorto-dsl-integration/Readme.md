@@ -108,10 +108,6 @@ We are primarily interested in the core language plugin, e.g. org.xtext.example.
 		override Class<? extends IScopeProvider> bindIScopeProvider() {
 			return MyDslScopeProvider
 		}
-			
-		@Provides def TypeHelper getTypeHelper() {
-			return new TypeFileAccessingHelper()
-		}
 
  
 ### Step 4: Generate Xtext Source Code 
