@@ -1,6 +1,6 @@
-# Vorto IoT Add-ons
+# Vorto Examples
 
-This repository contains [Eclipse Vorto](https://www.eclipse.org/vorto) plugins that have been implemented using the Vorto SDK. 
+This repository contains example code that have been implemented using the [Eclipse Vorto SDK](https://www.eclipse.org/vorto).
 
 ## Vorto Generator Plugins
 
