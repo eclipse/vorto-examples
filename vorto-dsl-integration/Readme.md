@@ -107,11 +107,9 @@ Now your language is all set. It's time to test it.
 
 1. Right-click on the core plugin project (e.g. org.xtext.example.mydsl) and run it in a new Eclipse Workbench. A new Eclipse Workbench instance starts up for your language. It automatically loads all Vorto Eclipse Plugins as well as your DSL plugins.
 2. Create a new simple project
-3. Add a new Vorto Information Model file to the project
-
-	> The filetype must be **.infomodel**
-
-4. Add the following example vorto model content : 
+3. Add a new Vorto Information Model file to the project or download it from the [Vorto Repository](https://vorto.eclipse.org)
+ 
+ Here is an example of a Vorto Information Model _securitycamera.infomodel_:
 
 		namespace org.mycompany.demo
 		version 1.0.0
@@ -119,7 +117,7 @@ Now your language is all set. It's time to test it.
 		infomodel SecurityCamera {
 			// should contain function blocks, but omitting in this example
 		}
-4. Now create a new file for your DSL and add it to the same project:
+4. Add a new file for your DSL. The autocompletion editor feature kicks in and suggests you the SecurityCamera Information Model to choose for a reference:
 
 	Example:
 		
