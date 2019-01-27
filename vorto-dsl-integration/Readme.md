@@ -76,7 +76,7 @@ We are primarily interested in the core language plugin, e.g. org.xtext.example.
 		
 		ModelReference : 
 			'using' importedNamespace=QualifiedName';'version=VERSION
-	;
+		;
 
 3. Open the *.mwe2 Workflow file and add a reference to the Vorto Model Ecore files. Since we only use Vorto Information Models from our DSL, we just reference those. 
 
@@ -93,22 +93,8 @@ We are primarily interested in the core language plugin, e.g. org.xtext.example.
 
 		 org.eclipse.vorto.core;bundle-version="0.10.0",
 		 org.eclipse.vorto.editor;bundle-version="0.10.0",
-		 org.eclipse.vorto.editor.datatype;bundle-version="0.10.0",
-		 org.eclipse.vorto.editor.functionblock;bundle-version="0.10.0",
-		 org.eclipse.vorto.editor.infomodel;bundle-version="0.10.0",
+		 org.eclipse.vorto.editor.infomodel;bundle-version="0.10.0"
 		 
-5. Open MyDslRuntimeModel, mentioning the scope provider so it will find the Information Model reference in your DSL:
-
-		import org.eclipse.vorto.editor.functionblock.validation.TypeFileAccessingHelper
-		import org.eclipse.vorto.editor.functionblock.validation.TypeHelper
-		...
-		class MyDslRuntimeModule extends AbstractMyDslRuntimeModule {
-		...
-			
-		override Class<? extends IScopeProvider> bindIScopeProvider() {
-			return MyDslScopeProvider
-		}
-
  
 ### Step 4: Generate Xtext Source Code 
 
