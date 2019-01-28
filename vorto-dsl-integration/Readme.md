@@ -10,7 +10,7 @@ In this demo, we are going to create a DSL with which you can describe an IoT sy
 
 * Eclipse IDE 2018-12
 
-* You have successfully installed Xtext 2.8 or higher
+* You have successfully installed Xtext 2.8 or higher from [Xtext Update Site](https://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/)
 
 
 ## Proceed as follows
@@ -48,8 +48,8 @@ Your Project Browser would look something like this:
 
 We are primarily interested in the core language plugin, e.g. org.xtext.example.mydsl. 
 
-1. 	Open the core language plugin and find the *.xtext grammar file
-2. Specify the following example grammar that references the Vorto Information Models DSL.
+1. Open the core language plugin and find the *.xtext grammar file
+2. Replace the content with the following grammar:
 		
 		grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
 		
@@ -78,18 +78,20 @@ We are primarily interested in the core language plugin, e.g. org.xtext.example.
 			'using' importedNamespace=QualifiedName';'version=VERSION
 		;
 
+As you can notice, it imports the Vorto Information Model Ecore and use it from your own DSL grammar.
+
 3. Open the *.mwe2 Workflow file and add a reference to the Vorto Model Ecore files. Since we only use Vorto Information Models from our DSL, we just reference those. 
 
+		...
 		language = StandardLanguage {
-					...
-					
-					referencedResource = "platform:/resource/org.eclipse.vorto.core/model/InformationModel.genmodel"
-					referencedResource = "platform:/resource/org.eclipse.vorto.core/model/Model.genmodel"
+			...
+			referencedResource = "platform:/resource/org.eclipse.vorto.core/model/InformationModel.genmodel"
+			referencedResource = "platform:/resource/org.eclipse.vorto.core/model/Model.genmodel"
 		
-					...
-				}
+			...
+		}
 				
-4. Open the MANIFEST.MF file and add the following dependencies:
+4. Open the MANIFEST.MF file and add the following dependencies (under required bundles):
 
 		 org.eclipse.vorto.core;bundle-version="0.10.0",
 		 org.eclipse.vorto.editor;bundle-version="0.10.0",
@@ -100,6 +102,7 @@ We are primarily interested in the core language plugin, e.g. org.xtext.example.
 
 1. Find the **GenerateMyDsl.mwe2** Workflow file in the core plugin project. 
 2. Right-click on the file and Run it. This will generate all necessary Xtext source code in order to run your language as an Eclipse Plugin
+> Behind Proxy ? You need to download ANTLR manually, using the following Update Site: http://download.itemis.com/updates/
 
 Now your language is all set. It's time to test it.
 
