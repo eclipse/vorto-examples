@@ -8,9 +8,10 @@ In this demo, we are going to create a DSL with which you can describe an IoT sy
 
 ## Prerequisites
 
-* Eclipse IDE 2018-12
-
-* You have successfully installed Xtext 2.8 or higher from [Xtext Update Site](https://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/)
+* Install Eclipse IDE 2018-12 for Java and DSL Developers
+	* [Windows](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-12/R/eclipse-dsl-2018-12-R-win32-x86_64.zip)
+	* [MacOS](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-12/R/eclipse-dsl-2018-12-R-macosx-cocoa-x86_64.dmg)
+	* [Linux](https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-12/R/eclipse-dsl-2018-12-R-linux-gtk-x86_64.tar.gz)
 
 
 ## Proceed as follows
