@@ -100,9 +100,10 @@ As you can notice, it imports the Vorto Information Model Ecore and use it from 
  
 ### Step 4: Generate Xtext Source Code 
 
+If you are behind proxy, you would need to download ANTLR SDK manually, using the following Update Site: http://download.itemis.com/updates/. Once done so, please restart the IDE and continue with the following steps:
+
 1. Find the **GenerateMyDsl.mwe2** Workflow file in the core plugin project. 
 2. Right-click on the file and Run it. This will generate all necessary Xtext source code in order to run your language as an Eclipse Plugin
-> Behind Proxy ? You need to download ANTLR manually, using the following Update Site: http://download.itemis.com/updates/
 
 Now your language is all set. It's time to test it.
 
