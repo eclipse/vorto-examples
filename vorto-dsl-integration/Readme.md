@@ -108,7 +108,7 @@ If you are behind proxy, you would need to download ANTLR SDK manually, using th
 
 Now your language is all set. It's time to test it.
 
-#### Step 5: Run & Test your DSL
+### Step 5: Run & Test your DSL
 
 1. Right-click on the core plugin project (e.g. org.xtext.example.mydsl) and run it in a new Eclipse Workbench. A new Eclipse Workbench instance starts up for your language. It automatically loads all Vorto Eclipse Plugins as well as your DSL plugins.
 2. Create a new simple project
