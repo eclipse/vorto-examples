@@ -69,7 +69,7 @@ class BrowserTemplate implements IFileTemplate<InformationModel> {
 					 	 				<!--box-->
 				                		<a ui-sref="details({ thingId: thing.thingId })">
 					            			<div class="tiny-box" id="tinyBox:{{thing.thingId}}" ng-click="toggleBox(thing.thingId)">
-						                		<span ng-show="thing.thingType" class="tiny-box-icon"><img width="64px" height="64px" ng-src="http://vorto.eclipse.org/rest/model/image/{{thing.thingType.namespace}}/{{thing.thingType.name}}/{{thing.thingType.version}}"/></span>
+						                		<span ng-show="thing.thingType" class="tiny-box-icon"><img width="64px" height="64px" ng-src="http://vorto.eclipse.org/rest/default/models/{{thing.thingType.namespace}}:{{thing.thingType.name}}:{{thing.thingType.version}}/images"/></span>
 						               			<span ng-show="!thing.thingType" class="tiny-box-icon"><img width="64px" height="64px" ng-src="img/noImageIcon.png"/></span>
 						               			<div class="tiny-box-name"><span>{{thing.name}}</span></div>
 						               			<div class="tiny-box-number">

@@ -48,13 +48,13 @@ class DetailsTemplate implements IFileTemplate<InformationModel> {
 			<div class="row">
 		            <div class="col-md-5 col-sm-6 col-xs-12">
 		              <div class="info-box">
-		                <span class="info-box-icon" style="background-color:white"><img ng-src="http://vorto.eclipse.org/rest/model/image/{{thing.thingType.namespace}}/{{thing.thingType.name}}/{{thing.thingType.version}}"/></span>
+		                <span class="info-box-icon" style="background-color:white"><img ng-src="http://vorto.eclipse.org/rest/default/models/{{thing.thingType.namespace}}:{{thing.thingType.name}}:{{thing.thingType.version}}/images"/></span>
 		                <div class="info-box-content">
 		                  <span class="info-box-text">{{thing.name}}</span>
 		                  <div class="tiny-box-number">
 		                  	<span href="#" data-toggle="tooltip" title="">{{thing.thingId}}</span>
 		                  </div>
-		                  <a href="http://vorto.eclipse.org/#/details/{{thing.thingType.namespace}}/{{thing.thingType.name}}/{{thing.thingType.version}}" target="_blank" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+		                  <a href="http://vorto.eclipse.org/#/details/{{thing.thingType.namespace}}:{{thing.thingType.name}}:{{thing.thingType.version}}" target="_blank" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 		                </div><!-- /.info-box-content -->
 		              </div><!-- /.info-box -->
 		            </div><!-- /.col -->

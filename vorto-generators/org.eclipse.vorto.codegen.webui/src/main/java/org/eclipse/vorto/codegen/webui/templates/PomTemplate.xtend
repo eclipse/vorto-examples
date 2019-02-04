@@ -61,7 +61,8 @@ class PomTemplate implements IFileTemplate<InformationModel> {
 				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 				<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 				<java.version>1.8</java.version>
-				<vorto.version>0.10.0.M1</vorto.version>
+				<vorto.version>0.10.0.M9</vorto.version>
+				<things.version>3.2.1</things.version>
 			</properties>
 		
 			<dependencies>
@@ -104,14 +105,14 @@ class PomTemplate implements IFileTemplate<InformationModel> {
 				</dependency>
 				«IF context.configurationProperties.getOrDefault("boschcloud","false").equalsIgnoreCase("true")»
 				<dependency>
-					<groupId>com.bosch.cr</groupId>
-					<artifactId>cr-integration-client</artifactId>
-					<version>2.4.1</version>
+					<groupId>com.bosch.iot.things.client</groupId>
+					<artifactId>things-client</artifactId>
+					<version>${things.version}</version>
 				</dependency>
 				<dependency>
 					<groupId>com.bosch.im</groupId>
 					<artifactId>im-api2-client</artifactId>
-					<version>1.0-beta2</version>
+					<version>1.2</version>
 				</dependency>
 				«ENDIF»
 				<dependency>

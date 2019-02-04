@@ -29,7 +29,7 @@ class ThingsQueryTemplate implements IFileTemplate<InformationModel> {
 			private StringBuilder builder = new StringBuilder();
 			
 			public ThingsQuery() {
-				withFilter("eq(attributes/_modelId,\"«element.namespace».«element.name»:«element.version»\")");
+				//withFilter("in(attributes/definition,\"«element.namespace».«element.name»:«element.version»\")");
 			}
 			
 			public void withFilter(String filter) {

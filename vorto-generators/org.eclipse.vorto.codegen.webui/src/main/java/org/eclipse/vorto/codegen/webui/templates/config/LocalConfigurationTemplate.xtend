@@ -43,15 +43,13 @@ class LocalConfigurationTemplate implements IFileTemplate<InformationModel> {
 		import com.example.iot.«element.name.toLowerCase».service.DataService;
 		
 		«IF context.configurationProperties.getOrDefault("boschcloud","false").equalsIgnoreCase("true")»
-		import com.bosch.cr.integration.IntegrationClient;
-		import com.bosch.cr.integration.client.IntegrationClientImpl;
-		import com.bosch.cr.integration.client.configuration.AuthenticationConfiguration;
-		import com.bosch.cr.integration.client.configuration.IntegrationClientConfiguration;
-		import com.bosch.cr.integration.client.configuration.ProxyConfiguration;
-		import com.bosch.cr.integration.client.configuration.ProxyConfiguration.ProxyOptionalSettable;
-		import com.bosch.cr.integration.client.configuration.PublicKeyAuthenticationConfiguration;
-		import com.bosch.cr.integration.client.configuration.TrustStoreConfiguration;
-		import com.bosch.cr.integration.things.ThingIntegration;
+		import com.bosch.iot.things.client.ThingsClientFactory;
+		import com.bosch.iot.things.client.configuration.CommonConfiguration;
+		import com.bosch.iot.things.client.configuration.PublicKeyAuthenticationConfiguration;
+		import com.bosch.iot.things.client.messaging.MessagingProviders;
+		import com.bosch.iot.things.client.messaging.ThingsWsMessagingProviderConfiguration;
+		import com.bosch.iot.things.clientapi.ThingsClient;
+		import com.bosch.iot.things.clientapi.twin.Twin;
 		import com.example.iot.«element.name.toLowerCase».service.bosch.BoschThingsDataService;
 		import com.example.iot.«element.name.toLowerCase».service.bosch.ThingClient;
 		«ELSE»
@@ -68,12 +66,6 @@ class LocalConfigurationTemplate implements IFileTemplate<InformationModel> {
 			@Value("${bosch.things.apiToken}")
 			private String thingApiToken;
 				
-			@Value("${http.proxyHost}")
-			private String proxyHost;
-			
-			@Value("${http.proxyPort}")
-			private int proxyPort;
-			
 			@Value("${bosch.things.solutionid}")
 			private String thingsSolutionId;
 			
@@ -89,75 +81,67 @@ class LocalConfigurationTemplate implements IFileTemplate<InformationModel> {
 			@Value("${bosch.things.keystoreLocation}")
 			private String keystoreLocation;
 			
-			@Value("${bosch.things.trustStoreLocation}")
-			private String trustStoreLocation;
-			
-			@Value("${bosch.things.trustStorePassword}")
-			private String trustStorePassword;
-			
 			@Value("${bosch.things.wsEndpointUrl}")
 			private String wsEndpointUrl;
 			
 			@Autowired
 			private OAuth2ClientContext oauth2context;
 			
-			@Bean
-			public DataService dataService() {
-				return new BoschThingsDataService(thingClient(),getThingIntegration());
-			}
+			private static final String WEB_APP_ID = "mywebapp";
 			
+			@Bean
+			public DataService dataService() throws Exception {
+				return new BoschThingsDataService(thingClient(),getThingsWSClient());
+			}
+				
 			@Bean
 			public ThingClient thingClient() {
 				return ThingClient.newBuilder()
-					//.withProxy(proxyHost, proxyPort)
-					.withEndpointUrl(thingEndpointUrl)
-					.withApiToken(thingApiToken)
-					.withOAuth2ClientContext(oauth2context)
-					.build();
+						.withEndpointUrl(thingEndpointUrl)
+						.withApiToken(thingApiToken)
+						.withOAuth2ClientContext(oauth2context)
+						.build();
 			}
-			
-			@Bean
-			public ThingIntegration getThingIntegration() {
-				/* build an authentication configuration */
-				AuthenticationConfiguration authenticationConfiguration =
-				   PublicKeyAuthenticationConfiguration.newBuilder()
-				      .clientId(thingsSolutionId+":"+"iotconsole_local")
-				      .keyStoreLocation(LocalConfiguration.class.getResource(keystoreLocation))
-				      .keyStorePassword(keystorePassword)
-				      .alias(alias)
-				      .aliasPassword(aliasPassword)
-				      .build();
-				 
-				/* configure a truststore that contains trusted certificates */
-				TrustStoreConfiguration trustStore =
-				   TrustStoreConfiguration.newBuilder().location(LocalConfiguration.class.getResource(trustStoreLocation)).password(trustStorePassword).build();
-				 
-				ProxyOptionalSettable proxyConfig = ProxyConfiguration.newBuilder().proxyHost(proxyHost).proxyPort(proxyPort);
 				
-				final IntegrationClientConfiguration integrationClientConfiguration =
-				   IntegrationClientConfiguration.newBuilder()
-				      .authenticationConfiguration(authenticationConfiguration)
-				      .centralRegistryEndpointUrl(wsEndpointUrl)
-				      .trustStoreConfiguration(trustStore)
-				      //.proxyConfiguration(proxyConfig.build())
-				      .build();
-						
-				final IntegrationClient integrationClient = IntegrationClientImpl.newInstance(integrationClientConfiguration);
-				 
-				try {
-					/* create a subscription for this client */
-					integrationClient.subscriptions().create().get(30, TimeUnit.SECONDS);
+			@Bean
+			public Twin getThingsWSClient() throws IOException {
+				ThingsClient client = ThingsClientFactory.newInstance(createTwinConfiguration(thingsSolutionId+":"+WEB_APP_ID));
+				
+				Twin twin = client.twin();
 			
-					/*
-					 * start consuming events that were triggered by the subscription,
-					 * usually this method is called after all handlers are registered.
-					 */
-					integrationClient.subscriptions().consume().get(30, TimeUnit.SECONDS);
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
+			    try {
+			        // and start consuming events from Things Service
+			            twin.startConsumption().get(10, TimeUnit.SECONDS);
+			    } catch (InterruptedException | ExecutionException | TimeoutException e) {
+			            throw new IllegalStateException("Error creating Things Client.", e);
+			    }
+			        
+				return twin;
+			}
+				
+			private CommonConfiguration createTwinConfiguration(final String clientId) throws IOException {
 			
-				return integrationClient.things();
+				final PublicKeyAuthenticationConfiguration publicKeyAuthenticationConfiguration =
+			                PublicKeyAuthenticationConfiguration.newBuilder()
+			                        .clientId(clientId)
+			                        .keyStoreLocation(new ClassPathResource(this.keystoreLocation).getURL())
+			                        .keyStorePassword(keystorePassword)
+			                        .alias(this.alias)
+			                        .aliasPassword(this.aliasPassword)
+			                        .build();
+			
+				final ThingsWsMessagingProviderConfiguration<?> thingsWsMessagingProviderConfiguration = MessagingProviders
+			                .thingsWebsocketProviderBuilder()
+			                .authenticationConfiguration(publicKeyAuthenticationConfiguration)
+			                .endpoint(this.wsEndpointUrl)
+			                .build();
+			
+			    final CommonConfiguration.OptionalConfigurationStep configuration =
+			                ThingsClientFactory.configurationBuilder()
+			                        .apiToken(this.thingApiToken)
+			                        .providerConfiguration(thingsWsMessagingProviderConfiguration);
+			
+			    return configuration.build();
 			}
 			«ELSE»
 			@Bean

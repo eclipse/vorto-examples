@@ -43,12 +43,10 @@ class ApplicationConfigTemplate implements IFileTemplate<InformationModel>{
 		  things:
 		    alias: CR
 		    alias.password:
-		    endpointUrl : https://things.apps.bosch-iot-cloud.com
-		    wsEndpointUrl : wss://events.apps.bosch-iot-cloud.com
+		    endpointUrl : https://things.eu-1.bosch-iot-suite.com
+		    wsEndpointUrl : wss://things.eu-1.bosch-iot-suite.com
 		    apiToken: 
-		    keystoreLocation : /secure/CRClient.jks
-		    trustStoreLocation : /secure/bosch-iot-cloud.jks
-		    trustStorePassword : jks
+		    keystoreLocation : /secure/things-client.jks
 		    solutionid: 
 		    keystore:
 		      password: 
