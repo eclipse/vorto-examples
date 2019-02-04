@@ -30,7 +30,7 @@ class BoschThingsDataServiceTemplate implements IFileTemplate<InformationModel> 
 		import org.slf4j.Logger;
 		import org.slf4j.LoggerFactory;
 		
-		import com.bosch.cr.integration.things.ThingIntegration;
+		import com.bosch.iot.things.clientapi.twin.Twin;
 		import com.example.iot.«element.name.toLowerCase».model.*;
 		import com.example.iot.«element.name.toLowerCase».service.DataService;
 		import com.example.iot.«element.name.toLowerCase».service.Query;
@@ -43,7 +43,7 @@ class BoschThingsDataServiceTemplate implements IFileTemplate<InformationModel> 
 		
 			private static Logger log = LoggerFactory.getLogger(BoschThingsDataService.class);
 		
-			private ThingIntegration thingsIntegration;
+			private Twin thingsIntegration;
 		
 			private ThingClient thingClient;
 			

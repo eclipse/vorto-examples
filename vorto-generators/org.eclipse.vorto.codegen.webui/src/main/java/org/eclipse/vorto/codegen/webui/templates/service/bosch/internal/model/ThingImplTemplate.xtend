@@ -38,7 +38,7 @@ class ThingImplTemplate implements IFileTemplate<InformationModel> {
 		
 			private Map<String, Object> features = new HashMap<String, Object>();
 		
-			public static final String ATTRIBUTE_MODELID = "_modelId";
+			public static final String ATTRIBUTE_MODELID = "definition";
 			public static final String ATTRIBUTE_CREATEDON = "createdOn";
 			public static final String ATTRIBUTE_CREATEDBY = "createdBy";
 		
@@ -82,7 +82,7 @@ class ThingImplTemplate implements IFileTemplate<InformationModel> {
 			@Override
 			@JsonIgnore
 			public String getThingTypeId() {
-				return (String) this.attributes.get(ATTRIBUTE_MODELID);
+				return ((List<String>) this.attributes.get(ATTRIBUTE_MODELID)).get(0);
 			}
 		
 			@Override
