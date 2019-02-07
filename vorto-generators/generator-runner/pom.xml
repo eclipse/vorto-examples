@@ -137,6 +137,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>generator-runner-3rd-party</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

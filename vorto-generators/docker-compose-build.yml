@@ -1,0 +1,17 @@
+version: '3'
+services:
+  3rd-party-generators:
+    build:
+      context: .
+      dockerfile: docker/Generators_Dockerfile
+      args:
+        JAR_FILE:  generator-runner/target/generator-runner-3rd-party-exec.jar
+        http_proxy: $http_proxy
+        https_proxy: $https_proxy
+    env_file:
+      - docker/vorto-variables.env
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
