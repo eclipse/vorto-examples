@@ -11,63 +11,63 @@ vorto:
   serverUrl: ${repository_server_url}
   service:
     arduino :
-      image32x32: arduino-32x32.png
-      image144x144: arduino-144x144.png
+      image32x32: config/img/arduino-32x32.png
+      image144x144: config/img/arduino-144x144.png
       tags: demo
     aws:
-      image32x32: aws-iot-32.png
-      image144x144: aws-iot-144.png
+      image32x32: config/img/aws-iot-32.png
+      image144x144: config/img/aws-iot-144.png
       tags: demo
     coap:
-      image32x32: coap-32.png
-      image144x144: coap-144.png
+      image32x32: config/img/coap-32.png
+      image144x144: config/img/coap-144.png
       tags: demo
     ios:
-      image32x32: ios-32.png
-      image144x144: ios-144.png
+      image32x32: config/img/ios-32.png
+      image144x144: config/img/ios-144.png
       tags: demo
     javabean:
-      image32x32: javabean-32.png
-      image144x144: javabean-144.png
+      image32x32: config/img/javabean-32.png
+      image144x144: config/img/javabean-144.png
       tags: demo
     lwm2m:
-      image32x32: lwm2m-leshan-32.png
-      image144x144: lwm2m-leshan-144.png
+      image32x32: config/img/lwm2m-leshan-32.png
+      image144x144: config/img/lwm2m-leshan-144.png
       tags: demo
     mqtt:
-      image32x32: mqtt-32.png
-      image144x144: mqtt-144.png
+      image32x32: config/img/mqtt-32.png
+      image144x144: config/img/mqtt-144.png
       tags: demo
     prosyst:
-      image32x32: prosyst-32.png
-      image144x144: prosyst-144.png
+      image32x32: config/img/prosyst-32.png
+      image144x144: config/img/prosyst-144.png
       tags: demo
     thingworx:
-      image32x32: thingworx-32.png
-      image144x144: thingworx-144.png
+      image32x32: config/img/thingworx-32.png
+      image144x144: config/img/thingworx-144.png
       tags: demo
     webui:
-      image32x32: webui-32.png
-      image144x144: webui-144.png
+      image32x32: config/img/webui-32.png
+      image144x144: config/img/webui-144.png
       tags: demo
     webdevice:
-      image32x32: webdevice-32.png
-      image144x144: webdevice-144.png
+      image32x32: config/img/webdevice-32.png
+      image144x144: config/img/webdevice-144.png
       tags: demo
     markdown:
-      image32x32: markdown-32.png
-      image144x144: markdown-144.png
+      image32x32: config/img/markdown-32.png
+      image144x144: config/img/markdown-144.png
       tags: demo
     protobuf:
-      image32x32: protobuf-new-32.png
-      image144x144: protobuf-updated-144.png
+      image32x32: config/img/protobuf-new-32.png
+      image144x144: config/img/protobuf-updated-144.png
       tags: demo
     kura:
-      image32x32: newKura-32.png
-      image144x144: newKura-144.png
+      image32x32: config/img/newKura-32.png
+      image144x144: config/img/newKura-144.png
       tags: demo
     latex:
-      image32x32: latex-32.png
-      image144x144: latex-144.png
+      image32x32: config/img/latex-32.png
+      image144x144: config/img/latex-144.png
       tags: demo
 
