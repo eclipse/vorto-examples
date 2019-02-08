@@ -1,0 +1,73 @@
+server:
+  host:
+  port: 8080
+  contextPath: /
+  serviceUrl: ${generator_server_url}
+  config:
+    generatorUser: ${generator_user}
+    generatorPassword: ${generator_password}
+
+vorto:
+  serverUrl: ${repository_server_url}
+  service:
+    arduino :
+      image32x32: config/img/arduino-32x32.png
+      image144x144: config/img/arduino-144x144.png
+      tags: demo
+    aws:
+      image32x32: config/img/aws-iot-32.png
+      image144x144: config/img/aws-iot-144.png
+      tags: demo
+    coap:
+      image32x32: config/img/coap-32.png
+      image144x144: config/img/coap-144.png
+      tags: demo
+    ios:
+      image32x32: config/img/ios-32.png
+      image144x144: config/img/ios-144.png
+      tags: demo
+    javabean:
+      image32x32: config/img/javabean-32.png
+      image144x144: config/img/javabean-144.png
+      tags: demo
+    lwm2m:
+      image32x32: config/img/lwm2m-leshan-32.png
+      image144x144: config/img/lwm2m-leshan-144.png
+      tags: demo
+    mqtt:
+      image32x32: config/img/mqtt-32.png
+      image144x144: config/img/mqtt-144.png
+      tags: demo
+    prosyst:
+      image32x32: config/img/prosyst-32.png
+      image144x144: config/img/prosyst-144.png
+      tags: demo
+    thingworx:
+      image32x32: config/img/thingworx-32.png
+      image144x144: config/img/thingworx-144.png
+      tags: demo
+    webui:
+      image32x32: config/img/webui-32.png
+      image144x144: config/img/webui-144.png
+      tags: demo
+    webdevice:
+      image32x32: config/img/webdevice-32.png
+      image144x144: config/img/webdevice-144.png
+      tags: demo
+    markdown:
+      image32x32: config/img/markdown-32.png
+      image144x144: config/img/markdown-144.png
+      tags: demo
+    protobuf:
+      image32x32: config/img/protobuf-new-32.png
+      image144x144: config/img/protobuf-updated-144.png
+      tags: demo
+    kura:
+      image32x32: config/img/newKura-32.png
+      image144x144: config/img/newKura-144.png
+      tags: demo
+    latex:
+      image32x32: config/img/latex-32.png
+      image144x144: config/img/latex-144.png
+      tags: demo
+

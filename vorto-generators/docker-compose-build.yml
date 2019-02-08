@@ -1,6 +1,7 @@
 version: '3'
 services:
   3rd-party-generators:
+    image: eclipsevorto/vorto-generators-3rd-party:nightly
     build:
       context: .
       dockerfile: docker/Generators_Dockerfile
