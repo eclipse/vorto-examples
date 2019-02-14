@@ -67,7 +67,7 @@ class DetailsTemplate implements IFileTemplate<InformationModel> {
 									<section class="col-lg-4 connectedSortable ui-sortable">
 										<div class="box box-solid">
 											<div class="box-header">
-												<h3>«fbProperty.name.toFirstUpper»</h3>
+												<h3>«fbProperty.name»</h3>
 											</div>
 											<div class="box-body">
 												«template.renderHtml(fbProperty,context)»

@@ -41,12 +41,12 @@ class ApplicationConfigTemplate implements IFileTemplate<InformationModel>{
 		«IF context.configurationProperties.getOrDefault("boschcloud","false").equalsIgnoreCase("true")»
 		bosch:
 		  things:
-		    alias: CR
+		    alias: alias
 		    alias.password:
 		    endpointUrl : https://things.eu-1.bosch-iot-suite.com
 		    wsEndpointUrl : wss://things.eu-1.bosch-iot-suite.com
 		    apiToken: 
-		    keystoreLocation : /secure/things-client.jks
+		    keystoreLocation : /certs/things-client.jks
 		    solutionid: 
 		    keystore:
 		      password: 

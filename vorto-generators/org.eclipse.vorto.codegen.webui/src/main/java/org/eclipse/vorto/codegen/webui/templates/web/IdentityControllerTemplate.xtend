@@ -66,12 +66,12 @@ class IdentityControllerTemplate implements IFileTemplate<InformationModel> {
 		
 			private String getUserSub(Authentication user) {
 				String token = (String) oauthClientContext.getAccessToken().getAdditionalInformation().get("id_token");
-				return getJwtTokenMap(token).get("sub");
+				return (String) getJwtTokenMap(token).get("sub");
 			}
 			
-			public Map<String, String> getJwtTokenMap(String accessToken) {
+			public Map<String, Object> getJwtTokenMap(String accessToken) {
 				String[] jwtParts = accessToken.split("\\.");
-				Type type = new TypeToken<Map<String, String>>(){}.getType();
+				Type type = new TypeToken<Map<String, Object>>(){}.getType();
 				return new Gson().fromJson(new String(Base64.getUrlDecoder().decode(jwtParts[1])), type);
 			}
 		}

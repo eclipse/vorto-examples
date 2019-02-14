@@ -39,7 +39,7 @@ class ThingBuilderTemplate implements IFileTemplate<InformationModel> {
 			}
 			
 			
-			public ThingBuilder fromThing(com.bosch.cr.model.things.Thing thing) {		
+			public ThingBuilder fromThing(org.eclipse.ditto.model.things.Thing thing) {		
 				String json = thing.toJson().toString();
 				Gson gson = new GsonBuilder().create();
 				this.thing = gson.fromJson(json, new TypeToken<ThingImpl>(){}.getType());

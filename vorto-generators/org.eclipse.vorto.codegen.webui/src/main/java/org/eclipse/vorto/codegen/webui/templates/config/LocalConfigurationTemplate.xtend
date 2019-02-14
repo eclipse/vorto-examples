@@ -33,12 +33,15 @@ class LocalConfigurationTemplate implements IFileTemplate<InformationModel> {
 		'''
 		package com.example.iot.«element.name.toLowerCase».config;
 		
+		import java.io.IOException;
+		import java.util.concurrent.*;
 		import java.util.concurrent.TimeUnit;
 		
 		import org.springframework.beans.factory.annotation.Autowired;
 		import org.springframework.beans.factory.annotation.Value;
 		import org.springframework.context.annotation.Bean;
 		import org.springframework.context.annotation.Configuration;
+		import org.springframework.core.io.ClassPathResource;
 		import org.springframework.security.oauth2.client.OAuth2ClientContext;
 		import com.example.iot.«element.name.toLowerCase».service.DataService;
 		

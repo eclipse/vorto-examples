@@ -49,7 +49,7 @@ class BoschThingsDataServiceTemplate implements IFileTemplate<InformationModel> 
 			
 			private static final String SUBSCRIBER_PREFIX = "/«element.name.toLowerCase»/";
 		
-			public BoschThingsDataService(ThingClient thingClient, ThingIntegration integrationClient) {
+			public BoschThingsDataService(ThingClient thingClient, Twin integrationClient) {
 				this.thingClient = thingClient;
 				this.thingsIntegration = integrationClient;
 			}
@@ -85,7 +85,7 @@ class BoschThingsDataServiceTemplate implements IFileTemplate<InformationModel> 
 			public void registerAsyncCallback(String thingId, DataCallback callback) {
 				this.thingsIntegration.forId(thingId).registerForFeatureChanges(getSubscriberId(thingId), featureChange -> {
 					try {
-						com.bosch.cr.model.things.Thing crThing = thingsIntegration.forId(thingId).retrieve().get();
+						org.eclipse.ditto.model.things.Thing crThing = thingsIntegration.forId(thingId).retrieve().get();
 						Thing thing = Thing.newBuilder().fromThing(crThing).build();
 						callback.onChange(thingTo«element.name».apply(thing));
 					} catch (Exception e) {
