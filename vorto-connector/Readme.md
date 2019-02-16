@@ -90,7 +90,7 @@ Once the app starts up, you should be able to see synchronization messages that 
 ## What's next ? 
 
 * Access the camera data via REST. Simply click on **!Code** icon in the console dashboard to find out how.
-* [Build an Alexa Skillset](https://github.com/eclipse/vorto/blob/development/docs/tutorials/voice_control_alexa.md) that let you request the camera data via the Amazon Alexa Service
+* [Generate a SpringBoot Web Application](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_webapp_dashboard.md) that consumes the devices data from Bosch IoT Suite and visualize it in Vorto UI Widgets.
 
 ## Extending the Vorto Connector 
 
