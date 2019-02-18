@@ -1,0 +1,6 @@
+#!/bin/bash
+export IMAGE_TAG=$TRAVIS_TAG;
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+docker push eclipsevorto/vorto-generators-3rd-party:latest;
+docker push eclipsevorto/vorto-generators-3rd-party:$IMAGE_TAG;
+
