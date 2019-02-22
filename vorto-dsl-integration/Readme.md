@@ -20,7 +20,7 @@ In this demo, we are going to create a DSL with which you can describe an IoT sy
 ### Step 1: Installation of Vorto DSL Plugins
 
 1. Open Eclipse IDE
-2. Download [Vorto DSL Plugins](https://download.eclipse.org/vorto/downloads/nightly-snapshots/org.eclipse.vorto.update-site-NIGHTLY.zip) and install it as an archive in your Eclipse IDE
+2. Download [Vorto DSL Plugins](https://download.eclipse.org/vorto/downloads/releases/0.10.0/org.eclipse.vorto.update-site-0.10.0.zip) and install it as an archive in your Eclipse IDE
 3. Restart your Eclipse
 
 
