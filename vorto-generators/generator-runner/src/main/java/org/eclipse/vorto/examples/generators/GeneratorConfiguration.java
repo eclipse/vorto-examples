@@ -27,7 +27,6 @@ import org.eclipse.vorto.codegen.protobuf.ProtobufGenerator;
 import org.eclipse.vorto.codegen.spi.config.AbstractGeneratorConfiguration;
 import org.eclipse.vorto.codegen.spi.model.Generator;
 import org.eclipse.vorto.codegen.thingworx.ThingWorxCodeGenerator;
-import org.eclipse.vorto.codegen.webdevice.WebDeviceGenerator;
 import org.eclipse.vorto.codegen.webui.WebUIGenerator;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +46,6 @@ public class GeneratorConfiguration extends AbstractGeneratorConfiguration {
 		addGenerator(Generator.create("/generators/markdown.properties", MarkdownGenerator.class));
 		addGenerator(Generator.create("/generators/protobuf.properties", ProtobufGenerator.class));
 		addGenerator(Generator.create("/generators/thingworx.properties", ThingWorxCodeGenerator.class));
-		addGenerator(Generator.create("/generators/webdevice.properties", WebDeviceGenerator.class));
 		addGenerator(Generator.create("/generators/webui.properties", WebUIGenerator.class));
 	}
 	
