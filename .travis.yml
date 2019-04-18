@@ -25,10 +25,12 @@ script:
     fi;
 
 deploy:
-  - provider: script
-    script: bash docker/docker_push
-    on:
-      branch: master
+#   - provider: script
+#    script: bash docker/docker_push
+#    on:
+#      branch: 
+#      - master
+#      - "feature/integrate_s3_in_travisci"
   - provider: s3
     access_key_id: "$VORTO_AWS_ACCESS_KEY"
     secret_access_key: "$VORTO_AWS_SECRET_KEY"
