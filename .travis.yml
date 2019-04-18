@@ -23,6 +23,7 @@ script:
     docker build --build-arg JAR_FILE=./generator-runner/target/generator-runner-3rd-party-exec.jar -f docker/Generators_Dockerfile -t eclipsevorto/vorto-generators-3rd-party:latest .;
     docker build --build-arg JAR_FILE=./generator-runner/target/generator-runner-3rd-party-exec.jar -f docker/Generators_Dockerfile -t eclipsevorto/vorto-generators-3rd-party:$TRAVIS_TAG .;
     fi;
+  - ls ./generator-runner/target
 
 deploy:
 #   - provider: script
@@ -40,8 +41,7 @@ deploy:
     addons:
       artifacts:
         paths:
-          - ./repository/repository-server/target/infomodelrepository.jar
-          - ./generators/generator-runner/target/generator-runner-exec.jar
+          - ./generator-runner/target/generator-runner-3rd-party-exec.jar
     on:
       branch: "feature/integrate_s3_in_travisci"
 
