@@ -38,7 +38,8 @@ deploy:
     bucket: "$VORTO_S3_BUCKET"
     region: $VORTO_S3_REGION
     skip_cleanup: true
-    zip_file: './generator-runner/target/generator-runner-3rd-party-exec.jar'
+    local_dir: 'generator-runner/target'
+    zip_file: 'generator-runner-3rd-party-exec.jar'
     #    addons:
     #  artifacts:
     #    paths:
