@@ -35,7 +35,7 @@ deploy:
     access_key_id: "$VORTO_AWS_ACCESS_KEY"
     secret_access_key: "$VORTO_AWS_SECRET_KEY"
     bucket: "$VORTO_S3_BUCKET"
-    region: "$VORTO_S3_REGION"
+    region: $VORTO_S3_REGION
     skip_cleanup: true
     addons:
       artifacts:
