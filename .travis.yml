@@ -41,5 +41,5 @@ deploy:
           - ./repository/repository-server/target/infomodelrepository.jar
           - ./generators/generator-runner/target/generator-runner-exec.jar
     on:
-      branch: feature/integrate_s3_in_travisci
+      branch: "feature/integrate_s3_in_travisci"
 
