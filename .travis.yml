@@ -51,6 +51,7 @@ deploy:
     region: $VORTO_S3_REGION
     app: "VortoRepoServer"
     env: "Vortoexamplegenerators-env-dev"
+    local_dir: 'aws-upload'
     bucket_path: "generator-runner-3rd-party-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar"
     on:
       branch: "feature/integrate_s3_in_travisci"
