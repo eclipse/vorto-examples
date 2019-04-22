@@ -48,17 +48,17 @@ deploy:
       - aws s3 cp ./aws-upload/example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar s3://$VORTO_S3_BUCKET --acl "private" --storage-class "STANDARD_IA" --only-show-errors --no-guess-mime-type
     skip_cleanup: true
     on:
-      branch: "feature/integrate_s3_in_travisci"
+      branch: "master"
   - provider: script
     script:
       - aws elasticbeanstalk create-application-version --application-name "VortoRepoServer" --no-auto-create-application --version-label "build_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}" --description "Build ${TRAVIS_BUILD_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT}" --source-bundle S3Bucket="$VORTO_S3_BUCKET",S3Key="example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar"
     skip_cleanup: true
     on:
-      branch: "feature/integrate_s3_in_travisci"
+      branch: "master"
   - provider: script
     script:
       - aws elasticbeanstalk update-environment --application-name "VortoRepoServer" --environment-name "Vortoexamplegenerators-env-dev" --version-label "build_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}"
     skip_cleanup: true
     on:
-      branch: "feature/integrate_s3_in_travisci"
-      
+      branch: "master"
+
