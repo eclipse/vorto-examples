@@ -43,25 +43,6 @@ deploy:
     on:
       branch:
       - master
-# - provider: s3
-#    access_key_id: "$VORTO_AWS_ACCESS_KEY"
-#    secret_access_key: "$VORTO_AWS_SECRET_KEY"
-#    bucket: "$VORTO_S3_BUCKET"
-#    region: $VORTO_S3_REGION
-#    skip_cleanup: true
-#    local_dir: 'aws-upload'
-#    on:
-#      branch: "feature/integrate_s3_in_travisci"
-#  - provider: elasticbeanstalk
-#    access_key_id: "$VORTO_AWS_ACCESS_KEY"
-#    secret_access_key: "$VORTO_AWS_SECRET_KEY"
-#    bucket_name: "$VORTO_S3_BUCKET"
-#    region: $VORTO_S3_REGION
-#    app: "VortoRepoServer"
-#    env: "Vortoexamplegenerators-env-dev"
-#    local_dir: 'aws-upload'
-#    on:
-#      branch: "feature/integrate_s3_in_travisci"
   - provider: script
     script:
       - aws s3 cp ./aws-upload/example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar s3://$VORTO_S3_BUCKET --acl "private" --storage-class "STANDARD_IA" --only-show-errors --no-guess-mime-type
@@ -74,4 +55,10 @@ deploy:
     skip_cleanup: true
     on:
       branch: "feature/integrate_s3_in_travisci"
-
+  - provider: script
+    script:
+      - aws elasticbeanstalk update-environment --application-name "VortoRepoServer" --environment-name "Vortoexamplegenerators-env-dev" --version-label "build_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}"
+    skip_cleanup: true
+    on:
+      branch: "feature/integrate_s3_in_travisci"
+      
