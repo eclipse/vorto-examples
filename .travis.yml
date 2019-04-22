@@ -45,15 +45,15 @@ deploy:
     on:
       branch:
       - master
-  - provider: s3
-    access_key_id: "$VORTO_AWS_ACCESS_KEY"
-    secret_access_key: "$VORTO_AWS_SECRET_KEY"
-    bucket: "$VORTO_S3_BUCKET"
-    region: $VORTO_S3_REGION
-    skip_cleanup: true
-    local_dir: 'aws-upload'
-    on:
-      branch: "feature/integrate_s3_in_travisci"
+# - provider: s3
+#    access_key_id: "$VORTO_AWS_ACCESS_KEY"
+#    secret_access_key: "$VORTO_AWS_SECRET_KEY"
+#    bucket: "$VORTO_S3_BUCKET"
+#    region: $VORTO_S3_REGION
+#    skip_cleanup: true
+#    local_dir: 'aws-upload'
+#    on:
+#      branch: "feature/integrate_s3_in_travisci"
 #  - provider: elasticbeanstalk
 #    access_key_id: "$VORTO_AWS_ACCESS_KEY"
 #    secret_access_key: "$VORTO_AWS_SECRET_KEY"
