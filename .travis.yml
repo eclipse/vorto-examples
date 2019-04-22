@@ -28,7 +28,16 @@ script:
   - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}"
   - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_BUILD_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
   - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ./aws-upload/example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar
-  - aws s3 ls
+
+before_deploy:
+  - "echo 'installing awscli'"
+  - 'curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"'
+  - 'unzip awscli-bundle.zip'
+  - './awscli-bundle/install -b ~/bin/aws'
+  - 'export PATH=~/bin:$PATH'
+  - export AWS_DEFAULT_REGION=$VORTO_S3_REGION
+  - export AWS_ACCESS_KEY_ID="$VORTO_AWS_ACCESS_KEY"
+  - export AWS_SECRET_ACCESS_KEY="$VORTO_AWS_SECRET_KEY"
 
 deploy:
   - provider: script
@@ -45,14 +54,17 @@ deploy:
     local_dir: 'aws-upload'
     on:
       branch: "feature/integrate_s3_in_travisci"
-  - provider: elasticbeanstalk
-    access_key_id: "$VORTO_AWS_ACCESS_KEY"
-    secret_access_key: "$VORTO_AWS_SECRET_KEY"
-    bucket_name: "$VORTO_S3_BUCKET"
-    region: $VORTO_S3_REGION
-    app: "VortoRepoServer"
-    env: "Vortoexamplegenerators-env-dev"
-    local_dir: 'aws-upload'
+#  - provider: elasticbeanstalk
+#    access_key_id: "$VORTO_AWS_ACCESS_KEY"
+#    secret_access_key: "$VORTO_AWS_SECRET_KEY"
+#    bucket_name: "$VORTO_S3_BUCKET"
+#    region: $VORTO_S3_REGION
+#    app: "VortoRepoServer"
+#    env: "Vortoexamplegenerators-env-dev"
+#    local_dir: 'aws-upload'
+#    on:
+#      branch: "feature/integrate_s3_in_travisci"
+  - provider: script
+    script: aws s3 ls
     on:
       branch: "feature/integrate_s3_in_travisci"
-
