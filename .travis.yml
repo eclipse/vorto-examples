@@ -64,7 +64,6 @@ deploy:
 #      branch: "feature/integrate_s3_in_travisci"
   - provider: script
     script:
-      - aws s3 ls
       - aws s3 cp ./aws-upload/example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar s3://$VORTO_S3_BUCKET --acl "private" --storage-class "STANDARD_IA" --only-show-errors --no-guess-mime-type
     skip_cleanup: true
     on:
