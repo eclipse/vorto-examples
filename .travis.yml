@@ -24,7 +24,8 @@ script:
     docker build --build-arg JAR_FILE=./generator-runner/target/generator-runner-3rd-party-exec.jar -f docker/Generators_Dockerfile -t eclipsevorto/vorto-generators-3rd-party:$TRAVIS_TAG .;
     fi;
   - mkdir aws-upload
-  - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ./aws-upload/generator-runner-3rd-party-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT}.jar
+  - TRAVIS_COMMIT_SHORT=$(git rev-parse --short HEAD)
+  - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ./aws-upload/generator-runner-3rd-party-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar
 
 deploy:
   - provider: script
