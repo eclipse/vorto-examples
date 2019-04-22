@@ -68,4 +68,10 @@ deploy:
     skip_cleanup: true
     on:
       branch: "feature/integrate_s3_in_travisci"
+  - provider: script
+    script:
+      - aws elasticbeanstalk create-application-version --application-name "VortoRepoServer" --no-auto-create-application --version-label "build_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}" --description "Build ${TRAVIS_BUILD_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT}" --source-bundle S3Bucket="$VORTO_S3_BUCKET",S3Key="example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar"
+    skip_cleanup: true
+    on:
+      branch: "feature/integrate_s3_in_travisci"
 
