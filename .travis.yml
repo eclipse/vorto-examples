@@ -31,10 +31,7 @@ script:
 
 before_deploy:
   - "echo 'installing awscli'"
-  - 'curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"'
-  - 'unzip awscli-bundle.zip'
-  - './awscli-bundle/install -b ~/bin/aws'
-  - 'export PATH=~/bin:$PATH'
+  - pip install --user awscli
   - export AWS_DEFAULT_REGION=$VORTO_S3_REGION
   - export AWS_ACCESS_KEY_ID="$VORTO_AWS_ACCESS_KEY"
   - export AWS_SECRET_ACCESS_KEY="$VORTO_AWS_SECRET_KEY"
@@ -42,6 +39,7 @@ before_deploy:
 deploy:
   - provider: script
     script: bash docker/docker_push
+    skip_cleanup: true
     on:
       branch:
       - master
@@ -71,3 +69,4 @@ deploy:
     skip_cleanup: true
     on:
       branch: "feature/integrate_s3_in_travisci"
+
