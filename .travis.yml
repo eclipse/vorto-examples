@@ -26,8 +26,8 @@ script:
   - mkdir aws-upload
   - export TRAVIS_COMMIT_SHORT=$(git rev-parse --short HEAD)
   - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}"
-  - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${BUILD_ID} - Git Revision ${GIT_COMMIT} - ${GIT_COMMENT}"
-  - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ./aws-upload/generator-runner-3rd-party-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar
+  - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_BUILD_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
+  - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ./aws-upload/example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar
 
 deploy:
   - provider: script
