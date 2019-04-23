@@ -1,3 +1,4 @@
+*.env
 *.classpath
 *.project
 vorto-connector/.settings/
@@ -10,3 +11,5 @@ target/
 xtend-gen/
 .versionsBackup
 pom.xml.versionsBackup
+node_modules
+*.lock
