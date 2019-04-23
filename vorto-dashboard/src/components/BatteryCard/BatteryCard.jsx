@@ -19,7 +19,7 @@ export class BatteryCard extends Component {
       <div className="card card-stats attrCard">
         <div className="content">
           <Row>
-            <Col xs={12}>
+            <Col xs={12} sm={12} md={12} lg={12}>
               <div className="text-center">
                 <h4>
                   <a href={getRepositoryLink(this.props.feature.definition[0])} target="_blank" >{this.props.featureName}</a>
@@ -29,7 +29,7 @@ export class BatteryCard extends Component {
           </Row>
 
           <Row>
-            <Col xs={12}>
+            <Col xs={12} sm={12} md={12} lg={12}>
               <div className="innerCardContainer">
                 <div className="batteryContainer">
                   <div class="battery">

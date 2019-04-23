@@ -13,7 +13,7 @@ export class AttributesCard extends Component {
         <div className="content">
           <Grid fluid>
             <Row>
-              <Col xs={12} className="autoScroll">
+              <Col xs={12} sm={12} md={12} lg={12} className="autoScroll">
                 <h3>
                   {device.attributes.thingName}
                   <ConnectivityStatus device={device} />
@@ -47,7 +47,7 @@ export class AttributesCard extends Component {
             </Row>
             <hr />
             <Row>
-              <Col xs={12}>
+              <Col xs={12} sm={12} md={12} lg={12}>
                 <div className="">
                   <p><span className="attrKeyword">Created on: </span>{device.attributes.createdOn}</p>
                 </div>

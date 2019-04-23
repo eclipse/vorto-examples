@@ -32,7 +32,7 @@ export class DeviceCard extends Component {
           {this.renderRedirect()}
           <div className="content">
             <Row>
-              <Col xs={12}>
+              <Col xs={12} sm={12} md={12} lg={12}>
                 <div className="imgContainer">
                   <img className="deviceImg" alt={device.attributes.definition[0]} src={device.imgSrc} />
                   <ConnectivityStatus device={device} />
@@ -43,7 +43,7 @@ export class DeviceCard extends Component {
             <Row className="deviceFooter">
               <div className="footerContainer">
                 <hr />
-                <Col xs={12}>
+                <Col xs={12} sm={12} md={12} lg={12}>
                   <div>
                     <p className="text-center">{device.attributes.thingName}</p>
                   </div>

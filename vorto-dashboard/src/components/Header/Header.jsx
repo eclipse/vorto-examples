@@ -9,7 +9,7 @@ class Header extends Component {
     super(props);
     this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
     this.state = {
-      sidebarExists: false
+      sidebarExists: true
     };
   }
 
@@ -65,7 +65,7 @@ class Header extends Component {
           <Navbar.Brand>
             {brand}
           </Navbar.Brand>
-          <Navbar.Toggle onClick={this.mobileSidebarToggle} />
+          {/*<Navbar.Toggle onClick={this.mobileSidebarToggle} />*/}
           <Search brand={brand} />
         </Navbar.Header>
       </Navbar >
