@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "3.3.7",
+    "bootstrap": ">=3.4.1",
     "express": "^4.16.4",
     "leaflet": "^1.4.0",
     "react": "^16.2.0",
