@@ -4,7 +4,7 @@ This repository contains example code that have been implemented using the [Ecli
 
 ## Vorto Web Dashboard
 
-Node.js/React based web dashboard, that displays device data, which are modelled with Vorto. [Read more](vorto-dashboard/Readme.md)
+Node.js/React based web dashboard, that displays device data, which are modelled with Vorto. [Read more](vorto-dashboard/README.md)
 
 <img src="vorto-dashboard/assets/deviceDashboard.png" width="49%"/> <img src="vorto-dashboard/assets/locatePage.png" width="49%"/>
 
