@@ -75,11 +75,6 @@ Once the app starts up, you should be able to see synchronization messages that 
 
 The easiest way to visualize the camera data, is to generate and download the [Vorto Web - Dashboard](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_webapp_dashboard.md).
 
-## What's next ? 
-
-* Access the camera data via REST. Simply click on **!Code** icon in the console dashboard to find out how.
-* [Generate a SpringBoot Web Application](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_webapp_dashboard.md) that consumes the devices data from Bosch IoT Suite and visualize it in Vorto UI Widgets.
-
 ## Extending the Vorto Connector 
 
 The connector is currently limited to process only image- and object detection capabilities. 
@@ -99,6 +94,3 @@ In short, these are the basic steps to add additional capabilities for the Flexi
 5. Re-register the device in the Bosch IoT Suite
 6. Run the Connector
 
-## Step-By-Step
-
-TBD
