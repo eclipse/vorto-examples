@@ -2,6 +2,12 @@
 
 This repository contains example code that have been implemented using the [Eclipse Vorto SDK](https://www.eclipse.org/vorto).
 
+## Vorto Web Dashboard
+
+Node.js/React based web dashboard, that displays device data, which are modelled with Vorto. [Read more](vorto-dashboard/Readme.md)
+
+<img src="vorto-dashboard/assets/deviceDashboard.png" width="49%"/> <img src="vorto-dashboard/assets/locatePage.png" width="49%"/>
+
 ## Vorto Generator Plugins
 
 [Read more](vorto-generators/Readme.md)
