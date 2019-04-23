@@ -25,13 +25,15 @@ script:
     fi;
   - mkdir aws-upload
   - export TRAVIS_COMMIT_SHORT=$(git rev-parse --short HEAD)
-  - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}"
-  - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_BUILD_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
-  - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ./aws-upload/example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar
+  - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_JOB_NUMBER}_${TRAVIS_COMMIT_SHORT}"
+  - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
+  - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ./aws-upload/example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar
 
-before_deploy:
+install:
   - "echo 'installing awscli'"
   - pip install --user awscli
+
+before_deploy:
   - export AWS_DEFAULT_REGION=$VORTO_S3_REGION
   - export AWS_ACCESS_KEY_ID="$VORTO_AWS_ACCESS_KEY"
   - export AWS_SECRET_ACCESS_KEY="$VORTO_AWS_SECRET_KEY"
@@ -45,20 +47,20 @@ deploy:
       - master
   - provider: script
     script:
-      - aws s3 cp ./aws-upload/example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar s3://$VORTO_S3_BUCKET --acl "private" --storage-class "STANDARD_IA" --only-show-errors --no-guess-mime-type
+      - aws s3 cp ./aws-upload/example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar s3://$VORTO_S3_BUCKET --acl "private" --storage-class "STANDARD_IA" --only-show-errors --no-guess-mime-type
     skip_cleanup: true
     on:
-      branch: "master"
+      branch: "feature/issue_test_travisci_with_var_substitution"
   - provider: script
     script:
-      - aws elasticbeanstalk create-application-version --application-name "VortoRepoServer" --no-auto-create-application --version-label "build_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}" --description "Build ${TRAVIS_BUILD_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT}" --source-bundle S3Bucket="$VORTO_S3_BUCKET",S3Key="example-generator-exec_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}.jar"
+      - aws elasticbeanstalk create-application-version --application-name "VortoRepoServer" --no-auto-create-application --version-label "build-job_${ELASTIC_BEANSTALK_LABEL}" --description "Build ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT}" --source-bundle S3Bucket="$VORTO_S3_BUCKET",S3Key="example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar"
     skip_cleanup: true
     on:
-      branch: "master"
+      branch: "feature/issue_test_travisci_with_var_substitution"
   - provider: script
     script:
-      - aws elasticbeanstalk update-environment --application-name "VortoRepoServer" --environment-name "Vortoexamplegenerators-env-dev" --version-label "build_${TRAVIS_BUILD_NUMBER}_${TRAVIS_COMMIT_SHORT}"
+      - aws elasticbeanstalk update-environment --application-name "VortoRepoServer" --environment-name "Vortoexamplegenerators-env-dev" --version-label "build-job_${ELASTIC_BEANSTALK_LABEL}"
     skip_cleanup: true
     on:
-      branch: "master"
+      branch: "feature/issue_test_travisci_with_var_substitution"
 
