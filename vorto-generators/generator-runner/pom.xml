@@ -56,11 +56,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.vorto.examples</groupId>
-			<artifactId>org.eclipse.vorto.codegen.artik</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.vorto.examples</groupId>
 			<artifactId>org.eclipse.vorto.codegen.ble.alpwise</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -102,11 +97,6 @@
 		<dependency>
 			<groupId>org.eclipse.vorto.examples</groupId>
 			<artifactId>org.eclipse.vorto.codegen.thingworx</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.vorto.examples</groupId>
-			<artifactId>org.eclipse.vorto.codegen.webui</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
