@@ -32,16 +32,7 @@ This step by step explains how to connect a Bosch Flexidome camera to Bosch IoT 
 
 ### Step 1: Register camera in the Bosch IoT Suite
 
-1. Login to https://vorto.eclipse.org/console with your Bosch ID
-2. Register camera instance in the Bosch IoT Suite. For this click **Create thing**
-	* Select **FlexidomePanoramic7000IC** and hit 'Next'
-	* Specify the namespace of your booked IoT Things instance, e.g. org.mycompany. This namespace must match with the one you have configured via the Bosch IoT Things Dashboard! Check the namespace of your Bosch Iot Things by clicking the **Dashboard** link under your Service Subscriptions and navigating to **Namespace** tab.
-	* Specify the IP Address of the camera, e.g. 62.4.2.1. Hit 'Next'
-	* Specify the password for the device and hit 'Next'
-	* Review your settings and hit 'Create'. This will register your camera in the Bosch IoT Suite.
-3. Change to the **Thing Browser**. You should be able to see your newly created camera thing:
-
-![](images/thingbrowser.png)
+Follow [this tutorial](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_thing.md) about how to register the device.
 
 ### Step 2: Configure the connector for your solution
 
@@ -82,15 +73,7 @@ Once the app starts up, you should be able to see synchronization messages that 
 
 ### Step 5: Verify camera data in Bosch IoT Things
 
-1. Open the Vorto Console https://vorto.eclipse.org/console
-2. Open the details page of your registered camera and verify if the incoming data:
-
-![](images/data_verification_console.png)
-
-## What's next ? 
-
-* Access the camera data via REST. Simply click on **!Code** icon in the console dashboard to find out how.
-* [Generate a SpringBoot Web Application](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_webapp_dashboard.md) that consumes the devices data from Bosch IoT Suite and visualize it in Vorto UI Widgets.
+The easiest way to visualize the camera data, is to generate and download the [Vorto Web - Dashboard](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_webapp_dashboard.md).
 
 ## Extending the Vorto Connector 
 
@@ -111,6 +94,3 @@ In short, these are the basic steps to add additional capabilities for the Flexi
 5. Re-register the device in the Bosch IoT Suite
 6. Run the Connector
 
-## Step-By-Step
-
-TBD
