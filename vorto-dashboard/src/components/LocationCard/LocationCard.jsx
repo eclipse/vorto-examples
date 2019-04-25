@@ -10,7 +10,7 @@ export class LocationCard extends Component {
       <div className="card card-stats attrCard">
         <div className="content">
           <Row>
-            <Col xs={12}>
+            <Col xs={12} sm={12} md={12} lg={12}>
               <div className="text-center">
                 <h4>
                   <a href={getRepositoryLink(this.props.device.features[this.props.featureName].definition[0])}
@@ -21,7 +21,7 @@ export class LocationCard extends Component {
           </Row>
 
           <Row>
-            <Col xs={12} className="mapCard">
+            <Col xs={12} sm={12} md={12} lg={12} className="mapCard">
               <OSMap devices={[this.props.device]} displayTooltip={false} />
             </Col>
           </Row>

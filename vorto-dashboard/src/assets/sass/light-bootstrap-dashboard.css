@@ -2529,8 +2529,8 @@ body > .navbar-collapse[data-color="purple"]:after {
     transform-origin: 29px -50px; }
   .navbar-nav > li > .dropdown-menu:before {
     border-bottom: 11px solid rgba(0, 0, 0, 0.2);
-    border-left: 11px solid rgba(0, 0, 0, 0);
-    border-right: 11px solid rgba(0, 0, 0, 0);
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
     content: "";
     display: inline-block;
     position: absolute;
@@ -2538,8 +2538,8 @@ body > .navbar-collapse[data-color="purple"]:after {
     top: -11px; }
   .navbar-nav > li > .dropdown-menu:after {
     border-bottom: 11px solid #FFFFFF;
-    border-left: 11px solid rgba(0, 0, 0, 0);
-    border-right: 11px solid rgba(0, 0, 0, 0);
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
     content: "";
     display: inline-block;
     position: absolute;
@@ -3021,8 +3021,24 @@ a {
 a:hover {
   color: #017AD1; }
 
+.ul .li {
+  margin: 0; }
+
+.nav {
+  display: flex;
+  flex-direction: column; }
+  .nav li {
+    height: 50px; }
+
+.navbar {
+  height: 70px; }
+
 .navbar-header {
-  width: 100%; }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
 
 .searchBox {
   position: relative;
@@ -3095,12 +3111,13 @@ a:hover {
 
 .fillHWLocate {
   width: 100%;
-  height: calc(100% - 61px);
-  height: -moz-calc(100% - 61px);
-  height: -webkit-calc(100% - 61px); }
+  height: calc(100% - 70px);
+  height: -moz-calc(100% - 70px);
+  height: -webkit-calc(100% - 70px); }
 
 .mapWrapper {
   height: 100%;
+  min-height: 300px;
   width: 100%; }
 
 .content {
@@ -3120,7 +3137,7 @@ a:hover {
   color: #017AD1; }
 
 .mapCard {
-  height: 74%;
+  height: 100%;
   width: 100%; }
 
 .attrImgContainer {
@@ -3135,7 +3152,8 @@ a:hover {
 .innerCardContainer {
   display: flex;
   width: 100%;
-  height: 74%;
+  min-height: 300px;
+  height: 100%;
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -3271,6 +3289,7 @@ a:hover {
 .batteryContainer {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column; }
   .batteryContainer .battery {
     background-color: #e5e5e5;
