@@ -8,8 +8,8 @@ export class ThermometerCard extends Component {
     // TODO adjust retrieval of attributes to be smarter 
     // (Get the definition of the function blocks and find attribute values)
     const values = this.props.feature.properties;
-    const currVal = values.status.value.currentMeasured;
-    const minVal = values.status.value.minMeasured;
+    const currVal = values.status.value.currentMeasured || 0;
+    const minVal = values.status.value.minMeasured || 0;
     const maxVal = values.status.value.maxMeasured || currVal;
 
     const currPerc = ((currVal - minVal) * 100) / (maxVal - minVal)
