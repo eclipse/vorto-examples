@@ -8,7 +8,7 @@ export class BatteryCard extends Component {
     // TODO adjust retrieval of attributes to be smarter 
     // (Get the definition of the function blocks and find attribute values)
     const values = this.props.feature.properties;
-    const currVal = values.status.remainingCapacity.value;
+    const currVal = values.status.remainingCapacity.value || 0;
     const minVal = 0;
     const maxVal = 100;
 
