@@ -27,15 +27,7 @@ export class DeviceTooltip extends Component {
             </div>
           </Col>
         </Row>
-        <hr />
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className="">
-              <p><span className="attrKeyword">Created on: </span>{this.props.device.attributes.createdOn}</p>
-            </div>
-          </Col>
-        </Row>
-      </div>
+      </div >
     );
   }
 }

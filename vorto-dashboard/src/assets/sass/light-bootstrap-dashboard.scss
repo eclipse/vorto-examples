@@ -136,6 +136,11 @@ a:hover {
     height: 100px;
 }
 
+.deviceCardAttrContainer {
+    margin-top: 25px;
+    overflow: auto;
+}
+
 .footerContainer {
     align-self: flex-end;
     width: 100%;
@@ -165,7 +170,6 @@ a:hover {
 .attribute {
     width: 100%;
     word-break: break-all;
-
 }
 
 .fillHWLocate {

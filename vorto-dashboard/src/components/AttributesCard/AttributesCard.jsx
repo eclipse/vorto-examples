@@ -21,35 +21,23 @@ export class AttributesCard extends Component {
               </Col>
             </Row>
             <Row>
-              <Col lg={4} sm={8} xs={12}>
+              <Col lg={4} sm={6} xs={12}>
                 <div className="attrImgContainer">
                   <img src={device.imgSrc} className="attrImg" alt="IoT device" />
                 </div>
               </Col>
-              <Col lg={4} sm={8} xs={12}>
+              <Col lg={2} sm={0} xs={0} />
+              <Col lg={6} sm={6} xs={12}>
                 <div className="attrContainer">
                   <p className="attribute"><span className="attrKeyword">Thing ID: </span>{device.thingId}</p>
                   <p className="attribute"><span className="attrKeyword">Policy ID: </span>{device.policyId}</p>
-                  <p className="attribute"><span className="attrKeyword">Device ID: </span>{device.attributes.deviceId}</p>
-                </div>
-              </Col>
-              <Col lg={4} sm={8} xs={12}>
-                <div className="attrContainer">
-                  <p className="attribute"><span className="attrKeyword">Created by: </span>{device.attributes.createdBy}</p>
+                  <p className="attribute"><span className="attrKeyword">Device ID: </span>{device.thingId}</p>
                   <p className="attribute">
                     <span className="attrKeyword">Definition: </span>
                     <a target="_blank" href={getRepositoryLink(device.attributes.definition)}>
                       {device.attributes.definition}
                     </a>
                   </p>
-                </div>
-              </Col>
-            </Row>
-            <hr />
-            <Row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <div className="">
-                  <p><span className="attrKeyword">Created on: </span>{device.attributes.createdOn}</p>
                 </div>
               </Col>
             </Row>
