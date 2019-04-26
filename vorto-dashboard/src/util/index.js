@@ -1,7 +1,3 @@
-function getImgUrl(device) {
-  return `http://vorto.eclipse.org/rest/default/models/${device.attributes.definition[0]}/images`;
-}
-
 function checkDeviceForQuery(device, { searching, query }) {
   if (!searching || !query) {
     return true
@@ -20,7 +16,7 @@ function checkDeviceForQuery(device, { searching, query }) {
         .some(feature => device.features[feature].definition
           .some(def => def.toLowerCase().includes(searchQuery)));
     default:
-      return device.attributes.definition[0]
+      return device.attributes.definition
         .toLowerCase()
         .includes(query)
   }
@@ -30,8 +26,7 @@ function getRepositoryLink(path) {
   return `https://vorto.eclipse.org/#/details/${path}`
 }
 
-module.exports = {
-  getImgUrl,
+export {
   checkDeviceForQuery,
   getRepositoryLink
 }

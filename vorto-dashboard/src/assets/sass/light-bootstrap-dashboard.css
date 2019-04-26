@@ -3083,6 +3083,10 @@ a:hover {
   display: flex;
   height: 100px; }
 
+.deviceCardAttrContainer {
+  margin-top: 25px;
+  overflow: auto; }
+
 .footerContainer {
   align-self: flex-end;
   width: 100%;
