@@ -12,3 +12,4 @@ jar -cvf generator-runner-3rd-party-exec-withimg.jar .
 cp generator-runner-3rd-party-exec-withimg.jar ../example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar
 cd ../..
 pwd
+aws s3 cp ./aws-upload/example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar s3://$VORTO_S3_BUCKET --acl "private" --storage-class "STANDARD_IA" --only-show-errors --no-guess-mime-type
