@@ -16,39 +16,40 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.vorto.codegen.ble.model.blegatt.Device;
-import org.eclipse.vorto.codegen.ble.model.blegatt.DeviceInfo;
+import org.eclipse.vorto.codegen.ble.model.blegatt.Characteristic;
 import org.eclipse.vorto.codegen.ble.model.blegatt.ModelPackage;
 import org.eclipse.vorto.codegen.ble.model.blegatt.Service;
-import org.eclipse.vorto.core.api.model.informationmodel.InformationModel;
+
+import org.eclipse.vorto.core.api.model.functionblock.FunctionblockModel;
+
 import org.eclipse.vorto.core.api.model.model.ModelReference;
-import org.eclipse.vorto.core.api.model.model.VortoLangVersion;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Device</b></em>'.
+ * An implementation of the model object '<em><b>Service</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getNamespace <em>Namespace</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getReferences <em>References</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getDisplayname <em>Displayname</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getCategory <em>Category</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getDeviceInfo <em>Device Info</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getServices <em>Services</em>}</li>
- *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.DeviceImpl#getInfomodel <em>Infomodel</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getNamespace <em>Namespace</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getReferences <em>References</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getDisplayname <em>Displayname</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getCategory <em>Category</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getUuid <em>Uuid</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getFunctionblocks <em>Functionblocks</em>}</li>
+ *   <li>{@link org.eclipse.vorto.codegen.ble.model.blegatt.impl.ServiceImpl#getCharacteristics <em>Characteristics</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
+public class ServiceImpl extends MinimalEObjectImpl.Container implements Service {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -180,41 +181,51 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	protected String category = CATEGORY_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getDeviceInfo() <em>Device Info</em>}' containment reference.
+	 * The default value of the '{@link #getUuid() <em>Uuid</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDeviceInfo()
+	 * @see #getUuid()
 	 * @generated
 	 * @ordered
 	 */
-	protected DeviceInfo deviceInfo;
+	protected static final String UUID_EDEFAULT = "";
 
 	/**
-	 * The cached value of the '{@link #getServices() <em>Services</em>}' containment reference list.
+	 * The cached value of the '{@link #getUuid() <em>Uuid</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getServices()
+	 * @see #getUuid()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Service> services;
+	protected String uuid = UUID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getInfomodel() <em>Infomodel</em>}' reference.
+	 * The cached value of the '{@link #getFunctionblocks() <em>Functionblocks</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInfomodel()
+	 * @see #getFunctionblocks()
 	 * @generated
 	 * @ordered
 	 */
-	protected InformationModel infomodel;
+	protected EList<FunctionblockModel> functionblocks;
+
+	/**
+	 * The cached value of the '{@link #getCharacteristics() <em>Characteristics</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCharacteristics()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Characteristic> characteristics;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DeviceImpl() {
+	protected ServiceImpl() {
 		super();
 	}
 
@@ -225,7 +236,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ModelPackage.Literals.DEVICE;
+		return ModelPackage.Literals.SERVICE;
 	}
 
 	/**
@@ -233,99 +244,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DeviceInfo getDeviceInfo() {
-		return deviceInfo;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDeviceInfo(DeviceInfo newDeviceInfo, NotificationChain msgs) {
-		DeviceInfo oldDeviceInfo = deviceInfo;
-		deviceInfo = newDeviceInfo;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DEVICE_INFO, oldDeviceInfo, newDeviceInfo);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDeviceInfo(DeviceInfo newDeviceInfo) {
-		if (newDeviceInfo != deviceInfo) {
-			NotificationChain msgs = null;
-			if (deviceInfo != null)
-				msgs = ((InternalEObject)deviceInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DEVICE__DEVICE_INFO, null, msgs);
-			if (newDeviceInfo != null)
-				msgs = ((InternalEObject)newDeviceInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModelPackage.DEVICE__DEVICE_INFO, null, msgs);
-			msgs = basicSetDeviceInfo(newDeviceInfo, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DEVICE_INFO, newDeviceInfo, newDeviceInfo));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Service> getServices() {
-		if (services == null) {
-			services = new EObjectContainmentEList<Service>(Service.class, this, ModelPackage.DEVICE__SERVICES);
-		}
-		return services;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public InformationModel getInfomodel() {
-		if (infomodel != null && infomodel.eIsProxy()) {
-			InternalEObject oldInfomodel = (InternalEObject)infomodel;
-			infomodel = (InformationModel)eResolveProxy(oldInfomodel);
-			if (infomodel != oldInfomodel) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.DEVICE__INFOMODEL, oldInfomodel, infomodel));
-			}
-		}
-		return infomodel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public InformationModel basicGetInfomodel() {
-		return infomodel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInfomodel(InformationModel newInfomodel) {
-		InformationModel oldInfomodel = infomodel;
-		infomodel = newInfomodel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__INFOMODEL, oldInfomodel, infomodel));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -335,11 +254,12 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE__NAME, oldName, name));
 	}
 
 	/**
@@ -347,6 +267,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getNamespace() {
 		return namespace;
 	}
@@ -356,11 +277,12 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNamespace(String newNamespace) {
 		String oldNamespace = namespace;
 		namespace = newNamespace;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__NAMESPACE, oldNamespace, namespace));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE__NAMESPACE, oldNamespace, namespace));
 	}
 
 	/**
@@ -368,6 +290,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -377,11 +300,12 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__VERSION, oldVersion, version));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE__VERSION, oldVersion, version));
 	}
 
 	/**
@@ -389,9 +313,10 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModelReference> getReferences() {
 		if (references == null) {
-			references = new EObjectContainmentEList<ModelReference>(ModelReference.class, this, ModelPackage.DEVICE__REFERENCES);
+			references = new EObjectContainmentEList<ModelReference>(ModelReference.class, this, ModelPackage.SERVICE__REFERENCES);
 		}
 		return references;
 	}
@@ -401,6 +326,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -410,11 +336,12 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DESCRIPTION, oldDescription, description));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE__DESCRIPTION, oldDescription, description));
 	}
 
 	/**
@@ -422,6 +349,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDisplayname() {
 		return displayname;
 	}
@@ -431,11 +359,12 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDisplayname(String newDisplayname) {
 		String oldDisplayname = displayname;
 		displayname = newDisplayname;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DISPLAYNAME, oldDisplayname, displayname));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE__DISPLAYNAME, oldDisplayname, displayname));
 	}
 
 	/**
@@ -443,6 +372,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCategory() {
 		return category;
 	}
@@ -452,11 +382,61 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCategory(String newCategory) {
 		String oldCategory = category;
 		category = newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__CATEGORY, oldCategory, category));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE__CATEGORY, oldCategory, category));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setUuid(String newUuid) {
+		String oldUuid = uuid;
+		uuid = newUuid;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SERVICE__UUID, oldUuid, uuid));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<FunctionblockModel> getFunctionblocks() {
+		if (functionblocks == null) {
+			functionblocks = new EObjectResolvingEList<FunctionblockModel>(FunctionblockModel.class, this, ModelPackage.SERVICE__FUNCTIONBLOCKS);
+		}
+		return functionblocks;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<Characteristic> getCharacteristics() {
+		if (characteristics == null) {
+			characteristics = new EObjectContainmentEList<Characteristic>(Characteristic.class, this, ModelPackage.SERVICE__CHARACTERISTICS);
+		}
+		return characteristics;
 	}
 
 	/**
@@ -467,12 +447,10 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ModelPackage.DEVICE__REFERENCES:
+			case ModelPackage.SERVICE__REFERENCES:
 				return ((InternalEList<?>)getReferences()).basicRemove(otherEnd, msgs);
-			case ModelPackage.DEVICE__DEVICE_INFO:
-				return basicSetDeviceInfo(null, msgs);
-			case ModelPackage.DEVICE__SERVICES:
-				return ((InternalEList<?>)getServices()).basicRemove(otherEnd, msgs);
+			case ModelPackage.SERVICE__CHARACTERISTICS:
+				return ((InternalEList<?>)getCharacteristics()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -485,27 +463,26 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.DEVICE__NAME:
+			case ModelPackage.SERVICE__NAME:
 				return getName();
-			case ModelPackage.DEVICE__NAMESPACE:
+			case ModelPackage.SERVICE__NAMESPACE:
 				return getNamespace();
-			case ModelPackage.DEVICE__VERSION:
+			case ModelPackage.SERVICE__VERSION:
 				return getVersion();
-			case ModelPackage.DEVICE__REFERENCES:
+			case ModelPackage.SERVICE__REFERENCES:
 				return getReferences();
-			case ModelPackage.DEVICE__DESCRIPTION:
+			case ModelPackage.SERVICE__DESCRIPTION:
 				return getDescription();
-			case ModelPackage.DEVICE__DISPLAYNAME:
+			case ModelPackage.SERVICE__DISPLAYNAME:
 				return getDisplayname();
-			case ModelPackage.DEVICE__CATEGORY:
+			case ModelPackage.SERVICE__CATEGORY:
 				return getCategory();
-			case ModelPackage.DEVICE__DEVICE_INFO:
-				return getDeviceInfo();
-			case ModelPackage.DEVICE__SERVICES:
-				return getServices();
-			case ModelPackage.DEVICE__INFOMODEL:
-				if (resolve) return getInfomodel();
-				return basicGetInfomodel();
+			case ModelPackage.SERVICE__UUID:
+				return getUuid();
+			case ModelPackage.SERVICE__FUNCTIONBLOCKS:
+				return getFunctionblocks();
+			case ModelPackage.SERVICE__CHARACTERISTICS:
+				return getCharacteristics();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -519,37 +496,38 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.DEVICE__NAME:
+			case ModelPackage.SERVICE__NAME:
 				setName((String)newValue);
 				return;
-			case ModelPackage.DEVICE__NAMESPACE:
+			case ModelPackage.SERVICE__NAMESPACE:
 				setNamespace((String)newValue);
 				return;
-			case ModelPackage.DEVICE__VERSION:
+			case ModelPackage.SERVICE__VERSION:
 				setVersion((String)newValue);
 				return;
-			case ModelPackage.DEVICE__REFERENCES:
+			case ModelPackage.SERVICE__REFERENCES:
 				getReferences().clear();
 				getReferences().addAll((Collection<? extends ModelReference>)newValue);
 				return;
-			case ModelPackage.DEVICE__DESCRIPTION:
+			case ModelPackage.SERVICE__DESCRIPTION:
 				setDescription((String)newValue);
 				return;
-			case ModelPackage.DEVICE__DISPLAYNAME:
+			case ModelPackage.SERVICE__DISPLAYNAME:
 				setDisplayname((String)newValue);
 				return;
-			case ModelPackage.DEVICE__CATEGORY:
+			case ModelPackage.SERVICE__CATEGORY:
 				setCategory((String)newValue);
 				return;
-			case ModelPackage.DEVICE__DEVICE_INFO:
-				setDeviceInfo((DeviceInfo)newValue);
+			case ModelPackage.SERVICE__UUID:
+				setUuid((String)newValue);
 				return;
-			case ModelPackage.DEVICE__SERVICES:
-				getServices().clear();
-				getServices().addAll((Collection<? extends Service>)newValue);
+			case ModelPackage.SERVICE__FUNCTIONBLOCKS:
+				getFunctionblocks().clear();
+				getFunctionblocks().addAll((Collection<? extends FunctionblockModel>)newValue);
 				return;
-			case ModelPackage.DEVICE__INFOMODEL:
-				setInfomodel((InformationModel)newValue);
+			case ModelPackage.SERVICE__CHARACTERISTICS:
+				getCharacteristics().clear();
+				getCharacteristics().addAll((Collection<? extends Characteristic>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -563,35 +541,35 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.DEVICE__NAME:
+			case ModelPackage.SERVICE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ModelPackage.DEVICE__NAMESPACE:
+			case ModelPackage.SERVICE__NAMESPACE:
 				setNamespace(NAMESPACE_EDEFAULT);
 				return;
-			case ModelPackage.DEVICE__VERSION:
+			case ModelPackage.SERVICE__VERSION:
 				setVersion(VERSION_EDEFAULT);
 				return;
-			case ModelPackage.DEVICE__REFERENCES:
+			case ModelPackage.SERVICE__REFERENCES:
 				getReferences().clear();
 				return;
-			case ModelPackage.DEVICE__DESCRIPTION:
+			case ModelPackage.SERVICE__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
-			case ModelPackage.DEVICE__DISPLAYNAME:
+			case ModelPackage.SERVICE__DISPLAYNAME:
 				setDisplayname(DISPLAYNAME_EDEFAULT);
 				return;
-			case ModelPackage.DEVICE__CATEGORY:
+			case ModelPackage.SERVICE__CATEGORY:
 				setCategory(CATEGORY_EDEFAULT);
 				return;
-			case ModelPackage.DEVICE__DEVICE_INFO:
-				setDeviceInfo((DeviceInfo)null);
+			case ModelPackage.SERVICE__UUID:
+				setUuid(UUID_EDEFAULT);
 				return;
-			case ModelPackage.DEVICE__SERVICES:
-				getServices().clear();
+			case ModelPackage.SERVICE__FUNCTIONBLOCKS:
+				getFunctionblocks().clear();
 				return;
-			case ModelPackage.DEVICE__INFOMODEL:
-				setInfomodel((InformationModel)null);
+			case ModelPackage.SERVICE__CHARACTERISTICS:
+				getCharacteristics().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -605,26 +583,26 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.DEVICE__NAME:
+			case ModelPackage.SERVICE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ModelPackage.DEVICE__NAMESPACE:
+			case ModelPackage.SERVICE__NAMESPACE:
 				return NAMESPACE_EDEFAULT == null ? namespace != null : !NAMESPACE_EDEFAULT.equals(namespace);
-			case ModelPackage.DEVICE__VERSION:
+			case ModelPackage.SERVICE__VERSION:
 				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-			case ModelPackage.DEVICE__REFERENCES:
+			case ModelPackage.SERVICE__REFERENCES:
 				return references != null && !references.isEmpty();
-			case ModelPackage.DEVICE__DESCRIPTION:
+			case ModelPackage.SERVICE__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-			case ModelPackage.DEVICE__DISPLAYNAME:
+			case ModelPackage.SERVICE__DISPLAYNAME:
 				return DISPLAYNAME_EDEFAULT == null ? displayname != null : !DISPLAYNAME_EDEFAULT.equals(displayname);
-			case ModelPackage.DEVICE__CATEGORY:
+			case ModelPackage.SERVICE__CATEGORY:
 				return CATEGORY_EDEFAULT == null ? category != null : !CATEGORY_EDEFAULT.equals(category);
-			case ModelPackage.DEVICE__DEVICE_INFO:
-				return deviceInfo != null;
-			case ModelPackage.DEVICE__SERVICES:
-				return services != null && !services.isEmpty();
-			case ModelPackage.DEVICE__INFOMODEL:
-				return infomodel != null;
+			case ModelPackage.SERVICE__UUID:
+				return UUID_EDEFAULT == null ? uuid != null : !UUID_EDEFAULT.equals(uuid);
+			case ModelPackage.SERVICE__FUNCTIONBLOCKS:
+				return functionblocks != null && !functionblocks.isEmpty();
+			case ModelPackage.SERVICE__CHARACTERISTICS:
+				return characteristics != null && !characteristics.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -638,7 +616,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", namespace: ");
@@ -651,20 +629,10 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 		result.append(displayname);
 		result.append(", category: ");
 		result.append(category);
+		result.append(", uuid: ");
+		result.append(uuid);
 		result.append(')');
 		return result.toString();
 	}
 
-	@Override
-	public VortoLangVersion getLang() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setLang(VortoLangVersion value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-} //DeviceImpl
+} //ServiceImpl

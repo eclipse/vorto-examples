@@ -16,6 +16,7 @@ package org.eclipse.vorto.codegen.coap.server.templates
 
 import org.eclipse.vorto.codegen.api.ITemplate
 import org.eclipse.vorto.codegen.api.InvocationContext
+import org.eclipse.vorto.codegen.coap.CoAPUtils
 import org.eclipse.vorto.codegen.utils.Utils
 import org.eclipse.vorto.core.api.model.datatype.ObjectPropertyType
 import org.eclipse.vorto.core.api.model.datatype.Property
@@ -30,26 +31,26 @@ class CoAPServerPropertyTemplate implements ITemplate<Property> {
 		/**
 		* «property.description»
 		*/
-		private «Utils.getPropertyType(property)» «property.name.toFirstLower»;
+		private «CoAPUtils.getPropertyType(property)» «property.name.toFirstLower»;
 		
-		«IF Utils.isReadable(property)»
+		«IF CoAPUtils.isReadable(property)»
 			«IF (property.type instanceof ObjectPropertyType) »
-				public «Utils.getPropertyType(property)» get«property.name.toFirstUpper»(){
+				public «CoAPUtils.getPropertyType(property)» get«property.name.toFirstUpper»(){
 			«ELSE»
-				public «Utils.getPropertyType(property)» get«property.name.toFirstUpper»() throws Exception {
+				public «CoAPUtils.getPropertyType(property)» get«property.name.toFirstUpper»() throws Exception {
 			«ENDIF»
 				return «property.name.toFirstLower»;
 			}
 
 		«ENDIF»
 		
-		«IF Utils.isWritable(property)»
-			public void set«property.name.toFirstUpper»(«Utils.getPropertyType(property)» «property.name.toFirstLower»){
+		«IF CoAPUtils.isWritable(property)»
+			public void set«property.name.toFirstUpper»(«CoAPUtils.getPropertyType(property)» «property.name.toFirstLower»){
 				this.«property.name.toFirstLower» = «property.name.toFirstLower»;
 			}
 
 		«ENDIF»
-		«IF Utils.isEventable(property)»
+		«IF CoAPUtils.isEventable(property)»
 			public boolean subscribe«property.name.toFirstUpper»(){
 				
 				// Add your code here ...

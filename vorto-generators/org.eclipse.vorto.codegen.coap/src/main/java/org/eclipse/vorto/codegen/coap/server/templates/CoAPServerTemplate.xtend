@@ -119,7 +119,7 @@ class CoAPServerTemplate implements ITemplate<InformationModel>{
 											handler){{
 												setVisible(NOT_VISIBLE);
 												getAttributes().addAttribute("title", "«status.description» ");
-												«IF Utils.isEventable(status)»
+												«IF CoAPUtils.isEventable(status)»
 													getAttributes().addAttribute("obs", "");
 												«ENDIF»
 											}})
@@ -139,13 +139,13 @@ class CoAPServerTemplate implements ITemplate<InformationModel>{
 		var writeable = "false"
 		var eventable = "false"
 		var result = "new Resource.Configuration("
-		if (Utils.isReadable(property)) {
+		if (CoAPUtils.isReadable(property)) {
 			readable = "GET";
 		}
-		if (Utils.isWritable(property)) {
+		if (CoAPUtils.isWritable(property)) {
 			writeable = "PUT";
 		}
-		if (Utils.isEventable(property)){
+		if (CoAPUtils.isEventable(property)){
 			eventable = "OBSERVE";
 		}
 		return result + readable + ", " + writeable + ", false, false, false, " + eventable + ")";

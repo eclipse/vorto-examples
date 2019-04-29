@@ -8,13 +8,12 @@ import org.eclipse.vorto.codegen.ble.model.blegatt.Device;
 import org.eclipse.vorto.codegen.ble.model.blegatt.ModelFactory;
 import org.eclipse.vorto.codegen.ble.model.blegatt.Service;
 import org.eclipse.vorto.codegen.ble.model.blegatt.impl.ModelFactoryImpl;
-import org.eclipse.vorto.codegen.utils.Utils;
+import org.eclipse.vorto.codegen.ble.model.blegatt.util.Utils;
 import org.eclipse.vorto.core.api.model.datatype.Property;
 import org.eclipse.vorto.core.api.model.functionblock.FunctionBlock;
 import org.eclipse.vorto.core.api.model.functionblock.FunctionblockModel;
 import org.eclipse.vorto.core.api.model.informationmodel.FunctionblockProperty;
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel;
-import org.eclipse.vorto.core.api.model.model.Model;
 
 public class ModelTransformer {
 

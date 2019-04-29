@@ -24,6 +24,7 @@ import org.eclipse.vorto.codegen.ble.model.blegatt.ModelPackage;
 import org.eclipse.vorto.codegen.ble.model.blegatt.Service;
 import org.eclipse.vorto.core.api.model.functionblock.FunctionblockModel;
 import org.eclipse.vorto.core.api.model.model.ModelReference;
+import org.eclipse.vorto.core.api.model.model.VortoLangVersion;
 
 /**
  * <!-- begin-user-doc -->
@@ -614,6 +615,18 @@ public class ServiceImpl extends MinimalEObjectImpl.Container implements Service
 		result.append(uuid);
 		result.append(')');
 		return result.toString();
+	}
+
+	@Override
+	public VortoLangVersion getLang() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLang(VortoLangVersion value) {
+		// TODO Auto-generated method stub
+		
 	}
 
 } //ServiceImpl

@@ -126,7 +126,7 @@ class CoAPServerIMRequestHandlerTemplate implements ITemplate<InformationModel> 
 									«IF instance.type.functionblock.status!=null»
 										«FOR status : instance.type.functionblock.status.properties»
 											if (fbOperationName.equals("«status.name.toFirstLower»")) {
-												«IF Utils.isReadable(status)»
+												«IF CoAPUtils.isReadable(status)»
 													if(exchange.getRequestCode() == Code.GET && exchange.getRequestOptions().getObserve() == null){
 														exchange.respond( 
 															CoAP.ResponseCode.CONTENT, 
@@ -135,7 +135,7 @@ class CoAPServerIMRequestHandlerTemplate implements ITemplate<InformationModel> 
 														return;
 													}
 												«ENDIF»
-												«IF Utils.isWritable(status)»
+												«IF CoAPUtils.isWritable(status)»
 													if(exchange.getRequestCode() == Code.PUT) {
 														if(exchange.getRequestPayload().length > 0) {
 															final Object o = transformer.deserialize(«status.name.toFirstUpper».class, exchange.getRequestPayload());

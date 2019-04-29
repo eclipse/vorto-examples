@@ -40,7 +40,7 @@ class CoAPClientPropertyTemplate implements ITemplate<Property> {
 		/**
 		* «property.description»
 		*/
-		«IF Utils.isReadable(property)»
+		«IF CoAPUtils.isReadable(property)»
 		«IF (property.type instanceof ObjectPropertyType) »
 			public «CoAPUtils.getPropertyTypeAsString(property)» get«property.name.toFirstUpper»(){
 		«ELSE»
@@ -69,7 +69,7 @@ class CoAPClientPropertyTemplate implements ITemplate<Property> {
 			«ENDIF»
 		}
 		«ENDIF»
-		«IF Utils.isWritable(property)»
+		«IF CoAPUtils.isWritable(property)»
 		
 		public void set«property.name.toFirstUpper»(«CoAPUtils.getPropertyTypeAsString(property)» «property.name.toFirstLower»){
 			«IF (property.type instanceof PrimitivePropertyType)»

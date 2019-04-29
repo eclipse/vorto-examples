@@ -76,10 +76,10 @@ class JavaFunctionblockInterfaceTemplate implements ITemplate<FunctionblockModel
 			/**
 			 * «property.description»
 			 */
-			«IF Utils.isReadable(property)»
+			«IF CoAPUtils.isReadable(property)»
 				«CoAPUtils.getPropertyTypeAsString(property)» get«property.name.toFirstUpper»();
 			«ENDIF»
-			«IF Utils.isWritable(property)»
+			«IF CoAPUtils.isWritable(property)»
 				void set«property.name.toFirstUpper»(«CoAPUtils.getPropertyTypeAsString(property)» «property.name.toFirstLower»);
 				
 			«ENDIF»

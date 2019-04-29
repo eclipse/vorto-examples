@@ -22,9 +22,10 @@ import org.eclipse.vorto.codegen.ble.model.blegatt.Device;
 import org.eclipse.vorto.codegen.ble.model.blegatt.DeviceInfo;
 import org.eclipse.vorto.codegen.ble.model.blegatt.ModelPackage;
 import org.eclipse.vorto.codegen.ble.model.blegatt.Service;
+
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel;
+
 import org.eclipse.vorto.core.api.model.model.ModelReference;
-import org.eclipse.vorto.core.api.model.model.VortoLangVersion;
 
 /**
  * <!-- begin-user-doc -->
@@ -233,6 +234,158 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getNamespace() {
+		return namespace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setNamespace(String newNamespace) {
+		String oldNamespace = namespace;
+		namespace = newNamespace;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__NAMESPACE, oldNamespace, namespace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getVersion() {
+		return version;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setVersion(String newVersion) {
+		String oldVersion = version;
+		version = newVersion;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__VERSION, oldVersion, version));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ModelReference> getReferences() {
+		if (references == null) {
+			references = new EObjectContainmentEList<ModelReference>(ModelReference.class, this, ModelPackage.DEVICE__REFERENCES);
+		}
+		return references;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getDisplayname() {
+		return displayname;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDisplayname(String newDisplayname) {
+		String oldDisplayname = displayname;
+		displayname = newDisplayname;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DISPLAYNAME, oldDisplayname, displayname));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCategory() {
+		return category;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setCategory(String newCategory) {
+		String oldCategory = category;
+		category = newCategory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__CATEGORY, oldCategory, category));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public DeviceInfo getDeviceInfo() {
 		return deviceInfo;
 	}
@@ -257,6 +410,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeviceInfo(DeviceInfo newDeviceInfo) {
 		if (newDeviceInfo != deviceInfo) {
 			NotificationChain msgs = null;
@@ -276,6 +430,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Service> getServices() {
 		if (services == null) {
 			services = new EObjectContainmentEList<Service>(Service.class, this, ModelPackage.DEVICE__SERVICES);
@@ -288,6 +443,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InformationModel getInfomodel() {
 		if (infomodel != null && infomodel.eIsProxy()) {
 			InternalEObject oldInfomodel = (InternalEObject)infomodel;
@@ -314,149 +470,12 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInfomodel(InformationModel newInfomodel) {
 		InformationModel oldInfomodel = infomodel;
 		infomodel = newInfomodel;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__INFOMODEL, oldInfomodel, infomodel));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getNamespace() {
-		return namespace;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNamespace(String newNamespace) {
-		String oldNamespace = namespace;
-		namespace = newNamespace;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__NAMESPACE, oldNamespace, namespace));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getVersion() {
-		return version;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setVersion(String newVersion) {
-		String oldVersion = version;
-		version = newVersion;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__VERSION, oldVersion, version));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ModelReference> getReferences() {
-		if (references == null) {
-			references = new EObjectContainmentEList<ModelReference>(ModelReference.class, this, ModelPackage.DEVICE__REFERENCES);
-		}
-		return references;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDescription(String newDescription) {
-		String oldDescription = description;
-		description = newDescription;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DESCRIPTION, oldDescription, description));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDisplayname() {
-		return displayname;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDisplayname(String newDisplayname) {
-		String oldDisplayname = displayname;
-		displayname = newDisplayname;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__DISPLAYNAME, oldDisplayname, displayname));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getCategory() {
-		return category;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCategory(String newCategory) {
-		String oldCategory = category;
-		category = newCategory;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.DEVICE__CATEGORY, oldCategory, category));
 	}
 
 	/**
@@ -638,7 +657,7 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
 		result.append(", namespace: ");
@@ -653,18 +672,6 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 		result.append(category);
 		result.append(')');
 		return result.toString();
-	}
-
-	@Override
-	public VortoLangVersion getLang() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setLang(VortoLangVersion value) {
-		// TODO Auto-generated method stub
-		
 	}
 
 } //DeviceImpl
