@@ -38,7 +38,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script : echo $pwd
+    script : pwd
     skip_cleanup: true
     on:
       all_branches: true
