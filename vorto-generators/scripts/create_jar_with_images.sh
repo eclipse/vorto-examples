@@ -13,5 +13,7 @@ cp generator-runner-3rd-party-exec-withimg.jar ../example-generator-exec_${ELAST
 cd ../..
 pwd
 aws s3 cp ./aws-upload/example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar s3://$VORTO_S3_BUCKET --acl "private" --storage-class "STANDARD_IA" --only-show-errors --no-guess-mime-type
-sleep 30
+sleep 60
 aws elasticbeanstalk create-application-version --application-name "VortoRepoServer" --no-auto-create-application --version-label "build-job_${ELASTIC_BEANSTALK_LABEL}_3rdparty" --description "Build ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT}" --source-bundle S3Bucket="$VORTO_S3_BUCKET",S3Key="example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar"
+sleep 60
+aws elasticbeanstalk update-environment --application-name "VortoRepoServer" --environment-name "Vortoexamplegenerators-env-dev" --version-label "build-job_${ELASTIC_BEANSTALK_LABEL}_3rdparty"
