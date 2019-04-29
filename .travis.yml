@@ -37,14 +37,8 @@ before_deploy:
 
 deploy:
   - provider: script
-    script : bash scripts/create_jar_with_images.sh
+    script : bash scripts/deploy_jar_with_images.sh
     skip_cleanup: true
     on:
-      all_branches: true
-#  - provider: script
-#    script:
-#      - aws elasticbeanstalk update-environment --application-name "VortoRepoServer" --environment-name "Vortoexamplegenerators-env-dev" --version-label "build-job_${ELASTIC_BEANSTALK_LABEL}_3rdparty"
-#    skip_cleanup: true
-#    on:
-#      branch: "master"
+      branch: master
 
