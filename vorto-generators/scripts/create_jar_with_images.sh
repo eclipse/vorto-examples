@@ -11,4 +11,4 @@ aws s3 cp s3://$VORTO_S3_BUCKET/img/ ./BOOT-INF/classes/img/
 jar -cvf generator-runner-3rd-party-exec-withimg.jar .
 cp generator-runner-3rd-party-exec-withimg.jar ../example-generator-exec_${ELASTIC_BEANSTALK_LABEL}.jar
 cd ../..
-
+pwd
