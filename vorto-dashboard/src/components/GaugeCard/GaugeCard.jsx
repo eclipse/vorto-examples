@@ -8,7 +8,7 @@ export class GaugeCard extends Component {
     // TODO adjust retrieval of attributes to be smarter 
     // (Get the definition of the function blocks and find attribute values)
     const values = this.props.feature.properties;
-    const currVal = values.status.value.currentMeasured;
+    const currVal = values.status.value.currentMeasured || 0;
     const minVal = values.status.value.minMeasuired || 0;
     const maxVal = values.status.value.maxMeasuired || currVal;
 
@@ -18,7 +18,7 @@ export class GaugeCard extends Component {
       <div className="card card-stats attrCard">
         <div className="content">
           <Row>
-            <Col xs={12}>
+            <Col xs={12} sm={12} md={12} lg={12}>
               <div className="text-center">
                 <h4>
                   <a href={getRepositoryLink(this.props.feature.definition[0])} target="_blank" >{this.props.featureName}</a>
@@ -28,7 +28,7 @@ export class GaugeCard extends Component {
           </Row>
 
           <Row>
-            <Col xs={12}>
+            <Col xs={12} sm={12} md={12} lg={12}>
               <div className="innerCardContainer">
                 <div className="gauge">
                   <div className="gauge-percentage" style={{ transform: `rotate(${currDeg}deg)` }} />

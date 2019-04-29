@@ -24,6 +24,7 @@ import org.eclipse.vorto.codegen.ble.model.blegatt.ModelPackage;
 import org.eclipse.vorto.codegen.ble.model.blegatt.Service;
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel;
 import org.eclipse.vorto.core.api.model.model.ModelReference;
+import org.eclipse.vorto.core.api.model.model.VortoLangVersion;
 
 /**
  * <!-- begin-user-doc -->
@@ -652,6 +653,18 @@ public class DeviceImpl extends MinimalEObjectImpl.Container implements Device {
 		result.append(category);
 		result.append(')');
 		return result.toString();
+	}
+
+	@Override
+	public VortoLangVersion getLang() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLang(VortoLangVersion value) {
+		// TODO Auto-generated method stub
+		
 	}
 
 } //DeviceImpl

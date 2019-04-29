@@ -54,7 +54,7 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
   }
 }
 
-const ConnetedDeviceDashboard = ({ device }) => {
+const ConnectedDeviceDashboard = ({ device }) => {
   const row = Object.keys(device.features)
     .map(featureName => {
       const featureObj = device.features[featureName]
@@ -63,14 +63,14 @@ const ConnetedDeviceDashboard = ({ device }) => {
       const categorieType = mapDeftoCardCategorie(featureDefs);
       const featureCard = mapCategorieToCard(categorieType, device, featureObj, featureName);
 
-      return (<Col lg={4} sm={6}>{featureCard}</Col>);
+      return (<Col xs={12} sm={6} md={6} lg={4}>{featureCard}</Col>);
     });
 
   return (
     <div className="content">
       <Grid fluid>
         <Row>
-          <Col md={12}>
+          <Col xs={12} sm={12} md={12} lg={12}>
             <AttributesCard
               device={device}
             />
@@ -85,6 +85,6 @@ const ConnetedDeviceDashboard = ({ device }) => {
   );
 }
 
-const DeviceDashboard = connect(mapStateToProps)(ConnetedDeviceDashboard);
+const DeviceDashboard = connect(mapStateToProps)(ConnectedDeviceDashboard);
 
 export default DeviceDashboard;

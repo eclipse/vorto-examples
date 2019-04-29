@@ -24,6 +24,7 @@ import org.eclipse.vorto.core.api.model.functionblock.FunctionblockModel
 import org.eclipse.vorto.core.api.model.functionblock.Operation
 import org.eclipse.vorto.core.api.model.functionblock.Param
 import org.eclipse.vorto.core.api.model.functionblock.ReturnObjectType
+import org.eclipse.vorto.core.api.model.datatype.BooleanPropertyAttributeType
 
 class CoAPClientFunctionblockInterfaceTemplate implements ITemplate<FunctionblockModel>{
 	
@@ -73,21 +74,19 @@ class CoAPClientFunctionblockInterfaceTemplate implements ITemplate<Functionbloc
 
 			«IF fb.status != null»
 				«FOR property : fb.status.properties»
-					«IF Utils.isReadable(property)»
-						«IF (property.type instanceof ObjectPropertyType) »
-							«CoAPUtils.getPropertyTypeAsString(property)» get«property.name.toFirstUpper»();
-						«ELSE»
-							«CoAPUtils.getPropertyTypeAsString(property)» get«property.name.toFirstUpper»() throws Exception;
-						«ENDIF»
-					«ENDIF»
-
-					«IF Utils.isWritable(property)»
-						void set«property.name.toFirstUpper»(«CoAPUtils.getPropertyTypeAsString(property)» «property.name.toFirstLower»);
-
+					«IF (property.type instanceof ObjectPropertyType) »
+						«CoAPUtils.getPropertyTypeAsString(property)» get«property.name.toFirstUpper»();
+					«ELSE»
+						«CoAPUtils.getPropertyTypeAsString(property)» get«property.name.toFirstUpper»() throws Exception;
 					«ENDIF»
 				«ENDFOR»
 			«ENDIF»
-
+			«IF fb.configuration != null»
+				«FOR property : fb.configuration.properties»
+					void set«property.name.toFirstUpper»(«CoAPUtils.getPropertyTypeAsString(property)» «property.name.toFirstLower»);
+				«ENDFOR»
+			«ENDIF»
+			
 			«FOR op : fb.operations»
 				/**
 				* «op.description»
@@ -101,7 +100,7 @@ class CoAPClientFunctionblockInterfaceTemplate implements ITemplate<Functionbloc
 			«ENDFOR»
 		}
 		'''
-	}
+	}	
 	
 	def String getParameterString(Operation op,InvocationContext invocationContext) {
 		var String result="";
