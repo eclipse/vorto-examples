@@ -38,7 +38,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script : pwd
+    script : scripts/create_jar_with_images.sh
     skip_cleanup: true
     on:
       all_branches: true
