@@ -30,7 +30,7 @@ script:
   - export TRAVIS_COMMIT_SHORT=$(git rev-parse --short HEAD)
   - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_JOB_NUMBER}_${TRAVIS_COMMIT_SHORT}"
   - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
-  - cp ./generator-runner/target/generator-runner-3rd-party-exec.jar ~/aws-upload/tmp/generator-runner-3rd-party-exec.jar
+  - cp ~/vorto-generators/generator-runner/target/generator-runner-3rd-party-exec.jar ~/aws-upload/tmp/
   - cd aws-upload/tmp
   - jar -xvf generator-runner-3rd-party-exec.jar
   - rm -f generator-runner-3rd-party-exec.jar
