@@ -45,8 +45,8 @@ export class DeviceCard extends Component {
                 <hr />
                 <Col xs={12} sm={12} md={12} lg={12}>
                   <div className="deviceCardAttrContainer">
-                    <p className="text-center"><span className="attrKeyword">{device.thingId}</span></p>
-                    <p className="text-center">{device.attributes.thingName}</p>
+                    <p className="text-center deviceDescText"><span className="attrKeyword">{device.thingId}</span></p>
+                    <p className="text-center deviceDescText">{device.attributes.thingName}</p>
                   </div>
                 </Col>
               </div>

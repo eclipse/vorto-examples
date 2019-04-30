@@ -7,11 +7,11 @@ export const selectDevice = (state = {}, action) => {
   // TODO think about only saving the idea to avoid updating the selectedDevice
   // object on update of all device (reference instead of copy of device)
   if (action.type === "UPDATE_DEVICES") {
-    const selectedId = state.attributes ? state.attributes.deviceId : "";
+    const selectedId = state.thingId;
 
     if (selectedId) {
       const updatedSelected = action.devices.filter(device => {
-        if (device.attributes.deviceId === selectedId) {
+        if (device.thingId === selectedId) {
           return true
         }
 

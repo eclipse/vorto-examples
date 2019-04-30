@@ -7,6 +7,8 @@ import CodeCard from "../../components/CodeCard/CodeCard.jsx";
 import LocationCard from "../../components/LocationCard/LocationCard";
 import GaugeCard from "../../components/GaugeCard/GaugeCard";
 import BatteryCard from "../../components/BatteryCard/BatteryCard";
+import StateNumberCard from "../../components/StateNumberCard/StateNumberCard";
+import ImageCard from "../../components/ImageCard/ImageCard";
 
 import {
   CATEGORIES,
@@ -45,6 +47,17 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
           featureName={featureName}
           device={device} />
       );
+    case CATEGORIES.IMAGE:
+      return (
+        <ImageCard
+          featureName={featureName}
+          feature={featureObj} />
+      );
+    case CATEGORIES.STATE_NUMBER:
+      return (
+        <StateNumberCard
+          featureName={featureName}
+          feature={featureObj} />);
     default:
       return (
         <CodeCard
