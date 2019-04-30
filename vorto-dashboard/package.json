@@ -6,6 +6,7 @@
     "bootstrap": ">=3.4.1",
     "express": "^4.16.4",
     "leaflet": "^1.4.0",
+    "medium-zoom": "^1.0.4",
     "react": "^16.2.0",
     "react-bootstrap": "0.32.1",
     "react-dom": "^16.2.0",
