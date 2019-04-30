@@ -484,3 +484,25 @@ a:hover {
 .stateNumberIconOff {
     color: white;
 }
+
+.imgCardContainer {
+    height: 295px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgCardImg {
+    -webkit-max-width: 100%;
+    -moz-max-width: 100%;
+    -ms-max-width: 100%;
+    -o-max-width: 100%;
+    max-width: 100%;
+
+    -webkit-max-height: 100%;
+    -moz-max-height: 100%;
+    -ms-max-height: 100%;
+    -o-max-height: 100%;
+    max-height: 100%;
+}
