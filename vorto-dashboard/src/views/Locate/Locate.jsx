@@ -10,6 +10,10 @@ function hasLocationFeature(device) {
   return Object.keys(device.features)
     .map(feature => device.features[feature].definition)
     .filter(definitions => {
+      if (!definitions) {
+        return false;
+      }
+
       for (const definition of definitions) {
         if (CATEGORIES.LOCATION.includes(definition)) {
           return true

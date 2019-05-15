@@ -4,7 +4,15 @@ export class ConnectivityStatus extends Component {
   render() {
     const device = this.props.device
     const deviceConnectivities = Object.keys(device.features)
-      .filter(feature => device.features[feature].definition.includes("org.eclipse.vorto:Connectivity:1.0.0"))
+      .filter(feature => {
+        const deviceFeature = device.features[feature];
+
+        if (!deviceFeature.definition) {
+          return false;
+        }
+
+        return deviceFeature.definition.includes("org.eclipse.vorto:Connectivity:1.0.0")
+      })
     const connectivityFeatures = deviceConnectivities.map(feature => device.features[feature])
 
     const connected = connectivityFeatures

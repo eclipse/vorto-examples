@@ -13,16 +13,38 @@ function checkDeviceForQuery(device, { searching, query }) {
   switch (serachKeyword) {
     case "has":
       return Object.keys(device.features)
-        .some(feature => device.features[feature].definition
-          .some(def => def.toLowerCase().includes(searchQuery)));
+        .some(feature => {
+          const deviceFeature = device.features[feature]
+          let definition = deviceFeature.definition
+
+          if (!definition) {
+            return false;
+          }
+
+          if (Array.isArray(definition)) {
+            return definition.some(def => def.toLowerCase().includes(searchQuery));
+          }
+
+          return definition.toLowerCase().includes(searchQuery);
+        })
     default:
-      return device.attributes.definition
+      const definition = device.attributes.definition;
+
+      if (!definition) {
+        return false;
+      }
+
+      return definition
         .toLowerCase()
         .includes(query)
   }
 }
 
 function getRepositoryLink(path) {
+  if (Array.isArray(path)) {
+    return `https://vorto.eclipse.org/#/details/${path[0]}`
+  }
+
   return `https://vorto.eclipse.org/#/details/${path}`
 }
 

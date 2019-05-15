@@ -6,6 +6,10 @@ const imgUrls = {}
 function getImgUrl(device) {
   const savedImgUrl = imgUrls[device.attributes.definition]
 
+  if (!device.attributes.definition) {
+    return Promise.resolve("https://www.eclipse.org/vorto/images/vorto.png");
+  }
+
   if (savedImgUrl) {
     return Promise.resolve(savedImgUrl)
   }

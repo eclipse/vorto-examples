@@ -22,6 +22,14 @@ const CATEGORIES = {
 }
 
 function mapDeftoCardCategorie(featureDefs) {
+    if (!featureDefs) {
+        return CATEGORIES.JSON;
+    }
+
+    if (!Array.isArray(featureDefs)) {
+        featureDefs = [featureDefs];
+    }
+
     for (const definition of featureDefs) {
         if (CATEGORIES.LOCATION.includes(definition)) {
             return CATEGORIES.LOCATION
