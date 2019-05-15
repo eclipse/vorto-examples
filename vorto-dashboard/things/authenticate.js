@@ -51,6 +51,7 @@ class AuthToken {
 
   /*refreshes the access token by making a refresh token call to the auth provider*/
   refreshToken(refreshToken) {
+    console.log("Refreshing token")
     const tokenForm = {
       "grant_type": "refresh_token",
       "client_id": config.bosch_iot_suite.client_id,
@@ -72,8 +73,9 @@ class AuthToken {
 
         setTimeout(function () {
           this.refreshToken(this.refresh_token)
-        }.bind(this), this.expires_in * 950)
-        // don't wait the full amount of sec until invalidate (has to be < 1000)
+        }.bind(this), this.expires_in * 300)
+        // don't wait the full amount of sec until invalidate every third of the time it will be renewed to ensure 
+        // failure tolerance for one renewal 
       })
       .catch(err => console.log(`Could not get token with given credentials. - ${err}`))
   }

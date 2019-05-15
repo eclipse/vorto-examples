@@ -31,7 +31,17 @@ class OSMap extends Component {
 
       for (const feature in features) {
         const featureObj = features[feature]
-        if (!CATEGORIES.LOCATION.includes(featureObj.definition[0])) {
+        let definition = featureObj.definition
+
+        if (!definition) {
+          continue;
+        }
+
+        if (Array.isArray(definition)) {
+          definition = definition[0]
+        }
+
+        if (!CATEGORIES.LOCATION.includes(definition)) {
           continue;
         }
 

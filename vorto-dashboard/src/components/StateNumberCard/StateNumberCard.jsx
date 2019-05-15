@@ -19,7 +19,7 @@ export class StateNumberCard extends Component {
             <Col xs={12} sm={12} md={12} lg={12}>
               <div className="text-center">
                 <h4>
-                  <a href={getRepositoryLink(this.props.feature.definition[0])} target="_blank" >{this.props.featureName}</a>
+                  <a href={getRepositoryLink(this.props.feature.definition)} target="_blank" >{this.props.featureName}</a>
                 </h4>
               </div>
             </Col>

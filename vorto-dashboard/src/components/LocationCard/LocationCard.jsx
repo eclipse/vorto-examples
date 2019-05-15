@@ -13,7 +13,7 @@ export class LocationCard extends Component {
             <Col xs={12} sm={12} md={12} lg={12}>
               <div className="text-center">
                 <h4>
-                  <a href={getRepositoryLink(this.props.device.features[this.props.featureName].definition[0])}
+                  <a href={getRepositoryLink(this.props.device.features[this.props.featureName].definition)}
                     target="_blank" >{this.props.featureName}</a>
                 </h4>
               </div>
