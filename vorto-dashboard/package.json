@@ -1,12 +1,19 @@
 {
-  "name": "vorto_dashboard",
+  "name": "vorto-dashboard",
   "version": "0.1.0",
-  "private": true,
+  "preferGlobal": true,
+  "bin": {
+    "vorto-dashboard": "./index.js"
+  },
+  "main": "./index.js",
   "dependencies": {
+    "argparse": "^1.0.10",
     "bootstrap": ">=3.4.1",
     "express": "^4.16.4",
+    "jquery": "^3.4.1",
     "leaflet": "^1.4.0",
     "medium-zoom": "^1.0.4",
+    "popper.js": "^1.15.0",
     "react": "^16.2.0",
     "react-bootstrap": "0.32.1",
     "react-dom": "^16.2.0",
@@ -33,6 +40,7 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
+    "dist": "mkdir dist && cp -r package.json things build index.js dist/",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
