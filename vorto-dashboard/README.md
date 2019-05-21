@@ -8,28 +8,21 @@ Integrated IoT devices can be displayed and data visualized.
 ## Installation
 ```bash
 cd vorto_dashboard
-yarn install # please use yarn here to avoid any problems
+npm install
 
 # start the react dashboard
 npm start
 
 # start the "backend"
-node index.js
+node index.js <PATH_TO_CONFIG.JSON>
 ```
 
 <br />
 
 ## Setup Things
-1. Create BoschID account
-1. Subscribe to Suite for Asset Communication (Beta)
-1. Set the namespace in the Asset Communication Dashbard. This is needed to create things.
-1. Go to profile -> OAuth2 Clients
-1. Create new client (Check the Things checkbox)
-1. Copy Client ID, Client secret, scope into the config.json file.
-1. Create Things
-1. For each device, add an Entry at the policies tab with type "suite-auth" and the clientID from your auth client. Grant thing READ access.
-
-> Once you start the dashboard, all your devices should now be listed and by default, their values will be updated every 5 seconds.
+When integrating devices, pleace consult the following resources:
+- [Vorto Tutorials](https://github.com/eclipse/vorto/tree/development/docs/tutorials)
+- [Vorto Video Walkthrough](https://www.youtube.com/watch?v=ZuZsNWSUvPY&list=UU9_Bk9247GgJ3k9O7yxctFg)
 
 <br />
 
@@ -38,27 +31,17 @@ If you want to implement custom cards for your own function blocks, [**this shor
 
 <br />
 
-## Creating a new release
-Since development on this project is done using a development server with tools like hot-module reloading etc. to allow for a convenient development environment, we have to ... TODO
+## Publishing a new release
+Once changes have been merged into `master` and a new release tag has been created, an automated travis-ci job will be triggered that publishes the new version to [NPM](https://www.npmjs.com/).
 
-**1.** Build the project at the current state by executing `npm run build`. This will create/update the content in the `build` folder with the latest state of the project.
+Triggering a new release is done by pushing a new tag to master. 
+```bash
+# updating the version of the dashboard npm package (in package.json)
+npm version x.y.z 
 
-**2.** Copy the following elements into the `dist` folder.
-- `build` folder
-- `things` folder
-- `config.json` file
-- `index.js` file
-- `package.json` file
+# tag new version
+git tag x.y.z
 
-**3.** Edit the `package.json` file and remove the `devDependencies` attribute. Replace the `scripts` section with
-```json
-"scripts": {
-    "start": "node index.js"
-  }
+# push the tag
+git push --tags
 ```
-
-**4.** Make sure to remove the OAuth2 Credentials from the `config.json` file
-
-**5.** Select all the files and zip them into a package called `vorto_dashboard.zip`.
-
-**6.** Create a Pull Request to update the version that get's distributed through the Vorto Repository Generators
