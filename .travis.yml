@@ -21,14 +21,17 @@ jobs:
         - echo "Installing dependencies"
         - yarn install
       
-      script:
+      after_success:
         - echo "Creating build"
         - npm run build
         - npm run dist
+        
+      before_deploy:
         - cd dist
         
       deploy:
         provider: npm
+        skip_cleanup: true
         email: Alexander.Edelmann@bosch-si.com
         api_key:
           secure: "$NPM_API_TOKEN"
