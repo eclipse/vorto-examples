@@ -32,13 +32,13 @@ jobs:
       deploy:
         provider: npm
         skip_cleanup: true
-        email: Alexander.Edelmann@bosch-si.com
+        email: fixed-term.tim.grossmann@sg.bosch.com
         api_key:
           secure: "$NPM_API_TOKEN"
         on:
           branches:
             only:
-              - npm
+              - patch-4
   
   
     - stage: deploy
@@ -72,13 +72,10 @@ jobs:
         - export TRAVIS_COMMIT_SHORT=$(git rev-parse --short HEAD)
         - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_JOB_NUMBER}_${TRAVIS_COMMIT_SHORT}"
         - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
-        - export AWS_DEFAULT_REGION=$VORTO_S3_REGION
-        - export AWS_ACCESS_KEY_ID="$VORTO_AWS_ACCESS_KEY"
-        - export AWS_SECRET_ACCESS_KEY="$VORTO_AWS_SECRET_KEY"
 
       deploy:
           provider: script
-          script : bash build-scripts/deploy_jar_with_images.sh
+          script : "echo 'deploying generators'"
           skip_cleanup: true
           on:
-            branch: master
+            branch: patch-4
