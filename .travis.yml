@@ -1,45 +1,86 @@
 sudo: required
 dist: trusty
 
-language: java
-
-services:
-  - docker
-
-jdk: oraclejdk8
-
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-
-before_install:
-  - echo "MAVEN_OPTS='-Xms1g -Xmx2g'" > ~/.mavenrc
-
-install:
-  - "echo 'installing awscli'"
-  - pip install --user awscli
-
-script:
-  - cd vorto-generators
-  - mvn -q clean install
-  - if [ -n "$TRAVIS_TAG" ]; then
-    docker build --build-arg JAR_FILE=./generator-runner/target/generator-runner-3rd-party-exec.jar -f docker/Generators_Dockerfile -t eclipsevorto/vorto-generators-3rd-party:latest .;
-    docker build --build-arg JAR_FILE=./generator-runner/target/generator-runner-3rd-party-exec.jar -f docker/Generators_Dockerfile -t eclipsevorto/vorto-generators-3rd-party:$TRAVIS_TAG .;
-    fi;
-
-before_deploy:
-  - export TRAVIS_COMMIT_SHORT=$(git rev-parse --short HEAD)
-  - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_JOB_NUMBER}_${TRAVIS_COMMIT_SHORT}"
-  - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
-  - export AWS_DEFAULT_REGION=$VORTO_S3_REGION
-  - export AWS_ACCESS_KEY_ID="$VORTO_AWS_ACCESS_KEY"
-  - export AWS_SECRET_ACCESS_KEY="$VORTO_AWS_SECRET_KEY"
-
-deploy:
-  - provider: script
-    script : bash build-scripts/deploy_jar_with_images.sh
-    skip_cleanup: true
-    on:
-      branch: master
+jobs:
+  include:
+    - stage: deploy
+      name: "Publish Vorto-Dashboard to NPM"
+      language: node_js
+      node_js:
+        - '10'
+        
+      cache:
+        yarn: true
+        directories:
+          - ~/.cache
       
+      before_install:
+        - cd vorto-dashboard
+      
+      install:
+        - echo "Installing dependencies"
+        - yarn install
+      
+      after_success:
+        - echo "Creating build"
+        - npm run build
+        - npm run dist
+        
+      before_deploy:
+        - echo "Preparing for deploy to NPM" 
+        - cd dist
+        
+      deploy:
+        provider: npm
+        skip_cleanup: true
+        email: Alexander.Edelmann@bosch-si.com
+        api_key:
+          secure: $NPM_API_TOKEN
+        on:
+          tags: true
+          branches:
+            only:
+              - master
+  
+  
+    - stage: deploy
+      name: "Deploy Generators"
+      language: java
+      jdk: oraclejdk8
 
+      services:
+        - docker
+        
+      cache:
+        directories:
+          - '$HOME/.m2/repository'
+
+      before_install:
+        - echo "MAVEN_OPTS='-Xms1g -Xmx2g'" > ~/.mavenrc
+
+      install:
+        - "echo 'installing awscli'"
+        - pip install --user awscli
+
+      script:
+        - cd vorto-generators
+        - mvn -q clean install
+        - if [ -n "$TRAVIS_TAG" ]; then
+          docker build --build-arg JAR_FILE=./generator-runner/target/generator-runner-3rd-party-exec.jar -f docker/Generators_Dockerfile -t eclipsevorto/vorto-generators-3rd-party:latest .;
+          docker build --build-arg JAR_FILE=./generator-runner/target/generator-runner-3rd-party-exec.jar -f docker/Generators_Dockerfile -t eclipsevorto/vorto-generators-3rd-party:$TRAVIS_TAG .;
+          fi;
+
+      before_deploy:
+        - export TRAVIS_COMMIT_SHORT=$(git rev-parse --short HEAD)
+        - export ELASTIC_BEANSTALK_LABEL="${TRAVIS_JOB_NUMBER}_${TRAVIS_COMMIT_SHORT}"
+        - export ELASTIC_BEANSTALK_DESCRIPTION="Build ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} example-generator-exec.jar"
+        - export AWS_DEFAULT_REGION=$VORTO_S3_REGION
+        - export AWS_ACCESS_KEY_ID="$VORTO_AWS_ACCESS_KEY"
+        - export AWS_SECRET_ACCESS_KEY="$VORTO_AWS_SECRET_KEY"
+
+      deploy:
+          provider: script
+          script : bash build-scripts/deploy_jar_with_images.sh
+          skip_cleanup: true
+          on:
+            branch: master
