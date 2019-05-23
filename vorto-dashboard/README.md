@@ -15,6 +15,13 @@ npm install -g vorto-dashboard
 
 > **Note** that we are installing it as a global dependency which will allow you to call `vorto-dashboard` from your command line.
 
+<br />
+
+#### Setup Things
+When integrating devices, pleace consult the following resources:
+- [Vorto Dashboard Tutorial](https://github.com/eclipse/vorto/blob/master/docs/tutorials/create_webapp_dashboard.md)
+- [Vorto Video Walkthrough](https://www.youtube.com/watch?v=ZuZsNWSUvPY&list=UU9_Bk9247GgJ3k9O7yxctFg)
+
 ---
 
 <br />
@@ -33,13 +40,6 @@ npm start
 # start the "backend"
 node index.js <PATH_TO_CONFIG.JSON>
 ```
-
-<br />
-
-#### Setup Things
-When integrating devices, pleace consult the following resources:
-- [Vorto Dashboard Tutorial](https://github.com/eclipse/vorto/blob/master/docs/tutorials/create_webapp_dashboard.md)
-- [Vorto Video Walkthrough](https://www.youtube.com/watch?v=ZuZsNWSUvPY&list=UU9_Bk9247GgJ3k9O7yxctFg)
 
 <br />
 
