@@ -27,6 +27,7 @@ jobs:
         - npm run dist
         
       before_deploy:
+        - echo "Preparing for deploy to NPM" 
         - cd dist
         
       deploy:
@@ -36,9 +37,7 @@ jobs:
         api_key:
           secure: "$NPM_API_TOKEN"
         on:
-          branches:
-            only:
-              - npm
+          branch: npm
   
   
     - stage: deploy
