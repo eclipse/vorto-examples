@@ -1,17 +1,17 @@
 {
   "name": "vorto-dashboard",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "preferGlobal": true,
   "bin": {
     "vorto-dashboard": "./index.js"
   },
   "keywords": [
     "vorto",
-    "dashboard",
     "eclipse",
+    "eclipsevorto"
+    "dashboard",
     "iot",
-    "boschiot",
-    "iotsuite"
+    "boschiotsuite"
   ],
   "main": "./index.js",
   "dependencies": {
