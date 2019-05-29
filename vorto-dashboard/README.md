@@ -15,6 +15,22 @@ npm install -g vorto-dashboard
 
 > **Note** that we are installing it as a global dependency which will allow you to call `vorto-dashboard` from your command line.
 
+You need to provide a configuration file to the vorto-dashboard call.
+```elm
+vorto-dashboard config.json
+```
+
+This has to be in the format of:
+```js
+// config.json template
+{
+  "client_id": "<YOUR_CLIENT_ID>",
+  "client_secret": "<YOUR_CLIENT_SECRET",
+  "scope": "<YOUR_SCOPE>",
+  "intervalMS": 10000
+}
+```
+
 <br />
 
 #### Setup Things
