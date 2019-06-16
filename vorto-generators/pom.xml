@@ -83,6 +83,7 @@
 		<module>org.eclipse.vorto.codegen.protobuf</module>
 		<module>org.eclipse.vorto.codegen.thingworx</module>
 		<module>org.eclipse.vorto.codegen.jsonschema</module>
+		<module>org.eclipse.vorto.codegen.azure</module>
 		<module>generator-runner</module>
 	</modules>
 
