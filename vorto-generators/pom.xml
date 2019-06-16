@@ -82,6 +82,7 @@
 		<module>org.eclipse.vorto.codegen.markdown</module>
 		<module>org.eclipse.vorto.codegen.protobuf</module>
 		<module>org.eclipse.vorto.codegen.thingworx</module>
+		<module>org.eclipse.vorto.codegen.jsonschema</module>
 		<module>generator-runner</module>
 	</modules>
 
