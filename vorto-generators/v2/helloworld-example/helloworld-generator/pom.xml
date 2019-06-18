@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.eclipse.vorto.plugins.generator.example</groupId>
+		<artifactId>helloworld</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>helloworld-generator</artifactId>
+	<name>Hello World Generator</name>
+	
+	<properties>
+		<xtext.version>2.16.0</xtext.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>generator-api</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>org.eclipse.vorto.core</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtext.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>xtend-install-debug-info</goal>
+								<goal>testCompile</goal>
+								<goal>xtend-test-install-debug-info</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<outputDirectory>xtend-gen</outputDirectory>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.4.1</version>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>${basedir}/src/main/xtend-gen</directory>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+		</plugins>
+	</build>
+
+</project>
