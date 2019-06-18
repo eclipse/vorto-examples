@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel;
 import org.eclipse.vorto.core.api.model.model.Model;
 import org.eclipse.vorto.model.ModelContent;
@@ -42,11 +42,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class GeneratorExecutionHandler implements RequestStreamHandler {
   
     private static final String PLUGINKEY = "pluginkey";
-    private static final Map<String, ICodeGenerator> generators = new HashMap<>();
+    private static final Set<ICodeGenerator> generators = new HashSet<>();
     
     static {
       //TODO: add your code generators here
-      generators.put("helloworld",new HelloWorldGenerator());
+      generators.add(new HelloWorldGenerator());
     }
     
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -60,10 +60,10 @@ public class GeneratorExecutionHandler implements RequestStreamHandler {
       
       ApiGatewayRequest request = ApiGatewayRequest.createFromJson(input);
 
-      final ICodeGenerator generator = generators.get(request.getPathParam(PLUGINKEY));
+      Optional<ICodeGenerator> generator = generators.stream().filter(gen -> gen.getMeta().getKey().equals(request.getPathParam(PLUGINKEY))).findAny();
       
-      if (generator == null) {
-        objectMapper.writeValue(output,createHttpReponse(400));
+      if (!generator.isPresent()) {
+        objectMapper.writeValue(output,createHttpReponse(404));
       } 
             
       ModelContent modelContent = mapper.readValue(request.getInput(), ModelContent.class);
@@ -77,7 +77,7 @@ public class GeneratorExecutionHandler implements RequestStreamHandler {
       InformationModel infomodel = Utils.toInformationModel(converted);
       
       try {
-        IGenerationResult generatorResult = generator.generate(infomodel, invocationContext);
+        IGenerationResult generatorResult = generator.get().generate(infomodel, invocationContext);
         ApiGatewayResponse validResponse = createResponse(generatorResult);
   
         OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
