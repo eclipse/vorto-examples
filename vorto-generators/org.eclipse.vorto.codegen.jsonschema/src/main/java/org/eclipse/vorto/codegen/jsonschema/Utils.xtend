@@ -14,9 +14,9 @@
  *******************************************************************************/
 package org.eclipse.vorto.codegen.jsonschema
 
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.codegen.jsonschema.templates.ConstraintTemplate
 import org.eclipse.vorto.core.api.model.datatype.ConstraintRule
+import org.eclipse.vorto.plugin.generator.InvocationContext
 
 class Utils {
 	var static ConstraintTemplate constraintTemplate = new ConstraintTemplate()

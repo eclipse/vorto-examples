@@ -15,7 +15,6 @@
 package org.eclipse.vorto.codegen.protobuf.templates
 
 import java.util.List
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.core.api.model.datatype.Property
 import org.eclipse.vorto.core.api.model.functionblock.FunctionblockModel
 import org.eclipse.vorto.core.api.model.functionblock.Param
@@ -24,6 +23,7 @@ import org.eclipse.vorto.core.api.model.functionblock.RefParam
 import org.eclipse.vorto.core.api.model.functionblock.ReturnObjectType
 import org.eclipse.vorto.core.api.model.functionblock.ReturnPrimitiveType
 import org.eclipse.vorto.core.api.model.functionblock.ReturnType
+import org.eclipse.vorto.plugin.generator.InvocationContext
 
 class ProtobufFBTemplate extends ProtobufTemplate<FunctionblockModel> {
 

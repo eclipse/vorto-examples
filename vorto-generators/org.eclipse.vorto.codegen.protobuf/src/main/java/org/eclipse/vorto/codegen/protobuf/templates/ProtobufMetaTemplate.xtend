@@ -1,8 +1,8 @@
 package org.eclipse.vorto.codegen.protobuf.templates
 
-import org.eclipse.vorto.codegen.api.IFileTemplate
 import org.eclipse.vorto.core.api.model.model.Model
-import org.eclipse.vorto.codegen.api.InvocationContext
+import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
 
 class ProtobufMetaTemplate implements IFileTemplate<Model> {
 	

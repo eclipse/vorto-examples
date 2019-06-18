@@ -15,13 +15,13 @@
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
 			<artifactId>org.eclipse.vorto.core</artifactId>
-			<version>${vorto.version}</version>
+			<version>0.11.0-SNAPSHOT</version>
 		</dependency>
 	
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>generator-api</artifactId>
-			<version>${vorto.version}</version>
+			<artifactId>plugin-api</artifactId>
+			<version>0.11.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>

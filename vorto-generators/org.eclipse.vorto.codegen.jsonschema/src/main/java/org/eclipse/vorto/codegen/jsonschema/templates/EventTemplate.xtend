@@ -14,11 +14,11 @@
  *******************************************************************************/
 package org.eclipse.vorto.codegen.jsonschema.templates;
 
-import org.eclipse.vorto.codegen.api.ITemplate
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.core.api.model.datatype.Property
 import org.eclipse.vorto.core.api.model.functionblock.Event
 import org.eclipse.vorto.core.api.model.functionblock.FunctionblockModel
+import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.plugin.generator.utils.ITemplate
 
 class EventTemplate implements ITemplate<Event>{
 	

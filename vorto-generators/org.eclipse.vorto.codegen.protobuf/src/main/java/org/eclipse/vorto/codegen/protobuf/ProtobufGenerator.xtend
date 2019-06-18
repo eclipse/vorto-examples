@@ -14,29 +14,29 @@
  *******************************************************************************/
 package org.eclipse.vorto.codegen.protobuf
 
-import org.eclipse.vorto.codegen.api.GenerationResultZip
-import org.eclipse.vorto.codegen.api.GeneratorTaskFromFileTemplate
-import org.eclipse.vorto.codegen.api.IVortoCodeGenProgressMonitor
-import org.eclipse.vorto.codegen.api.IVortoCodeGenerator
-import org.eclipse.vorto.codegen.api.InvocationContext
-import org.eclipse.vorto.codegen.api.VortoCodeGeneratorException
 import org.eclipse.vorto.codegen.protobuf.templates.ProtobufEntityTemplate
 import org.eclipse.vorto.codegen.protobuf.templates.ProtobufEnumTemplate
 import org.eclipse.vorto.codegen.protobuf.templates.ProtobufFBTemplate
 import org.eclipse.vorto.codegen.protobuf.templates.ProtobufIMTemplate
-import org.eclipse.vorto.codegen.utils.Utils
+import org.eclipse.vorto.codegen.protobuf.templates.ProtobufMetaTemplate
 import org.eclipse.vorto.core.api.model.datatype.Entity
 import org.eclipse.vorto.core.api.model.datatype.Enum
 import org.eclipse.vorto.core.api.model.informationmodel.FunctionblockProperty
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
-import org.eclipse.vorto.codegen.protobuf.templates.ProtobufMetaTemplate
-import org.eclipse.vorto.codegen.api.GeneratorInfo
+import org.eclipse.vorto.plugin.generator.GeneratorException
+import org.eclipse.vorto.plugin.generator.GeneratorPluginInfo
+import org.eclipse.vorto.plugin.generator.ICodeGenerator
+import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.plugin.generator.utils.GenerationResultZip
+import org.eclipse.vorto.plugin.generator.utils.GeneratorTaskFromFileTemplate
+import org.eclipse.vorto.plugin.utils.Utils
 
-class ProtobufGenerator implements IVortoCodeGenerator {
+class ProtobufGenerator implements ICodeGenerator {
+	
+	static val String KEY = "protobuf"
 
-	override generate(InformationModel infomodel, InvocationContext context,
-			IVortoCodeGenProgressMonitor monitor) throws VortoCodeGeneratorException {
-		var output = new GenerationResultZip(infomodel,getServiceKey());
+	override generate(InformationModel infomodel, InvocationContext context) throws GeneratorException {
+		var output = new GenerationResultZip(infomodel,KEY);
 		
 		var metaTemplate = new GeneratorTaskFromFileTemplate(new ProtobufMetaTemplate())
 		metaTemplate.generate(infomodel,context,output)
@@ -61,12 +61,12 @@ class ProtobufGenerator implements IVortoCodeGenerator {
 		return output
 	}
 	
-	override getServiceKey() {
-		return "protobuf";
-	}
-	
-	override GeneratorInfo getInfo() {
-		return GeneratorInfo.basicInfo("Google Protobuf",
-			"Generates Google RPC services and protobuf messages for Vorto Information Models", "Vorto Community");
+	override getMeta() {
+		return GeneratorPluginInfo.Builder(KEY)
+			.withDescription("Generates Google RPC services and protobuf messages")
+			.withName("Google Protobuf")
+			.withDocumentationUrl("https://json-schema.org")
+			.withVendor("Eclipse Vorto Team")
+			.build
 	}
 }

@@ -15,10 +15,10 @@
 package org.eclipse.vorto.codegen.jsonschema.templates;
 
 import java.util.ArrayList
-import org.eclipse.vorto.codegen.api.IFileTemplate
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.core.api.model.datatype.Property
 import org.eclipse.vorto.core.api.model.functionblock.FunctionblockModel
+import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
 
 class PropertiesTemplate implements IFileTemplate<FunctionblockModel> {
 	

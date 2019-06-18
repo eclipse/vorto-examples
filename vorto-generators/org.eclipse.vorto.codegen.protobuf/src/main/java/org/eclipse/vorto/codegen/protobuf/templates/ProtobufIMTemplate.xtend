@@ -14,8 +14,8 @@
  *******************************************************************************/
 package org.eclipse.vorto.codegen.protobuf.templates
 
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
+import org.eclipse.vorto.plugin.generator.InvocationContext
 
 class ProtobufIMTemplate extends ProtobufTemplate<InformationModel> {
 	

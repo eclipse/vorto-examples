@@ -15,8 +15,9 @@
 package org.eclipse.vorto.codegen.protobuf.templates
 
 import java.util.List
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.core.api.model.datatype.Entity
+import org.eclipse.vorto.core.api.model.datatype.Property
+import org.eclipse.vorto.plugin.generator.InvocationContext
 
 class ProtobufEntityTemplate extends ProtobufTemplate<Entity> {
 
@@ -42,7 +43,7 @@ class ProtobufEntityTemplate extends ProtobufTemplate<Entity> {
 		'''
 	}
 	
-	def generateMessageProperties(List<org.eclipse.vorto.core.api.model.datatype.Property> properties) {
+	def generateMessageProperties(List<Property> properties) {
 		'''
 			«IF properties != null»
 				«var counter = 1»

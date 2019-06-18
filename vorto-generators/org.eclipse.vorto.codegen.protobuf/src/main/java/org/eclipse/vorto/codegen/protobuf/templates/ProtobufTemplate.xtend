@@ -14,13 +14,13 @@
  *******************************************************************************/
 package org.eclipse.vorto.codegen.protobuf.templates
 
-import org.eclipse.vorto.codegen.api.IFileTemplate
 import org.eclipse.vorto.core.api.model.datatype.DictionaryPropertyType
 import org.eclipse.vorto.core.api.model.datatype.ObjectPropertyType
 import org.eclipse.vorto.core.api.model.datatype.PrimitivePropertyType
 import org.eclipse.vorto.core.api.model.datatype.PrimitiveType
 import org.eclipse.vorto.core.api.model.datatype.PropertyType
 import org.eclipse.vorto.core.api.model.model.Model
+import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
 
 abstract class ProtobufTemplate<T extends Model> implements IFileTemplate<T> {
 	

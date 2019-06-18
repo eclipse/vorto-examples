@@ -15,14 +15,14 @@
 package org.eclipse.vorto.codegen.jsonschema.templates;
 
 import java.util.List
-import org.eclipse.vorto.codegen.api.ITemplate
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.codegen.jsonschema.Utils
 import org.eclipse.vorto.core.api.model.datatype.Entity
 import org.eclipse.vorto.core.api.model.datatype.Enum
 import org.eclipse.vorto.core.api.model.datatype.ObjectPropertyType
 import org.eclipse.vorto.core.api.model.datatype.PrimitivePropertyType
 import org.eclipse.vorto.core.api.model.datatype.Property
+import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.plugin.generator.utils.ITemplate
 
 class EntityTemplate implements ITemplate<Entity>{
 	val static EnumTemplate enumValidationTemplate = new EnumTemplate();

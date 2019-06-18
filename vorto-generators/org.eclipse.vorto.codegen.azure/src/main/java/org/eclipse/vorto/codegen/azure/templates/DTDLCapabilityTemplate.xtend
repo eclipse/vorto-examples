@@ -1,8 +1,6 @@
 package org.eclipse.vorto.codegen.azure.templates
 
 import java.util.ArrayList
-import org.eclipse.vorto.codegen.api.IFileTemplate
-import org.eclipse.vorto.codegen.api.InvocationContext
 import org.eclipse.vorto.core.api.model.datatype.DictionaryPropertyType
 import org.eclipse.vorto.core.api.model.datatype.Entity
 import org.eclipse.vorto.core.api.model.datatype.Enum
@@ -13,6 +11,8 @@ import org.eclipse.vorto.core.api.model.datatype.PropertyType
 import org.eclipse.vorto.core.api.model.functionblock.Configuration
 import org.eclipse.vorto.core.api.model.functionblock.FunctionBlock
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
+import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
 
 class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 	

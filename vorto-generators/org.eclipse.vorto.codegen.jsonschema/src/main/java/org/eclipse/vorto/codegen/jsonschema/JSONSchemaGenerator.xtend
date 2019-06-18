@@ -14,22 +14,22 @@
  *******************************************************************************/
 package org.eclipse.vorto.codegen.jsonschema
 
-import org.eclipse.vorto.codegen.api.GenerationResultZip
-import org.eclipse.vorto.codegen.api.GeneratorInfo
-import org.eclipse.vorto.codegen.api.IVortoCodeGenProgressMonitor
-import org.eclipse.vorto.codegen.api.IVortoCodeGenerator
-import org.eclipse.vorto.codegen.api.InvocationContext
-import org.eclipse.vorto.codegen.api.VortoCodeGeneratorException
-import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
-import org.eclipse.vorto.core.api.model.informationmodel.FunctionblockProperty
-import org.eclipse.vorto.codegen.api.GeneratorTaskFromFileTemplate
 import org.eclipse.vorto.codegen.jsonschema.templates.PropertiesTemplate
+import org.eclipse.vorto.core.api.model.informationmodel.FunctionblockProperty
+import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
+import org.eclipse.vorto.plugin.generator.GeneratorException
+import org.eclipse.vorto.plugin.generator.GeneratorPluginInfo
+import org.eclipse.vorto.plugin.generator.ICodeGenerator
+import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.plugin.generator.utils.GenerationResultZip
+import org.eclipse.vorto.plugin.generator.utils.GeneratorTaskFromFileTemplate
 
-class JSONSchemaGenerator implements IVortoCodeGenerator {
+class JSONSchemaGenerator implements ICodeGenerator {
+	
+	val static String KEY = "jsonschema"
 
-	override generate(InformationModel infomodel, InvocationContext context,
-			IVortoCodeGenProgressMonitor monitor) throws VortoCodeGeneratorException {
-		var output = new GenerationResultZip(infomodel,getServiceKey());
+	override generate(InformationModel infomodel, InvocationContext context) throws GeneratorException {
+		var output = new GenerationResultZip(infomodel,KEY);
 		
 		for (FunctionblockProperty fbProperty : infomodel.getProperties()) {
 		 	new GeneratorTaskFromFileTemplate(new PropertiesTemplate()).generate(fbProperty.type,context,output);
@@ -38,12 +38,12 @@ class JSONSchemaGenerator implements IVortoCodeGenerator {
 		return output
 	}
 	
-	override getServiceKey() {
-		return "jsonschema";
-	}
-	
-	override GeneratorInfo getInfo() {
-		return GeneratorInfo.basicInfo("JSON Schema",
-			"Generates JSON Schema from Vorto Models", "Vorto Community");
+	override getMeta() {
+		return GeneratorPluginInfo.Builder(KEY)
+			.withDescription("Generates JSON Schema from Vorto Models")
+			.withName("JSON Schema")
+			.withDocumentationUrl("https://json-schema.org")
+			.withVendor("Eclipse Vorto Team")
+			.build
 	}
 }
