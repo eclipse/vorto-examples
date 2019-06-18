@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2018 Contributors to the Eclipse Foundation
+ *
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 package org.eclipse.vorto.plugins.generator.example;
 
 import java.io.IOException;
@@ -5,33 +17,32 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
-import org.eclipse.vorto.codegen.api.IGenerationResult;
-import org.eclipse.vorto.codegen.api.IVortoCodeGenerator;
-import org.eclipse.vorto.codegen.api.InvocationContext;
-import org.eclipse.vorto.codegen.api.VortoCodeGeneratorException;
-import org.eclipse.vorto.codegen.utils.ApiGatewayResponse;
-import org.eclipse.vorto.codegen.utils.ObjectMapperFactory;
-import org.eclipse.vorto.codegen.utils.Utils;
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel;
 import org.eclipse.vorto.core.api.model.model.Model;
 import org.eclipse.vorto.model.ModelContent;
 import org.eclipse.vorto.model.conversion.ModelContentToEcoreConverter;
-import org.eclipse.vorto.plugins.generator.example.HelloWorldGenerator;
+import org.eclipse.vorto.plugin.generator.GeneratorException;
+import org.eclipse.vorto.plugin.generator.ICodeGenerator;
+import org.eclipse.vorto.plugin.generator.IGenerationResult;
+import org.eclipse.vorto.plugin.generator.InvocationContext;
+import org.eclipse.vorto.plugin.generator.adapter.ObjectMapperFactory;
+import org.eclipse.vorto.plugin.utils.ApiGatewayRequest;
+import org.eclipse.vorto.plugin.utils.ApiGatewayResponse;
+import org.eclipse.vorto.plugin.utils.Utils;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Lambda Function that invokes a generator based on the plugin key query param
+ * Lambda Function that acts as a generator gateway and delegates generation request to our generator implementations.
  *
  */
 public class GeneratorExecutionHandler implements RequestStreamHandler {
   
-    private static final Map<String, IVortoCodeGenerator> generators = new HashMap<>();
+    private static final String PLUGINKEY = "pluginkey";
+    private static final Map<String, ICodeGenerator> generators = new HashMap<>();
     
     static {
       //TODO: add your code generators here
@@ -47,70 +58,49 @@ public class GeneratorExecutionHandler implements RequestStreamHandler {
       
       ObjectMapper mapper = ObjectMapperFactory.getInstance();
       
-      JsonNode inputJson = mapper.readTree(input);
-      
-      String pluginkey =  inputJson.get("pathParameters").get("pluginkey").asText();
+      ApiGatewayRequest request = ApiGatewayRequest.createFromJson(input);
 
-      final IVortoCodeGenerator generator = generators.get(pluginkey);
+      final ICodeGenerator generator = generators.get(request.getPathParam(PLUGINKEY));
       
       if (generator == null) {
-        ApiGatewayResponse response = ApiGatewayResponse.builder()
-            .setStatusCode(400)
-            .build();
-        objectMapper.writeValue(output, response); 
-        return;
+        objectMapper.writeValue(output,createHttpReponse(400));
       } 
-      
-      String modelAsString =  inputJson.get("body").asText();
-      
-      Map<String,String> params = new HashMap<>();
-      if (!inputJson.get("queryStringParameters").isNull()) {
-        Iterator<String> iter = inputJson.get("queryStringParameters").fieldNames();
-        while(iter.hasNext()) {
-          String fieldName = iter.next();
-          params.put(fieldName, inputJson.get("queryStringParameters").get(fieldName).asText());
-        }
-      }
-      
-      ModelContent modelContent = null;
-      if (inputJson.get("isBase64Encoded").asBoolean() == true) {
-        modelContent = mapper.readValue(com.amazonaws.util.Base64.decode(modelAsString.getBytes()), ModelContent.class);
-      } else {
-        modelContent = mapper.readValue(modelAsString.getBytes(), ModelContent.class);
-      }
-     
-      
+            
+      ModelContent modelContent = mapper.readValue(request.getInput(), ModelContent.class);
+            
       ModelContentToEcoreConverter converter = new ModelContentToEcoreConverter();
       
       Model converted = converter.convert(modelContent, Optional.empty());
       
-      InvocationContext invocationContext = InvocationContext.simpleInvocationContext(params);
+      InvocationContext invocationContext = InvocationContext.simpleInvocationContext(request.getQueryParams());
       
       InformationModel infomodel = Utils.toInformationModel(converted);
       
       try {
-        IGenerationResult generatorResult = generator.generate(infomodel, invocationContext, null);
+        IGenerationResult generatorResult = generator.generate(infomodel, invocationContext);
         ApiGatewayResponse validResponse = createResponse(generatorResult);
   
         OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
         writer.write(objectMapper.writeValueAsString(validResponse));
         writer.close();
-      } catch (VortoCodeGeneratorException e) {
-        ApiGatewayResponse response = ApiGatewayResponse.builder()
-            .setStatusCode(500)
-            .build(); 
+      } catch (GeneratorException e) {
+        ApiGatewayResponse response = createHttpReponse(500); 
         objectMapper.writeValue(output, response); 
       }
     }
 
+    private ApiGatewayResponse createHttpReponse(int errorCode) {
+      ApiGatewayResponse response = ApiGatewayResponse.builder()
+          .setStatusCode(errorCode)
+          .build();
+      return response;
+    }
+
     private ApiGatewayResponse createResponse(IGenerationResult generatorResult) {
-      Map<String, String> headers = new HashMap<>();
-      headers.put("Content-Type", "application/octet-stream");
-      headers.put("Content-Disposition","attachment; filename=\""+generatorResult.getFileName()+"\"");
       return ApiGatewayResponse.builder()
-              .setStatusCode(200)
+              .addHeader("Content-Type", "application/octet-stream")
+              .addHeader("Content-Disposition", "attachment; filename=\""+generatorResult.getFileName()+"\"")
               .setBinaryBody(generatorResult.getContent())
-              .setHeaders(headers)
               .build();
     }
 }

@@ -16,7 +16,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.vorto</groupId>
-			<artifactId>generator-api</artifactId>
+			<artifactId>plugin-api</artifactId>
 			<version>${vorto.version}</version>
 		</dependency>
 		<dependency>
