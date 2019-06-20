@@ -1,11 +1,11 @@
-# Vorto Code Generator Plugins
+# Vorto Generator Plugins
 
-Here is a list of code generator Vorto plugins that have been implemented by the Vorto community for you to try and use as a reference to get inspired and implement your own code generator or simply use it in your project:
+Vorto Generator Plugins provide a way to convert Vorto models to platform specific source code. We developed a variety of different code generators, which you can use as a starting point and to get inspired to create your own.  
 
 ## Create your own Generator Plugin
 
+- [Read more](https://github.com/eclipse/vorto/blob/development/plugin-sdk/plugin-api/Readme.md)
 - [Hello World Generator (as AWS Lambda)](v2/helloworld-example)
-- [Plugin API Documentation](https://github.com/eclipse/vorto/blob/development/plugin-sdk/plugin-api/Readme.md)
  
 ## Example Generators
 
