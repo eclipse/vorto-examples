@@ -26,6 +26,7 @@ import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
 class HelloWorldGenerator implements ICodeGenerator {
 	
 	val String KEY = "helloworld"
+	val String KEY_LANG = "lang"
 
 	val static String LOGO_144x144 = "<base64 encoded logo>";
   	val static String LOGO_32x32 = "<base64 encoded logo>";
@@ -44,7 +45,8 @@ class HelloWorldGenerator implements ICodeGenerator {
 	override getMeta() {
 		return GeneratorPluginInfo.Builder(KEY)
 			// Defines configuration params that can be passed to the generator at runtime
-			.withConfigurationTemplate(ConfigTemplateBuilder.builder.withChoiceConfigurationItem("lang","Language",ChoiceItem.of("English","en"),ChoiceItem.of("German","de")).build)
+			.withConfigurationKey(KEY_LANG)
+			.withConfigurationTemplate(ConfigTemplateBuilder.builder.withChoiceConfigurationItem(KEY_LANG,"Language",ChoiceItem.of("English","en"),ChoiceItem.of("German","de")).build)
 			.withImage32x32(LOGO_32x32)
 			.withImage144x144(LOGO_144x144)
 			.withName("Hello World Generator")
@@ -66,16 +68,16 @@ class HelloWorldGenerator implements ICodeGenerator {
 		
 		override getContent(InformationModel model, InvocationContext context) {
 			'''
-			«IF context.configurationProperties.getOrDefault("lang","undefined").equals("en")»
-			// Generated from the following model '«model.namespace»:«model.name»:«model.version»'
-			Hello «model.name»
-			«ELSEIF context.configurationProperties.getOrDefault("lang","undefined").equals("de")»
-			// Generiert mit folgendem Modell '«model.namespace»:«model.name»:«model.version»'
-			Hallo «model.name»
-			«ELSE»
-			// Generated from the following model '«model.namespace»:«model.name»:«model.version»'
-			Hello «model.name»
-			«ENDIF»
+			Â«IF context.configurationProperties.getOrDefault(KEY_LANG,"undefined").equals("en")Â»
+			// Generated from the following model 'Â«model.namespaceÂ»:Â«model.nameÂ»:Â«model.versionÂ»'
+			Hello Â«model.nameÂ»
+			Â«ELSEIF context.configurationProperties.getOrDefault(KEY_LANG,"undefined").equals("de")Â»
+			// Generiert mit folgendem Modell 'Â«model.namespaceÂ»:Â«model.nameÂ»:Â«model.versionÂ»'
+			Hallo Â«model.nameÂ»
+			Â«ELSEÂ»
+			// Generated from the following model 'Â«model.namespaceÂ»:Â«model.nameÂ»:Â«model.versionÂ»'
+			Hello Â«model.nameÂ»
+			Â«ENDIFÂ»
 			
 			'''
 		}
