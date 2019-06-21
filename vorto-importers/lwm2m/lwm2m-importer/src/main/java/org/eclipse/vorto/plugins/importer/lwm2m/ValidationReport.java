@@ -12,31 +12,27 @@
  */
 package org.eclipse.vorto.plugins.importer.lwm2m;
 
-import org.eclipse.vorto.model.ModelId;
-
 public class ValidationReport {
 
 	private boolean valid;
 	private String message;
-	private ModelId modelId;
-	
+		
 	protected ValidationReport() {
 		
 	}
 	
-	public static ValidationReport valid(ModelId modelId, String message) {
-		return new ValidationReport(modelId, true, message);
+	public static ValidationReport valid(String message) {
+		return new ValidationReport(true, message);
 	}
 	
 	public static ValidationReport invalid(String message) {
-		return new ValidationReport(null,false, message);
+		return new ValidationReport(false, message);
 	}
 
-	private ValidationReport(ModelId modelId, boolean valid, String message) {
+	private ValidationReport(boolean valid, String message) {
 		super();
 		this.valid = valid;
 		this.message = message;
-		this.modelId = modelId;
 	}
 
 	public boolean isValid() {
@@ -51,16 +47,5 @@ public class ValidationReport {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-	public ModelId getModelId() {
-		return modelId;
-	}
-
-	public void setModelId(ModelId modelId) {
-		this.modelId = modelId;
-	}
-	
-	
-	
 	
 }
