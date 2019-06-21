@@ -46,8 +46,7 @@ public class ModelImporterIPSO {
 			if (lwm2m.getObject().isEmpty()) {
 				return ValidationReport.invalid("File does not contain any object definitions.");
 			} else {
-				return ValidationReport.valid(createModelId(lwm2m.getObject().get(0)),
-						"File is a valid LwM2M description");
+				return ValidationReport.valid("File is a valid LwM2M description");
 			}
 
 		} catch (Exception ex) {
