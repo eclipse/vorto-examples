@@ -4,7 +4,7 @@
     "LwM2MValidator": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "org.eclipse.vorto.importer.plugins.importer.example.lwm2m.ValidatorHandler",
+        "Handler": "org.eclipse.vorto.plugins.importer.example.lwm2m.ValidatorHandler",
         "Runtime" : "java8",
         "CodeUri" : "./target/lwm2m-lambda-validator-1.0.0.jar"
       }
