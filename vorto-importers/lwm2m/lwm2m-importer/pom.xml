@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.eclipse.vorto.plugins.importer.lwm2m</groupId>
-		<artifactId>lwm2m-parent</artifactId>
+		<groupId>org.eclipse.vorto.plugins.importer.example.lwm2m</groupId>
+		<artifactId>parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>lwm2m-importer</artifactId>
@@ -58,6 +58,18 @@
 			<groupId>org.eclipse.xtend</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
 			<version>${xtext.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

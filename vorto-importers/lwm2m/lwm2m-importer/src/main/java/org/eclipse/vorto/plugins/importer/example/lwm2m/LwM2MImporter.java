@@ -10,28 +10,27 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.eclipse.vorto.plugins.importer.lwm2m;
+package org.eclipse.vorto.plugins.importer.example.lwm2m;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
-
 import org.eclipse.vorto.model.ModelId;
-import org.eclipse.vorto.plugins.importer.lwm2m.LWM2M.Object;
+import org.eclipse.vorto.plugins.importer.example.lwm2m.LWM2M.Object;
+
 
 /**
  * Imports (a bulk of) LwM2M XML definitions to the Vorto Repository by
  * converting them to Vorto Function Blocks and Mapping files
  *
  */
-public class ModelImporterIPSO {
+public class LwM2MImporter {
 
 	private static final String NAMESPACE = "com.ipso.smartobjects";
 	private static final String VERSION = "1.1.0"; // set globally because object definitions do not
@@ -70,7 +69,7 @@ public class ModelImporterIPSO {
 		}
 	}
 
-	public String convert(InputStream fileInput) {
+	public byte[] convert(InputStream fileInput) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ZipOutputStream zip = new ZipOutputStream(baos);
 
@@ -99,7 +98,7 @@ public class ModelImporterIPSO {
 				}
 			}
 
-			return baos.toString("utf-8");
+			return baos.toByteArray();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

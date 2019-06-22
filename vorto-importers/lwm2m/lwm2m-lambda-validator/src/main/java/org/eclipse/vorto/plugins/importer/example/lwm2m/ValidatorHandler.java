@@ -10,21 +10,19 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.eclipse.vorto.importer.lwm2m;
+package org.eclipse.vorto.plugins.importer.example.lwm2m;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.vorto.plugin.utils.ApiGatewayRequest;
 import org.eclipse.vorto.plugin.utils.ApiGatewayResponse;
-import org.eclipse.vorto.plugins.importer.lwm2m.ModelImporterIPSO;
-import org.eclipse.vorto.plugins.importer.lwm2m.ValidationReport;
-
+import org.eclipse.vorto.plugins.importer.example.lwm2m.LwM2MImporter;
+import org.eclipse.vorto.plugins.importer.example.lwm2m.ValidationReport;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +38,7 @@ public class ValidatorHandler implements RequestStreamHandler {
 		
 		InputStream fis = new ByteArrayInputStream(request.getInput());
 
-		ModelImporterIPSO importer = new ModelImporterIPSO();
+		LwM2MImporter importer = new LwM2MImporter();
 
 		ValidationReport report = importer.validate(fis);
 

@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.eclipse.vorto.plugins.importer.lwm2m</groupId>
-		<artifactId>lwm2m-parent</artifactId>
+		<groupId>org.eclipse.vorto.plugins.importer.example.lwm2m</groupId>
+		<artifactId>parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>lwm2m-lambda-validator</artifactId>
@@ -42,7 +42,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipse.vorto.plugins.importer</groupId>
+			<groupId>org.eclipse.vorto.plugins.importer.example.lwm2m</groupId>
 			<artifactId>lwm2m-importer</artifactId>
 			<version>${project.version}</version>
 		</dependency>

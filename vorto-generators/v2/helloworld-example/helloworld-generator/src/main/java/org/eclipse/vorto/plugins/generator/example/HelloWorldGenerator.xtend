@@ -25,8 +25,8 @@ import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
 
 class HelloWorldGenerator implements ICodeGenerator {
 	
-	val String KEY = "helloworld"
-	val String KEY_LANG = "lang"
+	static val String KEY = "helloworld"
+	static val String KEY_LANG = "lang"
 
 	val static String LOGO_144x144 = "<base64 encoded logo>";
   	val static String LOGO_32x32 = "<base64 encoded logo>";

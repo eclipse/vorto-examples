@@ -19,7 +19,7 @@
 //
 
 
-package org.eclipse.vorto.plugins.importer.lwm2m;
+package org.eclipse.vorto.plugins.importer.example.lwm2m;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
