@@ -36,8 +36,8 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Lambda Function that acts as a generator gateway and delegates generation request to our generator implementations.
- *
+ * Lambda Function that acts as a generator gateway and delegates generation request to different generator implementations.
+ * In this example, it delegates it to the Hello World Code Generator.
  */
 public class GeneratorExecutionHandler implements RequestStreamHandler {
   
@@ -45,8 +45,8 @@ public class GeneratorExecutionHandler implements RequestStreamHandler {
     private static final Set<ICodeGenerator> generators = new HashSet<>();
     
     static {
-      //TODO: add your code generators here
       generators.add(new HelloWorldGenerator());
+      // Feel free to add other Code Generator Implementations here, that this lambda gateway function delegates requests to
     }
     
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -60,24 +60,34 @@ public class GeneratorExecutionHandler implements RequestStreamHandler {
       
       ApiGatewayRequest request = ApiGatewayRequest.createFromJson(input);
 
+      // Resolves the generator by the plugin key. The plugin key is passed as a request path param 
       Optional<ICodeGenerator> generator = generators.stream().filter(gen -> gen.getMeta().getKey().equals(request.getPathParam(PLUGINKEY))).findAny();
       
       if (!generator.isPresent()) {
         objectMapper.writeValue(output,createHttpReponse(404));
       } 
             
+      // Deserializes the Vorto model JSON to an Pojo model
       ModelContent modelContent = mapper.readValue(request.getInput(), ModelContent.class);
             
       ModelContentToEcoreConverter converter = new ModelContentToEcoreConverter();
       
+      // The Vorto plugin API provides utilities that work with Eclipse ecore representation of the Vorto model
+      // The following command converts the Vorto json pojo to an ecore object model.
       Model converted = converter.convert(modelContent, Optional.empty());
       
+      // Creates a Vorto Code generator context which contains generator configuration params, passed as http query params
       InvocationContext invocationContext = InvocationContext.simpleInvocationContext(request.getQueryParams());
       
+      // This utility converts the ecore model to an Information Model. 
+      // If the passed object is a Function Block, it creates a wrapper Information Model containing the passed Function Block.
       InformationModel infomodel = Utils.toInformationModel(converted);
       
       try {
+        // Performs the actual code generation, which in turn accepts the generated source code result
         IGenerationResult generatorResult = generator.get().generate(infomodel, invocationContext);
+          
+        // Creates a Api Gateway response that contains the zip archive of the generated sources.
         ApiGatewayResponse validResponse = createResponse(generatorResult);
   
         OutputStreamWriter writer = new OutputStreamWriter(output, "UTF-8");
