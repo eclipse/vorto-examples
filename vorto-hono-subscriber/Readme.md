@@ -25,24 +25,24 @@ You can easily register a test device ID in the Bosch IoT Hub using the Swagger 
 
 1. Register device with a device ID, e.g. '4711'
 
-	{
-	  "enabled": true,
-	  "device-id": "4711"
-	}
+		{
+			"enabled": true,
+			"device-id": "4711"
+		}
 	
 2. Add credentials for the device
 
-	{
-	  "device-id": "4711",
-	  "type": "hashed-password",
-	  "auth-id": "4711",
-	  "enabled": true,
-	  "secrets": [
-	    {
-	      "password": "secret"
-	    }
-	  ]
-	}
+		{
+		  "device-id": "4711",
+		  "type": "hashed-password",
+		  "auth-id": "4711",
+		  "enabled": true,
+		  "secrets": [
+		    {
+		      "password": "secret"
+		    }
+		  ]
+		}
 
 ### 3. Send arbitrary telemetry data to Bosch IoT Hub
 
