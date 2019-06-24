@@ -1,6 +1,7 @@
 package org.eclipse.vorto.codegen.azure.templates
 
 import java.util.ArrayList
+import org.eclipse.emf.common.util.EList
 import org.eclipse.vorto.core.api.model.datatype.DictionaryPropertyType
 import org.eclipse.vorto.core.api.model.datatype.Entity
 import org.eclipse.vorto.core.api.model.datatype.Enum
@@ -8,11 +9,20 @@ import org.eclipse.vorto.core.api.model.datatype.ObjectPropertyType
 import org.eclipse.vorto.core.api.model.datatype.PrimitivePropertyType
 import org.eclipse.vorto.core.api.model.datatype.PrimitiveType
 import org.eclipse.vorto.core.api.model.datatype.PropertyType
+import org.eclipse.vorto.core.api.model.datatype.Type
 import org.eclipse.vorto.core.api.model.functionblock.Configuration
 import org.eclipse.vorto.core.api.model.functionblock.FunctionBlock
+import org.eclipse.vorto.core.api.model.functionblock.Param
+import org.eclipse.vorto.core.api.model.functionblock.ReturnDictonaryType
+import org.eclipse.vorto.core.api.model.functionblock.ReturnObjectType
+import org.eclipse.vorto.core.api.model.functionblock.ReturnPrimitiveType
+import org.eclipse.vorto.core.api.model.functionblock.ReturnType
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
 import org.eclipse.vorto.plugin.generator.InvocationContext
 import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
+import org.eclipse.vorto.core.api.model.functionblock.PrimitiveParam
+import org.eclipse.vorto.core.api.model.functionblock.DictonaryParam
+import org.eclipse.vorto.core.api.model.functionblock.RefParam
 
 class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 	
@@ -53,11 +63,44 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 		    				«createSchema(property.type,property.name,property.isMultiplicity)»
 		    			}
 		    		«ENDFOR»
+		    		«IF !fbProperty.type.functionblock.operations.isEmpty»,«ENDIF»
+		    		«FOR operation : fbProperty.type.functionblock.operations SEPARATOR ","»
+		    			{
+		    				"@id": "«Utils.createURI(fbProperty.type)»/«operation.name»",
+		    				"@type": "Command",
+		    				«IF operation.description !== null»"description" : "«operation.description»",«ENDIF»
+		    				"name": "«operation.name»",
+		    				"commandType" : "synchronous"«IF !operation.params.isEmpty || operation.returnType !== null»,«ENDIF»
+		    				«IF !operation.params.isEmpty»
+		    				"request" : {
+		    					«createCommandRequest(operation.params)»
+		    				}«IF operation.returnType !== null»,«ENDIF»
+		    				«ENDIF»
+		    				«IF operation.returnType !== null»
+		    				"response": {
+		    					"name": "«operation.name»Response",
+		    				    «createSchema(operation.returnType,operation.name,operation.returnType.multiplicity)»
+		    				}
+		    				«ENDIF»
+		    			}
+		    		«ENDFOR»
 		    		]
 		    	}
 		    	«ENDFOR»
 		    ]
 		}
+		'''
+	}
+	
+	/**
+	 * Currently supports only params with a length of 1. If many params per operations are defined, it would ideally create a wrapper param object here.
+	 * FIXME!
+	 */
+	def createCommandRequest(EList<Param> params) {
+		'''
+		"name": "«params.get(0).name»",
+		«IF params.get(0).description !== null»"description": "«params.get(0).description»",«ENDIF»
+		«createSchema(params.get(0),params.get(0).name,params.get(0).isMultiplicity)»
 		'''
 	}
 	
@@ -71,14 +114,14 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 		}
 		return properties
 	}
-	
-	def convertToObject(ObjectPropertyType objectType) {
+		
+	def convertToObject(Type objectType) {
 		var counter = 1;
 		''' {
-			«IF objectType.type instanceof Enum»
+			«IF objectType instanceof Enum»
 			 "@type": "Enum",
 			 "enumValues": [
-			 	«FOR literal : (objectType.type as Enum).enums SEPARATOR ","»
+			 	«FOR literal : (objectType as Enum).enums SEPARATOR ","»
 			 		{
 			 			"name": "«literal.name»",
 			 		    "enumValue": «counter++»
@@ -88,7 +131,7 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 			 «ELSE»
 			 "@type": "Object",
 			  "fields": [
-			  	«FOR property : (objectType.type as Entity).properties SEPARATOR ","»
+			  	«FOR property : (objectType as Entity).properties SEPARATOR ","»
 			  		{
 			  			"name": "«property.name»",
 			  		    «createSchema(property.type,property.name,property.isMultiplicity)»
@@ -115,13 +158,55 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 		'''
 	}
 	
-	def String createSchema(PropertyType type, String propName, boolean isMultiple) {
-		'''
-		"schema" : «IF type instanceof PrimitivePropertyType && !isMultiple»"«convertPrimitive(type as PrimitivePropertyType)»"«ELSEIF type instanceof PrimitivePropertyType && isMultiple»«convertToPrimitiveArray(type as PrimitivePropertyType)»«ELSEIF type instanceof DictionaryPropertyType»«convertToMap(type as DictionaryPropertyType,propName)»«ELSE»«convertToObject(type as ObjectPropertyType)»«ENDIF»
+	def convertToMap(ReturnDictonaryType dictionaryType, String propertyName) {
+		''' {
+			"@type": "Map",
+			"mapKey": {
+				 "name": "«propertyName»Key",
+			     «createSchema(dictionaryType,propertyName,false)»
+			},
+			"mapValue": {
+				"name": "«propertyName»Value",
+			    «createSchema(dictionaryType,propertyName,false)»
+			}
+		}
 		'''
 	}
 	
-	def convertToPrimitiveArray(PrimitivePropertyType primitiveType) {
+	def convertToMap(DictonaryParam dictionaryType, String propertyName) {
+		''' {
+			"@type": "Map",
+			"mapKey": {
+				 "name": "«propertyName»Key",
+			     «createSchema(dictionaryType,propertyName,false)»
+			},
+			"mapValue": {
+				"name": "«propertyName»Value",
+			    «createSchema(dictionaryType,propertyName,false)»
+			}
+		}
+		'''
+	}
+	
+	def String createSchema(Param type, String propName, boolean isMultiple) {
+		'''
+		"schema" : «IF type instanceof PrimitiveParam && !isMultiple»"«convertPrimitive((type as PrimitiveParam).type)»"«ELSEIF type instanceof PrimitiveParam && isMultiple»«convertToPrimitiveArray((type as PrimitiveParam).type)»«ELSEIF type instanceof DictonaryParam»«convertToMap(type as DictonaryParam,propName)»«ELSE»«convertToObject((type as RefParam).type)»«ENDIF»
+		'''
+	}
+	
+	def String createSchema(ReturnType type, String propName, boolean isMultiple) {
+		'''
+		"schema" : «IF type instanceof ReturnPrimitiveType && !isMultiple»"«convertPrimitive((type as ReturnPrimitiveType).returnType)»"«ELSEIF type instanceof ReturnPrimitiveType && isMultiple»«convertToPrimitiveArray((type as ReturnPrimitiveType).returnType)»«ELSEIF type instanceof ReturnDictonaryType»«convertToMap(type as ReturnDictonaryType,propName)»«ELSE»«convertToObject((type as ReturnObjectType).returnType)»«ENDIF»
+		'''
+	}
+	
+	def String createSchema(PropertyType type, String propName, boolean isMultiple) {
+		'''
+		"schema" : «IF type instanceof PrimitivePropertyType && !isMultiple»"«convertPrimitive((type as PrimitivePropertyType).type)»"«ELSEIF type instanceof PrimitivePropertyType && isMultiple»«convertToPrimitiveArray((type as PrimitivePropertyType).type)»«ELSEIF type instanceof DictionaryPropertyType»«convertToMap(type as DictionaryPropertyType,propName)»«ELSE»«convertToObject((type as ObjectPropertyType).type)»«ENDIF»
+		'''
+	}
+	
+	def convertToPrimitiveArray(PrimitiveType primitiveType) {
 		''' {
 			"@type": "Array",
 			"elementSchema": "«convertPrimitive(primitiveType)»"
@@ -129,22 +214,22 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 		'''
 	}
 	
-	def convertPrimitive(PrimitivePropertyType primitiveType) {
-		if (primitiveType.type === PrimitiveType.STRING) {
+	def convertPrimitive(PrimitiveType primitiveType) {
+		if (primitiveType === PrimitiveType.STRING) {
 			return "string"
-		} else if (primitiveType.type === PrimitiveType.BOOLEAN) {
+		} else if (primitiveType === PrimitiveType.BOOLEAN) {
 			return "boolean"
-		} else if (primitiveType.type === PrimitiveType.DATETIME) {
+		} else if (primitiveType === PrimitiveType.DATETIME) {
 			return "datetime"
-		} else if (primitiveType.type === PrimitiveType.DOUBLE) {
+		} else if (primitiveType === PrimitiveType.DOUBLE) {
 			return "double"
-		} else if (primitiveType.type === PrimitiveType.FLOAT) {
+		} else if (primitiveType === PrimitiveType.FLOAT) {
 			return "float"
-		} else if (primitiveType.type === PrimitiveType.INT) {
+		} else if (primitiveType === PrimitiveType.INT) {
 			return "integer"
-		} else if (primitiveType.type === PrimitiveType.LONG) {
+		} else if (primitiveType === PrimitiveType.LONG) {
 			return "long"
-		} else if (primitiveType.type === PrimitiveType.LONG) {
+		} else if (primitiveType === PrimitiveType.LONG) {
 			return "long"
 		} else {
 			return "string"
