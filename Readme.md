@@ -29,7 +29,7 @@ To get started, checkout the [LwM2M example](vorto-importers/lwm2m), that conver
 
 The following example demonstrates, how you you can provide a Hono AMQP listener that normalizes telemetry device data to Vorto Information Model compliant data.
 
-[Read more](vorto-hono-subscriber/README.md)
+[Read more](vorto-hono-subscriber/Readme.md)
 
 ### Vorto Connector for Bosch Security Cameras
 
