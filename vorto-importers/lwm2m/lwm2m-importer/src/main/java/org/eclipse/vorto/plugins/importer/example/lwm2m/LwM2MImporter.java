@@ -24,7 +24,6 @@ import javax.xml.stream.XMLStreamReader;
 import org.eclipse.vorto.model.ModelId;
 import org.eclipse.vorto.plugins.importer.example.lwm2m.LWM2M.Object;
 
-
 /**
  * Imports (a bulk of) LwM2M XML definitions to the Vorto Repository by
  * converting them to Vorto Function Blocks and Mapping files
@@ -76,20 +75,21 @@ public class LwM2MImporter {
 		try {
 			LWM2M lwm2m = parse(fileInput);
 
-			LWM2M.Object obj = lwm2m.getObject().get(0);
-
-			final ModelId modelId = createModelId(obj);
-
 			try {
-				ZipEntry fbEntry = new ZipEntry(modelId.getName() + ".fbmodel");
-				zip.putNextEntry(fbEntry);
-				zip.write(FB_TEMPLATE.create(obj, modelId).getBytes());
-				zip.closeEntry();
+				for (LWM2M.Object obj : lwm2m.getObject()) {
 
-				ZipEntry mappingEntry = new ZipEntry(modelId.getName() + ".mapping");
-				zip.putNextEntry(mappingEntry);
-				zip.write(MAPPING_TEMPLATE.create(obj, modelId).getBytes());
-				zip.closeEntry();
+					final ModelId modelId = createModelId(obj);
+
+					ZipEntry fbEntry = new ZipEntry(modelId.getName() + ".fbmodel");
+					zip.putNextEntry(fbEntry);
+					zip.write(FB_TEMPLATE.create(obj, modelId).getBytes());
+					zip.closeEntry();
+
+					ZipEntry mappingEntry = new ZipEntry(modelId.getName() + ".mapping");
+					zip.putNextEntry(mappingEntry);
+					zip.write(MAPPING_TEMPLATE.create(obj, modelId).getBytes());
+					zip.closeEntry();
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {
