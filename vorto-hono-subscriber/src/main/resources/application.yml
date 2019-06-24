@@ -1,0 +1,12 @@
+hono:
+  tenantId: DEFAULT
+  
+vorto:
+  modelId: devices.aws.button:AWSIoTButton:1.0.0
+
+msg:
+  queue: telemetry/${hono.tenantId}
+
+session:
+  cache:
+    size: 1
