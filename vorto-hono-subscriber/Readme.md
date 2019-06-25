@@ -25,11 +25,14 @@ In this example, we are going to use the [Bosch IoT Hub](https://www.bosch-iot-s
 
 You can easily register a test device ID in the Bosch IoT Hub using the [Swagger API](https://apidocs.bosch-iot-suite.com)
 
-1. Register device with a device ID, e.g. '4711'
+1. Register device with a device ID, e.g. '4711' as well as vorto model. In this example we use the AWS IoT Button Vorto model:
 
 		{
 			"enabled": true,
-			"device-id": "4711"
+			"device-id": "4711",
+			"defaults": {
+     			"vorto": "devices.aws.button:AWSIoTButton:1.0.0"
+  			}
 		}
 	
 2. Add credentials for the device
@@ -53,9 +56,26 @@ Using the device ID and credentials from step 2. , you can now send telemetry da
 1. Download the Bosch IoT Hub server certificate 
 	`curl -o iothub.crt https://docs.bosch-iot-hub.com/cert/iothub.crt`
 
-2. `$ mosquitto_pub -h mqtt.bosch-iot-hub.com -p 8883 -u {auth-id}@{tenant-id} -P {password} -t telemetry -m '{"clickType": "DOUBLE", "batteryVoltage": "2323mV"}' --cafile iothub.crt`
+2. Send the device data via MQTT
+	`$ mosquitto_pub -h mqtt.bosch-iot-hub.com -p 8883 -u {auth-id}@{tenant-id} -P {password} -t telemetry -m '{"clickType": "DOUBLE", "batteryVoltage": "2323mV"}' --cafile iothub.crt`
 
-3. Verify the mapped normalized output in the system console.
+3. Verify the mapped normalized output in the system console. You should see something like this:
+
+		--> Normalized json for device ID 4711
+		{
+		  "button": {
+		    "status": {
+		      "digital_input_count": 2,
+		      "digital_input_state": true
+		    }
+		  },
+		  "batteryVoltage": {
+		    "status": {
+		      "sensor_units": "mV",
+		      "sensor_value": 2323.0
+		    }
+		  }
+		}
  
 
 ## Appendix
@@ -74,8 +94,6 @@ If you want to make it work for your own Information Model and Payload Mapping S
 2. Create a Payload Mapping Specification for your Information Model
 3. Test the mapping specification in the provided test window of the mapping editor
 4. Save and Download the mapping specification as json and store it into the payload mapping app under src/main/resources/specs
-5. Modify the application.yml and point the modelID to your Information Model ID
-
 
 ### Adding custom handler
 
@@ -86,7 +104,7 @@ If you want to process the normalized data, e.g. forwarding it to InfluxDB or a 
 
 		import org.eclipse.vorto.example.mapping.handler.Context;
 		import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
-
+		
 		public class InfluxDBHandler implements IPayloadHandler {
 		
 			private ConnectionProperties connectionProps = null;
@@ -95,9 +113,9 @@ If you want to process the normalized data, e.g. forwarding it to InfluxDB or a 
 				this.connectionProps = connectionProps;			
 			}
 			@Override
-		      public void handlePayload(JsonObject normalizedPayload, Context context) {
-		        // write data to Influx DB
-		      }
+		    public void handlePayload(JsonObject normalizedPayload, Context context) {
+		       // write data to Influx DB
+		    }
 		}
 
 2. Configure your handler

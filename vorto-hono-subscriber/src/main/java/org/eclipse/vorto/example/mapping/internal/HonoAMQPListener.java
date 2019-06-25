@@ -12,6 +12,7 @@
  */
 package org.eclipse.vorto.example.mapping.internal;
 
+import java.util.List;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -47,7 +48,7 @@ public class HonoAMQPListener implements MessageListener {
   private MappingService mappingService;
   
   @Autowired
-  private IPayloadHandler payloadHandler;
+  private List<IPayloadHandler> payloadHandlers;
   
   private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
   
@@ -87,7 +88,14 @@ public class HonoAMQPListener implements MessageListener {
 
       JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
       
-      payloadHandler.handlePayload(jsonObject, new Context(deviceId,normalizedData));
+      payloadHandlers.stream().forEach(handler -> {
+        logger.info("Invoking payload handler " + handler.getClass().getName());
+        try {
+          handler.handlePayload(jsonObject, new Context(deviceId,normalizedData));
+        } catch(Throwable t) {
+          logger.error("Problem during handler invocation", t);
+        }
+      });
       
     } catch (JMSException e) {
       logger.error("Problem with consuming AMQP message", e);
