@@ -42,9 +42,6 @@ public class HonoAMQPListener implements MessageListener {
 
   @Value(value = "${hono.tenantId}")
   private String tenantId;
-  
-  @Value(value = "${vorto.modelId}")
-  private String modelId;
 
   @Autowired
   private MappingService mappingService;
@@ -55,7 +52,7 @@ public class HonoAMQPListener implements MessageListener {
   private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
   
   private static final String HEADER_DEVICE_ID = "device_id";
-
+  private static final String HEADER_VORTO_ID = "vorto";
   
 
   @Override
@@ -73,12 +70,20 @@ public class HonoAMQPListener implements MessageListener {
         logger.warn("Unsupported message format for incoming hono message :" + message.getClass());
       }
 
+      final String modelId = message.getStringProperty(HEADER_VORTO_ID);
+      
+      if (modelId == null) {
+        logger.error("No vorto model id found in message. Please add a field 'vorto' as a custom field during device registration.");
+        return;
+      }
+      
       InfomodelValue normalizedData = mappingService
           .map(ModelId.fromPrettyFormat(modelId), payload);
       
       final String json = gson.toJson(normalizedData.serialize());
       
       final String deviceId = message.getStringProperty(HEADER_DEVICE_ID);
+     
 
       JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
       
