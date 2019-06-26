@@ -12,6 +12,7 @@ In this example, we are going to use the [Bosch IoT Hub](https://www.bosch-iot-s
 * [Subscription](https://www.bosch-iot-suite.com/service/hub/) to Bosch IoT Hub (free plan)
 * Maven installed
 * Java 1.8+ installed
+* [Mosquitto](http://www.steves-internet-guide.com/mosquitto_pub-sub-clients/) to send data via MQTT
 
 ## Steps to take 
 
@@ -26,57 +27,63 @@ In this example, we are going to use the [Bosch IoT Hub](https://www.bosch-iot-s
 You can easily register a test device ID in the Bosch IoT Hub using the [Swagger API](https://apidocs.bosch-iot-suite.com)
 
 1. Register device with a device ID, e.g. '4711' as well as vorto model. In this example we use the AWS IoT Button Vorto model:
+```js
+{
+  "enabled": true,
+  "device-id": "4711",
+  "defaults": {
+    "vorto": "devices.aws.button:AWSIoTButton:1.0.0"
+  }
+}
+```
 
-		{
-			"enabled": true,
-			"device-id": "4711",
-			"defaults": {
-     			"vorto": "devices.aws.button:AWSIoTButton:1.0.0"
-  			}
-		}
-	
 2. Add credentials for the device
-
-		{
-		  "device-id": "4711",
-		  "type": "hashed-password",
-		  "auth-id": "4711",
-		  "enabled": true,
-		  "secrets": [
-		    {
-		      "password": "secret"
-		    }
-		  ]
-		}
+```js
+{
+  "device-id": "4711",
+  "type": "hashed-password",
+  "auth-id": "4711",
+  "enabled": true,
+  "secrets": [
+    {
+      "password": "secret"
+    }
+  ]
+}
+```
 
 ### 3. Send arbitrary telemetry data to Bosch IoT Hub
 
 Using the device ID and credentials from step 2. , you can now send telemetry data of the device to Bosch IoT Hub.
 
 1. Download the Bosch IoT Hub server certificate 
-	`curl -o iothub.crt https://docs.bosch-iot-hub.com/cert/iothub.crt`
+```bash
+curl -o iothub.crt https://docs.bosch-iot-hub.com/cert/iothub.crt
+```
 
 2. Send the device data via MQTT
-	`$ mosquitto_pub -h mqtt.bosch-iot-hub.com -p 8883 -u {auth-id}@{tenant-id} -P {password} -t telemetry -m '{"clickType": "DOUBLE", "batteryVoltage": "2323mV"}' --cafile iothub.crt`
+```bash
+mosquitto_pub -h mqtt.bosch-iot-hub.com -p 8883 -u {auth-id}@{tenant-id} -P {password} -t telemetry -m '{"clickType": "DOUBLE", "batteryVoltage": "2323mV"}' --cafile iothub.crt
+```
 
 3. Verify the mapped normalized output in the system console. You should see something like this:
-
-		--> Normalized json for device ID 4711
-		{
-		  "button": {
-		    "status": {
-		      "digital_input_count": 2,
-		      "digital_input_state": true
-		    }
-		  },
-		  "batteryVoltage": {
-		    "status": {
-		      "sensor_units": "mV",
-		      "sensor_value": 2323.0
-		    }
-		  }
-		}
- 
+```js
+--> Normalized json for device ID 4711
+{
+  "button": {
+    "status": {
+      "digital_input_count": 2,
+      "digital_input_state": true
+    }
+  },
+  "batteryVoltage": {
+    "status": {
+      "sensor_units": "mV",
+      "sensor_value": 2323.0
+    }
+  }
+}
+``` 
 
 ## Appendix
 
@@ -101,28 +108,29 @@ If you want to make it work for your own Information Model and Payload Mapping S
 If you want to process the normalized data, e.g. forwarding it to InfluxDB or a Digital Twin Service, you would need to implement the `IPayloadHandler` interface
 
 1. Implement the Handler:
+```java
+import org.eclipse.vorto.example.mapping.handler.Context;
+import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
 
-		import org.eclipse.vorto.example.mapping.handler.Context;
-		import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
-		
-		public class InfluxDBHandler implements IPayloadHandler {
-		
-			private ConnectionProperties connectionProps = null;
+public class InfluxDBHandler implements IPayloadHandler {
 
-			public InfluxDBHandler(ConnectionProperties connectionProps) {
-				this.connectionProps = connectionProps;			
-			}
-			@Override
-		    public void handlePayload(JsonObject normalizedPayload, Context context) {
-		       // write data to Influx DB
-		    }
-		}
+	private ConnectionProperties connectionProps = null;
+
+	public InfluxDBHandler(ConnectionProperties connectionProps) {
+		this.connectionProps = connectionProps;			
+	}
+	@Override
+    public void handlePayload(JsonObject normalizedPayload, Context context) {
+       // write data to Influx DB
+    }
+}
+```
 
 2. Configure your handler
-
-	Add your handler to the `org.eclipse.vorto.example.mapping.config.LocalConfiguration` 
-	
-			@Bean
-			public IPayloadHandler influxDBHandler() {
-				return new InfluxDBHandler(connectionProperties);
-			}
+Add your handler to the `org.eclipse.vorto.example.mapping.config.LocalConfiguration` 
+```java
+@Bean
+public IPayloadHandler influxDBHandler() {
+	return new InfluxDBHandler(connectionProperties);
+}
+```
