@@ -12,6 +12,7 @@
  */
 package org.eclipse.vorto.example.mapping.internal;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
@@ -31,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 
 /**
@@ -64,7 +66,12 @@ public class HonoAMQPListener implements MessageListener {
       Object payload = null;
       if (message instanceof BytesMessage) {
         BytesMessage byteMessage = (BytesMessage) message;
-        payload = convertBytesMessageToString(byteMessage);
+        BinaryData binary = convertBytesMessageToString(byteMessage);
+        try {
+        	payload = gson.fromJson(new String(binary.getData(),StandardCharsets.UTF_8), Object.class);
+        } catch(JsonSyntaxException invalidJson) {
+        	payload = binary;
+        }
       } else if (message instanceof TextMessage) {
         payload = gson.fromJson(((TextMessage) message).getText(), Object.class);
       } else {
