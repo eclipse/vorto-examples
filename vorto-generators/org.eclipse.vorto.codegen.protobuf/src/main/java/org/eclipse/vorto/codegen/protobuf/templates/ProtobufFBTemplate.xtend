@@ -24,6 +24,7 @@ import org.eclipse.vorto.core.api.model.functionblock.ReturnObjectType
 import org.eclipse.vorto.core.api.model.functionblock.ReturnPrimitiveType
 import org.eclipse.vorto.core.api.model.functionblock.ReturnType
 import org.eclipse.vorto.plugin.generator.InvocationContext
+import org.eclipse.vorto.core.api.model.functionblock.ReturnDictonaryType
 
 class ProtobufFBTemplate extends ProtobufTemplate<FunctionblockModel> {
 
@@ -94,7 +95,7 @@ class ProtobufFBTemplate extends ProtobufTemplate<FunctionblockModel> {
 
 	def generateMessageProperties(List<Property> properties) {
 		'''
-			«IF properties != null»
+			«IF properties !== null»
 				«var counter = 1»
 				«FOR property : properties»
 					«IF property.multiplicity»repeated «ENDIF»«type(property.type)» «property.name» = «counter++»;
@@ -105,18 +106,21 @@ class ProtobufFBTemplate extends ProtobufTemplate<FunctionblockModel> {
 
 	def generateMessagePropertiesFromReturnType(ReturnType returnType) {
 		'''
-			«IF returnType != null && returnType instanceof ReturnPrimitiveType»
+			«IF returnType !== null && returnType instanceof ReturnPrimitiveType»
 				«IF returnType.multiplicity»repeated «ENDIF»«toProtoPrimitive((returnType as ReturnPrimitiveType).returnType)» value = 1;
 			«ENDIF»
-			«IF returnType != null && returnType instanceof ReturnObjectType»
+			«IF returnType !== null && returnType instanceof ReturnObjectType»
 				«IF returnType.multiplicity»repeated «ENDIF»«(returnType as ReturnObjectType).returnType.name» value = 1;
+			«ENDIF»
+			«IF returnType !== null && returnType instanceof ReturnDictonaryType»
+				«IF returnType.multiplicity»repeated «ENDIF»map<string,string> value = 1;
 			«ENDIF»
 		'''
 	}
 
 	def generateMessagePropertiesFromParams(List<Param> params) {
 		'''
-			«IF params != null»
+			«IF params !== null»
 				«var counter = 1»
 				«FOR param : params»
 					«IF param.multiplicity»repeated «ENDIF»«type(param)» «param.name» = «counter++»;
@@ -130,8 +134,10 @@ class ProtobufFBTemplate extends ProtobufTemplate<FunctionblockModel> {
 	def String type(Param param) {
 		if (param instanceof PrimitiveParam) {
 			return toProtoPrimitive((param as PrimitiveParam).getType);
-		} else {
+		} else if (param instanceof RefParam){
 			return (param as RefParam).getType().name
+		} else {
+			return "map<string,string>"
 		}
 	}
 	

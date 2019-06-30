@@ -111,6 +111,11 @@ class EntityTemplate implements ITemplate<Entity>{
 					}
 				«ENDIF»
 			«ENDIF»
+			«ELSE» //dictionary type
+			"«property.name»": {
+				«IF !property.description.nullOrEmpty»"description": "«property.description»",«ENDIF»
+					"type": "object"
+			}
 		«ENDIF»
 	'''
 	

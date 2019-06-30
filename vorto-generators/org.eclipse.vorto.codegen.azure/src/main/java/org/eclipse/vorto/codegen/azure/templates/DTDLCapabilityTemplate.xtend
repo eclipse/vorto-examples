@@ -148,11 +148,11 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 			"@type": "Map",
 			"mapKey": {
 				 "name": "«propertyName»Key",
-			     «createSchema(dictionaryType,propertyName,false)»
+			     «IF dictionaryType.keyType === null»"schema" : "string"«ELSE»«createSchema(dictionaryType.keyType,propertyName,false)»«ENDIF»
 			},
 			"mapValue": {
 				"name": "«propertyName»Value",
-			    «createSchema(dictionaryType,propertyName,false)»
+			    «IF dictionaryType.valueType === null»"schema" : "string"«ELSE»«createSchema(dictionaryType.valueType,propertyName,false)»«ENDIF»
 			}
 		}
 		'''
@@ -163,11 +163,11 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 			"@type": "Map",
 			"mapKey": {
 				 "name": "«propertyName»Key",
-			     «createSchema(dictionaryType,propertyName,false)»
+			     «IF dictionaryType.returnType.keyType === null»"schema" : "string"«ELSE»«createSchema(dictionaryType.returnType.keyType,propertyName,false)»«ENDIF»
 			},
 			"mapValue": {
 				"name": "«propertyName»Value",
-			    «createSchema(dictionaryType,propertyName,false)»
+			    «IF dictionaryType.returnType.valueType === null»"schema" : "string"«ELSE»«createSchema(dictionaryType.returnType.valueType,propertyName,false)»«ENDIF»
 			}
 		}
 		'''
@@ -178,11 +178,11 @@ class DTDLCapabilityTemplate implements IFileTemplate<InformationModel> {
 			"@type": "Map",
 			"mapKey": {
 				 "name": "«propertyName»Key",
-			     «createSchema(dictionaryType,propertyName,false)»
+			     «IF dictionaryType.type.keyType === null»"schema" : "string"«ELSE»«createSchema(dictionaryType.type.keyType,propertyName,false)»«ENDIF»
 			},
 			"mapValue": {
 				"name": "«propertyName»Value",
-			    «createSchema(dictionaryType,propertyName,false)»
+			    «IF dictionaryType.type.keyType === null»"schema" : "string"«ELSE»«createSchema(dictionaryType.type.keyType,propertyName,false)»«ENDIF»
 			}
 		}
 		'''

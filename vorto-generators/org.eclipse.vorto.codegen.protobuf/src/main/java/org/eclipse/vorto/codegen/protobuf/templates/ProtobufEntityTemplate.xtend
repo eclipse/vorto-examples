@@ -45,7 +45,7 @@ class ProtobufEntityTemplate extends ProtobufTemplate<Entity> {
 	
 	def generateMessageProperties(List<Property> properties) {
 		'''
-			«IF properties != null»
+			«IF properties !== null»
 				«var counter = 1»
 				«FOR property : properties»
 					«IF property.multiplicity»repeated «ENDIF»«type(property.type)» «property.name» = «counter++»; «IF property.description != null»//«property.description»«ENDIF»

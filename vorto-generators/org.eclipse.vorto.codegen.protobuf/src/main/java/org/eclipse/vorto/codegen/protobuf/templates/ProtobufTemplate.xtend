@@ -36,9 +36,17 @@ abstract class ProtobufTemplate<T extends Model> implements IFileTemplate<T> {
 		if (type instanceof PrimitivePropertyType) {
 			return toProtoPrimitive((type as PrimitivePropertyType).getType);
 		} else if (type instanceof DictionaryPropertyType){
-			return "map<"+type((type as DictionaryPropertyType).keyType)+","+type((type as DictionaryPropertyType).valueType)+">";
+			return "map<"+dictType((type as DictionaryPropertyType).keyType)+","+dictType((type as DictionaryPropertyType).valueType)+">";
 		} else {
 			return (type as ObjectPropertyType).getType().name
+		}
+	}
+	
+	def String dictType(PropertyType dictType) {
+		if (dictType !== null) {
+			return type(dictType)
+		} else {
+			return "string"
 		}
 	}
 	
