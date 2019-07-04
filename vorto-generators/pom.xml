@@ -84,6 +84,7 @@
 		<module>org.eclipse.vorto.codegen.thingworx</module>
 		<module>org.eclipse.vorto.codegen.jsonschema</module>
 		<module>org.eclipse.vorto.codegen.azure</module>
+		<module>org.eclipse.vorto.codegen.openapi</module>
 		<module>generator-runner</module>
 	</modules>
 

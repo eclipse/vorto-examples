@@ -14,6 +14,7 @@ Vorto Generator Plugins provide a way to convert Vorto models to platform specif
  - [Azure IoT Plug&Play](org.eclipse.vorto.codegen.azure/Readme.md)
  - [Google Protobuf Generator](org.eclipse.vorto.codegen.protobuf/Readme.md)
  - [JSON Schema](org.eclipse.vorto.codegen.jsonschema/Readme.md)
+ - [OpenAPI/Swagger](org.eclipse.vorto.codegen.openapi/Readme.md)
  
 ### Generators (using Plugin API Version 1)
 
