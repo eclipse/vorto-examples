@@ -17,10 +17,16 @@ import org.eclipse.vorto.core.api.model.datatype.ConstraintIntervalType
 import org.eclipse.vorto.core.api.model.datatype.ObjectPropertyType
 import org.eclipse.vorto.core.api.model.datatype.PrimitivePropertyType
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
-import org.eclipse.vorto.model.PrimitiveType
 import org.eclipse.vorto.plugin.generator.InvocationContext
 import org.eclipse.vorto.plugin.generator.utils.IFileTemplate
+import org.eclipse.vorto.core.api.model.functionblock.PrimitiveParam
+import org.eclipse.vorto.core.api.model.functionblock.RefParam
+import org.eclipse.vorto.core.api.model.datatype.PrimitiveType
 
+/**
+ * Creates an OpenAPI v3 Specification for an Information Model. Supports configuration, status properties as well as operations
+ * 
+ */
 class OpenAPITemplate implements IFileTemplate<InformationModel> {
 	
 	override getFileName(InformationModel model) {
@@ -45,6 +51,8 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		tags:
 		  - name: Features
 		    description: Features of your «infomodel.name» things
+		  - name: Messages
+		    description: Talk with your «infomodel.name»
 		security:
 		  - thingsApiToken: []
 		    bearerAuth: []
@@ -149,7 +157,7 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		          
 		  '/things/{thingId}/features/«fbProperty.name»/definition':
 		    get:
-		      summary: List the Vorto Function Block ID of the «fbProperty.name» feature
+		      summary: Lists the Vorto Function Block ID, that the «fbProperty.name» feature complies to
 		      description: >-
 		        Returns the complete Definition of the «fbProperty.name» identified by the `thingId` path parameter.
 		      tags:
@@ -191,6 +199,128 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		                $ref: '#/components/schemas/AdvancedError'
 		        '412':
 		          $ref: '#/components/responses/preconditionFailed'
+		  «IF fbProperty.type.functionblock.configuration !== null && !fbProperty.type.functionblock.configuration.properties.empty»
+		  «FOR configurationProperty : fbProperty.type.functionblock.configuration.properties»
+		  '/things/{thingId}/features/«fbProperty.name»/properties/configuration/«configurationProperty.name»':
+		    put:
+		      summary: Sets the device configuration property «configurationProperty.name» of the «fbProperty.name» feature
+		      description: |-
+		        Sets the «configurationProperty.name» of the «fbProperty.name» feature, identified by the
+		        `thingId` path parameter. The set configuration property is transmitted to the device, once the device is connected.
+		      tags:
+		        - Features
+		      parameters:
+		        - $ref: '#/components/parameters/thingIdPathParam'
+		      responses:
+		        '204':
+		          description: The Property was successfully updated.
+		        '400':
+		          description: |-
+		            The request could not be completed. The `thingId` either
+		              * does not contain the mandatory namespace prefix (java package notation + `:` colon)
+		              * does not conform to RFC-2396 (URI)
+		            Or the JSON was invalid.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '401':
+		          description: The request could not be completed due to missing authentication.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '402':
+		          description: The request could not be completed due to exceeded data volume.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '403':
+		          description: |-
+		            The request could not be completed. Either
+		              * due to a missing or invalid API Token.
+		              * as the caller had insufficient permissions.
+		            For creating/updating a Property of an existing Feature `WRITE` permission is required.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '404':
+		          description: |-
+		              The request could not be completed. The Thing or the Feature with
+		              the given ID was not found.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '412':
+		          $ref: '#/components/responses/preconditionFailed'
+		        '413':
+		          $ref: '#/components/responses/entityTooLarge'
+		      requestBody:
+		        $ref: '#/components/requestBodies/«fbProperty.type.name»«configurationProperty.name.toFirstUpper»ConfigurationValue'
+		  «ENDFOR»
+		  «ENDIF»
+		  «FOR operation : fbProperty.type.functionblock.operations»
+		  '/things/{thingId}/features/«fbProperty.name»/inbox/messages/«operation.name»':
+		    put:
+		      summary: Executes the «operation.name» on the device
+		      description: |-
+		        «IF operation.description !== null»«operation.description»«ELSE»Executes the «operation.name» on the device.«ENDIF»
+		      
+		        The API does not provide any kind of acknowledgement that the
+		        message was received by the Feature. In order to send a message, the user needs `WRITE` permission at the Thing level.
+		        
+		        The HTTP request blocks until a response to the message is available
+		        or until the `timeout` is expired. If many clients respond to
+		        the issued message, the first response will complete the HTTP request.
+		        
+		        In order to handle the message in a fire and forget manner, add
+		        a query-parameter `timeout=0` to the request.
+		      tags:
+		        - Messages
+		      parameters:
+		        - $ref: '#/components/parameters/thingIdPathParam'
+		        - $ref: '#/components/parameters/messageTimeoutParam'
+		      responses:
+		        '202':
+		          description: |-
+		            The message was sent but not necessarily received by the Feature
+		            (fire and forget).
+		        '400':
+		          description: |-
+		            The request could not be completed. The `thingId` either
+		              * does not contain the mandatory namespace prefix (java package notation + `:` colon)
+		              * does not conform to RFC-2396 (URI)
+		          
+		            Or at least one of the defined path parameters was invalid.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '401':
+		          description: The request could not be completed due to missing authentication.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '403':
+		          description: |-
+		            The request could not be completed. Either
+		            * due to a missing or invalid API Token.
+		            * as the caller does not have `WRITE` permission on the resource message:/features/`featureId`/inbox/messages/`messageSubject`.
+		          content:
+		            application/json:
+		              schema:
+		                $ref: '#/components/schemas/AdvancedError'
+		        '413':
+		          $ref: '#/components/responses/messageTooLarge'
+		      «IF !operation.params.empty»
+		      requestBody:
+		        $ref: '#/components/requestBodies/«fbProperty.type.name»«operation.name.toFirstUpper»Payload'
+		      «ENDIF»
+		  «ENDFOR»
 		«ENDFOR»
 		components:
 		  schemas:
@@ -224,6 +354,32 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		        description: "A single fully qualified identifier of a Feature Definition in the form 'namespace:name:version'"
 		        pattern: ([_a-zA-Z0-9\-.]+):([_a-zA-Z0-9\-.]+):([_a-zA-Z0-9\-.]+)
 		    «FOR fb : Utils.getReferencedFunctionBlocks(infomodel)»
+		    «IF fb.functionblock.configuration !== null»
+		    «FOR configurationProperty : fb.functionblock.configuration.properties»
+		    «fb.name»«configurationProperty.name.toFirstUpper»ConfigurationValue:
+		      «IF configurationProperty.type instanceof PrimitivePropertyType»
+		      «wrapIfMultiple(getPrimitive((configurationProperty.type as PrimitivePropertyType).type).toString,configurationProperty.multiplicity)»
+		      «ELSEIF configurationProperty.type instanceof ObjectPropertyType»
+		      «wrapIfMultiple("$ref: '#/components/schemas/"+(configurationProperty.type as ObjectPropertyType).type.name+"'",configurationProperty.multiplicity)»
+		      «ENDIF»
+		    «ENDFOR»
+		    «ENDIF»
+		    «FOR operation : fb.functionblock.operations»
+		    «IF !operation.params.empty»
+		    «fb.name»«operation.name.toFirstUpper»Payload:
+		      type: object
+		      properties:
+		        «FOR param : operation.params»
+		        «param.name»:
+		          «IF param.description !== null»description: «param.description»«ENDIF»
+		          «IF param instanceof PrimitiveParam»
+		          «wrapIfMultiple(getPrimitive((param as PrimitiveParam).type).toString,param.multiplicity)»
+		          «ELSEIF param instanceof RefParam»
+		          «wrapIfMultiple("$ref: '#/components/schemas/"+(param as RefParam).type.name+"'",param.multiplicity)»
+		          «ENDIF»
+		        «ENDFOR»
+		    «ENDIF»
+		    «ENDFOR»
 		    «fb.name»Properties:
 		      type: object
 		      description: «fb.name» properties of «infomodel.name»
@@ -234,10 +390,11 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		          properties:
 		            «FOR statusProperty : fb.functionblock.status.properties»
 		            «statusProperty.name»:
+		              «IF statusProperty.description !== null»description: «statusProperty.description»«ENDIF»
 		              «IF statusProperty.type instanceof PrimitivePropertyType»
-		              «getPrimitive(statusProperty.type as PrimitivePropertyType)»
+		              «wrapIfMultiple(getPrimitive((statusProperty.type as PrimitivePropertyType).type).toString,statusProperty.multiplicity)»
 		              «ELSEIF statusProperty.type instanceof ObjectPropertyType»
-		              $ref: '#/components/schemas/«(statusProperty.type as ObjectPropertyType).type.name»'
+		              «wrapIfMultiple("$ref: '#/components/schemas/"+(statusProperty.type as ObjectPropertyType).type.name+"'",statusProperty.multiplicity)»
 		            «ENDIF»
 		            «ENDFOR»
 		          «Utils.calculateRequired(fb.functionblock.status.properties)»
@@ -248,10 +405,11 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		          properties:
 		            «FOR configProperty : fb.functionblock.configuration.properties»
 		            «configProperty.name»:
+		              «IF configProperty.description !== null»description: «configProperty.description»«ENDIF»
 		              «IF configProperty.type instanceof PrimitivePropertyType»
-		              «getPrimitive(configProperty.type as PrimitivePropertyType)»
+		              «wrapIfMultiple(getPrimitive((configProperty.type as PrimitivePropertyType).type).toString,configProperty.multiplicity)»
 		              «ELSEIF configProperty.type instanceof ObjectPropertyType»
-		              $ref: '#/components/schemas/«(configProperty.type as ObjectPropertyType).type.name»'
+		              «wrapIfMultiple("$ref: '#/components/schemas/"+(configProperty.type as ObjectPropertyType).type.name+"'",configProperty.multiplicity)»
 		            «ENDIF»
 		            «ENDFOR»
 		          «Utils.calculateRequired(fb.functionblock.configuration.properties)»
@@ -273,6 +431,7 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		      properties:
 		        «FOR fbProperty : infomodel.properties»
 		        «fbProperty.name»:
+		          «IF fbProperty.description !== null»description: «fbProperty.description»«ENDIF»
 		          $ref: '#/components/schemas/«fbProperty.type.name»Feature'
 		        «ENDFOR»
 		    «FOR entity : Utils.getReferencedEntities(infomodel)»
@@ -281,10 +440,11 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		      properties:
 		        «FOR property : entity.properties»
 		        «property.name»:
+		          «IF property.description !== null»description: «property.description»«ENDIF»
 		          «IF property.type instanceof PrimitivePropertyType»
-		          «getPrimitive(property.type as PrimitivePropertyType)»
+		          «wrapIfMultiple(getPrimitive((property.type as PrimitivePropertyType).type).toString,property.multiplicity)»
 		          «ELSEIF property.type instanceof ObjectPropertyType»
-		          $ref: '#/components/schemas/«(property.type as ObjectPropertyType).type.name»'
+		          «wrapIfMultiple("$ref: '#/components/schemas/"+(property.type as ObjectPropertyType).type.name+"'",property.multiplicity)»
 		          «ENDIF»
 		        «ENDFOR»
 		      «Utils.calculateRequired(entity.properties)»
@@ -294,7 +454,57 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		      type: string
 		      enum: [«FOR literal: enumeration.enums SEPARATOR ','»«literal.name»«ENDFOR»]
 		    «ENDFOR»
+		  
+		  requestBodies:
+		    «FOR fb : Utils.getReferencedFunctionBlocks(infomodel)»
+		    «IF fb.functionblock.configuration !== null»
+		      «FOR configurationProperty : fb.functionblock.configuration.properties»
+		        «fb.name»«configurationProperty.name.toFirstUpper»ConfigurationValue:
+		          content:
+		            application/json:
+		              schema:
+		                «IF configurationProperty.type instanceof PrimitivePropertyType»
+		                «wrapIfMultiple(getPrimitive((configurationProperty.type as PrimitivePropertyType).type).toString,configurationProperty.multiplicity)»
+		                «ELSEIF configurationProperty.type instanceof ObjectPropertyType»
+		                «wrapIfMultiple("$ref: '#/components/schemas/"+(configurationProperty.type as ObjectPropertyType).type.name+"'",configurationProperty.multiplicity)»
+		                «ENDIF»
+		      «ENDFOR»
+		    «ENDIF»
+		    «FOR operation : fb.functionblock.operations»
+		    «IF !operation.params.empty»
+		    «fb.name»«operation.name.toFirstUpper»Payload:
+		      content:
+		        application/json:
+		          schema:
+		            type: object
+		            properties:
+		              «FOR param : operation.params»
+		              «param.name»:
+		                «IF param.description !== null»description: «param.description»«ENDIF»
+		                «IF param instanceof PrimitiveParam»
+		                «wrapIfMultiple(getPrimitive((param as PrimitiveParam).type).toString,param.multiplicity)»
+		                «ELSEIF param instanceof RefParam»
+		                «wrapIfMultiple("$ref: '#/components/schemas/"+(param as RefParam).type.name+"'",param.multiplicity)»
+		                «ENDIF»
+		              «ENDFOR»
+		    «ENDIF»
+		    «ENDFOR»
+		  «ENDFOR»
 		  responses:
+		    entityTooLarge:
+		      description: |-
+		        The created or modified entity is larger than the accepted limit of 100 kB.
+		      content:
+		        application/json:
+		          schema:
+		            $ref: '#/components/schemas/AdvancedError'
+		    messageTooLarge:
+		      description: |-
+		        The size of the send message is larger than the accepted limit of 250 kB.
+		      content:
+		        application/json:
+		          schema:
+		            $ref: '#/components/schemas/AdvancedError'
 		    notModified:
 		      description: >-
 		        The (sub-)resource has not been modified. This happens when you specified a If-None-Match header which
@@ -324,6 +534,16 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		          schema:
 		            $ref: '#/components/schemas/AdvancedError'
 		  parameters:
+		    messageTimeoutParam:
+		      name: timeout
+		      in: query
+		      description: |-
+		          Contains an optional timeout (in seconds) of how long to wait for the message response and therefore block the
+		          HTTP request. Default value (if omitted): 10 seconds. Maximum value: 60 seconds. A value of 0 seconds applies
+		          fire and forget semantics for the message.
+		      required: false
+		      schema:
+		        type: integer
 		    thingIdPathParam:
 		      name: thingId
 		      in: path
@@ -364,26 +584,38 @@ class OpenAPITemplate implements IFileTemplate<InformationModel> {
 		            openid: Access your Bosch-ID
 		'''
 	}
-	
-	def getPrimitive(PrimitivePropertyType primitiveType) {
+		
+	def wrapIfMultiple(String type, boolean isArray) {
 		'''
-		«IF primitiveType.type.equals(PrimitiveType.BASE64_BINARY)»
+		«IF isArray»
+		type: array
+		items:
+		  «type»
+		«ELSE»
+		«type»
+		«ENDIF»
+		'''
+	}
+	
+	def getPrimitive(PrimitiveType primitiveType) {
+		'''
+		«IF primitiveType == PrimitiveType.BASE64_BINARY»
 		type: string
-		«ELSEIF primitiveType.type.equals(PrimitiveType.BOOLEAN)»
+		«ELSEIF primitiveType == PrimitiveType.BOOLEAN»
 		type: boolean
-		«ELSEIF primitiveType.type.equals(PrimitiveType.BYTE)»
+		«ELSEIF primitiveType == PrimitiveType.BYTE»
 		type: string
-		«ELSEIF primitiveType.type.equals(PrimitiveType.DATETIME)»
+		«ELSEIF primitiveType == PrimitiveType.DATETIME»
 		type: string
-		«ELSEIF primitiveType.type.equals(PrimitiveType.DOUBLE)»
+		«ELSEIF primitiveType == PrimitiveType.DOUBLE»
 		type: number
-		«ELSEIF primitiveType.type.equals(PrimitiveType.FLOAT)»
+		«ELSEIF primitiveType == PrimitiveType.FLOAT»
 		type: number
-		«ELSEIF primitiveType.type.equals(PrimitiveType.INT)»
+		«ELSEIF primitiveType == PrimitiveType.INT»
 		type: integer
-		«ELSEIF primitiveType.type.equals(PrimitiveType.LONG)»
+		«ELSEIF primitiveType == PrimitiveType.LONG»
 		type: number
-		«ELSEIF primitiveType.type.equals(PrimitiveType.SHORT)»
+		«ELSEIF primitiveType == PrimitiveType.SHORT»
 		type: integer
 		«ELSE»
 		type: string
