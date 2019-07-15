@@ -9,7 +9,7 @@
 
 	<properties>
 		<spring.boot.version>1.5.8.RELEASE</spring.boot.version>
-		<vorto.version>0.10.1</vorto.version>
+		<vorto.version>0.11.0</vorto.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>

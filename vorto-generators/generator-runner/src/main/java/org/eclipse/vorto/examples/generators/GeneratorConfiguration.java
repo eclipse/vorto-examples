@@ -22,7 +22,6 @@ import org.eclipse.vorto.codegen.kura.KuraGenerator;
 import org.eclipse.vorto.codegen.latex.LatexGenerator;
 import org.eclipse.vorto.codegen.lwm2m.LWM2MGenerator;
 import org.eclipse.vorto.codegen.markdown.MarkdownGenerator;
-import org.eclipse.vorto.codegen.protobuf.ProtobufGenerator;
 import org.eclipse.vorto.codegen.spi.config.AbstractGeneratorConfiguration;
 import org.eclipse.vorto.codegen.spi.model.Generator;
 import org.eclipse.vorto.codegen.thingworx.ThingWorxCodeGenerator;
@@ -41,7 +40,6 @@ public class GeneratorConfiguration extends AbstractGeneratorConfiguration {
 		addGenerator(Generator.create("/generators/latex.properties", LatexGenerator.class));
 		addGenerator(Generator.create("/generators/lwm2m.properties", LWM2MGenerator.class));
 		addGenerator(Generator.create("/generators/markdown.properties", MarkdownGenerator.class));
-		addGenerator(Generator.create("/generators/protobuf.properties", ProtobufGenerator.class));
 		addGenerator(Generator.create("/generators/thingworx.properties", ThingWorxCodeGenerator.class));
 	}
 	
