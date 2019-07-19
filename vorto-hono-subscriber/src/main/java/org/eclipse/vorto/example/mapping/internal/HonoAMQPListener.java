@@ -14,6 +14,9 @@ package org.eclipse.vorto.example.mapping.internal;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.Base64;
+
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -54,45 +57,58 @@ public class HonoAMQPListener implements MessageListener {
   
   private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
   
+  private static final String BASE_64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
   private static final String HEADER_DEVICE_ID = "device_id";
   private static final String HEADER_VORTO_ID = "vorto";
+  private static final String HEADER_CONTENT_TYPE = "JMS_AMQP_CONTENT_TYPE";
   
 
   @Override
   public void onMessage(Message message) {
     logger.debug("Received AMQP message from Hono ...");
     try {
-
-      Object payload = null;
-      if (message instanceof BytesMessage) {
-        BytesMessage byteMessage = (BytesMessage) message;
-        BinaryData binary = convertBytesMessageToString(byteMessage);
-        try {
-        	payload = gson.fromJson(new String(binary.getData(),StandardCharsets.UTF_8), Object.class);
-        } catch(JsonSyntaxException invalidJson) {
-        	payload = binary;
-        }
-      } else if (message instanceof TextMessage) {
-        payload = gson.fromJson(((TextMessage) message).getText(), Object.class);
-      } else {
-        logger.warn("Unsupported message format for incoming hono message :" + message.getClass());
-      }
-
-      final String modelId = message.getStringProperty(HEADER_VORTO_ID);
+	  final String deviceId = message.getStringProperty(HEADER_DEVICE_ID);
+	  final String modelId = message.getStringProperty(HEADER_VORTO_ID);
+      final String contentType = message.getStringProperty(HEADER_CONTENT_TYPE);
+      
+      final String textMessage = ((TextMessage) message).getText();
       
       if (modelId == null) {
         logger.error("No vorto model id found in message. Please add a field 'vorto' as a custom field during device registration.");
         return;
       }
-      
+    	
+      Object payload = null;
+      if (message instanceof BytesMessage) {
+        BytesMessage byteMessage = (BytesMessage) message;
+        BinaryData binary = convertBytesMessageToString(byteMessage);
+        
+        try {
+          payload = gson.fromJson(new String(binary.getData(),StandardCharsets.UTF_8), Object.class);
+        } catch(JsonSyntaxException invalidJson) {
+          payload = binary;
+        }
+      } else if (message instanceof TextMessage) {
+    	if (Pattern.matches(BASE_64_REGEX, (CharSequence) textMessage)) {
+    	/* Handle Base64 encoded payload */
+	      byte[] bytePayload = Base64.getDecoder().decode(textMessage);
+    	
+    	  if (contentType.equals("application/json")) {
+            payload = gson.fromJson(new String(bytePayload), Object.class);
+    	  }
+    	  
+        } else {
+    	  payload = gson.fromJson(textMessage, Object.class);  
+        }
+    	
+      } else {
+        logger.warn("Unsupported message format for incoming hono message :" + message.getClass());
+      }
+
       InfomodelValue normalizedData = mappingService
           .map(ModelId.fromPrettyFormat(modelId), payload);
       
       final String json = gson.toJson(normalizedData.serialize());
-      
-      final String deviceId = message.getStringProperty(HEADER_DEVICE_ID);
-     
-
       JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
       
       payloadHandlers.stream().forEach(handler -> {
