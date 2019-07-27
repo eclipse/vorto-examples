@@ -20,19 +20,27 @@ import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
 import org.eclipse.vorto.plugin.generator.GeneratorException
 import org.eclipse.vorto.plugin.generator.GeneratorPluginInfo
 import org.eclipse.vorto.plugin.generator.ICodeGenerator
+import org.eclipse.vorto.plugin.generator.IGenerationResult
 import org.eclipse.vorto.plugin.generator.InvocationContext
 import org.eclipse.vorto.plugin.generator.utils.GenerationResultZip
 import org.eclipse.vorto.plugin.generator.utils.GeneratorTaskFromFileTemplate
+import org.eclipse.vorto.plugin.generator.utils.IGeneratedWriter
+import org.eclipse.vorto.plugin.generator.utils.SingleGenerationResult
 
 class JSONSchemaGenerator implements ICodeGenerator {
 	
 	val static String KEY = "jsonschema"
 
 	override generate(InformationModel infomodel, InvocationContext context) throws GeneratorException {
-		var output = new GenerationResultZip(infomodel,KEY);
+		var IGenerationResult output = null
+		if (infomodel.properties.size == 1) {
+			output = new SingleGenerationResult("application/schema+json")
+		} else {
+			output = new GenerationResultZip(infomodel,KEY);
+		}
 		
 		for (FunctionblockProperty fbProperty : infomodel.getProperties()) {
-		 	new GeneratorTaskFromFileTemplate(new PropertiesTemplate()).generate(fbProperty.type,context,output);
+		 	new GeneratorTaskFromFileTemplate(new PropertiesTemplate()).generate(fbProperty.type,context, output as IGeneratedWriter);
 		}
 		
 		return output

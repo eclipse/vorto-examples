@@ -17,18 +17,18 @@ package org.eclipse.vorto.codegen.azure
 import org.eclipse.vorto.codegen.azure.templates.DTDLCapabilityTemplate
 import org.eclipse.vorto.core.api.model.informationmodel.InformationModel
 import org.eclipse.vorto.plugin.generator.GeneratorException
+import org.eclipse.vorto.plugin.generator.GeneratorPluginInfo
 import org.eclipse.vorto.plugin.generator.ICodeGenerator
 import org.eclipse.vorto.plugin.generator.InvocationContext
-import org.eclipse.vorto.plugin.generator.utils.GenerationResultZip
 import org.eclipse.vorto.plugin.generator.utils.GeneratorTaskFromFileTemplate
-import org.eclipse.vorto.plugin.generator.GeneratorPluginInfo
+import org.eclipse.vorto.plugin.generator.utils.SingleGenerationResult
 
 class AzureGenerator implements ICodeGenerator {
 	
 	static val String KEY = "azure"
 
 	override generate(InformationModel infomodel, InvocationContext context) throws GeneratorException {
-		var output = new GenerationResultZip(infomodel,KEY);
+		var output = new SingleGenerationResult("application/ld+json");
 		
 		new GeneratorTaskFromFileTemplate(new DTDLCapabilityTemplate()).generate(infomodel,context,output);
 
