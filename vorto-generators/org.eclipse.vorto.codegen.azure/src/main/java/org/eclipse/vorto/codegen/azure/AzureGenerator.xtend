@@ -37,7 +37,7 @@ class AzureGenerator implements ICodeGenerator {
 	
 	override getMeta() {
 		return GeneratorPluginInfo.Builder(KEY)
-			.withDescription("Generates Azure DTDL file")
+			.withDescription("Generates an Azure IoT Digital Twin capability model (JSON-LD)")
 			.withName("Azure IoT Plug&Play")
 			.withDocumentationUrl("https://github.com/Azure/IoTPlugandPlay")
 			.withVendor("Eclipse Vorto Team")
