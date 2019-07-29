@@ -12,15 +12,36 @@
  */
 package org.eclipse.vorto.example.mapping.config;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.jms.pool.PooledConnectionFactory;
+import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
+import org.eclipse.vorto.example.mapping.handler.amq.AMQPHandler;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class LocalConfiguration {
 
-//  @Bean
-//  public IPayloadHandler customHandler() {
-//    return new MyCustomPayloadHandler(configurationProperties);
-//  }
+	@Value(value = "${amqp.username}")
+	private String username;
+	@Value(value = "${amqp.password}")
+	private String password;
+	@Value(value = "${amqp.url}")
+	private String amqpUrl;
+
+	@Bean
+	public IPayloadHandler customHandler() {
+		final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(amqpUrl);
+
+		// Pass the username and password.
+		connectionFactory.setUserName(username);
+		connectionFactory.setPassword(password);
+		// Create a pooled connection factory.
+		final PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
+		pooledConnectionFactory.setConnectionFactory(connectionFactory);
+		pooledConnectionFactory.setMaxConnections(10);
+		
+		return new AMQPHandler(connectionFactory);
+	}
 }
-
-

@@ -22,20 +22,21 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 /**
- * Simple Handler that logs the normalized device payload to configured logging appender.
+ * Simple Handler that logs the normalized device payload to configured logging
+ * appender.
  *
  */
 @Component
 public class LoggerPayloadHandler implements IPayloadHandler {
 
-  private static final Logger logger = LoggerFactory.getLogger(LoggerPayloadHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoggerPayloadHandler.class);
 
-  private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-  @Override
-  public void handlePayload(JsonObject normalizedPayload, Context context) {
-    logger.info("--> Normalized json for device ID "+context.getDeviceId());
-    logger.info(System.lineSeparator()+gson.toJson(normalizedPayload));
-  }
+	@Override
+	public void handlePayload(JsonObject normalizedPayload, Context context) {
+		logger.info("--> Normalized json for device ID " + context.getDeviceId());
+		logger.info(System.lineSeparator() + gson.toJson(normalizedPayload));
+	}
 
 }

@@ -1,4 +1,16 @@
-package org.eclipse.vorto.example.mapping.internal;
+/**
+ * Copyright (c) 2018 Contributors to the Eclipse Foundation
+ *
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
+package org.eclipse.vorto.example.mapping.internal.deserializer;
 
 import java.nio.charset.StandardCharsets;
 
@@ -14,7 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
-public class BytesDeserializer implements Deserializer {
+public class BytesDeserializer implements IDeserializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(BytesDeserializer.class);
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
