@@ -27,7 +27,7 @@ public class ListenerConfiguration {
 	private String msgQueue;
 	@Value("${session.cache.size:1}")
 	private int sessionCacheSize;
-	@Value("#{qpidConnectionFactory}")
+	@Value("#{honoConnectionFactory}")
 	private ConnectionFactory qpidConnectionFactory;
 
 	@Bean

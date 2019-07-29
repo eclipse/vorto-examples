@@ -41,11 +41,11 @@ public class QPidConfiguration {
 	  }
 
 	  @Bean
-	  public JndiObjectFactoryBean qpidConnectionFactory() {
+	  public JndiObjectFactoryBean honoConnectionFactory() {
 	    JndiObjectFactoryBean jndiObjectFactoryBean = new JndiObjectFactoryBean();
 	    jndiObjectFactoryBean.setJndiTemplate(jndiTemplate());
-	    jndiObjectFactoryBean.setJndiName("localhost");
-	    
+	    jndiObjectFactoryBean.setJndiName("hono");	    
 	    return jndiObjectFactoryBean;
 	  }
+	  
 }

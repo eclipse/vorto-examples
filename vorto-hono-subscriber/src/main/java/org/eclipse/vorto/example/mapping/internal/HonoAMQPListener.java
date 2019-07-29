@@ -20,6 +20,8 @@ import javax.jms.MessageListener;
 
 import org.eclipse.vorto.example.mapping.handler.Context;
 import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
+import org.eclipse.vorto.example.mapping.internal.deserializer.DeserializerFactory;
+import org.eclipse.vorto.example.mapping.internal.deserializer.IDeserializer;
 import org.eclipse.vorto.model.ModelId;
 import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.slf4j.Logger;
@@ -53,22 +55,24 @@ public class HonoAMQPListener implements MessageListener {
 	private static final String HEADER_DEVICE_ID = "device_id";
 	private static final String HEADER_VORTO_ID = "vorto";
 	private static final String HEADER_CONTENT_TYPE = "JMS_AMQP_CONTENT_TYPE";
+	private static final String HEADER_NAMESPACE = "namespace";
 
 	@Override
 	public void onMessage(Message message) {
 		logger.debug("Received AMQP message from Hono ...");
 		try {
 			final String deviceId = message.getStringProperty(HEADER_DEVICE_ID);
+			final String namespace = message.getStringProperty(HEADER_NAMESPACE);
 			final String modelId = message.getStringProperty(HEADER_VORTO_ID);
 			final String contentType = message.getStringProperty(HEADER_CONTENT_TYPE);
-
+			
 			if (modelId == null) {
 				logger.error(
 						"No vorto model id found in message. Please add a field 'vorto' as a custom field during device registration.");
 				return;
 			}
 
-			final Deserializer deserializer = DeserializerFactory.getDeserializer(contentType);
+			final IDeserializer deserializer = DeserializerFactory.getDeserializer(contentType);
 			final Object deserializedPayload = deserializer.deserialize(message);
 
 			final InfomodelValue normalizedData = mappingService.map(ModelId.fromPrettyFormat(modelId),
@@ -80,7 +84,7 @@ public class HonoAMQPListener implements MessageListener {
 			payloadHandlers.stream().forEach(handler -> {
 				logger.info("Invoking payload handler " + handler.getClass().getName());
 				try {
-					handler.handlePayload(jsonObject, new Context(deviceId, normalizedData));
+					handler.handlePayload(jsonObject, new Context(deviceId, namespace, normalizedData));
 				} catch (Throwable t) {
 					logger.error("Problem during handler invocation", t);
 				}
