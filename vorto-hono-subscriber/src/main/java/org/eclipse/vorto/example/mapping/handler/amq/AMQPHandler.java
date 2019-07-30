@@ -20,6 +20,7 @@ import org.eclipse.vorto.mapping.engine.twin.TwinPayloadFactory;
 import org.eclipse.vorto.model.runtime.FunctionblockValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 
 import com.google.gson.Gson;
@@ -33,6 +34,9 @@ public class AMQPHandler implements IPayloadHandler {
 	private JmsTemplate jmsTemplate;
 	
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	
+	@Value(value = "${amqp.topic}")
+	private String topic;
 
 	public AMQPHandler(ConnectionFactory connectionFactory) {
 		this.jmsTemplate = new JmsTemplate(connectionFactory);
@@ -45,7 +49,7 @@ public class AMQPHandler implements IPayloadHandler {
 			JsonObject updateCommand = TwinPayloadFactory.toDittoProtocol(value, fbProperty, context.getNamespace(),
 					context.getDeviceId());
 			
-			jmsTemplate.convertAndSend("telemetry/vorto/ditto", gson.toJson(updateCommand));
+			jmsTemplate.convertAndSend(topic, gson.toJson(updateCommand));
 		}
 
 	}
