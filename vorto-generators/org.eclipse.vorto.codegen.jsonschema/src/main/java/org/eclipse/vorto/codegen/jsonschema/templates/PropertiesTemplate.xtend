@@ -40,7 +40,7 @@ class PropertiesTemplate implements IFileTemplate<FunctionblockModel> {
 		
 		'''
 			{
-				"$schema": "http://json-schema.org/draft-04/schema#",
+				"$schema": "http://json-schema.org/draft-07/schema#",
 				"title": "Properties of <«definition»>",
 				"type": "object",
 				"properties": {
