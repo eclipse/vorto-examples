@@ -6,6 +6,8 @@ import AttributesCard from "../../components/AttributesCard/AttributesCard.jsx"
 import CodeCard from "../../components/CodeCard/CodeCard.jsx";
 import LocationCard from "../../components/LocationCard/LocationCard";
 import GaugeCard from "../../components/GaugeCard/GaugeCard";
+import ThermometerCard from "../../components/ThermometerCard/ThermometerCard";
+import BarChart3Card from "../../components/BarChart3Card/BarChart3Card.jsx";
 import BatteryCard from "../../components/BatteryCard/BatteryCard";
 import StateNumberCard from "../../components/StateNumberCard/StateNumberCard";
 import ImageCard from "../../components/ImageCard/ImageCard";
@@ -15,7 +17,6 @@ import {
   CATEGORIES,
   mapDeftoCardCategorie
 } from "../../util/cardUtils";
-import ThermometerCard from "../../components/ThermometerCard/ThermometerCard";
 
 const mapStateToProps = state => {
   return { device: state.selectedDevice };
@@ -26,6 +27,12 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
     case CATEGORIES.GAGE:
       return (
         <GaugeCard
+          featureName={featureName}
+          feature={featureObj} />
+      );
+    case CATEGORIES.BAR3CHART:
+      return (
+        <BarChart3Card
           featureName={featureName}
           feature={featureObj} />
       );

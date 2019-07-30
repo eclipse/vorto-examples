@@ -5,15 +5,9 @@ import { getRepositoryLink } from '../../util';
 
 export class ConnectivityCard extends Component {
   render() {
-    // TODO - Unpack passed props here
-    // this.props.featureName - holds the given name of the feature
-    // this.props.feature - holdsthe JSON for the current feature
-
     const feature = this.props.feature;
     const featureName = this.props.featureName;
     const featureStatus = feature.properties.status;
-
-    console.log(feature);
 
     const connected = featureStatus.status === "Connected";
     const connecting = featureStatus.status === "Connecting";

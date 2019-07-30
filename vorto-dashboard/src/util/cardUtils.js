@@ -6,6 +6,10 @@ const CATEGORIES = {
     GAGE: [
         "org.eclipse.vorto:Voltage:1.0.0"
     ],
+    BAR3CHART: [
+        "org.eclipse.vorto:MagneticStrength:1.0.0",
+        "org.eclipse.vorto:Acceleration:1.0.0"
+    ],
     TEMPERATURE: [
         "org.eclipse.vorto:Temperature:1.0.0"
     ],
@@ -40,6 +44,10 @@ function mapDeftoCardCategorie(featureDefs) {
 
         if (CATEGORIES.GAGE.includes(definition)) {
             return CATEGORIES.GAGE
+        }
+
+        if (CATEGORIES.BAR3CHART.includes(definition)) {
+            return CATEGORIES.BAR3CHART
         }
 
         if (CATEGORIES.TEMPERATURE.includes(definition)) {
