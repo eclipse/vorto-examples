@@ -10,9 +10,9 @@ import request from "request-promise-native"
 
 import indexRoutes from "../routes/index.jsx";
 
-// TODO make port used from config file
+const PORT = process.env.PORT || 8080;
 const reqOpts = {
-    url: `http://localhost:${8080}/devices`,
+    url: `${window.location.href}:${PORT}/devices`,
     method: "GET",
     json: true
 }
@@ -21,7 +21,7 @@ function pollDevices() {
     request(reqOpts)
         .then(res => {
             const devices = res.data
-            store.dispatch(Actions.updateDevices(devices))
+            store.dispatch(Actions.updateDssevices(devices))
         })
         .catch(err => `Could not poll data from backend... ${err}`)
 }

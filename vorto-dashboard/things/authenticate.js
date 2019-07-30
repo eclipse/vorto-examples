@@ -48,7 +48,7 @@ try {
 
   if (!envId || !envSecret || !envScope) {
     console.error("No credentials given in either config file or environment, stopping dashboard!")
-    process.exit(0)
+    process.exit(1)
   }
 
   client_id = envId;
