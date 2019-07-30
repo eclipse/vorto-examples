@@ -29,7 +29,8 @@ jobs:
         zip-file: vorto-dashboard.zip
         skip_cleanup: true
         region: "$VORTO_S3_REGION"
-        app: vorto-dashboard
+        app: "Vorto Dashboard"
+        env: "VortoDashboard-dev"
         only_create_app_version: false
         bucket_name: "$VORTO_S3_BUCKET"
       
