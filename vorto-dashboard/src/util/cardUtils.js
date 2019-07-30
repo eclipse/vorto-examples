@@ -18,6 +18,9 @@ const CATEGORIES = {
     IMAGE: [
         "org.eclipse.vorto:Image:1.0.0"
     ],
+    CONNECTION: [
+        "org.eclipse.vorto:Connectivity:1.0.0"
+    ],
     JSON: []
 }
 
@@ -53,6 +56,10 @@ function mapDeftoCardCategorie(featureDefs) {
 
         if (CATEGORIES.IMAGE.includes(definition)) {
             return CATEGORIES.IMAGE
+        }
+
+        if (CATEGORIES.CONNECTION.includes(definition)) {
+            return CATEGORIES.CONNECTION
         }
     }
 

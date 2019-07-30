@@ -9,6 +9,7 @@ import GaugeCard from "../../components/GaugeCard/GaugeCard";
 import BatteryCard from "../../components/BatteryCard/BatteryCard";
 import StateNumberCard from "../../components/StateNumberCard/StateNumberCard";
 import ImageCard from "../../components/ImageCard/ImageCard";
+import ConnectivityCard from "../../components/ConnectivityCard/ConnectivityCard";
 
 import {
   CATEGORIES,
@@ -53,6 +54,11 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
           featureName={featureName}
           feature={featureObj} />
       );
+    case CATEGORIES.CONNECTION:
+      return (
+        <ConnectivityCard
+          featureName={featureName}
+          feature={featureObj} />);
     case CATEGORIES.STATE_NUMBER:
       return (
         <StateNumberCard

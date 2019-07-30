@@ -2529,8 +2529,8 @@ body > .navbar-collapse[data-color="purple"]:after {
     transform-origin: 29px -50px; }
   .navbar-nav > li > .dropdown-menu:before {
     border-bottom: 11px solid rgba(0, 0, 0, 0.2);
-    border-left: 11px solid rgba(0, 0, 0, 0);
-    border-right: 11px solid rgba(0, 0, 0, 0);
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
     content: "";
     display: inline-block;
     position: absolute;
@@ -2538,8 +2538,8 @@ body > .navbar-collapse[data-color="purple"]:after {
     top: -11px; }
   .navbar-nav > li > .dropdown-menu:after {
     border-bottom: 11px solid #FFFFFF;
-    border-left: 11px solid rgba(0, 0, 0, 0);
-    border-right: 11px solid rgba(0, 0, 0, 0);
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
     content: "";
     display: inline-block;
     position: absolute;
@@ -3360,6 +3360,21 @@ a:hover {
   position: absolute;
   top: 10px;
   right: 25px; }
+
+.connectivityContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; }
+
+.connectivity {
+  font-size: 5.5em;
+  margin-left: -75px; }
+
+.connectivityState {
+  margin-top: 10px; }
 
 .stateNumberVal {
   font-size: 5em; }
