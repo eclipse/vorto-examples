@@ -13,21 +13,48 @@ parser.addArgument(
   }
 );
 
-const cliArgs = process.argv.slice(2);
-let configFilePath
+let client_id
+let client_secret
+let scope
 
-// handle case of user only typing "vorto-dashboard config.json"
-if (cliArgs.length > 1 || cliArgs[0].startsWith("-")) {
-  const args = parser.parseArgs();
-  configFilePath = args.config
-} else {
-  configFilePath = cliArgs[0]
+try {
+  const cliArgs = process.argv.slice(2);
+  let configFilePath
+
+  // handle case of user only typing "vorto-dashboard config.json"
+  if (cliArgs.length > 1 || cliArgs[0].startsWith("-")) {
+    const args = parser.parseArgs();
+    configFilePath = args.config
+  } else {
+    configFilePath = cliArgs[0]
+  }
+
+  // check path to config file, if absolute, keep it, otherwise use working dir and create abs path
+  const configPath = path.isAbsolute(configFilePath) ? configFilePath : path.join(process.cwd(), configFilePath);
+
+  const configFile = require(configPath);
+  console.log("Using config.json file from path: ", configPath)
+
+  client_id = configFile.client_id
+  client_secret = configFile.client_secret
+  scope = configFile.scope
+} catch (err) {
+  console.log("No config file provided, checking for environment variables...")
+
+  // get environment variables
+  const envId = process.env.BOSCH_CLIENT_ID;
+  const envSecret = process.env.BOSCH_CLIENT_SECRET;
+  const envScope = process.env.BOSCH_SCOPE;
+
+  if (!envId || !envSecret || !envScope) {
+    console.error("No credentials given in either config file or environment, stopping dashboard!")
+    process.exit(0)
+  }
+
+  client_id = envId;
+  client_secret = envSecret;
+  scope = envScope;
 }
-
-// check path to config file, if absolute, keep it, otherwise use working dir and create abs path
-const configPath = path.isAbsolute(configFilePath) ? configFilePath : path.join(process.cwd(), configFilePath);
-const configFile = require(configPath);
-console.log("Using config.json file from path: ", configPath)
 
 class AuthToken {
   /*Intitally get the token and assign its value to the object*/
@@ -39,9 +66,9 @@ class AuthToken {
   getInitialToken() {
     const tokenForm = {
       "grant_type": "client_credentials",
-      "client_id": configFile.client_id,
-      "client_secret": configFile.client_secret,
-      "scope:service": configFile.scope
+      "client_id": client_id,
+      "client_secret": client_secret,
+      "scope:service": scope
     }
 
     return request(this.getReqOpts(tokenForm))

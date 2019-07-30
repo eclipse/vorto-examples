@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 
-import ConnectivityStatus from "../ConnectivityStatus/ConnectivityStatus"
+import ConnectivityStatus from "../ConnectivityStatus/ConnectivityStatus";
 
 export class DeviceCard extends Component {
   state = {

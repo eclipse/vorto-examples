@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 
-import ConnectivityStatus from "../ConnectivityStatus/ConnectivityStatus"
 import { getRepositoryLink } from '../../util';
 
 export class AttributesCard extends Component {
@@ -16,7 +15,6 @@ export class AttributesCard extends Component {
               <Col xs={12} sm={12} md={12} lg={12} className="autoScroll">
                 <h3>
                   {device.attributes.thingName}
-                  <ConnectivityStatus device={device} />
                 </h3>
               </Col>
             </Row>

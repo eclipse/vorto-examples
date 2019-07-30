@@ -6,6 +6,10 @@ const CATEGORIES = {
     GAGE: [
         "org.eclipse.vorto:Voltage:1.0.0"
     ],
+    BAR3CHART: [
+        "org.eclipse.vorto:MagneticStrength:1.0.0",
+        "org.eclipse.vorto:Acceleration:1.0.0"
+    ],
     TEMPERATURE: [
         "org.eclipse.vorto:Temperature:1.0.0"
     ],
@@ -17,6 +21,9 @@ const CATEGORIES = {
     ],
     IMAGE: [
         "org.eclipse.vorto:Image:1.0.0"
+    ],
+    CONNECTION: [
+        "org.eclipse.vorto:Connectivity:1.0.0"
     ],
     JSON: []
 }
@@ -39,6 +46,10 @@ function mapDeftoCardCategorie(featureDefs) {
             return CATEGORIES.GAGE
         }
 
+        if (CATEGORIES.BAR3CHART.includes(definition)) {
+            return CATEGORIES.BAR3CHART
+        }
+
         if (CATEGORIES.TEMPERATURE.includes(definition)) {
             return CATEGORIES.TEMPERATURE
         }
@@ -53,6 +64,10 @@ function mapDeftoCardCategorie(featureDefs) {
 
         if (CATEGORIES.IMAGE.includes(definition)) {
             return CATEGORIES.IMAGE
+        }
+
+        if (CATEGORIES.CONNECTION.includes(definition)) {
+            return CATEGORIES.CONNECTION
         }
     }
 

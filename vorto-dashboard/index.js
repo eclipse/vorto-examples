@@ -9,8 +9,7 @@ const io = require('socket.io')(server);
 
 const { getUpdatedDevices } = require("./things");
 
-// TODO make port used from config file
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // Cross origin fix
 const allowCrossDomain = (req, res, next) => {

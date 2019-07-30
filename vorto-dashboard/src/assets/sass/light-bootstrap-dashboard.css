@@ -2529,8 +2529,8 @@ body > .navbar-collapse[data-color="purple"]:after {
     transform-origin: 29px -50px; }
   .navbar-nav > li > .dropdown-menu:before {
     border-bottom: 11px solid rgba(0, 0, 0, 0.2);
-    border-left: 11px solid rgba(0, 0, 0, 0);
-    border-right: 11px solid rgba(0, 0, 0, 0);
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
     content: "";
     display: inline-block;
     position: absolute;
@@ -2538,8 +2538,8 @@ body > .navbar-collapse[data-color="purple"]:after {
     top: -11px; }
   .navbar-nav > li > .dropdown-menu:after {
     border-bottom: 11px solid #FFFFFF;
-    border-left: 11px solid rgba(0, 0, 0, 0);
-    border-right: 11px solid rgba(0, 0, 0, 0);
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
     content: "";
     display: inline-block;
     position: absolute;
@@ -3361,6 +3361,23 @@ a:hover {
   top: 10px;
   right: 25px; }
 
+.connectivityContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; }
+
+.connectivity {
+  font-size: 5.5em;
+  margin-left: -75px;
+  -webkit-text-stroke: 4px #e5e5e5;
+  text-stroke: 4px #e5e5e5; }
+
+.connectivityState {
+  margin-top: 10px; }
+
 .stateNumberVal {
   font-size: 5em; }
 
@@ -3391,3 +3408,38 @@ a:hover {
   -ms-max-height: 100%;
   -o-max-height: 100%;
   max-height: 100%; }
+
+.chartContainer {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: flex-end; }
+
+.barChartContainer {
+  height: 100%;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center; }
+
+.barChart {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  border: 4px solid #e5e5e5;
+  border-radius: 20px 20px 0 0;
+  -webkit-min-height: 15%;
+  -moz-min-height: 15%;
+  -ms-min-height: 15%;
+  -o-min-height: 15%;
+  min-height: 15%;
+  -webkit-transition: height 1s;
+  -moz-transition: height 1s;
+  -ms-transition: height 1s;
+  -o-transition: height 1s;
+  transition: height 1s; }
