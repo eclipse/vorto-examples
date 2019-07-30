@@ -13,9 +13,17 @@ Installing the dashboard is as easy as doing
 npm install -g vorto-dashboard
 ```
 
-> **Note** that we are installing it as a global dependency which will allow you to call `vorto-dashboard` from your command line.
+> **Note** that we are installing it as a global dependency which will allow you to call `vorto-dashboard` from your command line
 
-You need to provide a configuration file to the vorto-dashboard call.
+You can provide your OAuth2 credentials through environment variables.   
+The three environment variables you have to provide are:
+```bash
+BOSCH_CLIENT_ID
+BOSCH_CLIENT_SECRET
+BOSCH_SCOPE
+```
+
+Alternatively you can provide a configuration file to the vorto-dashboard call.
 ```elm
 vorto-dashboard config.json
 ```
@@ -30,6 +38,8 @@ This has to be in the format of:
   "intervalMS": 10000
 }
 ```
+
+In addition to that you can set the port the dashboard should run on by using the `PORT` environment variable.
 
 <br />
 
