@@ -152,7 +152,7 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>org.eclipse.vorto.example.mapper.HonoPayloadApp</mainClass>
+								<mainClass>org.eclipse.vorto.example.mapping.HonoPayloadApp</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
