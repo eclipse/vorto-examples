@@ -39,7 +39,7 @@ This has to be in the format of:
 }
 ```
 
-In addition to that you can set the port the dashboard should run on by using the `APP_PORT` environment variable.
+In addition to that you can set the port the dashboard should run on by using the `PORT` environment variable.
 
 <br />
 
