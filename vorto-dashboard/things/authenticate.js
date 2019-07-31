@@ -109,8 +109,8 @@ class AuthToken {
     console.log("Refreshing token")
     const tokenForm = {
       "grant_type": "refresh_token",
-      "client_id": configFile.client_id,
-      "client_secret": configFile.client_secret,
+      "client_id": client_id,
+      "client_secret": client_secret,
       "refresh_token": refreshToken
     }
 

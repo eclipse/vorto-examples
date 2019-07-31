@@ -32,6 +32,9 @@ const CATEGORIES = {
     CONNECTION: [
         "org.eclipse.vorto:Connectivity:1.0.0"
     ],
+    NO_WIDGET: [
+        "org.eclipse.vorto:DeviceInformation:1.0.0"
+    ],
     JSON: [],
 
     // To be removed once the Mapping Engine supports nested Function Blocks
@@ -92,6 +95,10 @@ function mapDeftoCardCategorie(featureDefs) {
 
         if (CATEGORIES.CONNECTION.includes(definition)) {
             return CATEGORIES.CONNECTION
+        }
+
+        if (CATEGORIES.NO_WIDGET.includes(definition)) {
+            return CATEGORIES.NO_WIDGET
         }
 
 
