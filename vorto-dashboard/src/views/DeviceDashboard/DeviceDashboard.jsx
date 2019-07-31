@@ -111,6 +111,7 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
 
 const ConnectedDeviceDashboard = ({ device }) => {
   const row = Object.keys(device.features)
+    .sort()
     .map((featureName, index) => {
       const featureObj = device.features[featureName]
       const featureDefs = featureObj.definition;

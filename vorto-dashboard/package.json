@@ -48,7 +48,7 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
-    "dist": "mkdir dist && cp -r package.json things build README.md index.js dist/",
+    "dist": "mkdir dist && cp -r package.json things build README.md index.js dist/ && rm -rf build/",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
