@@ -3,6 +3,32 @@ dist: trusty
 
 jobs:
   include:
+    - stage: deploy-normalizer-aws
+      name: "Deploys the Vorto-Normalizer to AWS Beanstalk"
+      language: java
+      jdk: oraclejdk8
+      before_script:
+      script:
+      before_install:
+        - cd vorto-hono-subscriber
+      before_deploy:
+        - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} vorto-normalizer "
+        - export ELASTIC_BEANSTALK_ENV=vorto-normalizer-${TRAVIS_BRANCH}
+        - export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
+        - export ARTIFACT=$(ls target/hono-payloadmapping-*.jar)
+      deploy:
+        provider: elasticbeanstalk
+        access_key_id: "$VORTO_AWS_ACCESS_KEY"        
+        secret_access_key: "$VORTO_AWS_SECRET_KEY"
+        zip_file: "${ARTIFACT}"
+        skip_cleanup: true
+        region: "$VORTO_S3_REGION"  
+        app: "Vorto-Payload-Normalizer-Service"
+        env: "Payload-Normalizer-Dev"
+        bucket_name: "$VORTO_S3_BUCKET"
+        on:
+          branch: master
+      
     - stage: deploy-dashboard-aws
       name: "Deploys the Vorto-Dashboard to AWS Beanstalk"
       language: node_js
@@ -30,6 +56,8 @@ jobs:
         env: "VortoDashboard-dev"
         only_create_app_version: false
         bucket_name: "$VORTO_S3_BUCKET"
+        on:
+          branch: master
       
     - stage: deploy-npm
       name: "Publish Vorto-Dashboard to NPM"
