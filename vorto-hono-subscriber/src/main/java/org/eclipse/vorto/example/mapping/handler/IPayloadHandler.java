@@ -12,7 +12,7 @@
  */
 package org.eclipse.vorto.example.mapping.handler;
 
-import com.google.gson.JsonObject;
+import org.eclipse.vorto.model.runtime.InfomodelValue;
 
 /**
  * Handler to be implemented by the application to process the normalized device data.
@@ -26,5 +26,5 @@ public interface IPayloadHandler {
    * @param normalizedPayload normalized json data
    * @param context context information about the payload, such as device ID
    */
-  void handlePayload(JsonObject normalizedPayload, Context context);
+  void handlePayload(InfomodelValue value, Context context);
 }

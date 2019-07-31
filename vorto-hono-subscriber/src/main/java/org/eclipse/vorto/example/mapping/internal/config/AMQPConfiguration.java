@@ -10,18 +10,18 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.eclipse.vorto.example.mapping.config;
+package org.eclipse.vorto.example.mapping.internal.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
 import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
-import org.eclipse.vorto.example.mapping.handler.amq.AMQPHandler;
+import org.eclipse.vorto.example.mapping.handler.amqp.AMQPHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class LocalConfiguration {
+public class AMQPConfiguration {
 
 	@Value(value = "${amqp.username}")
 	private String username;

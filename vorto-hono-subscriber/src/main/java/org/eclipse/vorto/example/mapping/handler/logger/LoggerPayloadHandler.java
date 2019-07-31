@@ -14,12 +14,12 @@ package org.eclipse.vorto.example.mapping.handler.logger;
 
 import org.eclipse.vorto.example.mapping.handler.Context;
 import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
+import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 /**
  * Simple Handler that logs the normalized device payload to configured logging
@@ -34,9 +34,9 @@ public class LoggerPayloadHandler implements IPayloadHandler {
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Override
-	public void handlePayload(JsonObject normalizedPayload, Context context) {
+	public void handlePayload(InfomodelValue infomodelValue, Context context) {
 		logger.info("--> Normalized json for device ID " + context.getDeviceId());
-		logger.info(System.lineSeparator() + gson.toJson(normalizedPayload));
+		logger.info(System.lineSeparator() + gson.toJson(infomodelValue.serialize()));
 	}
 
 }

@@ -12,17 +12,30 @@
  */
 package org.eclipse.vorto.example.mapping.internal.deserializer;
 
+import javax.jms.Message;
+
 public class DeserializerFactory {
-	public static IDeserializer getDeserializer(String contentType) {
-		switch (contentType) {
-		case MimeTypes.Text.CSV:
-			return new CsvDeserializer();
-		case MimeTypes.Application.JSON:
-			return new JsonDeserializer();
-		case MimeTypes.Application.ECLIPSE_DITTO:
-			return new DittoDeserializer();
-		default:
-			return null;
-		}
+    private static final IDeserializer CSV_DESERIALIZER = new CsvDeserializer();
+    private static final IDeserializer JSON_DESERIALIZER = new JsonDeserializer();
+    private static final IDeserializer DITTO_DESERIALIZER = new DittoDeserializer();
+    
+    private static final IDeserializer NOOP_DESERIALIZER = new IDeserializer() {
+      
+      @Override
+      public Object deserialize(Message message) {
+        return message;
+      }
+    };
+    
+	public static IDeserializer getDeserializer(MimeType mimeType) {
+	  if (mimeType == MimeType.CSV) {
+	    return CSV_DESERIALIZER;
+	  } else if (mimeType == MimeType.JSON) {
+	    return JSON_DESERIALIZER;
+	  } else if (mimeType == MimeType.ECLIPSE_DITTO) {
+	    return DITTO_DESERIALIZER;
+	  } else {
+	    return NOOP_DESERIALIZER;
+	  }
 	}
 }

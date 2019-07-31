@@ -15,21 +15,24 @@ package org.eclipse.vorto.example.mapping.handler;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.eclipse.vorto.model.runtime.InfomodelValue;
+import org.eclipse.vorto.example.mapping.internal.deserializer.IDeserializer;
+import org.eclipse.vorto.example.mapping.internal.deserializer.MimeType;
 
 public class Context {
 
 	private String deviceId;
 	private String namespace;
-	private InfomodelValue normalizedModel;
+	private MimeType mimeType;
+	private Object rawPayload;
 
-	public Context(String deviceId, String namespace, InfomodelValue normalizedModel) {
+	public Context(String deviceId, String namespace, MimeType mimeType, Object rawPayload) {
 		super();
 		this.deviceId = getDeviceId(deviceId);
 		this.namespace = getNamespace(deviceId, namespace);
-		this.normalizedModel = normalizedModel;
+		this.mimeType = mimeType;
+		this.rawPayload = rawPayload;
 	}
+	
 
 	public String getDeviceId() {
 		return deviceId;
@@ -38,11 +41,15 @@ public class Context {
 	public String getNamespace() {
 		return namespace;
 	}
-
-	public InfomodelValue getNormalizedModel() {
-		return normalizedModel;
+	
+	public MimeType getMimeType() {
+	  return mimeType;
 	}
 
+	public Object getRawPayload() {
+	  return this.rawPayload;
+	}
+	
 	private String getDeviceId(String deviceId) {
 		if (!deviceId.contains(":")) {
 			return deviceId;

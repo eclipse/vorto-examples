@@ -1,15 +1,15 @@
 hono:
-  tenantId:
-  password:
+  tenantId: 
+  password: 
 
 msg:
   queue: telemetry/${hono.tenantId}
 
 amqp:
-  username:
-  password:
-  url:
-  topic:
+  username: 
+  password: 
+  url: 
+  topic: 
 
 session:
   cache:
