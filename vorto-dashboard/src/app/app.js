@@ -11,6 +11,7 @@ import request from "request-promise-native"
 import indexRoutes from "../routes/index.jsx";
 
 const PORT = process.env.PORT || 8080;
+const DEVICE_REFRESH_MS = process.env.DEVICE_REFRESH_MS || 5000;
 const reqOpts = {
     url: `http://${window.location.hostname}:${PORT}/devices`,
     method: "GET",
@@ -29,7 +30,7 @@ function pollDevices() {
 export class App extends Component {
     componentDidMount() {
         // TODO replace with WS
-        this.interval = setInterval(pollDevices, 5000);
+        this.interval = setInterval(pollDevices, { DEVICE_REFRESH_MS });
 
         // TODO setup store dispatch with new device data over WS
 

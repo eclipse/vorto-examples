@@ -42,11 +42,20 @@ Even though this will be extended in the future, you might want to create UI Car
 **Gauge**:
 *Requires Integration of [org.eclipse.vorto.types:SensorValue:1.0.0](https://vorto.eclipse.org/#/details/org.eclipse.vorto.types:SensorValue:1.0.0) in status* 
 
+**Percentage**:
+*Requires Integration of [org.eclipse.vorto.types:SensorValuePercentage:1.0.0](https://vorto.eclipse.org/#/details/org.eclipse.vorto.types:SensorValuePercentage:1.0.0) in status* 
+
+**Barchart with 3 Bars**:
+*Requires Integration of [org.eclipse.vorto.types:Sensor3DValue:1.0.0](https://vorto.eclipse.org/#/details/org.eclipse.vorto.types:Sensor3DValue:1.0.0) in status* 
+
 **Image**:
 *Requires Integration of [org.eclipse.vorto:Image:1.0.0](https://vorto.eclipse.org/#/details/org.eclipse.vorto:Image:1.0.0)* 
 
 **State Number**
 *Requires Integration of [com.ipso.smartobjects:Presence:1.1.0](https://vorto.eclipse.org/#/details/com.ipso.smartobjects:Presence:1.1.0)* 
+
+**Connectivity**
+*Requires Integration of [org.eclipse.vorto.types:ConnectivityStatus:1.0.0](https://vorto.eclipse.org/#/details/org.eclipse.vorto.types:ConnectivityStatus:1.0.0) in status* 
 
 **JSON**:
 *Doesn't require any additional work, every FB without more specific mapping will be displayed as JSON code*
