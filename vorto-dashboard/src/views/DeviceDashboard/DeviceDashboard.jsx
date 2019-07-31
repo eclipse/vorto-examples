@@ -116,6 +116,11 @@ const ConnectedDeviceDashboard = ({ device }) => {
       const featureDefs = featureObj.definition;
 
       const categorieType = mapDeftoCardCategorie(featureDefs);
+
+      if (categorieType === CATEGORIES.NO_WIDGET) {
+        return null;
+      }
+
       const featureCard = mapCategorieToCard(categorieType, device, featureObj, featureName);
 
       return (<Col xs={12} sm={6} md={6} lg={4} key={index}>{featureCard}</Col>);
