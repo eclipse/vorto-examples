@@ -14,7 +14,7 @@ function getImgUrl(device) {
     return Promise.resolve(savedImgUrl)
   }
 
-  const url = `http://vorto.eclipse.org/rest/default/models/${device.attributes.definition}/images`;
+  const url = `http://vorto.eclipse.org/rest/models/${device.attributes.definition}/images`;
   const reqOpts = {
     url,
     method: "GET"

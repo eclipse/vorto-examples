@@ -463,6 +463,43 @@ a:hover {
     } 
 }
 
+.percentageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .percentage {
+        background-color: #e5e5e5;
+        border-radius: 15px 15px 0 0;
+        height: 200px;
+        position: relative;
+        width: 100px;
+        padding: 5px;
+        margin-bottom: 10px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        .percentage-background {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            background-color: #4494c1;
+
+            -webkit-transition: height 1s; 
+            -moz-transition: height 1s; 
+            -ms-transition: height 1s; 
+            -o-transition: height 1s; 
+            transition: height 1s;
+        }
+    }
+
+    .percentage-percentage {
+        font-size: 32px;
+    }
+}
+
 .connectivityIcon {
     font-size: 1.25em;
     position: absolute;

@@ -39,9 +39,7 @@ export class ThermometerCard extends Component {
                   </span>
                   <div className="thermometer-bulb">
                     <span className="thermometer-redCircle"></span>
-                    <span className="thermometer-filler">
-                      <span></span>
-                    </span>
+                    <span className="thermometer-filler"></span>
                   </div>
                 </div>
               </div>
