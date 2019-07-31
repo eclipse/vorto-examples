@@ -12,7 +12,7 @@ import indexRoutes from "../routes/index.jsx";
 
 const PORT = process.env.PORT || 8080;
 const reqOpts = {
-    url: `${window.location.href}:${PORT}/devices`,
+    url: `http://${window.location.hostname}:${PORT}/devices`,
     method: "GET",
     json: true
 }
@@ -21,7 +21,7 @@ function pollDevices() {
     request(reqOpts)
         .then(res => {
             const devices = res.data
-            store.dispatch(Actions.updateDssevices(devices))
+            store.dispatch(Actions.updateDevices(devices))
         })
         .catch(err => `Could not poll data from backend... ${err}`)
 }

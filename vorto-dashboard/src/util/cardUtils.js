@@ -4,11 +4,18 @@ const CATEGORIES = {
         "org.eclipse.vorto:Geolocation:1.0.0"
     ],
     GAGE: [
-        "org.eclipse.vorto:Voltage:1.0.0"
+        "org.eclipse.vorto:Voltage:1.0.0",
+        "org.eclipse.vorto:Illuminance:1.0.0",
+        "org.eclipse.vorto:Acoustics:1.0.0",
+        "org.eclipse.vorto:BarometricPressure:1.0.0"
     ],
     BAR3CHART: [
         "org.eclipse.vorto:MagneticStrength:1.0.0",
-        "org.eclipse.vorto:Acceleration:1.0.0"
+        "org.eclipse.vorto:Acceleration:1.0.0",
+        "org.eclipse.vorto:Rotation:1.0.0"
+    ],
+    PERCENTAGE: [
+        "org.eclipse.vorto:Humidity:1.0.0"
     ],
     TEMPERATURE: [
         "org.eclipse.vorto:Temperature:1.0.0"
@@ -48,6 +55,10 @@ function mapDeftoCardCategorie(featureDefs) {
 
         if (CATEGORIES.BAR3CHART.includes(definition)) {
             return CATEGORIES.BAR3CHART
+        }
+
+        if (CATEGORIES.PERCENTAGE.includes(definition)) {
+            return CATEGORIES.PERCENTAGE
         }
 
         if (CATEGORIES.TEMPERATURE.includes(definition)) {

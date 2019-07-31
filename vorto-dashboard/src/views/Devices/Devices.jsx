@@ -20,9 +20,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 const ConnectedDevices = ({ devices, selectDevice }) => {
-  const deviceCols = devices.map(device => {
+  const deviceCols = devices.map((device, index) => {
     return (
-      <Col xs={12} sm={6} md={6} lg={3}>
+      <Col xs={12} sm={6} md={6} lg={3} key={index}>
         <DeviceCard
           device={device}
           setSelectedDevice={(device) => selectDevice(device)}

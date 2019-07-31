@@ -6,6 +6,7 @@ import AttributesCard from "../../components/AttributesCard/AttributesCard.jsx"
 import CodeCard from "../../components/CodeCard/CodeCard.jsx";
 import LocationCard from "../../components/LocationCard/LocationCard";
 import GaugeCard from "../../components/GaugeCard/GaugeCard";
+import PercentageCard from "../../components/PercentageCard/PercentageCard.jsx";
 import ThermometerCard from "../../components/ThermometerCard/ThermometerCard";
 import BarChart3Card from "../../components/BarChart3Card/BarChart3Card.jsx";
 import BatteryCard from "../../components/BatteryCard/BatteryCard";
@@ -36,13 +37,18 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
           featureName={featureName}
           feature={featureObj} />
       );
+    case CATEGORIES.PERCENTAGE:
+      return (
+        <PercentageCard
+          featureName={featureName}
+          feature={featureObj} />
+      );
     case CATEGORIES.TEMPERATURE:
       return (
         <ThermometerCard
           featureName={featureName}
           feature={featureObj} />
       );
-
     case CATEGORIES.BATTERY:
       return (
         <BatteryCard
@@ -82,14 +88,14 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
 
 const ConnectedDeviceDashboard = ({ device }) => {
   const row = Object.keys(device.features)
-    .map(featureName => {
+    .map((featureName, index) => {
       const featureObj = device.features[featureName]
       const featureDefs = featureObj.definition;
 
       const categorieType = mapDeftoCardCategorie(featureDefs);
       const featureCard = mapCategorieToCard(categorieType, device, featureObj, featureName);
 
-      return (<Col xs={12} sm={6} md={6} lg={4}>{featureCard}</Col>);
+      return (<Col xs={12} sm={6} md={6} lg={4} key={index}>{featureCard}</Col>);
     });
 
   return (
