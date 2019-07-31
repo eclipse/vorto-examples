@@ -2,22 +2,28 @@ import React from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 
-import AttributesCard from "../../components/AttributesCard/AttributesCard.jsx"
-import CodeCard from "../../components/CodeCard/CodeCard.jsx";
+import AttributesCard from "../../components/AttributesCard/AttributesCard"
+import CodeCard from "../../components/CodeCard/CodeCard";
 import LocationCard from "../../components/LocationCard/LocationCard";
 import GaugeCard from "../../components/GaugeCard/GaugeCard";
-import PercentageCard from "../../components/PercentageCard/PercentageCard.jsx";
+import PercentageCard from "../../components/PercentageCard/PercentageCard";
 import ThermometerCard from "../../components/ThermometerCard/ThermometerCard";
-import BarChart3Card from "../../components/BarChart3Card/BarChart3Card.jsx";
+import BarChart3Card from "../../components/BarChart3Card/BarChart3Card";
 import BatteryCard from "../../components/BatteryCard/BatteryCard";
 import StateNumberCard from "../../components/StateNumberCard/StateNumberCard";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import ConnectivityCard from "../../components/ConnectivityCard/ConnectivityCard";
 
+// To be removed once the Mapping Engine supports nested Function Blocks 
+import DemoThermometerCard from "../../components/DemoThermometerCard/DemoThermometerCard";
+import DemoStateNumberCard from "../../components/DemoStateNumberCard/DemoStateNumberCard";
+import DemoGaugeCard from "../../components/DemoGaugeCard/DemoGaugeCard";
+
 import {
   CATEGORIES,
   mapDeftoCardCategorie
 } from "../../util/cardUtils";
+
 
 const mapStateToProps = state => {
   return { device: state.selectedDevice };
@@ -75,6 +81,23 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
     case CATEGORIES.STATE_NUMBER:
       return (
         <StateNumberCard
+          featureName={featureName}
+          feature={featureObj} />);
+
+    // To be removed once the Mapping Engine supports nested Function Blocks 
+    case CATEGORIES.DEMO_TEMPERATURE:
+      return (
+        <DemoThermometerCard
+          featureName={featureName}
+          feature={featureObj} />);
+    case CATEGORIES.DEMO_STATE_NUMBER:
+      return (
+        <DemoStateNumberCard
+          featureName={featureName}
+          feature={featureObj} />);
+    case CATEGORIES.DEMO_GAGE:
+      return (
+        <DemoGaugeCard
           featureName={featureName}
           feature={featureObj} />);
     default:

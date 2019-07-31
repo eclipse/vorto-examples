@@ -32,7 +32,20 @@ const CATEGORIES = {
     CONNECTION: [
         "org.eclipse.vorto:Connectivity:1.0.0"
     ],
-    JSON: []
+    JSON: [],
+
+    // To be removed once the Mapping Engine supports nested Function Blocks
+    DEMO_TEMPERATURE: [
+        "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+    ],
+    DEMO_STATE_NUMBER: [
+        "org.eclipse.vorto.tutorial:ID:1.0.0",
+        "org.eclipse.vorto.tutorial:UnixTimestamp:1.0.0"
+    ],
+    DEMO_GAGE: [
+        "org.eclipse.vorto.tutorial:RotationalSpeed:1.0.0",
+        "org.eclipse.vorto.tutorial:Torque:1.0.0"
+    ]
 }
 
 function mapDeftoCardCategorie(featureDefs) {
@@ -79,6 +92,20 @@ function mapDeftoCardCategorie(featureDefs) {
 
         if (CATEGORIES.CONNECTION.includes(definition)) {
             return CATEGORIES.CONNECTION
+        }
+
+
+        // To be removed once the Mapping Engine supports nested Function Blocks
+        if (CATEGORIES.DEMO_TEMPERATURE.includes(definition)) {
+            return CATEGORIES.DEMO_TEMPERATURE
+        }
+
+        if (CATEGORIES.DEMO_STATE_NUMBER.includes(definition)) {
+            return CATEGORIES.DEMO_STATE_NUMBER
+        }
+
+        if (CATEGORIES.DEMO_GAGE.includes(definition)) {
+            return CATEGORIES.DEMO_GAGE
         }
     }
 
