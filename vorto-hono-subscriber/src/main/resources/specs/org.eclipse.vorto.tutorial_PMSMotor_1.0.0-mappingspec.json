@@ -41,24 +41,29 @@
       "namespace" : "org.eclipse.vorto.tutorial",
       "version" : "1.0.0",
       "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+    }, {
+      "name" : "DeviceInformation",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
     } ],
     "functionblocks" : [ {
       "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
       "stereotypes" : [ ],
       "mappingReference" : {
-        "name" : "Profile_idPayloadMapping",
+        "name" : "DeviceInformationPayloadMapping",
         "namespace" : "org.eclipse.vorto.tutorial.mapping.pmsmotor.fbs",
         "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial.mapping.pmsmotor.fbs:Profile_idPayloadMapping:1.0.0"
+        "prettyFormat" : "org.eclipse.vorto.tutorial.mapping.pmsmotor.fbs:DeviceInformationPayloadMapping:1.0.0"
       },
       "mandatory" : false,
-      "name" : "profile_id",
+      "name" : "deviceInformation",
       "description" : null,
       "type" : {
-        "name" : "ID",
-        "namespace" : "org.eclipse.vorto.tutorial",
+        "name" : "DeviceInformation",
+        "namespace" : "org.eclipse.vorto",
         "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:ID:1.0.0"
+        "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -372,6 +377,167 @@
       "operations" : [ ],
       "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
     },
+    "deviceInformation" : {
+      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+      "stereotypes" : [ ],
+      "mappingReference" : null,
+      "vortolang" : "1.0",
+      "id" : {
+        "name" : "DeviceInformation",
+        "namespace" : "org.eclipse.vorto",
+        "version" : "1.0.0",
+        "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
+      },
+      "type" : "Functionblock",
+      "displayName" : "Device Information",
+      "description" : "Device Information, such as software version, OS etc.",
+      "category" : null,
+      "fileName" : "DeviceInformation.fbmodel",
+      "modelType" : "FunctionblockModel",
+      "references" : [ ],
+      "configurationProperties" : [ ],
+      "statusProperties" : [ {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : "\"NXP Semiconductors\""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "manufacturer",
+        "description" : "Company name of the device manufacturer, e.g. Bosch.",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : "array[1]"
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "serialNumber",
+        "description" : "serial number of the device",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : "\"1.2.22\""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "softwareVersion",
+        "description" : "Version of the software on your device. This could be the version of your firmware, e.g. 2.4.33",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "osName",
+        "description" : "Name of the operating system on the device",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "processorArchitecture",
+        "description" : "Architecture of the processor on the device, e.g x64 or ARM.",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "processorManufacturer",
+        "description" : "Name of the manufacturer of the processor on the device, e.g Intel.",
+        "type" : "STRING",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "totalMemory",
+        "description" : "Total available memory on the device in kilobytes",
+        "type" : "LONG",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      }, {
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "source",
+          "attributes" : {
+            "xpath" : ""
+          }
+        } ],
+        "mappingReference" : null,
+        "mandatory" : false,
+        "name" : "totalStorage",
+        "description" : "Total available storage on the device in kilobytes",
+        "type" : "LONG",
+        "constraints" : [ ],
+        "attributes" : [ ],
+        "multiple" : false,
+        "primitive" : true
+      } ],
+      "faultProperties" : [ ],
+      "events" : [ ],
+      "operations" : [ ],
+      "fullQualifiedFileName" : "org.eclipse.vorto-DeviceInformation-1.0.0.fbmodel"
+    },
     "motor_speed" : {
       "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
       "stereotypes" : [ {
@@ -435,53 +601,6 @@
       "events" : [ ],
       "operations" : [ ],
       "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-RotationalSpeed-1.0.0.fbmodel"
-    },
-    "profile_id" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[0] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "ID",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:ID:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "ID",
-      "description" : "Functionblock for ID",
-      "category" : null,
-      "fileName" : "ID.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toInt(array[1])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "id",
-        "description" : null,
-        "type" : "INT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-ID-1.0.0.fbmodel"
     },
     "strator_winding" : {
       "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
