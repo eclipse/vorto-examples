@@ -25,7 +25,7 @@ import com.google.gson.GsonBuilder;
 public class JsonDeserializer implements IDeserializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(JsonDeserializer.class);
-	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	protected static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Override
 	public Object deserialize(Message message) {
