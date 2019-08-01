@@ -77,14 +77,16 @@ When you register a device in Eclipse Hono, you need to provide the following ad
 		<td>
 			Device content-type. The normalizer supports the following content-types:
 			<br>
-			* application/csv
-			* application/vnd.eclipseditto+json
-			* application/json
+			<ul>
+				<li>application/csv</li>
+				<li>application/vnd.eclipseditto+json</li>
+				<li>application/json</li>
+			</ul>
 		</td>
 	</tr>
 	<tr>
 		<td>namespace</td>
-		<td>Eclipse Ditto namespace. Example 'com.acme'. Only required if messages shall be published to AMQP Ditto-Vorto topic. See chapter configuration.</td>
+		<td>Eclipse Ditto namespace. Example <i>com.acme</i>. Only required if messages shall be published to AMQP Ditto-Vorto topic. See chapter configuration.</td>
 	</tr>
 </table>
 
