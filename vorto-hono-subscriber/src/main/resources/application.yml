@@ -6,10 +6,12 @@ msg:
   queue: telemetry/${hono.tenantId}
 
 amqp:
-  username: 
-  password: 
+  username:
+  password:
   url: 
-  topic: 
+  topic:
+    ditto: 
+    native:
 
 session:
   cache:

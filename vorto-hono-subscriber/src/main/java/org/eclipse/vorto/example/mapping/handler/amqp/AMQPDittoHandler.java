@@ -26,18 +26,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-public class AMQPHandler implements IPayloadHandler {
+public class AMQPDittoHandler implements IPayloadHandler {
 
-  private static final Logger logger = LoggerFactory.getLogger(AMQPHandler.class);
+  private static final Logger logger = LoggerFactory.getLogger(AMQPDittoHandler.class);
 
   private JmsTemplate jmsTemplate;
 
   private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-  @Value(value = "${amqp.topic}")
+  
+  @Value(value = "${amqp.topic.ditto}")
   private String topic;
 
-  public AMQPHandler(ConnectionFactory connectionFactory) {
+  public AMQPDittoHandler(ConnectionFactory connectionFactory) {
     this.jmsTemplate = new JmsTemplate(connectionFactory);
   }
 
@@ -45,7 +45,7 @@ public class AMQPHandler implements IPayloadHandler {
   public void handlePayload(InfomodelValue infomodelValue, Context context) {
     logger.debug("Publishing following ditto command to AMQP Broker:");
     if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {
-      logger.debug((String) context.getRawPayload()+" AMQP broker.");
+      logger.debug((String) context.getRawPayload());
       jmsTemplate.convertAndSend(topic, (String) context.getRawPayload());
     } else {
       for (String fbProperty : infomodelValue.getProperties().keySet()) {
