@@ -401,7 +401,7 @@
         "stereotypes" : [ {
           "name" : "source",
           "attributes" : {
-            "xpath" : "\"NXP Semiconductors\""
+            "xpath" : "\"Bosch Rexroth\""
           }
         } ],
         "mappingReference" : null,
