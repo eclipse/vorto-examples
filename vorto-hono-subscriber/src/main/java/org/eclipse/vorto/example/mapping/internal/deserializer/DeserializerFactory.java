@@ -17,7 +17,6 @@ import javax.jms.Message;
 public class DeserializerFactory {
     private static final IDeserializer CSV_DESERIALIZER = new CsvDeserializer();
     private static final IDeserializer JSON_DESERIALIZER = new JsonDeserializer();
-    private static final IDeserializer DITTO_DESERIALIZER = new DittoDeserializer();
     
     private static final IDeserializer NOOP_DESERIALIZER = new IDeserializer() {
       
@@ -33,7 +32,7 @@ public class DeserializerFactory {
 	  } else if (mimeType == MimeType.JSON) {
 	    return JSON_DESERIALIZER;
 	  } else if (mimeType == MimeType.ECLIPSE_DITTO) {
-	    return DITTO_DESERIALIZER;
+	    return JSON_DESERIALIZER;
 	  } else {
 	    return NOOP_DESERIALIZER;
 	  }
