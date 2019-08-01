@@ -14,6 +14,7 @@ package org.eclipse.vorto.example.mapping.handler.logger;
 
 import org.eclipse.vorto.example.mapping.handler.Context;
 import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
+import org.eclipse.vorto.example.mapping.internal.deserializer.MimeType;
 import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +36,15 @@ public class LoggerPayloadHandler implements IPayloadHandler {
 
 	@Override
 	public void handlePayload(InfomodelValue infomodelValue, Context context) {
-		logger.info("--> Normalized json for device ID " + context.getDeviceId());
-		logger.info(System.lineSeparator() + gson.toJson(infomodelValue.serialize()));
+		logger.trace("--> Normalized json for device ID " + context.getDeviceId());
+		
+		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {  
+          logger.trace(System.lineSeparator() + (String)context.getRawPayload());
+
+		} else {
+          logger.trace(System.lineSeparator() + gson.toJson(infomodelValue.serialize()));
+
+		}
 	}
 
 }
