@@ -1,113 +1,116 @@
 # Getting started with Vorto Normalizer
 
-The Vorto Normalizer is a nice little micro service that receives any device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) and normalizes it according to [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). A payload handler API lets you easily provide integrators to forward the normalized for various IoT platforms, such as Digital Twin services. 
+The Vorto Normalizer is a nice little micro service that receives any device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) and normalizes it according to [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). A payload handler API lets you easily implement custom logic to process the normalized device payload, such as storing it in a Digital Twin service or run analytics. The normalizer provides an out-of-the-box AMQP publish handler that publishes the normalized data to any AMQP message broker, e.g. Amazon MQ. 
 
 ![](overview.png)
 
-In this example, we are going to use the [Bosch IoT Hub](https://www.bosch-iot-suite.com/service/hub/) which uses the Eclipse Hono service. 
+## Configuration 
 
-## Pre-requisite
+### Environment variables
 
-* Bosch IoT Suite Account
-* [Subscription](https://www.bosch-iot-suite.com/service/hub/) to Bosch IoT Hub (free plan)
-* Maven installed
-* Java 1.8+ installed
-* [Mosquitto](http://www.steves-internet-guide.com/mosquitto_pub-sub-clients/) to send data via MQTT
+The following table shows all environment variables that can be configured to run the normalizer:
 
-## Steps to take 
+<table>
+	<tr>
+		<th>Environment Variable</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>hono.tenantId</td>
+		<td>Eclipse Hono tenant ID, in order to receive only tenant-specific telemetry data</td>
+	</tr>
+	<tr>
+		<td>hono.password</td>
+		<td>Eclipse Hono AMQP client password</td>
+	</tr>
+	<tr>
+		<td>amqp.url</td>
+		<td>AMQP Broker URL, where normalized messages are published to</td>
+	</tr>
+	<tr>
+		<td>amqp.username</td>
+		<td>AMQP Broker username</td>
+	</tr>
+	<tr>
+		<td>amqp.password</td>
+		<td>AMQP Broker password</td>
+	</tr>
+	<tr>
+		<td>amqp.topic.ditto</td>
+		<td>AMQP topic to publish Vorto-Ditto protocol compliant messages. Optional.</td>
+	</tr>
+	<tr>
+		<td>amqp.topic.native</td>
+		<td>AMQP topic to publish Vorto native compliant messages. Optional.</td>
+	</tr>
+</table>
 
-### 1. Configure and Run the Payload Mapper Hono Subscription Client
+### Vorto Mapping Specification
 
-2. Modify application.yml and configure your tenantId of your Bosch IoT Hub subscription
-3. Modify qpid.properties and adjust the connectionfactory.localhost URL to your Bosch IoT Hub configuration
-4. Run the app as a Spring Boot application with `mvn clean install springBoot:run`
+The Vorto Mapping specifications must be stored under ```src/main/resources/specs```. Take a look at some examples in the folder for naming conventions. 
 
-### 2. Register a device in Bosch IoT Suite
+## Run the service
 
-You can easily register a test device ID in the Bosch IoT Hub using the [Swagger API](https://apidocs.bosch-iot-suite.com)
+### Prerequisite
 
-1. Register device with a device ID, e.g. '4711' as well as vorto model. In this example we use the AWS IoT Button Vorto model:
+* Maven
+* Java 8 or higher
+
+Simple run the following command `mvn clean install springBoot:run`
+
+
+## Eclipse Hono Device Registry 
+
+When you register a device in Eclipse Hono, you need to provide the following additional default properties 
+
+<table>
+	<tr>
+		<th>Registry key</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>vorto</td>
+		<td>Eclipse Vorto model ID. Example: com.acme.Thermostat:1.0.0</td>
+	</tr>
+	<tr>
+		<td>content-type</td>
+		<td>
+			Device content-type. The normalizer supports the following content-types:
+			<br>
+			* application/csv
+			* application/vnd.eclipseditto+json
+			* application/json
+		</td>
+	</tr>
+	<tr>
+		<td>namespace</td>
+		<td>Eclipse Ditto namespace. Example 'com.acme'. Only required if messages shall be published to AMQP Ditto-Vorto topic. See chapter configuration.</td>
+	</tr>
+</table>
+
+Example Device Registry Request Payload:
+
 ```js
 {
   "enabled": true,
   "device-id": "4711",
   "defaults": {
-    "vorto": "devices.aws.button:AWSIoTButton:1.0.0"
+    "vorto": "devices.aws.button:AWSIoTButton:1.0.0",
+    "content-type" : "application/json",
+    "namespace" : "com.acme"
   }
 }
 ```
 
-2. Add credentials for the device
-```js
-{
-  "device-id": "4711",
-  "type": "hashed-password",
-  "auth-id": "4711",
-  "enabled": true,
-  "secrets": [
-    {
-      "password": "secret"
-    }
-  ]
-}
-```
+## Developer API
 
-### 3. Send arbitrary telemetry data to Bosch IoT Hub
 
-Using the device ID and credentials from step 2. , you can now send telemetry data of the device to Bosch IoT Hub.
-
-1. Download the Bosch IoT Hub server certificate 
-```bash
-curl -o iothub.crt https://docs.bosch-iot-hub.com/cert/iothub.crt
-```
-
-2. Send the device data via MQTT
-```bash
-mosquitto_pub -h mqtt.bosch-iot-hub.com -p 8883 -u {auth-id}@{tenant-id} -P {password} -t telemetry -m '{"clickType": "DOUBLE", "batteryVoltage": "2323mV"}' --cafile iothub.crt
-```
-
-3. Verify the mapped normalized output in the system console. You should see something like this:
-```js
---> Normalized json for device ID 4711
-{
-  "button": {
-    "status": {
-      "digital_input_count": 2,
-      "digital_input_state": true
-    }
-  },
-  "batteryVoltage": {
-    "status": {
-      "sensor_units": "mV",
-      "sensor_value": 2323.0
-    }
-  }
-}
-``` 
-
-## Appendix
-
-### Configure data normalizer for custom Vorto Model
-
-If you want to make it work for your own Information Model and Payload Mapping Spec, follow these steps
-
-#### Pre-requisite
-
-- Github ID
-
-#### Steps to take
-
-1. Create an Information Model via the Repository Cloud Editor
-2. Create a Payload Mapping Specification for your Information Model
-3. Test the mapping specification in the provided test window of the mapping editor
-4. Save and Download the mapping specification as json and store it into the payload mapping app under src/main/resources/specs
-
-### Adding custom handler
-
+### Provide custom device payload handler
 
 If you want to process the normalized data, e.g. forwarding it to InfluxDB or a Digital Twin Service, you would need to implement the `IPayloadHandler` interface
 
 1. Implement the Handler:
+
 ```java
 import org.eclipse.vorto.example.mapping.handler.Context;
 import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
@@ -120,13 +123,14 @@ public class InfluxDBHandler implements IPayloadHandler {
 		this.connectionProps = connectionProps;			
 	}
 	@Override
-    public void handlePayload(JsonObject normalizedPayload, Context context) {
+    public void handlePayload(InfomodelValue normalizedPayload, Context context) {
        // write data to Influx DB
     }
 }
 ```
 
 2. Configure your handler
+
 Add your handler to the `org.eclipse.vorto.example.mapping.config.LocalConfiguration` 
 ```java
 @Bean
