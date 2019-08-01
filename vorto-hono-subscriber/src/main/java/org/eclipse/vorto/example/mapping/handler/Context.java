@@ -15,9 +15,12 @@ package org.eclipse.vorto.example.mapping.handler;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.eclipse.vorto.example.mapping.internal.deserializer.IDeserializer;
 import org.eclipse.vorto.example.mapping.internal.deserializer.MimeType;
 
+/**
+ * Invocation context container that contains properties that are passed from southbound hono connector
+ *
+ */
 public class Context {
 
 	private String deviceId;

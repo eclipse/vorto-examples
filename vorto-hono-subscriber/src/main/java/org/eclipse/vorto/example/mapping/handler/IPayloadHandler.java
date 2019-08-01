@@ -23,7 +23,7 @@ public interface IPayloadHandler {
 
   /**
    * Handles the normalized device payload
-   * @param normalizedPayload normalized json data
+   * @param value normalized/mapped device data complying to Vorto Information Model
    * @param context context information about the payload, such as device ID
    */
   void handlePayload(InfomodelValue value, Context context);
