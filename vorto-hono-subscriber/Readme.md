@@ -1,6 +1,6 @@
-# Getting started
+# Getting started with Vorto Normalizer
 
-In this getting started, we are going to set up this Vorto data normalizer component, which receives any device payload from [Eclipse Hono](https://www.eclipse.org/hono) and harmonizes its payload according to Vorto Function Block definitions. You can easily plug-in your custom handler to process or forward this normalized data, e.g. storing it in an InfluxDB.  
+The Vorto Normalizer is a nice little micro service that receives any device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) and normalizes it according to [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). A payload handler API lets you easily provide integrators to forward the normalized for various IoT platforms, such as Digital Twin services. 
 
 ![](overview.png)
 
