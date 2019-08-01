@@ -30,7 +30,7 @@ function pollDevices() {
 export class App extends Component {
     componentDidMount() {
         // TODO replace with WS
-        this.interval = setInterval(pollDevices, { DEVICE_REFRESH_MS });
+        this.interval = setInterval(pollDevices, DEVICE_REFRESH_MS);
 
         // TODO setup store dispatch with new device data over WS
 

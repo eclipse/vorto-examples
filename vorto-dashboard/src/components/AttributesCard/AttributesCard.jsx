@@ -24,7 +24,7 @@ export class AttributesCard extends Component {
         definition = definition[0]
       }
 
-      if (!definition.includes("org.eclipse.vorto:DeviceInformation:1.0.0")) {
+      if (!definition.includes("org.eclipse.vorto:DeviceInformation")) {
         continue;
       }
 
