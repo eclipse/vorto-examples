@@ -9,9 +9,9 @@ export class BarChart3Card extends Component {
     const featureName = this.props.featureName;
     const featureStatus = feature.properties.status;
 
-    const xValue = (Math.round(featureStatus.x * 100) / 100) || 0;
-    const yValue = (Math.round(featureStatus.y * 100) / 100) || 0;
-    const zValue = (Math.round(featureStatus.z * 100) / 100) || 0;
+    const xValue = (Math.round(featureStatus.value.x * 100) / 100) || 0;
+    const yValue = (Math.round(featureStatus.value.y * 100) / 100) || 0;
+    const zValue = (Math.round(featureStatus.value.z * 100) / 100) || 0;
 
     const minVal = 15;
     let maxVal = 100;
