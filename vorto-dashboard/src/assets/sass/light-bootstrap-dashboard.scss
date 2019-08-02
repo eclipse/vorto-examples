@@ -607,24 +607,25 @@ a:hover {
 }
 
 .banner {
+    color: #333333;
+    background: white;
     position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 225px;
+    bottom: 50px;
+    left: -80px;
+    width: 300px;
     height: 35px;
-    background-color: #3498db;
-    border: 2px dashed white;
+    border: 2px dashed grey;
     z-index: 100;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    transform: rotate(0deg);
-}
+    transform: rotate(45deg);
 
-.banner a {
-    color: #333333; 
+    -webkit-box-shadow: 0px 0px 25px black;
+    -moz-box-shadow: 0px 0px 25px black;
+    box-shadow: 0px 0px 25px black;
 }
 
 .simulator-container {
