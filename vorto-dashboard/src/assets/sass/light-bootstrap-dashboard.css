@@ -3107,6 +3107,10 @@ a:hover {
 .attrKeyword {
   font-weight: bold; }
 
+.headerKeyword {
+  font-size: 1.2em;
+  text-decoration: underline; }
+
 .attrContainerWrappr {
   display: flex;
   align-items: center; }
@@ -3114,6 +3118,7 @@ a:hover {
 .attrContainer {
   height: 200px;
   width: 100%;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
