@@ -11,18 +11,26 @@ const mapStateToProps = state => {
   };
 };
 
-const getDeviceReqOpts = (reqBody) => ({
+const getSimulatorReqOpts = (reqBody) => ({
   url: `http://${window.location.hostname}:${PORT}/api/v1/simulator`,
   method: "POST",
   json: reqBody,
 });
 
 const setSimulatorState = (newSimulatorState) => {
-  request(getDeviceReqOpts(newSimulatorState))
+  request(getSimulatorReqOpts(newSimulatorState))
     .then(res => {
-      console.log("success", res);
+      const { started, stopped, error } = res;
+
+      if (error) {
+        console.error(`Could not update simulator state with state ${newSimulatorState}... ${error}`);
+      } else if (started) {
+        console.log("Successfully started Simulators");
+      } else if (stopped) {
+        console.log("Successfully stopped Simulators");
+      }
     })
-    .catch(err => `Could not update simulator state with state ${newSimulatorState}... ${err}`)
+    .catch(err => console.log(`Could not update simulator state with state ${newSimulatorState}... ${err}`))
 }
 
 const SimulatorButton = (onClickState, disableCond, text) => {

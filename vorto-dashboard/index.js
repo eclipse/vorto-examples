@@ -14,6 +14,8 @@ const { getUpdatedDevices } = require("./things");
 
 // get PORT and set for Frontend to get device data from
 const PORT = process.env.PORT || 8080;
+const TRACI_SIM_PATH = process.env.TRACI_SIM_PATH || "/home/ec2-user/Simulators/TraciMock_Hub";
+const PMSM_SIM_PATH = process.env.PMSM_SIM_PATH || "/home/ec2-user/Simulators/PMSMotorMock_Hub";
 
 // Cross origin fix
 const allowCrossDomain = (req, res, next) => {
@@ -92,11 +94,11 @@ apiRouter.post('/simulator', (req, res) => {
     simulatorStartTime = new Date();
 
     const pmsm_process = spawn('python', ["RaspberryPiTutorialApp_new.py"], {
-      cwd: "/home/ec2-user/Simulators/PMSMotorMock_Hub"
+      cwd: PMSM_SIM_PATH
     });
 
     const traci_process = spawn('python', ["TraciApp.py"], {
-      cwd: "/home/ec2-user/Simulators/TraciMock_Hub"
+      cwd: TRACI_SIM_PATH
     });
 
     // wait 3 sec until processes are started
@@ -140,7 +142,7 @@ apiRouter.post('/simulator', (req, res) => {
               res.send({ stopped: false, error: `Simulator couldn't be stopped... ${e}` });
             } else {
               console.log("Simulator successfully stopped");
-              res.send({ stopped: true, error: "" });
+              res.send({ stopped: true, error: null });
             }
             res.end();
           });
@@ -149,8 +151,6 @@ apiRouter.post('/simulator', (req, res) => {
         res.send({ stopped: false, error: `Simulators are already not running...` });
         res.end();
       })
-
-    // kill $(ps aux | grep '[p]ython TraciApp.py' | awk '{print $2}')
   }
 });
 
