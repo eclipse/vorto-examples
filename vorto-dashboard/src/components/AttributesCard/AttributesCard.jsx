@@ -33,14 +33,14 @@ export class AttributesCard extends Component {
 
     const deviceInformationCol = deviceInformation ? <Col lg={4} sm={6} xs={12}>
       <div className="attrContainer">
-        {Object.keys(deviceInformation).map(key => {
+        {Object.keys(deviceInformation).map((key, index) => {
           const information = deviceInformation[key];
           if (!information) {
             return null;
           }
 
           const upperCaseKey = key.replace(/./, x => x.toUpperCase());
-          return <p className="attribute"><span className="attrKeyword">{upperCaseKey}: </span>{information}</p>
+          return <p className="attribute" key={index}><span className="attrKeyword">{upperCaseKey}: </span>{information}</p>
         })}
       </div>
     </Col> : <Col />;
@@ -66,8 +66,6 @@ export class AttributesCard extends Component {
               <Col lg={4} sm={6} xs={12}>
                 <div className="attrContainer">
                   <p className="attribute"><span className="attrKeyword">Thing ID: </span>{device.thingId}</p>
-                  <p className="attribute"><span className="attrKeyword">Policy ID: </span>{device.policyId}</p>
-                  <p className="attribute"><span className="attrKeyword">Device ID: </span>{device.thingId}</p>
                   <p className="attribute">
                     <span className="attrKeyword">Definition: </span>
                     <a target="_blank" href={getRepositoryLink(attributes.definition)}>

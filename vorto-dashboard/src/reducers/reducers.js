@@ -55,8 +55,20 @@ export const updateSearch = (state = { searching: false, query: "" }, action) =>
   return state;
 }
 
+export const updateSimulator = (state = { running: false, startTime: "" }, action) => {
+  if (action.type === "UPDATE_SIMULATOR") {
+    return {
+      running: action.simulatorState.running,
+      startTime: action.simulatorState.startTime
+    }
+  }
+
+  return state;
+}
+
 export default {
   selectDevice,
   updateDevices,
-  updateSearch
+  updateSearch,
+  updateSimulator
 }

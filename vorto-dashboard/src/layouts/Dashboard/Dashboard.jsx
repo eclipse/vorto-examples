@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 import dashboardRoutes from "../../routes/dashboard.jsx";
+import Banner from "../../components/Banner/Banner";
 
 class Dashboard extends Component {
   componentDidUpdate(e) {
@@ -31,6 +32,7 @@ class Dashboard extends Component {
 
     return (
       <div className="wrapper">
+        <Banner />
         <Sidebar {...this.props} />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <Header {...this.props} />
