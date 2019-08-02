@@ -19,6 +19,7 @@ export const persistor = persistStore(store)
 store.dispatch(Actions.selectDevice({}))
 store.dispatch(Actions.updateDevices([]))
 store.dispatch(Actions.updateSearch(""))
+store.dispatch(Actions.updateSimulator({}))
 
 console.log(store.getState())
 
@@ -37,5 +38,9 @@ console.log(store.getState())
         searching: true/false,
         query: "..."
     },
+    simulator: {
+        running: true/false,
+        startTime: "..."
+    }
 }
 */

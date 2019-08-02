@@ -9,10 +9,12 @@ export class GaugeCard extends Component {
     // (Get the definition of the function blocks and find attribute values)
     const values = this.props.feature.properties;
     const currVal = values.status.value.currentMeasured || 0;
-    const minVal = values.status.value.minMeasuired || 0;
-    const maxVal = values.status.value.maxMeasuired || currVal;
+    const minVal = values.status.value.minMeasured || 0;
+    const maxVal = values.status.value.maxMeasured || currVal;
 
-    const currDeg = ((currVal - minVal) * 180) / (maxVal - minVal)
+    const currDeg = ((currVal - minVal) * 180) / (maxVal - minVal);
+
+    const fontSize = `${currVal}`.length > 4 ? 32 : 48;
 
     return (
       <div className="card card-stats attrCard">
@@ -32,7 +34,9 @@ export class GaugeCard extends Component {
               <div className="innerCardContainer">
                 <div className="gauge">
                   <div className="gauge-percentage" style={{ transform: `rotate(${currDeg}deg)` }} />
-                  <span className="gauge-value dataVal">{currVal}</span>
+                  <span className="gauge-value dataVal" style={{
+                    fontSize: `${fontSize}px`
+                  }}>{currVal}</span>
                 </div>
                 <div className="gauge-mask" />
                 <span className="gauge-min dataVal">{minVal}</span>

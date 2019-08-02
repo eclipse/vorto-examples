@@ -10,27 +10,50 @@ import request from "request-promise-native"
 
 import indexRoutes from "../routes/index.jsx";
 
-const PORT = process.env.PORT || 8080;
-const DEVICE_REFRESH_MS = process.env.DEVICE_REFRESH_MS || 5000;
-const reqOpts = {
-    url: `http://${window.location.hostname}:${PORT}/devices`,
+const PORT = process.env.REACT_APP_PORT || 8080;
+const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000;
+const SHOW_SIMULATOR = process.env.REACT_APP_SHOW_SIMULATOR || false;
+
+const deviceReqOpts = {
+    url: `http://${window.location.hostname}:${PORT}/api/v1/devices`,
     method: "GET",
     json: true
-}
+};
+
+const simReqOpts = {
+    url: `http://${window.location.hostname}:${PORT}/api/v1/simulator`,
+    method: "GET",
+    json: true
+};
 
 function pollDevices() {
-    request(reqOpts)
+    request(deviceReqOpts)
         .then(res => {
-            const devices = res.data
-            store.dispatch(Actions.updateDevices(devices))
+            const devices = res.data;
+            store.dispatch(Actions.updateDevices(devices));
         })
-        .catch(err => `Could not poll data from backend... ${err}`)
+        .catch(err => `Could not poll device data from backend... ${err}`)
+}
+
+function pollSimulatorState() {
+    request(simReqOpts)
+        .then(res => {
+            const running = res.running;
+            const startTime = res.startTime;
+            store.dispatch(Actions.updateSimulator({ running, startTime }));
+        })
+        .catch(err => `Could not poll simulator data from backend... ${err}`)
 }
 
 export class App extends Component {
     componentDidMount() {
         // TODO replace with WS
-        this.interval = setInterval(pollDevices, DEVICE_REFRESH_MS);
+        this.deviceInterval = setInterval(pollDevices, DEVICE_REFRESH_MS);
+
+        // only set polling for simulator if it is displayed
+        if (SHOW_SIMULATOR) {
+            this.simulatorInterval = setInterval(pollSimulatorState, 10000);
+        }
 
         // TODO setup store dispatch with new device data over WS
 
@@ -63,7 +86,11 @@ export class App extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        clearInterval(this.deviceInterval);
+
+        if (SHOW_SIMULATOR) {
+            clearInterval(this.simulatorInterval);
+        }
     }
 
     render() {

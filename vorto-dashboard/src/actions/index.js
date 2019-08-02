@@ -13,8 +13,14 @@ export const updateSearch = query => ({
   query
 })
 
+export const updateSimulator = simulatorState => ({
+  type: 'UPDATE_SIMULATOR',
+  simulatorState
+})
+
 export default {
   selectDevice,
   updateDevices,
-  updateSearch
+  updateSearch,
+  updateSimulator
 }

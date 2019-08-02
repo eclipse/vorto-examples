@@ -68,7 +68,7 @@ class OSMap extends Component {
     const deviceLocStatus = validDevices[0].features.location.properties.status
     const position = [deviceLocStatus.latitude, deviceLocStatus.longitude]
 
-    const mappedDevices = validDevices.map(device => {
+    const mappedDevices = validDevices.map((device, index) => {
       const deviceLocStatus = device.features.location.properties.status
       const position = [deviceLocStatus.latitude, deviceLocStatus.longitude]
 
@@ -83,7 +83,7 @@ class OSMap extends Component {
 
       // TODO fix redirect and history to allow browser back
       return (
-        <Marker position={position}>
+        <Marker position={position} key={index}>
           {popUp}
         </Marker>
       )

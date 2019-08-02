@@ -21,9 +21,9 @@ The three environment variables you have to provide are:
 BOSCH_CLIENT_ID
 BOSCH_CLIENT_SECRET
 BOSCH_SCOPE
-DEVICE_REFRESH_MS
+REACT_APP_DEVICE_REFRESH_MS
 ```
-> The `DEVICE_REFRESH_MS` variable defines the interval in which the dashboard is updating the state of the listed devices
+> The `REACT_APP_DEVICE_REFRESH_MS` variable defines the interval in which the dashboard is updating the state of the listed devices
 
 Alternatively you can provide a configuration file to the vorto-dashboard call.
 ```elm

@@ -2,6 +2,9 @@
 
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
+const spawn = require("child_process").spawn;
+const exec = require('child_process').exec;
 
 const app = express();
 const server = require('http').createServer(app);
@@ -9,7 +12,10 @@ const server = require('http').createServer(app);
 
 const { getUpdatedDevices } = require("./things");
 
+// get PORT and set for Frontend to get device data from
 const PORT = process.env.PORT || 8080;
+const TRACI_SIM_PATH = process.env.TRACI_SIM_PATH || "/home/ec2-user/Simulators/TraciMock_Hub";
+const PMSM_SIM_PATH = process.env.PMSM_SIM_PATH || "/home/ec2-user/Simulators/PMSMotorMock_Hub";
 
 // Cross origin fix
 const allowCrossDomain = (req, res, next) => {
@@ -19,15 +25,23 @@ const allowCrossDomain = (req, res, next) => {
   next();
 }
 
+const apiRouter = express.Router();
+
 app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
+app.use('/api/v1', apiRouter);
+
+// global endpoint that serves the React app
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
   res.end()
 });
 
-app.get('/devices', (req, res) => {
+// API for devices and simulator
+apiRouter.get('/devices', (req, res) => {
   getUpdatedDevices()
     .then(devices => {
       res.send({ status: "OK", data: devices })
@@ -37,7 +51,108 @@ app.get('/devices', (req, res) => {
       res.send({ status: "FAILED", data: err })
       res.end()
     })
-})
+});
+
+function checkSimulatorsRunning() {
+  return new Promise((res, rej) => {
+    exec("kill -0 $(ps aux | grep -E '[p]ython RaspberryPiTutorialApp_new.py|TraciApp.py' | grep -v grep | awk '{print $2}')",
+      (e) => {
+        if (e instanceof Error) {
+          rej();
+        } else {
+          res();
+        }
+      });
+  });
+}
+
+function delay(t, v) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve.bind(null, v), t)
+  });
+}
+
+let simulatorStartTime = "";
+apiRouter.get('/simulator', (req, res) => {
+  checkSimulatorsRunning()
+    .then(() => {
+      res.send({ running: true, startTime: simulatorStartTime });
+      res.end();
+    })
+    .catch(err => {
+      res.send({ running: false, startTime: "" });
+      res.end();
+    })
+});
+
+apiRouter.post('/simulator', (req, res) => {
+  // get the new state from the post body  
+  const starting = req.body.running;
+
+  if (starting === true) {
+    console.log("Starting Simulator Process...");
+    simulatorStartTime = new Date();
+
+    const pmsm_process = spawn('python', ["RaspberryPiTutorialApp_new.py"], {
+      cwd: PMSM_SIM_PATH
+    });
+
+    const traci_process = spawn('python', ["TraciApp.py"], {
+      cwd: TRACI_SIM_PATH
+    });
+
+    // wait 3 sec until processes are started
+    delay(3000)
+      .then(checkSimulatorsRunning)
+      .then(() => {
+        console.log("Simulator successfully started");
+        res.send({ started: true, error: null });
+        res.end()
+      })
+      .catch(err => {
+        console.log(`Couldn't start the simulator... ${err}`);
+
+        res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
+        res.end();
+      })
+
+    pmsm_process.on('error', (err) => {
+      console.log(`Couldn't start the simulator... ${err}`);
+
+      res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
+      res.end();
+    })
+
+    traci_process.on('error', (err) => {
+      console.log(`Couldn't start the simulator... ${err}`);
+
+      res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
+      res.end();
+    })
+
+  } else {
+    console.log("Stopping Simulator Process...");
+
+    checkSimulatorsRunning()
+      .then(() => {
+        exec("kill $(ps aux | grep -E '[p]ython RaspberryPiTutorialApp_new.py|TraciApp.py' | grep -v grep | awk '{print $2}')",
+          (e) => {
+            if (e instanceof Error) {
+              console.log(`Couldn't stop Simulator... ${e}`);
+              res.send({ stopped: false, error: `Simulator couldn't be stopped... ${e}` });
+            } else {
+              console.log("Simulator successfully stopped");
+              res.send({ stopped: true, error: null });
+            }
+            res.end();
+          });
+      })
+      .catch(err => {
+        res.send({ stopped: false, error: `Simulators are already not running...` });
+        res.end();
+      })
+  }
+});
 
 /* io.on('connection', function (socket) {
  setInterval(() => {
