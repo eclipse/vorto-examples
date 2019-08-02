@@ -3,7 +3,7 @@ import DeviceDashboard from "../views/DeviceDashboard/DeviceDashboard"
 import Locate from "../views/Locate/Locate"
 import Simulator from "../views/Simulator/Simulator";
 
-const SHOW_SIMULATOR = process.env.REACT_APP_SHOW_SIMULATOR || false;
+const SHOW_SIMULATOR = process.env.REACT_APP_SHOW_SIMULATOR || true;
 const simulatorRoute = {
   path: "/simulator",
   name: "Simulate Data",

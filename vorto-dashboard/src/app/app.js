@@ -12,7 +12,7 @@ import indexRoutes from "../routes/index.jsx";
 
 const PORT = process.env.REACT_APP_PORT || 8080;
 const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000;
-const SHOW_SIMULATOR = process.env.REACT_APP_SHOW_SIMULATOR || false;
+const SHOW_SIMULATOR = process.env.REACT_APP_SHOW_SIMULATOR || true;
 
 const deviceReqOpts = {
     url: `http://${window.location.hostname}:${PORT}/api/v1/devices`,
