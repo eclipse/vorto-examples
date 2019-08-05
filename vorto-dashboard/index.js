@@ -14,8 +14,8 @@ const { getUpdatedDevices } = require("./things");
 
 // get PORT and set for Frontend to get device data from
 const PORT = process.env.PORT || 8080;
-const TRACI_SIM_PATH = process.env.TRACI_SIM_PATH || "/home/ec2-user/Simulators/TraciMock_Hub";
-const PMSM_SIM_PATH = process.env.PMSM_SIM_PATH || "/home/ec2-user/Simulators/PMSMotorMock_Hub";
+const TRACI_SIM_PATH = process.env.TRACI_SIM_PATH || path.join(__dirname, 'Simulators/TraciMock_Hub');
+const PMSM_SIM_PATH = process.env.PMSM_SIM_PATH || path.join(__dirname, '/Simulators/PMSMotorMock_Hub');
 
 // Cross origin fix
 const allowCrossDomain = (req, res, next) => {
@@ -56,9 +56,10 @@ apiRouter.get('/devices', (req, res) => {
 function checkSimulatorsRunning() {
   return new Promise((res, rej) => {
     exec("kill -0 $(ps aux | grep -E '[p]ython RaspberryPiTutorialApp_new.py|TraciApp.py' | grep -v grep | awk '{print $2}')",
+      { shell: '/bin/bash' },
       (e) => {
         if (e instanceof Error) {
-          rej();
+          rej(e);
         } else {
           res();
         }
@@ -130,12 +131,35 @@ apiRouter.post('/simulator', (req, res) => {
       res.end();
     })
 
+    pmsm_process.stderr.on('data', (data) => {
+      console.log(`pmsm stderr: ${data}`);
+    });
+
+    traci_process.stderr.on('data', (data) => {
+      console.log(`traci stderr: ${data}`);
+    });
+
+    pmsm_process.on('close', (code) => {
+      if (code !== 0) {
+        console.log(`pmsm process exited with code ${code}`);
+      }
+      pmsm_process.stdin.end();
+    });
+
+    traci_process.on('close', (code) => {
+      if (code !== 0) {
+        console.log(`traci process exited with code ${code}`);
+      }
+      traci_process.stdin.end();
+    });
+
   } else {
     console.log("Stopping Simulator Process...");
 
     checkSimulatorsRunning()
       .then(() => {
         exec("kill $(ps aux | grep -E '[p]ython RaspberryPiTutorialApp_new.py|TraciApp.py' | grep -v grep | awk '{print $2}')",
+          { shell: '/bin/bash' },
           (e) => {
             if (e instanceof Error) {
               console.log(`Couldn't stop Simulator... ${e}`);
