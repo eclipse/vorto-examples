@@ -30,7 +30,7 @@ class EventTemplate implements ITemplate<Event>{
 		var definition = fbm.namespace + ":" + fbm.name + ":" + fbm.version;
 		'''
 			{
-				"$schema": "http://json-schema.org/draft-04/schema#",
+				"$schema": "http://json-schema.org/draft-07/schema#",
 				"title": "Event payload validation of definition <«definition»> for message subject (event name) <«event.name»>"«IF !event.properties.empty»,«ENDIF»
 				«IF event.properties.size === 1»
 					«calcSinglePropertyContent(event.properties.get(0), invocationContext)»
