@@ -55,7 +55,7 @@ apiRouter.get('/devices', (req, res) => {
 
 function checkSimulatorsRunning() {
   return new Promise((res, rej) => {
-    exec("kill -0 $(ps aux | grep -E '[p]ython RaspberryPiTutorialApp_new.py|TraciApp.py' | grep -v grep | awk '{print $2}')",
+    exec("kill -0 $(ps aux | grep -E '[p]ython PMSMotorSimulator.py|TraciTagSimulator.py' | grep -v grep | awk '{print $2}')",
       { shell: '/bin/bash' },
       (e) => {
         if (e instanceof Error) {
@@ -87,95 +87,64 @@ apiRouter.get('/simulator', (req, res) => {
 });
 
 apiRouter.post('/simulator', (req, res) => {
-  // get the new state from the post body  
-  const starting = req.body.running;
+  console.log("Starting Simulator Process...");
+  simulatorStartTime = new Date();
 
-  if (starting === true) {
-    console.log("Starting Simulator Process...");
-    simulatorStartTime = new Date();
+  const pmsm_process = spawn('python', ["PMSMotorSimulator.py"], {
+    cwd: PMSM_SIM_PATH
+  });
 
-    const pmsm_process = spawn('python', ["RaspberryPiTutorialApp_new.py"], {
-      cwd: PMSM_SIM_PATH
-    });
+  const traci_process = spawn('python', ["TraciTagSimulator.py"], {
+    cwd: TRACI_SIM_PATH
+  });
 
-    const traci_process = spawn('python', ["TraciApp.py"], {
-      cwd: TRACI_SIM_PATH
-    });
-
-    // wait 3 sec until processes are started
-    delay(3000)
-      .then(checkSimulatorsRunning)
-      .then(() => {
-        console.log("Simulator successfully started");
-        res.send({ started: true, error: null });
-        res.end()
-      })
-      .catch(err => {
-        console.log(`Couldn't start the simulator... ${err}`);
-
-        res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
-        res.end();
-      })
-
-    pmsm_process.on('error', (err) => {
+  // wait 3 sec until processes are started
+  delay(3000)
+    .then(checkSimulatorsRunning)
+    .then(() => {
+      console.log("Simulator successfully started");
+      res.send({ started: true, error: null });
+      res.end()
+    })
+    .catch(err => {
       console.log(`Couldn't start the simulator... ${err}`);
 
       res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
-      res.end();
     })
 
-    traci_process.on('error', (err) => {
-      console.log(`Couldn't start the simulator... ${err}`);
+  pmsm_process.on('error', (err) => {
+    console.log(`Couldn't start the simulator... ${err}`);
 
-      res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
-      res.end();
-    })
+    res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
+  })
 
-    pmsm_process.stderr.on('data', (data) => {
-      console.log(`pmsm stderr: ${data}`);
-    });
+  traci_process.on('error', (err) => {
+    console.log(`Couldn't start the simulator... ${err}`);
 
-    traci_process.stderr.on('data', (data) => {
-      console.log(`traci stderr: ${data}`);
-    });
+    res.send({ started: false, error: `Couldn't start the simulator... ${err}` });
+  })
 
-    pmsm_process.on('close', (code) => {
-      if (code !== 0) {
-        console.log(`pmsm process exited with code ${code}`);
-      }
-      pmsm_process.stdin.end();
-    });
+  pmsm_process.stderr.on('data', (data) => {
+    console.log(`pmsm stderr: ${data}`);
+  });
 
-    traci_process.on('close', (code) => {
-      if (code !== 0) {
-        console.log(`traci process exited with code ${code}`);
-      }
-      traci_process.stdin.end();
-    });
+  traci_process.stderr.on('data', (data) => {
+    console.log(`traci stderr: ${data}`);
+  });
 
-  } else {
-    console.log("Stopping Simulator Process...");
+  pmsm_process.on('close', (code) => {
+    if (code !== 0) {
+      console.log(`pmsm process exited with code ${code}`);
+    }
+    pmsm_process.stdin.end();
+  });
 
-    checkSimulatorsRunning()
-      .then(() => {
-        exec("kill $(ps aux | grep -E '[p]ython RaspberryPiTutorialApp_new.py|TraciApp.py' | grep -v grep | awk '{print $2}')",
-          { shell: '/bin/bash' },
-          (e) => {
-            if (e instanceof Error) {
-              console.log(`Couldn't stop Simulator... ${e}`);
-              res.send({ stopped: false, error: `Simulator couldn't be stopped... ${e}` });
-            } else {
-              console.log("Simulator successfully stopped");
-              res.send({ stopped: true, error: null });
-            }
-            res.end();
-          });
-      })
-      .catch(err => {
-        res.send({ stopped: false, error: `Simulators are already not running...` });
-        res.end();
-      })
-  }
+  traci_process.on('close', (code) => {
+    if (code !== 0) {
+      console.log(`traci process exited with code ${code}`);
+    }
+    traci_process.stdin.end();
+  });
 });
 
 /* io.on('connection', function (socket) {

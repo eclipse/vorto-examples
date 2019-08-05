@@ -11,48 +11,49 @@ const mapStateToProps = state => {
   };
 };
 
-const getSimulatorReqOpts = (reqBody) => ({
+const getSimulatorReqOpts = () => ({
   url: `http://${window.location.hostname}:${PORT}/api/v1/simulator`,
-  method: "POST",
-  json: reqBody,
+  method: "POST"
 });
 
-const setSimulatorState = (newSimulatorState) => {
-  request(getSimulatorReqOpts(newSimulatorState))
+const runSimulatorState = () => {
+  request(getSimulatorReqOpts())
     .then(res => {
-      const { started, stopped, error } = res;
+      const { started, error } = res;
 
       if (error) {
-        console.error(`Could not update simulator state with state ${newSimulatorState}... ${error}`);
+        console.error(`Could not update simulator state... ${error}`);
       } else if (started) {
         console.log("Successfully started Simulators");
-      } else if (stopped) {
-        console.log("Successfully stopped Simulators");
       }
     })
-    .catch(err => console.log(`Could not update simulator state with state ${newSimulatorState}... ${err}`))
+    .catch(err => console.log(`Could not update simulator state... ${err}`))
 }
 
-const SimulatorButton = (onClickState, disableCond, text) => {
-  return <Button onClick={() => setSimulatorState(onClickState)} disabled={disableCond}>{text}</Button>;
+const SimulatorButton = (disableCond, text) => {
+  return <Button onClick={() => runSimulatorState()} disabled={disableCond}>{text}</Button>;
 }
 
 const ConnectedSimulator = ({ simulatorState }) => {
   const stateColor = simulatorState.running ? "#a2f260" : "#f26d60";
+  const imgSource = simulatorState.running ? "https://raw.githubusercontent.com/timgrossmann/vorto-examples/fix/simulator-visible/vorto-dashboard/assets/animation.gif"
+    : "https://raw.githubusercontent.com/timgrossmann/vorto-examples/fix/simulator-visible/vorto-dashboard/assets/vorto-simulator.png";
   const textInfo = simulatorState.running ? <span>Running - Started at {simulatorState.startTime}</span>
     : <span>Not Running</span>;
 
   return (
     <div className="content">
       <div className="simulator-container">
+        <div className="simulator-image">
+          <img alt="simulator pipeline" src={imgSource} />
+        </div>
         <div className="simulator-elements">
           <div className="simulator-state" style={{
             backgroundColor: `${stateColor}`
           }} />
           {textInfo}
           <div className="simulator-buttons">
-            {SimulatorButton({ running: true }, simulatorState.running, "Start Simulation")}
-            {SimulatorButton({ running: false }, !simulatorState.running, "Stop Simulation")}
+            {SimulatorButton(simulatorState.running, "Run Simulation")}
           </div>
         </div>
       </div>
