@@ -26,14 +26,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AMQPConfiguration {
 
-	@Value(value = "${amqp.username}")
+	@Value(value = "${amqp.username : null}")
 	private String username;
-	@Value(value = "${amqp.password}")
+	@Value(value = "${amqp.password : null}")
 	private String password;
-	@Value(value = "${amqp.url}")
+	@Value(value = "${amqp.url : null}")
 	private String amqpUrl;
 	
 	@Bean
+	@ConditionalOnProperty(name="amqp.url", matchIfMissing=false)
 	public ConnectionFactory createConnectionFactory() {
 	  final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(amqpUrl);
 

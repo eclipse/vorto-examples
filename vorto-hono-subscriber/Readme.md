@@ -13,35 +13,43 @@ The following table shows all environment variables that can be configured to ru
 <table>
 	<tr>
 		<th>Environment Variable</th>
+		<th>Required / Optional</th>
 		<th>Description</th>
 	</tr>
 	<tr>
 		<td>hono.tenantId</td>
+		<td>Required</td>
 		<td>Eclipse Hono tenant ID, in order to receive only tenant-specific telemetry data</td>
 	</tr>
 	<tr>
 		<td>hono.password</td>
+		<td>Required</td>
 		<td>Eclipse Hono AMQP client password</td>
 	</tr>
 	<tr>
 		<td>amqp.url</td>
+		<td>Optional</td>
 		<td>AMQP Broker URL, where normalized messages are published to</td>
 	</tr>
 	<tr>
 		<td>amqp.username</td>
+		<td>Optional</td>
 		<td>AMQP Broker username</td>
 	</tr>
 	<tr>
 		<td>amqp.password</td>
+		<td>Optional</td>
 		<td>AMQP Broker password</td>
 	</tr>
 	<tr>
 		<td>amqp.topic.ditto</td>
-		<td>AMQP topic to publish Vorto-Ditto protocol compliant messages. Optional.</td>
+		<td>Optional</td>
+		<td>AMQP topic to publish Vorto-Ditto protocol compliant messages.</td>
 	</tr>
 	<tr>
 		<td>amqp.topic.native</td>
-		<td>AMQP topic to publish Vorto native compliant messages. Optional.</td>
+		<td>Optional</td>
+		<td>AMQP topic to publish Vorto native compliant messages.</td>
 	</tr>
 </table>
 
@@ -97,9 +105,8 @@ Example Device Registry Request Payload:
   "enabled": true,
   "device-id": "4711",
   "defaults": {
-    "vorto": "devices.aws.button:AWSIoTButton:1.0.0",
-    "content-type" : "application/json",
-    "namespace" : "com.acme"
+    "vorto": "org.eclipse.vorto.tutorial:PMSMotor:1.0.0",
+    "content-type" : "application/json"
   }
 }
 ```
