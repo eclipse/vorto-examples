@@ -1,0 +1,1 @@
+./mosquitto_pub.exe -h mqtt.bosch-iot-hub.com -p 8883 -t telemetry/td32fb4cc2a5a4145a1e503871e4f468b/4711 --cafile ./iothub.crt -u 4711@td32fb4cc2a5a4145a1e503871e4f468b -P demo -m '{"clickType": "DOUBLE", "batteryVoltage" : "2323mV"}'

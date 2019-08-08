@@ -38,6 +38,7 @@ jobs:
       script:
       before_install:
         - cd vorto-dashboard
+        - npm run-script dist
       before_deploy:
         - rm -rf .tmp
         - rm -rf .DS_Store
