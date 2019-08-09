@@ -37,13 +37,20 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0"
   },
+  "devDependencies": {
+    "node-sass": "4.6.1",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "4.1.2",
+    "react-scripts": "1.1.1"
+  },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
-    "dist": "mkdir dist && cp -r Simulators package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r dashboard.zip . && rm -rf build/",
+    "dist": "mkdir dist && cp -r package.json things build README.md index.js dist/ && rm -rf build/",
+    "dist": "mkdir dist && cp -r Simulators package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r vorto-dashboard.zip . && rm -rf build/",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
