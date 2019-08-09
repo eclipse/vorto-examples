@@ -1,6 +1,6 @@
 {
   "name": "vorto-dashboard",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "preferGlobal": true,
   "bin": {
     "vorto-dashboard": "./index.js"
@@ -38,13 +38,6 @@
     "socket.io-client": "^2.2.0"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-scripts build",
-    "dist": "mkdir dist && cp -r Simulators package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r dashboard.zip . && rm -rf build/",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node index.js config.json"
   }
 }
