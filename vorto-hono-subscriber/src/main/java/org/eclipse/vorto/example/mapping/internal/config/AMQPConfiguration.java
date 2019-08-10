@@ -8,7 +8,7 @@
  * terms of the Eclipse Public License 2.0 which is available at
  * https://www.eclipse.org/legal/epl-2.0
  *
- * SPDX-License-Identifier: EPL-2.0
+ * SPDX-License-Identifier: EPL-2.0null
  */
 package org.eclipse.vorto.example.mapping.internal.config;
 
@@ -26,11 +26,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AMQPConfiguration {
 
-	@Value(value = "${amqp.username : null}")
+	@Value(value = "${amqp.username:#{null}}")
 	private String username;
-	@Value(value = "${amqp.password : null}")
+	@Value(value = "${amqp.password:#{null}}")
 	private String password;
-	@Value(value = "${amqp.url : null}")
+	@Value(value = "${amqp.url:#{null}}")
 	private String amqpUrl;
 	
 	@Bean
