@@ -6,7 +6,7 @@ import Simulator from "../views/Simulator/Simulator";
 const SHOW_SIMULATOR = process.env.REACT_APP_SHOW_SIMULATOR || true;
 const simulatorRoute = {
   path: "/simulator",
-  name: "Simulate Data",
+  name: "Simulate things",
   icon: "pe-7s-edit",
   component: Simulator
 };
@@ -14,7 +14,7 @@ const simulatorRoute = {
 let dashboardRoutes = [
   {
     path: "/devices",
-    name: "Devices",
+    name: "Browse things",
     icon: "pe-7s-usb",
     component: Devices
   },
@@ -26,11 +26,11 @@ let dashboardRoutes = [
   },
   {
     path: "/locate",
-    name: "Locate",
+    name: "Locate things",
     icon: "pe-7s-global",
     component: Locate
   },
-  { redirect: true, path: "/", to: "/devices", name: "Devices" }
+  { redirect: true, path: "/", to: "/devices", name: "Browse things" }
 ];
 
 if (SHOW_SIMULATOR) {
