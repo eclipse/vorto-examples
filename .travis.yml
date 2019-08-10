@@ -31,13 +31,22 @@ jobs:
       name: "Deploys the Vorto-Dashboard to AWS Beanstalk"
       language: node_js
       node_js:
-        - 6.9.1
+        - '10'
       before_script:
       script:
+      
       before_install:
         - cd vorto-dashboard
+      
+      install:
+        - echo "Installing dependencies"
+        - yarn install
+      
+      after_success:
+        - echo "Creating build"
         - npm run build
         - npm run-script dist
+        
       before_deploy:
         - rm -rf .tmp
         - rm -rf .DS_Store
