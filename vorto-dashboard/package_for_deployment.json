@@ -1,0 +1,43 @@
+{
+  "name": "vorto-dashboard",
+  "version": "0.1.5",
+  "preferGlobal": true,
+  "bin": {
+    "vorto-dashboard": "./index.js"
+  },
+  "keywords": [
+    "vorto",
+    "eclipse",
+    "eclipsevorto",
+    "dashboard",
+    "iot",
+    "boschiotsuite"
+  ],
+  "main": "./index.js",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "body-parser": "^1.19.0",
+    "bootstrap": ">=3.4.1",
+    "express": "^4.16.4",
+    "jquery": "^3.4.1",
+    "leaflet": "^1.4.0",
+    "medium-zoom": "^1.0.4",
+    "popper.js": "^1.15.0",
+    "react": "^16.2.0",
+    "react-bootstrap": "0.32.1",
+    "react-dom": "^16.2.0",
+    "react-leaflet": "^2.2.1",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "4.2.2",
+    "react-syntax-highlighter": "10.2.1",
+    "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
+  },
+  "scripts": {
+    "start": "node index.js config.json"
+  }
+}
