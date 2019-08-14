@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 
 import dashboardRoutes from "../../routes/dashboard.jsx";
 import Search from "./Search";
@@ -65,8 +65,10 @@ class Header extends Component {
           <Navbar.Brand>
             {brand}
           </Navbar.Brand>
-          {/*<Navbar.Toggle onClick={this.mobileSidebarToggle} />*/}
-          <Search brand={brand} />
+          <Nav pullRight>
+            <Search brand={brand} />
+            <Navbar.Toggle onClick={this.mobileSidebarToggle} />
+          </Nav>
         </Navbar.Header>
       </Navbar >
     );
