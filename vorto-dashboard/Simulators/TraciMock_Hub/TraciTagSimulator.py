@@ -141,30 +141,30 @@ class Device(object):
             "value" : 80
         }
         self.infomodel.battery.value = {
-            "currentMeasured" : 80,
-            "minMeasured" : 0,
-            "maxMeasured" : 100
+            "currentMeasured" : 2.8,
+            "minMeasured" : 2.6,
+            "maxMeasured" : 3.2
         }
-        self.infomodel.battery.remainingCapacityAmpHour = 80
+        self.infomodel.battery.remainingCapacityAmpHour = 2
         
         self.infomodel.location.altitude = 0
         self.infomodel.location.latitude = self.location_dataset[location_index]["latitude"]
         self.infomodel.location.longitude = self.location_dataset[location_index]["longitude"]
 
         self.infomodel.acceleration.value = {
-            "x" : 0,
-            "y" : 0,
-            "z" : 0
+            "x" : random.randint(-400,400),
+            "y" : random.randint(-400,400),
+            "z" : random.randint(-400,400)
         }
         self.infomodel.temperature.value = {
-            "currentMeasured" : random.randint(26,40),
+            "currentMeasured" : random.randint(26,30),
             "minMeasured" : 26,
             "maxMeasured" : 40
         }
         self.infomodel.magneticStrength.value = {
-            "x" : 0,
-            "y" : 0,
-            "z" : 0
+            "x" : random.randint(0,100),
+            "y" : random.randint(0,100),
+            "z" : random.randint(0,100)
         }
         self.infomodel.bluetoothConnectivity.rssi = 0
         self.infomodel.bluetoothConnectivity.snr = 0
