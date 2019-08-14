@@ -86,6 +86,37 @@ a:hover {
     justify-content: space-between;
 }
 
+.navbar-right {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-toggle {
+    background-color: #333333 !important;
+}
+
+.navbar-toggle:hover {
+    background-color: #555555 !important;
+}
+
+.navbar-toggle:focus {
+    background-color: #333333 !important;
+}
+
+@media (min-width: 400px) {
+    .navbar-toggle {
+        width: 0px;
+        height: 0px;
+    }
+}
+
+.navbar-toggle {
+    .icon-bar {
+        margin-bottom: 5px !important;
+        margin-top: 5px !important;
+    }
+}
+
 .searchBox {
     position: relative;
     float: right;
