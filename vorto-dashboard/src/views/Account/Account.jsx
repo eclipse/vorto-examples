@@ -1,16 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-import LoginCard from "components/LoginCard/LoginCard"
-import UserCard from "components/UserCard/UserCard"
+import LoginCard from 'components/LoginCard/LoginCard'
+import UserCard from 'components/UserCard/UserCard'
 
 class Account extends Component {
-  render() {
-    const isLoggedIn = this.props.isLoggedIn;
+  render () {
+    const isLoggedIn = this.props.isLoggedIn
     if (isLoggedIn) {
-      return <LoginCard />;
+      return <LoginCard />
     }
-    return <UserCard />;
+    return <UserCard />
   }
 }
 
-export default Account;
+export default Account

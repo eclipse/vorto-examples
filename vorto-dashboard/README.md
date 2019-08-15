@@ -42,6 +42,16 @@ This has to be in the format of:
 
 In addition to that you can set the port the dashboard should run on by using the `PORT` environment variable.
 
+The `LOG_LEVEL` env var can be used to change the logging level. By default this is `error`.
+
+---
+
+The Simulator has two additional env variables.
+
+**TIME_TO_LIVE** defines the amount of seconds the simulator should run in total.
+
+**TIME_INTERVAL_TELEMETRY** defines the amount of seconds between the sending of data points.
+
 <br />
 
 #### Setup Things

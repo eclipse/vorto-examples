@@ -1,63 +1,63 @@
-import React, { Component } from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import React, { Component } from 'react'
+import { Navbar, Nav } from 'react-bootstrap'
 
-import dashboardRoutes from "../../routes/dashboard.jsx";
-import Search from "./Search";
+import dashboardRoutes from '../../routes/dashboard.jsx'
+import Search from './Search'
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
+  constructor (props) {
+    super(props)
+    this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this)
     this.state = {
       sidebarExists: true
-    };
+    }
   }
 
-  mobileSidebarToggle(e) {
+  mobileSidebarToggle (e) {
     if (this.state.sidebarExists === false) {
       this.setState({
         sidebarExists: true
-      });
+      })
     }
-    e.preventDefault();
-    document.documentElement.classList.toggle("nav-open");
-    var node = document.createElement("div");
-    node.id = "bodyClick";
+    e.preventDefault()
+    document.documentElement.classList.toggle('nav-open')
+    var node = document.createElement('div')
+    node.id = 'bodyClick'
     node.onclick = function () {
-      this.parentElement.removeChild(this);
-      document.documentElement.classList.toggle("nav-open");
-    };
-    document.body.appendChild(node);
+      this.parentElement.removeChild(this)
+      document.documentElement.classList.toggle('nav-open')
+    }
+    document.body.appendChild(node)
   }
 
-  getBrand() {
-    var name;
+  getBrand () {
+    var name
     dashboardRoutes.map((prop, key) => {
       if (prop.collapse) {
         prop.views.map((prop, key) => {
           if (prop.path === this.props.location.pathname) {
-            name = prop.name;
+            name = prop.name
           }
-          return null;
-        });
+          return null
+        })
       } else {
         if (prop.redirect) {
           if (prop.path === this.props.location.pathname) {
-            name = prop.name;
+            name = prop.name
           }
         } else {
           if (prop.path === this.props.location.pathname) {
-            name = prop.name;
+            name = prop.name
           }
         }
       }
-      return null;
-    });
-    return name;
+      return null
+    })
+    return name
   }
 
-  render() {
-    const brand = this.getBrand();
+  render () {
+    const brand = this.getBrand()
 
     return (
       <Navbar fluid>
@@ -66,13 +66,14 @@ class Header extends Component {
             {brand}
           </Navbar.Brand>
           <Nav pullRight>
+            <a href='TODO fill in' target='_blank' className='how-link'>Peek behind the Scenes</a>
             <Search brand={brand} />
             <Navbar.Toggle onClick={this.mobileSidebarToggle} />
           </Nav>
         </Navbar.Header>
       </Navbar >
-    );
+    )
   }
 }
 
-export default Header;
+export default Header

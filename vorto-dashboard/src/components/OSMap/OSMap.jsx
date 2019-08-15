@@ -56,7 +56,7 @@ class OSMap extends Component {
 
     if (validDevices.length === 0) {
       return (
-        <Map className="mapWrapper" center={[1.347, 103.841]} zoom={11}>
+        <Map className="map-wrapper" center={[1.347, 103.841]} zoom={11}>
           <TileLayer
             url="http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
           />
@@ -90,7 +90,7 @@ class OSMap extends Component {
     });
 
     return (
-      <Map className="mapWrapper" center={position} zoom={12}>
+      <Map className="map-wrapper" center={position} zoom={12}>
         <TileLayer
           url="http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />

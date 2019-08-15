@@ -3007,7 +3007,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   height: 100%;
   width: 100%; }
 
-.autoScroll {
+.auto-scroll {
   overflow: auto; }
 
 .main-panel {
@@ -3042,7 +3042,8 @@ a:hover {
 
 .navbar-right {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  justify-content: flex-end; }
 
 .navbar-toggle {
   background-color: #333333 !important; }
@@ -3053,7 +3054,7 @@ a:hover {
 .navbar-toggle:focus {
   background-color: #333333 !important; }
 
-@media (min-width: 400px) {
+@media only screen and (min-width: 400px) {
   .navbar-toggle {
     width: 0px;
     height: 0px; } }
@@ -3062,13 +3063,26 @@ a:hover {
   margin-bottom: 5px !important;
   margin-top: 5px !important; }
 
-.searchBox {
+.how-link {
+  margin: 17px;
+  font-size: 1.1em;
+  font-family: Helvetica, Arial, sans-serif; }
+
+@media only screen and (max-width: 750px) {
+  .how-link {
+    visibility: collapse; } }
+
+.search-box {
   position: relative;
   float: right;
   width: 200px;
   margin: 10px; }
 
-.deviceContainer {
+@media only screen and (max-width: 550px) {
+  .search-box {
+    visibility: collapse; } }
+
+.device-container {
   background: none;
   border: none;
   padding: 0;
@@ -3084,12 +3098,12 @@ a:hover {
   -o-transition: box-shadow 0.2s ease-in-out;
   transition: box-shadow 0.2s ease-in-out; }
 
-.deviceContainer:hover {
+.device-container:hover {
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
 
-.imgContainer {
+.img-container {
   height: 250px;
   width: 100%;
   display: flex;
@@ -3097,7 +3111,7 @@ a:hover {
   align-items: center;
   overflow: auto; }
 
-.deviceImg {
+.device-img {
   -webkit-max-width: 100%;
   -moz-max-width: 100%;
   -ms-max-width: 100%;
@@ -3109,35 +3123,35 @@ a:hover {
   -o-max-height: 250px;
   max-height: 250px; }
 
-.deviceFooter {
+.device-footer {
   display: flex;
   height: 100px; }
 
-.deviceCardAttrContainer {
+.device-card-attr-container {
   margin-top: 25px;
   overflow: auto; }
 
-.deviceDescText {
+.device-desc-text {
   margin-bottom: 0; }
 
-.footerContainer {
+.footer-container {
   align-self: flex-end;
   width: 100%;
   padding: 0;
   margin: 0; }
 
-.attrKeyword {
+.attr-keyword {
   font-weight: bold; }
 
-.headerKeyword {
+.header-keyword {
   font-size: 1.2em;
   text-decoration: underline; }
 
-.attrContainerWrappr {
+.attr-container-wrapper {
   display: flex;
   align-items: center; }
 
-.attrContainer {
+.attr-container {
   height: 200px;
   width: 100%;
   margin-top: 20px;
@@ -3151,13 +3165,13 @@ a:hover {
   width: 100%;
   word-break: break-all; }
 
-.fillHWLocate {
+.fill-hw-locate {
   width: 100%;
   height: calc(100% - 70px);
   height: -moz-calc(100% - 70px);
   height: -webkit-calc(100% - 70px); }
 
-.mapWrapper {
+.map-wrapper {
   height: 100%;
   -webkit-min-height: 295px;
   -moz-min-height: 295px;
@@ -3170,36 +3184,36 @@ a:hover {
 .content {
   width: 100%; }
 
-.attrCard {
+.attr-card {
   overflow: auto;
   height: 400px; }
 
-.textButton {
+.text-button {
   background: none;
   border: none;
   color: #005C99; }
 
-.textButton:hover {
+.text-button:hover {
   color: #017AD1; }
 
-.mapCard {
+.map-card {
   height: 100%;
   width: 100%; }
 
-.attrImgContainer {
+.attr-img-container {
   display: flex;
   width: 100%;
   justify-content: center;
   margin-bottom: 25px; }
 
-.attrImg {
+.attr-img {
   -webkit-max-height: 200px;
   -moz-max-height: 200px;
   -ms-max-height: 200px;
   -o-max-height: 200px;
   max-height: 200px; }
 
-.innerCardContainer {
+.inner-card-container {
   display: flex;
   width: 100%;
   -webkit-max-height: 100%;
@@ -3217,7 +3231,7 @@ a:hover {
   overflow: hidden;
   color: #333333; }
 
-.dataVal {
+.data-val {
   font-size: 1.25em;
   font-weight: bold; }
 
@@ -3349,12 +3363,12 @@ a:hover {
     right: -15px;
     z-index: 100; }
 
-.batteryContainer {
+.battery-container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column; }
-  .batteryContainer .battery {
+  .battery-container .battery {
     background-color: #e5e5e5;
     border-radius: 15px;
     height: 100px;
@@ -3362,7 +3376,7 @@ a:hover {
     width: 200px;
     padding: 5px;
     margin-bottom: 10px; }
-    .batteryContainer .battery .battery-background {
+    .battery-container .battery .battery-background {
       height: 100%;
       border-radius: 10px;
       -webkit-transition: width 1s;
@@ -3370,9 +3384,9 @@ a:hover {
       -ms-transition: width 1s;
       -o-transition: width 1s;
       transition: width 1s; }
-  .batteryContainer .battery-percentage {
+  .battery-container .battery-percentage {
     font-size: 32px; }
-  .batteryContainer .battery::after {
+  .battery-container .battery::after {
     background-color: #e5e5e5;
     content: "";
     display: block;
@@ -3383,12 +3397,12 @@ a:hover {
     width: 10px;
     border-radius: 0 5px 5px 0; }
 
-.percentageContainer {
+.percentage-container {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column; }
-  .percentageContainer .percentage {
+  .percentage-container .percentage {
     background-color: #e5e5e5;
     border-radius: 15px 15px 0 0;
     height: 200px;
@@ -3399,7 +3413,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; }
-    .percentageContainer .percentage .percentage-background {
+    .percentage-container .percentage .percentage-background {
       width: 100%;
       border-radius: 10px 10px 0 0;
       background-color: #4494c1;
@@ -3408,7 +3422,7 @@ a:hover {
       -ms-transition: height 1s;
       -o-transition: height 1s;
       transition: height 1s; }
-  .percentageContainer .percentage-percentage {
+  .percentage-container .percentage-percentage {
     font-size: 32px; }
 
 .connectivityIcon {
@@ -3417,7 +3431,7 @@ a:hover {
   top: 10px;
   right: 25px; }
 
-.connectivityContainer {
+.connectivity-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -3431,29 +3445,29 @@ a:hover {
   -webkit-text-stroke: 4px #e5e5e5;
   text-stroke: 4px #e5e5e5; }
 
-.connectivityState {
+.connectivity-state {
   margin-top: 10px; }
 
-.stateNumberVal {
+.state-number-val {
   font-size: 5em; }
 
-.stateNumberIcon {
+.state-number-icon {
   font-size: 2em;
   position: absolute;
   top: 50px;
   right: 100px; }
 
-.stateNumberIconOff {
+.state-number-iconOff {
   color: white; }
 
-.imgCardContainer {
+.img-card-container {
   height: 295px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center; }
 
-.imgCardImg {
+.img-card-img {
   -webkit-max-width: 100%;
   -moz-max-width: 100%;
   -ms-max-width: 100%;
@@ -3465,7 +3479,7 @@ a:hover {
   -o-max-height: 100%;
   max-height: 100%; }
 
-.chartContainer {
+.chart-container {
   height: 250px;
   width: 100%;
   display: flex;
@@ -3473,7 +3487,7 @@ a:hover {
   justify-content: space-around;
   align-content: flex-end; }
 
-.barChartContainer {
+.barchart-container {
   height: 100%;
   width: 20%;
   display: flex;
@@ -3481,7 +3495,7 @@ a:hover {
   justify-content: flex-end;
   text-align: center; }
 
-.barChart {
+.bar-chart {
   color: white;
   display: flex;
   flex-direction: column;
