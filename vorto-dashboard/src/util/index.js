@@ -1,9 +1,9 @@
-function checkDeviceForQuery(device, { searching, query }) {
+function checkDeviceForQuery (device, { searching, query }) {
   if (!searching || !query) {
     return true
   }
 
-  const [serachKeyword, searchQuery] = query.split(":").map(elem => elem.trim())
+  const [serachKeyword, searchQuery] = query.split(':').map(elem => elem.trim())
 
   /* TODO add more filtering options
     - gt:temperature 5
@@ -11,27 +11,27 @@ function checkDeviceForQuery(device, { searching, query }) {
     - ...
   */
   switch (serachKeyword) {
-    case "has":
+    case 'has':
       return Object.keys(device.features)
         .some(feature => {
           const deviceFeature = device.features[feature]
-          let definition = deviceFeature.definition
+          const definition = deviceFeature.definition
 
           if (!definition) {
-            return false;
+            return false
           }
 
           if (Array.isArray(definition)) {
-            return definition.some(def => def.toLowerCase().includes(searchQuery));
+            return definition.some(def => def.toLowerCase().includes(searchQuery))
           }
 
-          return definition.toLowerCase().includes(searchQuery);
+          return definition.toLowerCase().includes(searchQuery)
         })
     default:
-      const definition = device.attributes.definition;
+      const definition = device.attributes.definition
 
       if (!definition) {
-        return false;
+        return false
       }
 
       return definition
@@ -40,7 +40,7 @@ function checkDeviceForQuery(device, { searching, query }) {
   }
 }
 
-function getRepositoryLink(path) {
+function getRepositoryLink (path) {
   if (Array.isArray(path)) {
     return `https://vorto.eclipse.org/#/details/${path[0]}`
   }

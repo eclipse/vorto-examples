@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 class Banner extends Component {
-  render() {
+  render () {
     return (
-      <a href="https://www.npmjs.com/package/vorto-dashboard" target="_blank" rel="noopener noreferrer">
-        <div className="banner">
+      <a href='https://www.npmjs.com/package/vorto-dashboard' target='_blank' rel='noopener noreferrer'>
+        <div className='banner'>
           <b>Download from NPM</b>
         </div>
       </a>
-    );
+    )
   }
 }
 
-export default Banner;
+export default Banner
