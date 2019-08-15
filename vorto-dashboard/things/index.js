@@ -1,5 +1,7 @@
 const request = require('request-promise-native')
 const AuthToken = require('./authenticate')
+const log = require('loglevel')
+log.setLevel(process.env.LOG_LEVEL || 'error')
 
 const imgUrls = {}
 
@@ -26,7 +28,7 @@ function getImgUrl(device) {
       resolve(url)
     })
     .catch(err => {
-      console.log(`Could not get device img, using default vorto logo... ${err}`)
+      log.warn(`Could not get device img, using default vorto logo... ${err}`)
       imgUrls[device.attributes.definition] = 'https://www.eclipse.org/vorto/images/vorto.png'
       resolve('https://www.eclipse.org/vorto/images/vorto.png')
     }))
@@ -48,8 +50,6 @@ function getUpdatedDevices() {
     authToken
       .getToken()
       .then(token => {
-        /* console.log(token) */
-
         // request all things the user has created and have a policy
         request(getReqOpts(token))
           .then(res => {
@@ -60,16 +60,15 @@ function getUpdatedDevices() {
 
             Promise.all(devices)
               .then(resDevices => {
-                /* console.log(JSON.stringify(devices, null, 2)) */
-                console.log(`=> Successfully pulled ${devices.length} things.`)
+                log.info(`=> Successfully pulled ${devices.length} things.`)
                 resolve(resDevices)
               })
               .catch(err => {
-                console.log(`Could not enrich devices with images, dropping this call... ${err}`)
+                log.error(`Could not enrich devices with images, dropping this call... ${err}`)
               })
           })
           .catch(err => {
-            console.log(`JWT expired, getting new Token ${new Date()}... ${err}`)
+            log.warn(`JWT expired, getting new Token ${new Date()}... ${err}`)
             authToken = new AuthToken()
           })
       })

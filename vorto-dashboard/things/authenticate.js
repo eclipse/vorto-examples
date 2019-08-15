@@ -5,6 +5,8 @@ const parser = new ArgumentParser({
   addHelp: true,
   description: 'Eclipse Vorto Dashboard'
 })
+const log = require('loglevel')
+log.setLevel(process.env.LOG_LEVEL || 'error')
 
 parser.addArgument(
   ['-c', '-C', '--config'],
@@ -33,13 +35,13 @@ try {
   const configPath = path.isAbsolute(configFilePath) ? configFilePath : path.join(process.cwd(), configFilePath)
 
   const configFile = require(configPath)
-  console.log('Using config.json file from path: ', configPath)
+  log.info('Using config.json file from path: ', configPath)
 
   clientId = configFile.clientId
   clientSecret = configFile.clientSecret
   scope = configFile.scope
 } catch (err) {
-  console.log('No config file provided, checking for environment variables...')
+  log.warn('No config file provided, checking for environment variables...')
 
   // get environment variables
   const envId = process.env.BOSCH_CLIENT_ID
@@ -47,7 +49,7 @@ try {
   const envScope = process.env.BOSCH_SCOPE
 
   if (!envId || !envSecret || !envScope) {
-    console.error('No credentials given in either config file or environment, stopping dashboard!')
+    log.error('No credentials given in either config file or environment, stopping dashboard!')
     process.exit(1)
   }
 
@@ -58,12 +60,12 @@ try {
 
 class AuthToken {
   /* Intitally get the token and assign its value to the object */
-  constructor () {
+  constructor() {
     const tokenPromise = this.getInitialToken()
     this.updateToken(tokenPromise)
   }
 
-  getInitialToken () {
+  getInitialToken() {
     const tokenForm = {
       grant_type: 'client_credentials',
       clientId: clientId,
@@ -75,7 +77,7 @@ class AuthToken {
   }
 
   /* gets the value of this.token, if it's undefined, waits 1 sec and checks again */
-  getToken () {
+  getToken() {
     return new Promise(function (res) {
       if (this.token) {
         res(this.token)
@@ -91,7 +93,7 @@ class AuthToken {
   }
 
   /* getter for request options with dynamic form content */
-  getReqOpts (form) {
+  getReqOpts(form) {
     return {
       url: 'https://access.bosch-iot-suite.com/token',
       method: 'POST',
@@ -104,8 +106,8 @@ class AuthToken {
   }
 
   /* refreshes the access token by making a refresh token call to the auth provider */
-  refreshToken (refreshToken) {
-    console.log('Refreshing token')
+  refreshToken(refreshToken) {
+    log.info('Refreshing token')
     const tokenForm = {
       grant_type: 'refresh_token',
       clientId: clientId,
@@ -118,7 +120,7 @@ class AuthToken {
   }
 
   /* updates the value of this.token with the new access token */
-  updateToken (tokenPromise) {
+  updateToken(tokenPromise) {
     tokenPromise
       .then(response => {
         this.token = response.access_token
@@ -131,7 +133,7 @@ class AuthToken {
         // don't wait the full amount of sec until invalidate every third of the time it will be renewed to ensure
         // failure tolerance for one renewal
       })
-      .catch(err => console.log(`Could not get token with given credentials. - ${err}`))
+      .catch(err => log.error(`Could not get token with given credentials. - ${err}`))
   }
 }
 

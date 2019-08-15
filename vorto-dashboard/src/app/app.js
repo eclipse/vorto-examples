@@ -26,7 +26,7 @@ const simReqOpts = {
   json: true
 }
 
-function pollDevices () {
+function pollDevices() {
   request(deviceReqOpts)
     .then(res => {
       const devices = res.data
@@ -35,7 +35,7 @@ function pollDevices () {
     .catch(err => `Could not poll device data from backend... ${err}`)
 }
 
-function pollSimulatorState () {
+function pollSimulatorState() {
   request(simReqOpts)
     .then(res => {
       const running = res.running
@@ -46,7 +46,7 @@ function pollSimulatorState () {
 }
 
 export class App extends Component {
-  componentDidMount () {
+  componentDidMount() {
     // TODO replace with WS
     this.deviceInterval = setInterval(pollDevices, DEVICE_REFRESH_MS)
 
@@ -85,7 +85,7 @@ export class App extends Component {
         }); */
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     clearInterval(this.deviceInterval)
 
     if (SHOW_SIMULATOR) {
@@ -93,7 +93,7 @@ export class App extends Component {
     }
   }
 
-  render () {
+  render() {
     const routes = indexRoutes.map((prop, key) => {
       return <Route to={prop.path} component={prop.component} key={key} />
     })

@@ -21,6 +21,7 @@
     "express": "^4.16.4",
     "jquery": "^3.4.1",
     "leaflet": "^1.4.0",
+    "loglevel": "^1.6.3",
     "medium-zoom": "^1.0.4",
     "popper.js": "^1.15.0",
     "react": "^16.2.0",

@@ -2,6 +2,8 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import request from 'request-promise-native'
+const log = require('loglevel')
+log.setLevel(process.env.LOG_LEVEL || 'error')
 
 const PORT = process.env.REACT_APP_PORT || 8080
 
@@ -22,12 +24,12 @@ const runSimulatorState = () => {
       const { started, error } = res
 
       if (error) {
-        console.error(`Could not update simulator state... ${error}`)
+        log.error(`Could not update simulator state... ${error}`)
       } else if (started) {
-        console.log('Successfully started Simulators')
+        log.info('Successfully started Simulators')
       }
     })
-    .catch(err => console.log(`Could not update simulator state... ${err}`))
+    .catch(err => log.error(`Could not update simulator state... ${err}`))
 }
 
 const SimulatorButton = (disableCond, text) => {

@@ -5,6 +5,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const spawn = require('child_process').spawn
 const exec = require('child_process').exec
+const log = require('loglevel')
+log.setLevel(process.env.LOG_LEVEL || 'error')
 
 const app = express()
 const server = require('http').createServer(app)
@@ -53,7 +55,7 @@ apiRouter.get('/devices', (req, res) => {
     })
 })
 
-function checkSimulatorsRunning () {
+function checkSimulatorsRunning() {
   return new Promise((resolve, reject) => {
     exec("kill -0 $(ps aux | grep -E '[p]ython PMSMotorSimulator.py|TraciTagSimulator.py' | grep -v grep | awk '{print $2}')",
       { shell: '/bin/bash' },
@@ -67,7 +69,7 @@ function checkSimulatorsRunning () {
   })
 }
 
-function delay (t, v) {
+function delay(t, v) {
   return new Promise((resolve, reject) => {
     setTimeout(resolve.bind(null, v), t)
   })
@@ -81,14 +83,14 @@ apiRouter.get('/simulator', (req, res) => {
       res.end()
     })
     .catch(err => {
-      console.log(`Simulator not running ${err}`)
+      log.debug(`Simulator not running ${err}`)
       res.send({ running: false, startTime: '' })
       res.end()
     })
 })
 
 apiRouter.post('/simulator', (req, res) => {
-  console.log('Starting Simulator Process...')
+  log.info('Starting Simulator Process...')
   simulatorStartTime = new Date()
 
   const pmsmProcess = spawn('python', ['PMSMotorSimulator.py'], {
@@ -103,46 +105,46 @@ apiRouter.post('/simulator', (req, res) => {
   delay(3000)
     .then(checkSimulatorsRunning)
     .then(() => {
-      console.log('Simulator successfully started')
+      log.info('Simulator successfully started')
       res.send({ started: true, error: null })
       res.end()
     })
     .catch(err => {
-      console.log(`Couldn't start the simulator... ${err}`)
+      log.error(`Couldn't start the simulator... ${err}`)
 
       res.send({ started: false, error: `Couldn't start the simulator... ${err}` })
     })
 
   pmsmProcess.on('error', (err) => {
-    console.log(`Couldn't start the simulator... ${err}`)
+    log.error(`Couldn't start the simulator... ${err}`)
 
     res.send({ started: false, error: `Couldn't start the simulator... ${err}` })
   })
 
   traciProcess.on('error', (err) => {
-    console.log(`Couldn't start the simulator... ${err}`)
+    log.error(`Couldn't start the simulator... ${err}`)
 
     res.send({ started: false, error: `Couldn't start the simulator... ${err}` })
   })
 
   pmsmProcess.stderr.on('data', (data) => {
-    console.log(`pmsm stderr: ${data}`)
+    log.error(`pmsm stderr: ${data}`)
   })
 
   traciProcess.stderr.on('data', (data) => {
-    console.log(`traci stderr: ${data}`)
+    log.error(`traci stderr: ${data}`)
   })
 
   pmsmProcess.on('close', (code) => {
     if (code !== 0) {
-      console.log(`pmsm process exited with code ${code}`)
+      log.info(`pmsm process exited with code ${code}`)
     }
     pmsmProcess.stdin.end()
   })
 
   traciProcess.on('close', (code) => {
     if (code !== 0) {
-      console.log(`traci process exited with code ${code}`)
+      log.info(`traci process exited with code ${code}`)
     }
     traciProcess.stdin.end()
   })
@@ -152,15 +154,15 @@ apiRouter.post('/simulator', (req, res) => {
  setInterval(() => {
     getUpdatedDevices()
         .then(devices => {
-            console.log(devices)
+            log.debug(devices)
         })
-        .catch(err => console.log(`Could not fetch things... - ${err}`))
+        .catch(err => log.error(`Could not fetch things... - ${err}`))
 }, config.things.intervalMS)
 
   socket.emit('event', { hello: 'world' });
   socket.on('my other event', function (data) {
-    console.log(data);
+    log.debug(data);
   });
 }); */
 
-server.listen(PORT, () => console.log(`App running on port ${PORT}`))
+server.listen(PORT, () => log.info(`App running on port ${PORT}`))
