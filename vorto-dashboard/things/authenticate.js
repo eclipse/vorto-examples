@@ -37,8 +37,8 @@ try {
   const configFile = require(configPath)
   log.info('Using config.json file from path: ', configPath)
 
-  clientId = configFile.clientId
-  clientSecret = configFile.clientSecret
+  clientId = configFile.client_id
+  clientSecret = configFile.client_secret
   scope = configFile.scope
 } catch (err) {
   log.warn('No config file provided, checking for environment variables...')
@@ -68,8 +68,8 @@ class AuthToken {
   getInitialToken() {
     const tokenForm = {
       grant_type: 'client_credentials',
-      clientId: clientId,
-      clientSecret: clientSecret,
+      client_id: clientId,
+      client_secret: clientSecret,
       'scope:service': scope
     }
 
@@ -110,8 +110,8 @@ class AuthToken {
     log.info('Refreshing token')
     const tokenForm = {
       grant_type: 'refresh_token',
-      clientId: clientId,
-      clientSecret: clientSecret,
+      client_id: clientId,
+      client_secret: clientSecret,
       refresh_token: refreshToken
     }
 
