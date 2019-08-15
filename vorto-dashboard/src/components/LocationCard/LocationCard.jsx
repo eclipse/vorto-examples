@@ -7,7 +7,7 @@ import { getRepositoryLink } from '../../util';
 export class LocationCard extends Component {
   render() {
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -21,7 +21,7 @@ export class LocationCard extends Component {
           </Row>
 
           <Row>
-            <Col xs={12} sm={12} md={12} lg={12} className="mapCard">
+            <Col xs={12} sm={12} md={12} lg={12} className="map-card">
               <OSMap devices={[this.props.device]} displayTooltip={false} />
             </Col>
           </Row>

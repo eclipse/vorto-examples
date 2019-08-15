@@ -19,19 +19,19 @@ export class DemoStateNumberCard extends Component {
       timestamp = new Date(timestamp * 1000).toISOString().slice(0, 19).split('T');
 
       textElement = <div>
-        <span className="dataVal">{timestamp[0]}</span>
+        <span className="data-val">{timestamp[0]}</span>
         <br />
-        <span className="dataVal">{timestamp[1]}</span>
+        <span className="data-val">{timestamp[1]}</span>
       </div>
 
     } else if (id) {
-      textElement = <span className="dataVal">{id}</span>;
+      textElement = <span className="data-val">{id}</span>;
     } else {
-      textElement = <span className="dataVal">0</span>;
+      textElement = <span className="data-val">0</span>;
     }
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -45,7 +45,7 @@ export class DemoStateNumberCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
+              <div className="inner-card-container">
                 <span style={{
                   fontSize: `${fontSize}em`,
                   textAlign: "center"

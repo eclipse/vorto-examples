@@ -16,7 +16,7 @@ export class BatteryCard extends Component {
     const barColor = currPerc <= 20 ? "#f26d60" : currPerc <= 40 ? "#f9f963" : "#a2f260";
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -30,8 +30,8 @@ export class BatteryCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
-                <div className="batteryContainer">
+              <div className="inner-card-container">
+                <div className="battery-container">
                   <div className="battery">
                     <div className="battery-background" style={{
                       width: `${currPerc}%`,
@@ -40,7 +40,7 @@ export class BatteryCard extends Component {
                     </div>
                   </div>
                   <div className="battery-percentage">
-                    <span className="dataVal">{currVal}%</span>
+                    <span className="data-val">{currVal}%</span>
                   </div>
                 </div>
               </div>

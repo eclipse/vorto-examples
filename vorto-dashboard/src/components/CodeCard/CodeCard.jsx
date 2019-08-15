@@ -11,7 +11,7 @@ export class CodeCard extends Component {
     const jsonText = JSON.stringify(this.props.feature, null, 2)
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>

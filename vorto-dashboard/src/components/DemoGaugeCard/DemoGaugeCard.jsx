@@ -17,7 +17,7 @@ export class DemoGaugeCard extends Component {
     const currDeg = ((currVal - minVal) * 180) / (maxVal - minVal)
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -31,18 +31,18 @@ export class DemoGaugeCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
+              <div className="inner-card-container">
                 <div className="gauge">
                   <div className="gauge-percentage" style={{ transform: `rotate(${currDeg}deg)` }} />
-                  <span className="gauge-value dataVal" style={{
+                  <span className="gauge-value data-val" style={{
                     fontSize: "1.8em",
                     top: "60%",
                     left: "25%"
                   }}>{`${currVal}${unit}`}</span>
                 </div>
                 <div className="gauge-mask" />
-                <span className="gauge-min dataVal">{minVal}{unit}</span>
-                <span className="gauge-max dataVal">{maxVal}{unit}</span>
+                <span className="gauge-min data-val">{minVal}{unit}</span>
+                <span className="gauge-max data-val">{maxVal}{unit}</span>
               </div>
             </Col>
           </Row>

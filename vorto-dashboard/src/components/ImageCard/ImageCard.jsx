@@ -22,11 +22,11 @@ export class ImageCard extends Component {
     const mediaType = values.status.mediaType || "data:image/jpeg;base64";
     const source = `${mediaType},${content}`
 
-    const image = content ? <img className="imgCardImg" src={source} alt="stream data" ref={this.attachZoom} />
-      : <img className="imgCardImg" src={defaultImg} alt="placeholder" />;
+    const image = content ? <img className="img-card-img" src={source} alt="stream data" ref={this.attachZoom} />
+      : <img className="img-card-img" src={defaultImg} alt="placeholder" />;
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -40,8 +40,8 @@ export class ImageCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
-                <div className="imgCardContainer">
+              <div className="inner-card-container">
+                <div className="img-card-container">
                   {image}
                 </div>
               </div>

@@ -13,7 +13,7 @@ export class PercentageCard extends Component {
     const currPerc = ((currVal - minVal) * 100) / (maxVal - minVal)
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -27,8 +27,8 @@ export class PercentageCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
-                <div className="percentageContainer">
+              <div className="inner-card-container">
+                <div className="percentage-container">
                   <div className="percentage">
                     <div className="percentage-background" style={{
                       height: `${currPerc}%`
@@ -36,7 +36,7 @@ export class PercentageCard extends Component {
                     </div>
                   </div>
                   <div className="percentage-percentage">
-                    <span className="dataVal">{currVal}%</span>
+                    <span className="data-val">{currVal}%</span>
                   </div>
                 </div>
               </div>

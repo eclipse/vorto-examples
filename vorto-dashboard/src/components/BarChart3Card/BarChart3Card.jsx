@@ -33,7 +33,7 @@ export class BarChart3Card extends Component {
     const zPerc = ((zValue - minVal) * 100) / (maxVal - minVal);
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -47,32 +47,32 @@ export class BarChart3Card extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
-                <div className="chartContainer">
-                  <div className="barChartContainer">
-                    <div className="barChart" style={{
+              <div className="inner-card-container">
+                <div className="chart-container">
+                  <div className="barchart-container">
+                    <div className="bar-chart" style={{
                       height: `${xPerc}%`,
                       backgroundColor: "#015c95"
                     }}>
-                      <span className="dataVal">{xValue}</span>
+                      <span className="data-val">{xValue}</span>
                     </div>
                     X
                   </div>
-                  <div className="barChartContainer">
-                    <div className="barChart" style={{
+                  <div className="barchart-container">
+                    <div className="bar-chart" style={{
                       height: `${yPerc}%`,
                       backgroundColor: "#156e91"
                     }}>
-                      <span className="dataVal">{yValue}</span>
+                      <span className="data-val">{yValue}</span>
                     </div>
                     Y
                   </div>
-                  <div className="barChartContainer">
-                    <div className="barChart" style={{
+                  <div className="barchart-container">
+                    <div className="bar-chart" style={{
                       height: `${zPerc}%`,
                       backgroundColor: "#053f6f"
                     }}>
-                      <span className="dataVal">{zValue}</span>
+                      <span className="data-val">{zValue}</span>
                     </div>
                     Z
                   </div>

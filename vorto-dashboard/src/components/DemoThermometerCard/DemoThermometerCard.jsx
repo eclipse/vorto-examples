@@ -15,7 +15,7 @@ export class DemoThermometerCard extends Component {
     const currPerc = ((currVal - minVal) * 100) / (maxVal - minVal)
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -29,12 +29,12 @@ export class DemoThermometerCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
+              <div className="inner-card-container">
                 <div className="thermometer">
                   <span className="thermometer-glass">
-                    <span className="thermometer-maxVal">max. <span className="dataVal">{maxVal}°{unit}</span></span>
-                    <span className="thermometer-currVal"><span className="dataVal">{currVal}°{unit}</span></span>
-                    <span className="thermometer-minVal">min. <span className="dataVal">{minVal}°{unit}</span></span>
+                    <span className="thermometer-maxVal">max. <span className="data-val">{maxVal}°{unit}</span></span>
+                    <span className="thermometer-currVal"><span className="data-val">{currVal}°{unit}</span></span>
+                    <span className="thermometer-minVal">min. <span className="data-val">{minVal}°{unit}</span></span>
                     <span className="thermometer-amount" style={{ height: `${currPerc}%` }}></span>
                   </span>
                   <div className="thermometer-bulb">

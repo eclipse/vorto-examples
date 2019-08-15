@@ -9,11 +9,11 @@ export class StateNumberCard extends Component {
     const state = values.status.digitalInputState || false;
     const currVal = values.status.digitalInputCounter || 0;
 
-    const stateDisplay = state ? <span className="fa fa-bell stateNumberIcon" />
-      : <span className="fa fa-bell stateNumberIcon stateNumberIconOff" />;
+    const stateDisplay = state ? <span className="fa fa-bell state-number-icon" />
+      : <span className="fa fa-bell state-number-icon state-number-iconOff" />;
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -27,9 +27,9 @@ export class StateNumberCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
+              <div className="inner-card-container">
                 {stateDisplay}
-                <span className="stateNumberVal"><span className="dataVal">{currVal}</span></span>
+                <span className="state-number-val"><span className="data-val">{currVal}</span></span>
               </div>
             </Col>
           </Row>

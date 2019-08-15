@@ -41,7 +41,7 @@ const getReqOpts = (accessToken) => ({
   json: true
 })
 
-const authToken = new AuthToken()
+let authToken = new AuthToken()
 function getUpdatedDevices() {
   return new Promise((resolve, reject) => {
     authToken
@@ -63,6 +63,13 @@ function getUpdatedDevices() {
                 console.log(`=> Successfully pulled ${devices.length} things.`)
                 resolve(resDevices)
               })
+              .catch(err => {
+                console.log(`Could not enrich devices with images, dropping this call... ${err}`);
+              })
+          })
+          .catch(err => {
+            console.log(`JWT expired, getting new Token ${new Date()}... ${err}`);
+            authToken = new AuthToken()
           })
       })
       .catch(err => reject(`Could not get token - ${err}`))

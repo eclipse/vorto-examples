@@ -40,7 +40,7 @@ function mapDispatchToProps(dispatch) {
 
 const ConnectedMaps = ({ devices, selectDevice }) => {
   return (
-    <div className="fillHWLocate">
+    <div className="fill-hw-locate">
       <OSMap
         devices={devices}
         displayTooltip={true}

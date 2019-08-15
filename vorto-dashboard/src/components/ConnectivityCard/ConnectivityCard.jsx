@@ -17,7 +17,7 @@ export class ConnectivityCard extends Component {
       : `SNR: ${featureStatus.snr}`;
 
     return (
-      <div className="card card-stats attrCard">
+      <div className="card card-stats attr-card">
         <div className="content">
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
@@ -31,10 +31,10 @@ export class ConnectivityCard extends Component {
 
           <Row>
             <Col xs={12} sm={12} md={12} lg={12}>
-              <div className="innerCardContainer">
-                <div className="connectivityContainer">
+              <div className="inner-card-container">
+                <div className="connectivity-container">
                   <span className="fa fa-cloud connectivity" style={{ color: cloudColor }} />
-                  <div className="dataVal connectivityState">{connectionText}</div>
+                  <div className="data-val connectivity-state">{connectionText}</div>
                   <div className="connectivitySub">{connectionSub}</div>
                 </div>
               </div>

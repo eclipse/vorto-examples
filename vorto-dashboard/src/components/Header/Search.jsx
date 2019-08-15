@@ -29,7 +29,7 @@ function handleSearch(evt, updateSearch) {
 
 const ConnectedSearch = ({ props, searchQuery, updateSearch }) => {
     const searchBar = props.brand !== "Device Dashboard" ?
-        <FormControl type="text" value={searchQuery} placeholder="Search..." className="searchBox" onChange={(evt) => handleSearch(evt, updateSearch)} />
+        <FormControl type="text" value={searchQuery} placeholder="Search..." className="search-box" onChange={(evt) => handleSearch(evt, updateSearch)} />
         : <div />;
 
     return searchBar;
