@@ -66,7 +66,7 @@ class Header extends Component {
             {brand}
           </Navbar.Brand>
           <Nav pullRight>
-            <a href='TODO fill in' target='_blank' className='how-link'>Peek behind the Scenes</a>
+            <a href='https://github.com/eclipse/vorto-examples/tree/master/vorto-dashboard/docs/AssetTracking.md' target='_blank' className='how-link'>Peek behind the Scenes</a>
             <Search brand={brand} />
             <Navbar.Toggle onClick={this.mobileSidebarToggle} />
           </Nav>
