@@ -11,7 +11,7 @@ You can try out the solution yourself at [Vorto Dashboard](http://vorto-dashboar
 ## Ok, I am interested, how does it work?
 Before we dive-in and uncover the details let's look at the architecture diagram.
 
-<img src="./images/Vorto-Dashboard-Architecture.svg" width="80%"/>
+<img src="./images/vorto_dashboard_architecture.jpg" width="90%"/>
 
 ### Step 1: 
 
