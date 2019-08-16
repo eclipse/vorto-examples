@@ -1,4 +1,4 @@
-#Vorto Dashboard - Behind the Scenes
+# Vorto Dashboard - Behind the Scenes
 
 ## What is Vorto Dashboard?
 Vorto Dashboard was developed to help the Vorto community members or interested parties to quickly visualize their IoT devices (real or mocked) and rapidly prototype some use-cases, e.g. asset tracking with dashboard. 
