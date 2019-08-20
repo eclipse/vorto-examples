@@ -85,7 +85,7 @@ class OSMap extends Component {
       // TODO fix redirect and history to allow browser back
       return (
         <Marker position={position}
-          // icon={iconPerson}
+          // icon={regularIcon}
           key={index} >
           {this.renderRedirect()}
           {popUp}
