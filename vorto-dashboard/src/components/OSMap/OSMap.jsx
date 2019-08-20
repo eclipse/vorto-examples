@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import DeviceTooltip from "../DeviceTooltip/DeviceTooltip"
 
 import { CATEGORIES } from "../../util/cardUtils"
+// import { regularIcon } from './Icon'
 
 class OSMap extends Component {
   state = {
@@ -83,7 +84,10 @@ class OSMap extends Component {
 
       // TODO fix redirect and history to allow browser back
       return (
-        <Marker position={position} key={index}>
+        <Marker position={position}
+          // icon={regularIcon}
+          key={index} >
+          {this.renderRedirect()}
           {popUp}
         </Marker>
       )

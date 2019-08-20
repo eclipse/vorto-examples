@@ -60,12 +60,12 @@ try {
 
 class AuthToken {
   /* Intitally get the token and assign its value to the object */
-  constructor() {
+  constructor () {
     const tokenPromise = this.getInitialToken()
     this.updateToken(tokenPromise)
   }
 
-  getInitialToken() {
+  getInitialToken () {
     const tokenForm = {
       grant_type: 'client_credentials',
       client_id: clientId,
@@ -77,7 +77,7 @@ class AuthToken {
   }
 
   /* gets the value of this.token, if it's undefined, waits 1 sec and checks again */
-  getToken() {
+  getToken () {
     return new Promise(function (res) {
       if (this.token) {
         res(this.token)
@@ -93,7 +93,7 @@ class AuthToken {
   }
 
   /* getter for request options with dynamic form content */
-  getReqOpts(form) {
+  getReqOpts (form) {
     return {
       url: 'https://access.bosch-iot-suite.com/token',
       method: 'POST',
@@ -106,7 +106,7 @@ class AuthToken {
   }
 
   /* refreshes the access token by making a refresh token call to the auth provider */
-  refreshToken(refreshToken) {
+  refreshToken (refreshToken) {
     log.info('Refreshing token')
     const tokenForm = {
       grant_type: 'refresh_token',
@@ -120,7 +120,7 @@ class AuthToken {
   }
 
   /* updates the value of this.token with the new access token */
-  updateToken(tokenPromise) {
+  updateToken (tokenPromise) {
     tokenPromise
       .then(response => {
         this.token = response.access_token
