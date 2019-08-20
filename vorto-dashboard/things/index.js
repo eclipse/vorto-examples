@@ -1,5 +1,7 @@
-const request = require("request-promise-native");
-const AuthToken = require("./authenticate");
+const request = require('request-promise-native')
+const AuthToken = require('./authenticate')
+const log = require('loglevel')
+log.setLevel(process.env.LOG_LEVEL || 'error')
 
 const imgUrls = {}
 
@@ -7,17 +9,17 @@ function getImgUrl(device) {
   const savedImgUrl = imgUrls[device.attributes.definition]
 
   if (!device.attributes.definition) {
-    return Promise.resolve("https://www.eclipse.org/vorto/images/vorto.png");
+    return Promise.resolve('https://www.eclipse.org/vorto/images/vorto.png')
   }
 
   if (savedImgUrl) {
     return Promise.resolve(savedImgUrl)
   }
 
-  const url = `http://vorto.eclipse.org/rest/models/${device.attributes.definition}/images`;
+  const url = `http://vorto.eclipse.org/rest/models/${device.attributes.definition}/images`
   const reqOpts = {
     url,
-    method: "GET"
+    method: 'GET'
   }
 
   return new Promise((resolve) => request(reqOpts)
@@ -26,29 +28,28 @@ function getImgUrl(device) {
       resolve(url)
     })
     .catch(err => {
-      imgUrls[device.attributes.definition] = "https://www.eclipse.org/vorto/images/vorto.png"
-      resolve("https://www.eclipse.org/vorto/images/vorto.png");
+      log.warn(`Could not get device img, using default vorto logo... ${err}`)
+      imgUrls[device.attributes.definition] = 'https://www.eclipse.org/vorto/images/vorto.png'
+      resolve('https://www.eclipse.org/vorto/images/vorto.png')
     }))
 }
 
 const getReqOpts = (accessToken) => ({
-  url: "https://things.eu-1.bosch-iot-suite.com/api/2/search/things",
-  method: "GET",
+  url: 'https://things.eu-1.bosch-iot-suite.com/api/2/search/things',
+  method: 'GET',
   headers: {
-    "accept": "application/json",
-    "Authorization": `Bearer ${accessToken}`
+    accept: 'application/json',
+    Authorization: `Bearer ${accessToken}`
   },
   json: true
 })
 
-const authToken = new AuthToken()
+let authToken = new AuthToken()
 function getUpdatedDevices() {
   return new Promise((resolve, reject) => {
     authToken
       .getToken()
       .then(token => {
-        /* console.log(token) */
-
         // request all things the user has created and have a policy
         request(getReqOpts(token))
           .then(res => {
@@ -59,10 +60,16 @@ function getUpdatedDevices() {
 
             Promise.all(devices)
               .then(resDevices => {
-                /* console.log(JSON.stringify(devices, null, 2)) */
-                console.log(`=> Successfully pulled ${devices.length} things.`)
+                log.info(`=> Successfully pulled ${devices.length} things.`)
                 resolve(resDevices)
               })
+              .catch(err => {
+                log.error(`Could not enrich devices with images, dropping this call... ${err}`)
+              })
+          })
+          .catch(err => {
+            log.warn(`JWT expired, getting new Token ${new Date()}... ${err}`)
+            authToken = new AuthToken()
           })
       })
       .catch(err => reject(`Could not get token - ${err}`))

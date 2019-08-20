@@ -1,32 +1,32 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 export class ConnectivityStatus extends Component {
-  render() {
+  render () {
     const device = this.props.device
     const deviceConnectivities = Object.keys(device.features)
       .filter(feature => {
-        const deviceFeature = device.features[feature];
+        const deviceFeature = device.features[feature]
 
         if (!deviceFeature.definition) {
-          return false;
+          return false
         }
 
-        return deviceFeature.definition.includes("org.eclipse.vorto:Connectivity:1.0.0")
+        return deviceFeature.definition.includes('org.eclipse.vorto:Connectivity:1.0.0')
       })
     const connectivityFeatures = deviceConnectivities.map(feature => device.features[feature])
 
     const connected = connectivityFeatures
-      .some(connectivity => connectivity.properties.status.status === "Connected")
+      .some(connectivity => connectivity.properties.status.status === 'Connected')
     const connecting = connectivityFeatures
-      .some(connectivity => connectivity.properties.status.status === "Connecting")
+      .some(connectivity => connectivity.properties.status.status === 'Connecting')
 
-    const cloudColor = connected ? "#a2f260" : connecting ? "#f9f963" : "#333333";
+    const cloudColor = connected ? '#a2f260' : connecting ? '#f9f963' : '#333333'
     const deviceConnectivityElem = connectivityFeatures.length > 0
-      ? <span className="fa fa-cloud connectivityIcon" style={{ color: cloudColor }} />
-      : <span />;
+      ? <span className='fa fa-cloud connectivityIcon' style={{ color: cloudColor }} />
+      : <span />
 
-    return deviceConnectivityElem;
+    return deviceConnectivityElem
   }
 }
 
-export default ConnectivityStatus;
+export default ConnectivityStatus

@@ -43,7 +43,7 @@
     width: 100%;
 }
 
-.autoScroll {
+.auto-scroll {
     overflow: auto;
 }
 
@@ -86,14 +86,64 @@ a:hover {
     justify-content: space-between;
 }
 
-.searchBox {
+.navbar-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.navbar-toggle {
+    background-color: #333333 !important;
+}
+
+.navbar-toggle:hover {
+    background-color: #555555 !important;
+}
+
+.navbar-toggle:focus {
+    background-color: #333333 !important;
+}
+
+@media only screen and (min-width: 400px) {
+    .navbar-toggle {
+        width: 0px;
+        height: 0px;
+    }
+}
+
+.navbar-toggle {
+    .icon-bar {
+        margin-bottom: 5px !important;
+        margin-top: 5px !important;
+    }
+}
+
+.how-link {
+    margin: 17px;
+    font-size: 1.1em;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+@media only screen and (max-width: 750px) {
+    .how-link {
+        visibility: collapse;
+    }
+}
+
+.search-box {
     position: relative;
     float: right;
     width: 200px;
     margin: 10px;
 }
 
-.deviceContainer {
+@media only screen and (max-width: 550px) {
+    .search-box {
+        visibility: collapse;
+    }
+}
+
+.device-container {
     background: none;
     border: none;
     padding: 0;
@@ -112,12 +162,12 @@ a:hover {
     -o-transition: box-shadow 0.2s ease-in-out;
     transition: box-shadow 0.2s ease-in-out; }
 
-.deviceContainer:hover {
+.device-container:hover {
     -webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.3);
     -moz-box-shadow: 0 3px 10px rgba(0,0,0,0.3);
     box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
 
-.imgContainer {
+.img-container {
     height: 250px;
     width: 100%;
     display: flex;
@@ -126,7 +176,7 @@ a:hover {
     overflow: auto;
 }
 
-.deviceImg {
+.device-img {
     -webkit-max-width: 100%;
     -moz-max-width: 100%;
     -ms-max-width: 100%;
@@ -140,42 +190,42 @@ a:hover {
     max-height: 250px;
 }
 
-.deviceFooter {
+.device-footer {
     display: flex;
     height: 100px;
 }
 
-.deviceCardAttrContainer {
+.device-card-attr-container {
     margin-top: 25px;
     overflow: auto;
 }
 
-.deviceDescText {
+.device-desc-text {
     margin-bottom: 0;
 }
 
-.footerContainer {
+.footer-container {
     align-self: flex-end;
     width: 100%;
     padding: 0;
     margin: 0;
 }
 
-.attrKeyword {
+.attr-keyword {
     font-weight: bold; 
 }
 
-.headerKeyword {
+.header-keyword {
     font-size: 1.2em;
     text-decoration: underline;
 }
 
-.attrContainerWrappr {
+.attr-container-wrapper {
     display: flex;
     align-items: center;
 }
 
-.attrContainer {
+.attr-container {
     height: 200px;
     width: 100%;
     margin-top: 20px;
@@ -191,14 +241,14 @@ a:hover {
     word-break: break-all;
 }
 
-.fillHWLocate {
+.fill-hw-locate {
     width: 100%;
     height: calc(100% - 70px);
     height: -moz-calc(100% - 70px);
     height: -webkit-calc(100% - 70px);
 }
 
-.mapWrapper {
+.map-wrapper {
     height: 100%;
     -webkit-min-height: 295px;
     -moz-min-height: 295px;
@@ -213,34 +263,34 @@ a:hover {
     width: 100%;
 }
 
-.attrCard {
+.attr-card {
     overflow: auto;
     height: 400px;
 }
 
-.textButton {
+.text-button {
     background: none;
     border: none;
     color: #005C99;
 }
 
-.textButton:hover {
+.text-button:hover {
     color: #017AD1;
 }
 
-.mapCard {
+.map-card {
     height: 100%;
     width: 100%;
 }
 
-.attrImgContainer {
+.attr-img-container {
     display: flex;
     width: 100%;
     justify-content: center;
     margin-bottom: 25px;
 }
 
-.attrImg {
+.attr-img {
     -webkit-max-height: 200px;
     -moz-max-height: 200px;
     -ms-max-height: 200px;
@@ -248,7 +298,7 @@ a:hover {
     max-height: 200px;
 }
 
-.innerCardContainer {
+.inner-card-container {
     display: flex;
     width: 100%;
     -webkit-max-height: 100%;
@@ -267,7 +317,7 @@ a:hover {
     color: #333333;
 }
 
-.dataVal {
+.data-val {
     font-size: 1.25em;
     font-weight: bold;
 }
@@ -426,7 +476,7 @@ a:hover {
   }
 }
 
-.batteryContainer {
+.battery-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -470,7 +520,7 @@ a:hover {
     } 
 }
 
-.percentageContainer {
+.percentage-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -514,7 +564,7 @@ a:hover {
     right: 25px;
 }
 
-.connectivityContainer {
+.connectivity-container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -531,26 +581,26 @@ a:hover {
     text-stroke: 4px #e5e5e5;
 }
 
-.connectivityState {
+.connectivity-state {
     margin-top: 10px;
 }
 
-.stateNumberVal {
+.state-number-val {
     font-size: 5em;
 }
 
-.stateNumberIcon {
+.state-number-icon {
     font-size: 2em;
     position: absolute;
     top: 50px;
     right: 100px;
 }
 
-.stateNumberIconOff {
+.state-number-iconOff {
     color: white;
 }
 
-.imgCardContainer {
+.img-card-container {
     height: 295px;
     width: 100%;
     display: flex;
@@ -558,7 +608,7 @@ a:hover {
     justify-content: center;
 }
 
-.imgCardImg {
+.img-card-img {
     -webkit-max-width: 100%;
     -moz-max-width: 100%;
     -ms-max-width: 100%;
@@ -572,7 +622,7 @@ a:hover {
     max-height: 100%;
 }
 
-.chartContainer {
+.chart-container {
     height: 250px;
     width: 100%;
     display: flex;
@@ -581,7 +631,7 @@ a:hover {
     align-content: flex-end;
 }
 
-.barChartContainer {
+.barchart-container {
     height: 100%;
     width: 20%;
     display: flex;
@@ -590,7 +640,7 @@ a:hover {
     text-align: center;
 }
 
-.barChart {
+.bar-chart {
     color: white;
     display: flex;
     flex-direction: column;

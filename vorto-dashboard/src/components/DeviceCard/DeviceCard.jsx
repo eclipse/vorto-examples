@@ -28,25 +28,25 @@ export class DeviceCard extends Component {
 
     return (
       <div className="card card-stats">
-        <button className="deviceContainer" onClick={this.setRedirect}>
+        <button className="device-container" onClick={this.setRedirect}>
           {this.renderRedirect()}
           <div className="content">
             <Row>
               <Col xs={12} sm={12} md={12} lg={12}>
-                <div className="imgContainer">
-                  <img className="deviceImg" alt={device.attributes.definition} src={device.imgSrc} />
+                <div className="img-container">
+                  <img className="device-img" alt={device.attributes.definition} src={device.imgSrc} />
                   <ConnectivityStatus device={device} />
                 </div>
               </Col>
             </Row>
 
-            <Row className="deviceFooter">
-              <div className="footerContainer">
+            <Row className="device-footer">
+              <div className="footer-container">
                 <hr />
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <div className="deviceCardAttrContainer">
-                    <p className="text-center deviceDescText"><span className="attrKeyword">{device.thingId}</span></p>
-                    <p className="text-center deviceDescText">{device.attributes.thingName}</p>
+                  <div className="device-card-attr-container">
+                    <p className="text-center device-desc-text"><span className="attr-keyword">{device.thingId}</span></p>
+                    <p className="text-center device-desc-text">{device.attributes.thingName}</p>
                   </div>
                 </Col>
               </div>

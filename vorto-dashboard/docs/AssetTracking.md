@@ -1,12 +1,12 @@
 # Vorto Dashboard - Behind the Scenes
 
 ## What is Vorto Dashboard?
-Vorto Dashboard was developed to help the Vorto community members or interested parties to quickly visualize their IoT devices (real or mocked) and rapidly prototype some use-cases, e.g. asset tracking with dashboard. 
+Vorto Dashboard was developed to help the Vorto community members or interested parties to quickly visualize their IoT devices (real or mocked) and rapidly prototype some use-cases, e.g. asset tracking. 
 
 ### Asset Tracking
-In this use-case we are going to track a truck picking up goods from the city port and delivering them to our warehouse. For this purpose we would be using the Bosch TRACI tag which has the sensors required for the job.
+In our use-case we are tracking various trucks picking up goods from the city port and delivering them to the warehouse. For this purpose we are using the Bosch TRACI Tag which has multiple sensors, such as geolocation, accelerometer etc.
 
-You can try out the solution yourself at [Vorto Dashboard](http://vorto-dashboard.eu-central-1.elasticbeanstalk.com). If you are curious to know how it works, read on to know more. 
+You can [try out the solution](http://vorto-dashboard.eu-central-1.elasticbeanstalk.com). If you are curious to know how it works, read on to know more. 
 
 ## Ok, I am interested, how does it work?
 Before we dive-in and uncover the details let's look at the architecture diagram.
@@ -34,11 +34,10 @@ Before we dive-in and uncover the details let's look at the architecture diagram
 
 - Vorto Dashboard periodically polls for registered devices and their last known state from Eclipse Ditto and shows the data in various widgets on the Dashboard.
 
-## What's next?
-- [Getting started with Vorto](https://github.com/eclipse/vorto/blob/development/docs/gettingstarted.md)
-- Checkout the [Vorto Mapping Pipeline](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md)
-- [Create a thing in the Bosch IoT Suite using Vorto Information Models](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_thing.md)
+## Useful links
 
+- [Vorto Middleware](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md)
+- [Getting started with Vorto](https://github.com/eclipse/vorto/blob/development/docs/gettingstarted.md)
 
 ## I would like to know more, how do I get in touch?
 
