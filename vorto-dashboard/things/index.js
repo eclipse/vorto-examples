@@ -5,7 +5,7 @@ log.setLevel(process.env.LOG_LEVEL || 'error')
 
 const imgUrls = {}
 
-function getImgUrl(device) {
+function getImgUrl (device) {
   const savedImgUrl = imgUrls[device.attributes.definition]
 
   if (!device.attributes.definition) {
@@ -45,7 +45,7 @@ const getReqOpts = (accessToken) => ({
 })
 
 let authToken = new AuthToken()
-function getUpdatedDevices() {
+function getUpdatedDevices () {
   return new Promise((resolve, reject) => {
     authToken
       .getToken()

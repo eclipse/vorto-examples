@@ -38,8 +38,8 @@ const SimulatorButton = (disableCond, text) => {
 
 const ConnectedSimulator = ({ simulatorState }) => {
   const stateColor = simulatorState.running ? '#a2f260' : '#f26d60'
-  const imgSource = simulatorState.running ? 'https://raw.githubusercontent.com/timgrossmann/vorto-examples/fix/simulator-visible/vorto-dashboard/assets/animation.gif'
-    : 'https://raw.githubusercontent.com/timgrossmann/vorto-examples/fix/simulator-visible/vorto-dashboard/assets/vorto-simulator.png'
+  const imgSource = simulatorState.running ? 'https://raw.githubusercontent.com/eclipse/vorto-examples/master/vorto-dashboard/assets/animation.gif'
+    : 'https://raw.githubusercontent.com/eclipse/vorto-examples/master/vorto-dashboard/assets/vorto-simulator.png'
   const textInfo = simulatorState.running ? <span>Running - Started at {simulatorState.startTime}</span>
     : <span>Not Running</span>
 

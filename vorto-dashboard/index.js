@@ -55,7 +55,7 @@ apiRouter.get('/devices', (req, res) => {
     })
 })
 
-function checkSimulatorsRunning() {
+function checkSimulatorsRunning () {
   return new Promise((resolve, reject) => {
     exec("kill -0 $(ps aux | grep -E '[p]ython PMSMotorSimulator.py|TraciTagSimulator.py' | grep -v grep | awk '{print $2}')",
       { shell: '/bin/bash' },
@@ -69,7 +69,7 @@ function checkSimulatorsRunning() {
   })
 }
 
-function delay(t, v) {
+function delay (t, v) {
   return new Promise((resolve, reject) => {
     setTimeout(resolve.bind(null, v), t)
   })
