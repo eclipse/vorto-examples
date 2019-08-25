@@ -1,6 +1,10 @@
-# Getting started with Vorto Normalizer
+# Getting started with Vorto Semantic Middleware
 
-The Vorto Normalizer is a nice little micro service that receives any device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) and normalizes it according to [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). A payload handler API lets you easily implement custom logic to process the normalized device payload, such as storing it in a Digital Twin service or run analytics. The normalizer provides an out-of-the-box AMQP publish handler that publishes the normalized data to any AMQP message broker, e.g. Amazon MQ. 
+The Vorto Semantic Middleware is a lightweight, stateless micro service that receives any device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) and normalizes it according to [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). Northbound IoT applications can leverage the semantics of the normalized data, e.g. for data analytics. 
+The middleware service provides an extension point API lets you easily implement custom logic to process the normalized device payload, such as storing it in a Digital Twin service or run analytics on the data. 
+The service supports the publish of normalized data to an AMQP message broker, e.g. Amazon MQ. 
+
+Please follow [this link](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md) to use the Vorto middleware for a simple IoT geolocation use case. 
 
 ![](overview.png)
 
@@ -33,12 +37,12 @@ The following table shows all environment variables that can be configured to ru
 	</tr>
 	<tr>
 		<td>amqp.username</td>
-		<td>Optional</td>
+		<td>Required, if amqp url is set</td>
 		<td>AMQP Broker username</td>
 	</tr>
 	<tr>
 		<td>amqp.password</td>
-		<td>Optional</td>
+		<td>Required, if amqp url is set</td>
 		<td>AMQP Broker password</td>
 	</tr>
 	<tr>
@@ -48,14 +52,16 @@ The following table shows all environment variables that can be configured to ru
 	</tr>
 	<tr>
 		<td>amqp.topic.native</td>
-		<td>Optional</td>
+		<td>Required, if amqp url is set</td>
 		<td>AMQP topic to publish Vorto native compliant messages.</td>
 	</tr>
 </table>
 
 ### Vorto Mapping Specification
 
-The Vorto Mapping specifications must be stored under ```src/main/resources/specs```. Take a look at some examples in the folder for naming conventions. 
+Vorto Mapping Specifications contain instructions of how telemetry data is supposed to to be mapped to Vorto properties. It is very easy to create mapping specification using the Vorto Repository Web Editors. Check out the [Mapping Engine Documentation](https://github.com/eclipse/vorto/blob/development/mapping-engine/Readme.md) for details. 
+
+After you had created the specification, please download it from the Web Editor and store it "as is" under under ```src/main/resources/specs```. 
 
 ## Run the service
 
@@ -64,7 +70,7 @@ The Vorto Mapping specifications must be stored under ```src/main/resources/spec
 * Maven
 * Java 8 or higher
 
-Simple run the following command `mvn clean install springBoot:run`
+Simple run the following command `mvn clean install spring-boot:run`
 
 
 ## Eclipse Hono Device Registry 
@@ -147,3 +153,8 @@ public IPayloadHandler influxDBHandler() {
 	return new InfluxDBHandler(connectionProperties);
 }
 ```
+
+## What's next ? 
+
+* [Read tutorial](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md), that uses the Vorto Semantic Middleware for an IoT Geolocation use case 
+* Read more about the [Vorto Mapping Engine](https://github.com/eclipse/vorto/blob/development/mapping-engine/Readme.md), the core of the Vorto Semantic Middleware
