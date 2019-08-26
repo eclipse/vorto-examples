@@ -9,7 +9,7 @@ const imgUrls = {}
 function getImgUrl (device) {
   const thingDefinition = device.attributes.definition
   const savedImgUrl = imgUrls[thingDefinition]
-  const imgFolder = `${__dirname}/../../src/assets/img`
+  const imgFolder = `${__dirname}/../../public/images`
 
   if (!thingDefinition) {
     return Promise.resolve('https://www.eclipse.org/vorto/images/vorto.png')
@@ -45,8 +45,8 @@ function getImgUrl (device) {
         log.debug(`Trying to find thing image from local assets... ${imgFolder}`)
         const filePath = files.find(file => file.includes(thingDefinition))
         if (filePath) {
-          imgUrls[thingDefinition] = `../../assets/img/${filePath}`
-          resolve(`../../assets/img/${filePath}`)
+          imgUrls[thingDefinition] = `images/${filePath}`
+          resolve(`images/${filePath}`)
         }
       }
     })
