@@ -1,0 +1,15 @@
+{
+  "short_name": "Asset Tracking",
+  "name": "Vorto Asset Tracking Dashboard",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
