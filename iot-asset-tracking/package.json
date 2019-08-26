@@ -1,9 +1,9 @@
 {
-  "name": "vorto-dashboard",
-  "version": "0.1.4",
+  "name": "asset-tracking-dashboard",
+  "version": "0.1.0",
   "preferGlobal": true,
   "bin": {
-    "vorto-dashboard": "./index.js"
+    "asset-tracking-dashboard": "./index.js"
   },
   "keywords": [
     "vorto",
@@ -50,7 +50,7 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
-    "dist": "mkdir dist && cp -r Simulators package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r vorto-dashboard.zip .",
+    "dist": "mkdir dist && cp -r package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r asset-tracking-dashboard.zip .",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
