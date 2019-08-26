@@ -17,11 +17,6 @@
     "fileName" : "PMSMotor.infomodel",
     "modelType" : "Infomodel",
     "references" : [ {
-      "name" : "ID",
-      "namespace" : "org.eclipse.vorto.tutorial",
-      "version" : "1.0.0",
-      "prettyFormat" : "org.eclipse.vorto.tutorial:ID:1.0.0"
-    }, {
       "name" : "UnixTimestamp",
       "namespace" : "org.eclipse.vorto.tutorial",
       "version" : "1.0.0",
@@ -60,10 +55,165 @@
       "name" : "deviceInformation",
       "description" : null,
       "type" : {
-        "name" : "DeviceInformation",
-        "namespace" : "org.eclipse.vorto",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "DeviceInformation",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Device Information",
+        "description" : "Device Information, such as software version, OS etc.",
+        "category" : null,
+        "fileName" : "DeviceInformation.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"Bosch Rexroth\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "manufacturer",
+          "description" : "Company name of the device manufacturer, e.g. Bosch.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "array[1]"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "serialNumber",
+          "description" : "serial number of the device",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"1.2.22\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "softwareVersion",
+          "description" : "Version of the software on your device. This could be the version of your firmware, e.g. 2.4.33",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "osName",
+          "description" : "Name of the operating system on the device",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "processorArchitecture",
+          "description" : "Architecture of the processor on the device, e.g x64 or ARM.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "processorManufacturer",
+          "description" : "Name of the manufacturer of the processor on the device, e.g Intel.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "totalMemory",
+          "description" : "Total available memory on the device in kilobytes",
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "totalStorage",
+          "description" : "Total available storage on the device in kilobytes",
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-DeviceInformation-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -82,10 +232,51 @@
       "name" : "timestamp",
       "description" : null,
       "type" : {
-        "name" : "UnixTimestamp",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:UnixTimestamp:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[1] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "UnixTimestamp",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:UnixTimestamp:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "UnixTimestamp",
+        "description" : "Functionblock for UnixTimestamp",
+        "category" : null,
+        "fileName" : "UnixTimestamp.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toInt(array[2])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "timestamp",
+          "description" : null,
+          "type" : "INT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-UnixTimestamp-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -104,10 +295,68 @@
       "name" : "ambient",
       "description" : null,
       "type" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[2] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Temperature",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Temperature",
+        "description" : "Functionblock for Temperature",
+        "category" : null,
+        "fileName" : "Temperature.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toFloat(array[3])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"C\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -126,10 +375,68 @@
       "name" : "coolant",
       "description" : null,
       "type" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[3] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Temperature",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Temperature",
+        "description" : "Functionblock for Temperature",
+        "category" : null,
+        "fileName" : "Temperature.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toFloat(array[4])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"C\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -148,10 +455,68 @@
       "name" : "motor_speed",
       "description" : null,
       "type" : {
-        "name" : "RotationalSpeed",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:RotationalSpeed:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[4] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "RotationalSpeed",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:RotationalSpeed:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "RotationalSpeed",
+        "description" : "Functionblock for RotationalSpeed",
+        "category" : null,
+        "fileName" : "RotationalSpeed.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toFloat(array[5])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"RPM\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-RotationalSpeed-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -170,10 +535,68 @@
       "name" : "torque",
       "description" : null,
       "type" : {
-        "name" : "Torque",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Torque:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[5] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Torque",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:Torque:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Torque",
+        "description" : "Functionblock for Torque",
+        "category" : null,
+        "fileName" : "Torque.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toFloat(array[6])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"Nm\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Torque-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -192,10 +615,68 @@
       "name" : "strator_yoke",
       "description" : null,
       "type" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[6] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Temperature",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Temperature",
+        "description" : "Functionblock for Temperature",
+        "category" : null,
+        "fileName" : "Temperature.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toFloat(array[7])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"C\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -214,10 +695,68 @@
       "name" : "strator_tooth",
       "description" : null,
       "type" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[7] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Temperature",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Temperature",
+        "description" : "Functionblock for Temperature",
+        "category" : null,
+        "fileName" : "Temperature.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toFloat(array[8])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"C\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -236,10 +775,68 @@
       "name" : "strator_winding",
       "description" : null,
       "type" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "array[8] != \"\""
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Temperature",
+          "namespace" : "org.eclipse.vorto.tutorial",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Temperature",
+        "description" : "Functionblock for Temperature",
+        "category" : null,
+        "fileName" : "Temperature.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toFloat(array[9])"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"C\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -247,663 +844,5 @@
       "primitive" : false
     } ],
     "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-PMSMotor-1.0.0.infomodel"
-  },
-  "properties" : {
-    "strator_yoke" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[6] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "Temperature",
-      "description" : "Functionblock for Temperature",
-      "category" : null,
-      "fileName" : "Temperature.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toFloat(array[7])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "value",
-        "description" : null,
-        "type" : "FLOAT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"C\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "unit",
-        "description" : null,
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
-    },
-    "strator_tooth" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[7] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "Temperature",
-      "description" : "Functionblock for Temperature",
-      "category" : null,
-      "fileName" : "Temperature.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toFloat(array[8])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "value",
-        "description" : null,
-        "type" : "FLOAT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"C\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "unit",
-        "description" : null,
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
-    },
-    "deviceInformation" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "DeviceInformation",
-        "namespace" : "org.eclipse.vorto",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "Device Information",
-      "description" : "Device Information, such as software version, OS etc.",
-      "category" : null,
-      "fileName" : "DeviceInformation.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"Bosch Rexroth\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "manufacturer",
-        "description" : "Company name of the device manufacturer, e.g. Bosch.",
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "array[1]"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "serialNumber",
-        "description" : "serial number of the device",
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"1.2.22\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "softwareVersion",
-        "description" : "Version of the software on your device. This could be the version of your firmware, e.g. 2.4.33",
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : ""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "osName",
-        "description" : "Name of the operating system on the device",
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : ""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "processorArchitecture",
-        "description" : "Architecture of the processor on the device, e.g x64 or ARM.",
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : ""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "processorManufacturer",
-        "description" : "Name of the manufacturer of the processor on the device, e.g Intel.",
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : ""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "totalMemory",
-        "description" : "Total available memory on the device in kilobytes",
-        "type" : "LONG",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : ""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : false,
-        "name" : "totalStorage",
-        "description" : "Total available storage on the device in kilobytes",
-        "type" : "LONG",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto-DeviceInformation-1.0.0.fbmodel"
-    },
-    "motor_speed" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[4] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "RotationalSpeed",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:RotationalSpeed:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "RotationalSpeed",
-      "description" : "Functionblock for RotationalSpeed",
-      "category" : null,
-      "fileName" : "RotationalSpeed.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toFloat(array[5])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "value",
-        "description" : null,
-        "type" : "FLOAT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"RPM\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "unit",
-        "description" : null,
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-RotationalSpeed-1.0.0.fbmodel"
-    },
-    "strator_winding" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[8] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "Temperature",
-      "description" : "Functionblock for Temperature",
-      "category" : null,
-      "fileName" : "Temperature.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toFloat(array[9])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "value",
-        "description" : null,
-        "type" : "FLOAT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"C\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "unit",
-        "description" : null,
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
-    },
-    "torque" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[5] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "Torque",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Torque:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "Torque",
-      "description" : "Functionblock for Torque",
-      "category" : null,
-      "fileName" : "Torque.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toFloat(array[6])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "value",
-        "description" : null,
-        "type" : "FLOAT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"Nm\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "unit",
-        "description" : null,
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Torque-1.0.0.fbmodel"
-    },
-    "ambient" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[2] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "Temperature",
-      "description" : "Functionblock for Temperature",
-      "category" : null,
-      "fileName" : "Temperature.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toFloat(array[3])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "value",
-        "description" : null,
-        "type" : "FLOAT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"C\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "unit",
-        "description" : null,
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
-    },
-    "timestamp" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[1] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "UnixTimestamp",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:UnixTimestamp:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "UnixTimestamp",
-      "description" : "Functionblock for UnixTimestamp",
-      "category" : null,
-      "fileName" : "UnixTimestamp.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toInt(array[2])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "timestamp",
-        "description" : null,
-        "type" : "INT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-UnixTimestamp-1.0.0.fbmodel"
-    },
-    "coolant" : {
-      "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-      "stereotypes" : [ {
-        "name" : "condition",
-        "attributes" : {
-          "value" : "array[3] != \"\""
-        }
-      } ],
-      "mappingReference" : null,
-      "vortolang" : "1.0",
-      "id" : {
-        "name" : "Temperature",
-        "namespace" : "org.eclipse.vorto.tutorial",
-        "version" : "1.0.0",
-        "prettyFormat" : "org.eclipse.vorto.tutorial:Temperature:1.0.0"
-      },
-      "type" : "Functionblock",
-      "displayName" : "Temperature",
-      "description" : "Functionblock for Temperature",
-      "category" : null,
-      "fileName" : "Temperature.fbmodel",
-      "modelType" : "FunctionblockModel",
-      "references" : [ ],
-      "configurationProperties" : [ ],
-      "statusProperties" : [ {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "number:toFloat(array[4])"
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "value",
-        "description" : null,
-        "type" : "FLOAT",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      }, {
-        "targetPlatformKey" : "org_eclipse_vorto_tutorial_pmsmotor",
-        "stereotypes" : [ {
-          "name" : "source",
-          "attributes" : {
-            "xpath" : "\"C\""
-          }
-        } ],
-        "mappingReference" : null,
-        "mandatory" : true,
-        "name" : "unit",
-        "description" : null,
-        "type" : "STRING",
-        "constraints" : [ ],
-        "attributes" : [ ],
-        "multiple" : false,
-        "primitive" : true
-      } ],
-      "faultProperties" : [ ],
-      "events" : [ ],
-      "operations" : [ ],
-      "fullQualifiedFileName" : "org.eclipse.vorto.tutorial-Temperature-1.0.0.fbmodel"
-    }
   }
 }
