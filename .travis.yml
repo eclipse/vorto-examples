@@ -99,7 +99,7 @@ jobs:
         provider: elasticbeanstalk
         access_key_id: "$VORTO_AWS_ACCESS_KEY"
         secret_access_key: "$VORTO_AWS_SECRET_KEY"
-        zip-file: "dist/vorto-dashboard.zip"
+        zip-file: "dist/asset-tracking-dashboard.zip"
         skip_cleanup: true
         region: "$VORTO_S3_REGION"
         app: "Vorto Dashboard"
