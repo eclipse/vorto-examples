@@ -1,0 +1,1383 @@
+{
+	"info": {
+		"_postman_id": "439d39f4-888d-4fc0-9c65-6c561bee1312",
+		"name": "Sales_Topology",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Water level Sensor 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e4add965-dc5c-4aae-a5b5-4719bbbaa002",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_PASSWORD\", \"secret\");",
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor1\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{DEVICE_ID}}\",\n  \"hub\": {\n    \"device\": {\n      \"enabled\": true\n    },\n    \"credentials\": {\n      \"type\": \"hashed-password\",\n      \"secrets\": [\n        {\n          \"password\": \"{{DEVICE_PASSWORD}\"\n        }\n      ]\n    }\n  },\n  \"things\": {\n    \"thing\": {\n      \"attributes\": {\n    \t\"thingName\": \"ACMEWaterSensor\",\n    \t\"definition\": \"vorto.private.somesh:ACMEWaterSensor:1.0.0\"\n    \t },\n  \t\"features\": {\n  \t\t\"referenceable\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Referenceable:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"references\": [\"com.bosch.sales.assettracking:ZoneA\"],\n  \t\t\t\"referencedBy\": []\n  \t\t}\n  \t}\n  \t},\n  \t\"waterLevel\" : {\n  \t\"definition\": [\n  \t\t\"vorto.private.somesh:WaterLevel:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"value\" : 0.0,\n  \t\t\t\"unit\" : \"\",\n  \t\t\t\"soilState\" : \"DRY\"\n  \t\t}\n  \t}\n  \t},\n  \t\"battery\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Battery:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"remainingCapacity\" : {\n  \t\t\t\t\"value\" : 0.0\n  \t\t\t},\n  \t\t\t\"value\" : {\n  \t\t\t\t\"currentMeasured\" : 0.0,\n  \t\t\t\t\"minMeasured\" : 0.0,\n  \t\t\t\t\"maxMeasured\" : 0.0\n  \t\t\t}\n  \t\t},\n  \t\t\"configuration\": {\n  \t\t\t\"remainingCapacityAmpHour\" : 0.0\n  \t\t}\n  \t}\n  \t},\n  \t\"connectivity\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Connectivity:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"rssi\" : 0,\n  \t\t\t\"snr\" : 0,\n  \t\t\t\"lastSeen\" : 0,\n  \t\t\t\"status\" : \"Connected\"\n  \t\t}\n  \t}\n  \t},\n  \t\"location\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Location:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"latitude\" : 1.345171, \n  \t\t\t\"longitude\" : 103.820183\n  \t\t}\n  \t}\n  \t}\n  }\n}\n}\n}\n"
+						},
+						"url": {
+							"raw": "https://deviceprovisioning.eu-1.bosch-iot-suite.com/api/1/{{SERVICE_INSTANCE_ID}}/devices",
+							"protocol": "https",
+							"host": [
+								"deviceprovisioning",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"{{SERVICE_INSTANCE_ID}}",
+								"devices"
+							]
+						},
+						"description": "Provisions the ACMEWaterSensor in the Bosch IoT Suite"
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "873a91d8-e216-4b34-8c05-ff2c398adfe1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_PASSWORD\", \"secret\");",
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor2\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{DEVICE_ID}}\",\n  \"hub\": {\n    \"device\": {\n      \"enabled\": true\n    },\n    \"credentials\": {\n      \"type\": \"hashed-password\",\n      \"secrets\": [\n        {\n          \"password\": \"{{DEVICE_PASSWORD}\"\n        }\n      ]\n    }\n  },\n  \"things\": {\n    \"thing\": {\n      \"attributes\": {\n    \t\"thingName\": \"ACMEWaterSensor\",\n    \t\"definition\": \"vorto.private.somesh:ACMEWaterSensor:1.0.0\"\n    \t },\n  \t\"features\": {\n  \t\t\"referenceable\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Referenceable:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"references\": [\"com.bosch.sales.assettracking:ZoneB\"],\n  \t\t\t\"referencedBy\": []\n  \t\t}\n  \t}\n  \t},\n  \t\"waterLevel\" : {\n  \t\"definition\": [\n  \t\t\"vorto.private.somesh:WaterLevel:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"value\" : 0.0,\n  \t\t\t\"unit\" : \"\",\n  \t\t\t\"soilState\" : \"DRY\"\n  \t\t}\n  \t}\n  \t},\n  \t\"battery\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Battery:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"remainingCapacity\" : {\n  \t\t\t\t\"value\" : 0.0\n  \t\t\t},\n  \t\t\t\"value\" : {\n  \t\t\t\t\"currentMeasured\" : 0.0,\n  \t\t\t\t\"minMeasured\" : 0.0,\n  \t\t\t\t\"maxMeasured\" : 0.0\n  \t\t\t}\n  \t\t},\n  \t\t\"configuration\": {\n  \t\t\t\"remainingCapacityAmpHour\" : 0.0\n  \t\t}\n  \t}\n  \t},\n  \t\"connectivity\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Connectivity:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"rssi\" : 0,\n  \t\t\t\"snr\" : 0,\n  \t\t\t\"lastSeen\" : 0,\n  \t\t\t\"status\" : \"Connected\"\n  \t\t}\n  \t}\n  \t},\n  \t\"location\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Location:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"latitude\" : 1.345439, \n  \t\t\t\"longitude\" : 103.818305\n  \t\t}\n  \t}\n  \t}\n  }\n}\n}\n}\n"
+						},
+						"url": {
+							"raw": "https://deviceprovisioning.eu-1.bosch-iot-suite.com/api/1/{{SERVICE_INSTANCE_ID}}/devices",
+							"protocol": "https",
+							"host": [
+								"deviceprovisioning",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"{{SERVICE_INSTANCE_ID}}",
+								"devices"
+							]
+						},
+						"description": "Provisions the ACMEWaterSensor in the Bosch IoT Suite"
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "873a91d8-e216-4b34-8c05-ff2c398adfe1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_PASSWORD\", \"secret\");",
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor3\");",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{DEVICE_ID}}\",\n  \"hub\": {\n    \"device\": {\n      \"enabled\": true\n    },\n    \"credentials\": {\n      \"type\": \"hashed-password\",\n      \"secrets\": [\n        {\n          \"password\": \"{{DEVICE_PASSWORD}\"\n        }\n      ]\n    }\n  },\n  \"things\": {\n    \"thing\": {\n      \"attributes\": {\n    \t\"thingName\": \"ACMEWaterSensor\",\n    \t\"definition\": \"vorto.private.somesh:ACMEWaterSensor:1.0.0\"\n    \t },\n  \t\"features\": {\n  \t\t\"referenceable\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Referenceable:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"references\": [\"com.bosch.sales.assettracking:ZoneA\"],\n  \t\t\t\"referencedBy\": []\n  \t\t}\n  \t}\n  \t},\n  \t\"waterLevel\" : {\n  \t\"definition\": [\n  \t\t\"vorto.private.somesh:WaterLevel:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"value\" : 0.0,\n  \t\t\t\"unit\" : \"\",\n  \t\t\t\"soilState\" : \"DRY\"\n  \t\t}\n  \t}\n  \t},\n  \t\"battery\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Battery:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"remainingCapacity\" : {\n  \t\t\t\t\"value\" : 0.0\n  \t\t\t},\n  \t\t\t\"value\" : {\n  \t\t\t\t\"currentMeasured\" : 0.0,\n  \t\t\t\t\"minMeasured\" : 0.0,\n  \t\t\t\t\"maxMeasured\" : 0.0\n  \t\t\t}\n  \t\t},\n  \t\t\"configuration\": {\n  \t\t\t\"remainingCapacityAmpHour\" : 0.0\n  \t\t}\n  \t}\n  \t},\n  \t\"connectivity\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Connectivity:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"rssi\" : 0,\n  \t\t\t\"snr\" : 0,\n  \t\t\t\"lastSeen\" : 0,\n  \t\t\t\"status\" : \"Connected\"\n  \t\t}\n  \t}\n  \t},\n  \t\"location\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Location:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"latitude\" : 1.345922, \n  \t\t\t\"longitude\" : 103.819367\n  \t\t}\n  \t}\n  \t}\n  }\n}\n}\n}\n"
+						},
+						"url": {
+							"raw": "https://deviceprovisioning.eu-1.bosch-iot-suite.com/api/1/{{SERVICE_INSTANCE_ID}}/devices",
+							"protocol": "https",
+							"host": [
+								"deviceprovisioning",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"{{SERVICE_INSTANCE_ID}}",
+								"devices"
+							]
+						},
+						"description": "Provisions the ACMEWaterSensor in the Bosch IoT Suite"
+					},
+					"response": []
+				},
+				{
+					"name": "Company",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b7aa0cde-ecaf-4577-8874-bd446ff62b8e",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_PASSWORD\", \"secret\");",
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:Company\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{DEVICE_ID}}\",\n  \"hub\": {\n    \"device\": {\n      \"enabled\": true\n    },\n    \"credentials\": {\n      \"type\": \"hashed-password\",\n      \"secrets\": [\n        {\n          \"password\": \"{{DEVICE_PASSWORD}}\"\n        }\n      ]\n    }\n  },\n  \"things\": {\n    \"thing\": {\n      \"attributes\": {\n    \t\"thingName\": \"Company\",\n    \t\"definition\": \"\"\n    \t },\n  \t\"features\": {\n  \t\"referenceable\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Referenceable:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"references\": [],\n  \t\t\t\"referencedBy\": [\"com.bosch.sales.assettracking:ZoneA\", \"com.bosch.sales.assettracking:ZoneB\"]\n  \t\t}\n  \t}\n  \t}\n  }\n}\n}\n}\n"
+						},
+						"url": {
+							"raw": "https://deviceprovisioning.eu-1.bosch-iot-suite.com/api/1/{{SERVICE_INSTANCE_ID}}/devices",
+							"protocol": "https",
+							"host": [
+								"deviceprovisioning",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"{{SERVICE_INSTANCE_ID}}",
+								"devices"
+							]
+						},
+						"description": "Provisions the ACMEWaterSensor in the Bosch IoT Suite"
+					},
+					"response": []
+				},
+				{
+					"name": "Zone A",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b7aa0cde-ecaf-4577-8874-bd446ff62b8e",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_PASSWORD\", \"secret\");",
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneA\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{DEVICE_ID}}\",\n  \"hub\": {\n    \"device\": {\n      \"enabled\": true\n    },\n    \"credentials\": {\n      \"type\": \"hashed-password\",\n      \"secrets\": [\n        {\n          \"password\": \"{{DEVICE_PASSWORD}\"\n        }\n      ]\n    }\n  },\n  \"things\": {\n    \"thing\": {\n      \"attributes\": {\n    \t\"thingName\": \"Zone\",\n    \t\"definition\": \"\"\n    \t },\n  \t\"features\": {\n  \t\"referenceable\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Referenceable:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"references\": [\"com.bosch.sales.assettracking:Company\"],\n  \t\t\t\"referencedBy\": [\"com.bosch.sales.assettracking:WaterSensor1\", \"com.bosch.sales.assettracking:WaterSensor3\"]\n  \t\t}\n  \t}\n  \t}\n  }\n}\n}\n}\n"
+						},
+						"url": {
+							"raw": "https://deviceprovisioning.eu-1.bosch-iot-suite.com/api/1/{{SERVICE_INSTANCE_ID}}/devices",
+							"protocol": "https",
+							"host": [
+								"deviceprovisioning",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"{{SERVICE_INSTANCE_ID}}",
+								"devices"
+							]
+						},
+						"description": "Provisions the ACMEWaterSensor in the Bosch IoT Suite"
+					},
+					"response": []
+				},
+				{
+					"name": "Zone B",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b7aa0cde-ecaf-4577-8874-bd446ff62b8e",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_PASSWORD\", \"secret\");",
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneB\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{DEVICE_ID}}\",\n  \"hub\": {\n    \"device\": {\n      \"enabled\": true\n    },\n    \"credentials\": {\n      \"type\": \"hashed-password\",\n      \"secrets\": [\n        {\n          \"password\": \"{{DEVICE_PASSWORD}\"\n        }\n      ]\n    }\n  },\n  \"things\": {\n    \"thing\": {\n      \"attributes\": {\n    \t\"thingName\": \"Zone\",\n    \t\"definition\": \"\"\n    \t },\n  \t\"features\": {\n  \t\"referenceable\" : {\n  \t\"definition\": [\n  \t\t\"org.eclipse.vorto:Referenceable:1.0.0\"\n  \t],\n  \t\"properties\": {\n  \t\t\"status\": {\n  \t\t\t\"references\": [\"com.bosch.sales.assettracking:Company\"],\n  \t\t\t\"referencedBy\": [\"com.bosch.sales.assettracking:WaterSensor2\"]\n  \t\t}\n  \t}\n  \t}\n  }\n}\n}\n}\n"
+						},
+						"url": {
+							"raw": "https://deviceprovisioning.eu-1.bosch-iot-suite.com/api/1/{{SERVICE_INSTANCE_ID}}/devices",
+							"protocol": "https",
+							"host": [
+								"deviceprovisioning",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"{{SERVICE_INSTANCE_ID}}",
+								"devices"
+							]
+						},
+						"description": "Provisions the ACMEWaterSensor in the Bosch IoT Suite"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Zone A",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneA\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2/things/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zone A Pol",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneA\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2//policies/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"",
+								"policies",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zone A Hub",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneA\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/registration/{{TENANT_ID}}/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"registration",
+								"{{TENANT_ID}}",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zone A Hub Cred",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneA\");",
+									"postman.setEnvironmentVariable(\"AUTH_ID\", \"com.bosch.sales.assettracking_ZoneA\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com//credentials/{{TENANT_ID}}?auth-id={{AUTH_ID}}&type={{PW_TYPE}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"",
+								"credentials",
+								"{{TENANT_ID}}"
+							],
+							"query": [
+								{
+									"key": "auth-id",
+									"value": "{{AUTH_ID}}"
+								},
+								{
+									"key": "type",
+									"value": "{{PW_TYPE}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zone B",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneB\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2/things/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zone B Pol",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneB\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2//policies/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"",
+								"policies",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zone B Hub",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneB\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/registration/{{TENANT_ID}}/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"registration",
+								"{{TENANT_ID}}",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zone B Hub Cred",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:ZoneB\");",
+									"postman.setEnvironmentVariable(\"AUTH_ID\", \"com.bosch.sales.assettracking_ZoneB\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/credentials/{{TENANT_ID}}?auth-id={{AUTH_ID}}&type={{PW_TYPE}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"",
+								"credentials",
+								"{{TENANT_ID}}"
+							],
+							"query": [
+								{
+									"key": "auth-id",
+									"value": "{{AUTH_ID}}"
+								},
+								{
+									"key": "type",
+									"value": "{{PW_TYPE}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:Company\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2/things/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company Pol",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:Company\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2//policies/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"",
+								"policies",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company Hub",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:Company\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/registration/{{TENANT_ID}}/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"registration",
+								"{{TENANT_ID}}",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company Hub Cred",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:Company\");",
+									"postman.setEnvironmentVariable(\"AUTH_ID\", \"com.bosch.sales.assettracking_Company\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/credentials/{{TENANT_ID}}?auth-id={{AUTH_ID}}&type={{PW_TYPE}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"",
+								"credentials",
+								"{{TENANT_ID}}"
+							],
+							"query": [
+								{
+									"key": "auth-id",
+									"value": "{{AUTH_ID}}"
+								},
+								{
+									"key": "type",
+									"value": "{{PW_TYPE}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor1\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2/things/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 1 Pol",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor1\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2//policies/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"",
+								"policies",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 1 Hub",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor1\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/registration/{{TENANT_ID}}/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"registration",
+								"{{TENANT_ID}}",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 1Hub Cred",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor1\");",
+									"postman.setEnvironmentVariable(\"AUTH_ID\", \"com.bosch.sales.assettracking_WaterSensor1\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/credentials/{{TENANT_ID}}?auth-id={{AUTH_ID}}&type={{PW_TYPE}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"",
+								"credentials",
+								"{{TENANT_ID}}"
+							],
+							"query": [
+								{
+									"key": "auth-id",
+									"value": "{{AUTH_ID}}"
+								},
+								{
+									"key": "type",
+									"value": "{{PW_TYPE}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor2\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2/things/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 2 Pol",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor2\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2//policies/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"",
+								"policies",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 2 Hub",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor2\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/registration/{{TENANT_ID}}/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"registration",
+								"{{TENANT_ID}}",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 2 Hub Cred",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor2\");",
+									"postman.setEnvironmentVariable(\"AUTH_ID\", \"com.bosch.sales.assettracking_WaterSensor2\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/credentials/{{TENANT_ID}}?auth-id={{AUTH_ID}}&type={{PW_TYPE}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"",
+								"credentials",
+								"{{TENANT_ID}}"
+							],
+							"query": [
+								{
+									"key": "auth-id",
+									"value": "{{AUTH_ID}}"
+								},
+								{
+									"key": "type",
+									"value": "{{PW_TYPE}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor3\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2/things/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"things",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 3 Pol",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor3\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://things.eu-1.bosch-iot-suite.com/api/2//policies/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"things",
+								"eu-1",
+								"bosch-iot-suite",
+								"com"
+							],
+							"path": [
+								"api",
+								"2",
+								"",
+								"policies",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 3 Hub",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor3\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/registration/{{TENANT_ID}}/{{DEVICE_ID}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"registration",
+								"{{TENANT_ID}}",
+								"{{DEVICE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Water level Sensor 3 Hub Cred",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e87dc44-18c1-4ebe-9047-d5e697107ef1",
+								"exec": [
+									"postman.setEnvironmentVariable(\"DEVICE_ID\", \"com.bosch.sales.assettracking:WaterSensor3\");",
+									"postman.setEnvironmentVariable(\"AUTH_ID\", \"com.bosch.sales.assettracking_WaterSensor3\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "https://manage.bosch-iot-hub.com/credentials/{{TENANT_ID}}?auth-id={{AUTH_ID}}&type={{PW_TYPE}}",
+							"protocol": "https",
+							"host": [
+								"manage",
+								"bosch-iot-hub",
+								"com"
+							],
+							"path": [
+								"",
+								"credentials",
+								"{{TENANT_ID}}"
+							],
+							"query": [
+								{
+									"key": "auth-id",
+									"value": "{{AUTH_ID}}"
+								},
+								{
+									"key": "type",
+									"value": "{{PW_TYPE}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
