@@ -1,6 +1,6 @@
 {
   "name": "vorto-dashboard",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "preferGlobal": true,
   "bin": {
     "vorto-dashboard": "./index.js"
@@ -13,6 +13,12 @@
     "iot",
     "boschiotsuite"
   ],
+  "license": "EPL-2.0",
+  "author": "Tim Grossmann <contact.timgrossmann@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse/vorto-examples.git"
+  },
   "main": "./index.js",
   "dependencies": {
     "argparse": "^1.0.10",
