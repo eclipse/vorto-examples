@@ -1,0 +1,63 @@
+{
+  "name": "asset-tracking-dashboard",
+  "version": "0.1.0",
+  "preferGlobal": true,
+  "bin": {
+    "asset-tracking-dashboard": "./index.js"
+  },
+  "keywords": [
+    "vorto",
+    "eclipse",
+    "eclipsevorto",
+    "dashboard",
+    "iot",
+    "boschiotsuite"
+  ],
+  "license": "EPL-2.0",
+  "author": "Tim Grossmann <contact.timgrossmann@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse/vorto-examples.git"
+  },
+  "main": "./index.js",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "body-parser": "^1.19.0",
+    "bootstrap": ">=3.4.1",
+    "express": "^4.16.4",
+    "jquery": "^3.4.1",
+    "leaflet": "^1.4.0",
+    "leaflet.awesome-markers": "^2.0.5",
+    "loglevel": "^1.6.3",
+    "medium-zoom": "^1.0.4",
+    "popper.js": "^1.15.0",
+    "react": "^16.2.0",
+    "react-bootstrap": "0.32.1",
+    "react-dom": "^16.2.0",
+    "react-leaflet": "^2.2.1",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "4.2.2",
+    "react-syntax-highlighter": "10.2.1",
+    "react-treeview": "^0.4.7",
+    "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  },
+  "devDependencies": {
+    "node-sass": "4.6.1",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "4.1.2",
+    "react-scripts": "1.1.1"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "dist": "mkdir dist && cp -r package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r asset-tracking-dashboard.zip .",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
