@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 
+const PORT = process.env.REACT_APP_PORT || 8080
+
 export class DeviceTooltip extends Component {
   render () {
     const locationFeature = this.props.device.features.location
@@ -9,7 +11,7 @@ export class DeviceTooltip extends Component {
 
     // decide whether to use full web url pointing to either vorto or default, or to local file 
     const thingImgSrc = this.props.device.imgSrc
-    const imgSrc = thingImgSrc.startsWith('http') ? thingImgSrc : `http://${window.location.host}/${this.props.device.imgSrc}`
+    const imgSrc = thingImgSrc.startsWith('http') ? thingImgSrc : `http://${window.location.hostname}:${PORT}/${this.props.device.imgSrc}`
 
     return (
       <div className='content'>
