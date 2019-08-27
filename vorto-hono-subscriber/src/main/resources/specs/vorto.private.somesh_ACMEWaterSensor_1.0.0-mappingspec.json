@@ -1,0 +1,577 @@
+{
+  "infoModel" : {
+    "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+    "stereotypes" : [ ],
+    "mappingReference" : null,
+    "vortolang" : "1.0",
+    "id" : {
+      "name" : "ACMEWaterSensor",
+      "namespace" : "vorto.private.somesh",
+      "version" : "1.0.0",
+      "prettyFormat" : "vorto.private.somesh:ACMEWaterSensor:1.0.0"
+    },
+    "type" : "InformationModel",
+    "displayName" : "ACMEWaterSensor",
+    "description" : "Information Model for ACMEWaterSensor",
+    "category" : null,
+    "fileName" : "ACMEWaterSensor.infomodel",
+    "modelType" : "Infomodel",
+    "references" : [ {
+      "name" : "WaterLevel",
+      "namespace" : "vorto.private.somesh",
+      "version" : "1.0.0",
+      "prettyFormat" : "vorto.private.somesh:WaterLevel:1.0.0"
+    }, {
+      "name" : "Voltage",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Voltage:1.0.0"
+    }, {
+      "name" : "Connectivity",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Connectivity:1.0.0"
+    }, {
+      "name" : "Location",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Location:1.0.0"
+    } ],
+    "functionblocks" : [ {
+      "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "WaterLevelPayloadMapping",
+        "namespace" : "vorto.private.somesh.acmewatersensor.waterlevel",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.somesh.acmewatersensor.waterlevel:WaterLevelPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "waterLevel",
+      "description" : "water level measured by the sensor",
+      "type" : {
+        "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+        "stereotypes" : [ {
+          "name" : "functions",
+          "attributes" : {
+            "calculateState" : "function calculateState(value) {\n  if (value <= 10) {\n    return \"DRY\"\n  } else if (value > 500 ){\n    return \"DROWNING\"\n  } else {\n    return \"NORMAL\"\n  }\n}"
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "WaterLevel",
+          "namespace" : "vorto.private.somesh",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.somesh:WaterLevel:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "WaterLevel",
+        "description" : "Functionblock for WaterLevel",
+        "category" : null,
+        "fileName" : "WaterLevel.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "SoilState",
+          "namespace" : "vorto.private.somesh",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.somesh:SoilState:1.0.0"
+        }, {
+          "name" : "SensorValue",
+          "namespace" : "org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/waterlevel"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"mm\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "unit",
+          "description" : null,
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "waterlevel:calculateState(/waterlevel)"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "soilState",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : null,
+            "stereotypes" : [ ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "SoilState",
+              "namespace" : "vorto.private.somesh",
+              "version" : "1.0.0",
+              "prettyFormat" : "vorto.private.somesh:SoilState:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "SoilState",
+            "description" : "Datatype for SoilState",
+            "category" : null,
+            "fileName" : "SoilState.type",
+            "modelType" : "EnumModel",
+            "references" : [ ],
+            "literals" : [ {
+              "name" : "DRY",
+              "description" : null,
+              "parent" : {
+                "name" : "SoilState",
+                "namespace" : "vorto.private.somesh",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.somesh:SoilState:1.0.0"
+              }
+            }, {
+              "name" : "NORMAL",
+              "description" : null,
+              "parent" : {
+                "name" : "SoilState",
+                "namespace" : "vorto.private.somesh",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.somesh:SoilState:1.0.0"
+              }
+            }, {
+              "name" : "DROWNING",
+              "description" : null,
+              "parent" : {
+                "name" : "SoilState",
+                "namespace" : "vorto.private.somesh",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.somesh:SoilState:1.0.0"
+              }
+            } ],
+            "fullQualifiedFileName" : "vorto.private.somesh-SoilState-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "vorto.private.somesh-WaterLevel-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "BatteryPayloadMapping",
+        "namespace" : "vorto.private.somesh.acmewatersensor.battery",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.somesh.acmewatersensor.battery:BatteryPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "battery",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+        "stereotypes" : [ ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Voltage",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Voltage:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Voltage",
+        "description" : "Functionblock for Voltage",
+        "category" : "sensor",
+        "fileName" : "Voltage.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "SensorValue",
+          "namespace" : "org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : {
+            "name" : "ValuePayloadMapping",
+            "namespace" : "vorto.private.somesh.acmewatersensor.battery.value",
+            "version" : "1.0.0",
+            "prettyFormat" : "vorto.private.somesh.acmewatersensor.battery.value:ValuePayloadMapping:1.0.0"
+          },
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+            "stereotypes" : [ {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/battery"
+              }
+            } ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "SensorValue",
+              "namespace" : "org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "SensorValue",
+            "description" : "A float-based data type representing a sensor's current, minimum and maximum measured output",
+            "category" : null,
+            "fileName" : "SensorValue.type",
+            "modelType" : "EntityModel",
+            "references" : [ ],
+            "properties" : [ {
+              "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/battery"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : true,
+              "name" : "currentMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : ""
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "minMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : ""
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "maxMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            } ],
+            "fullQualifiedFileName" : "org.eclipse.vorto.types-SensorValue-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-Voltage-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "ConnectivityPayloadMapping",
+        "namespace" : "vorto.private.somesh.acmewatersensor.connectivity",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.somesh.acmewatersensor.connectivity:ConnectivityPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "connectivity",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+        "stereotypes" : [ ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Connectivity",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Connectivity:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Connectivity",
+        "description" : "Functionblock for Connectivity",
+        "category" : "connectivity",
+        "fileName" : "Connectivity.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "ConnectivityStatus",
+          "namespace" : "org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toLong(0)"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "rssi",
+          "description" : null,
+          "type" : "INT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toLong(0)"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "snr",
+          "description" : null,
+          "type" : "INT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toLong(0)"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "lastSeen",
+          "description" : null,
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : null,
+            "stereotypes" : [ ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "ConnectivityStatus",
+              "namespace" : "org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "ConnectivityStatus",
+            "description" : "Functionblock for ConnectivityStatus",
+            "category" : "connectivity",
+            "fileName" : "ConnectivityStatus.type",
+            "modelType" : "EnumModel",
+            "references" : [ ],
+            "literals" : [ {
+              "name" : "Connected",
+              "description" : null,
+              "parent" : {
+                "name" : "ConnectivityStatus",
+                "namespace" : "org.eclipse.vorto.types",
+                "version" : "1.0.0",
+                "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+              }
+            }, {
+              "name" : "Connecting",
+              "description" : null,
+              "parent" : {
+                "name" : "ConnectivityStatus",
+                "namespace" : "org.eclipse.vorto.types",
+                "version" : "1.0.0",
+                "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+              }
+            }, {
+              "name" : "Disconnected",
+              "description" : null,
+              "parent" : {
+                "name" : "ConnectivityStatus",
+                "namespace" : "org.eclipse.vorto.types",
+                "version" : "1.0.0",
+                "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+              }
+            } ],
+            "fullQualifiedFileName" : "org.eclipse.vorto.types-ConnectivityStatus-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-Connectivity-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "LocationPayloadMapping",
+        "namespace" : "vorto.private.somesh.acmewatersensor.location",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.somesh.acmewatersensor.location:LocationPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "location",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+        "stereotypes" : [ ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Location",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Location:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Location",
+        "description" : "Functionblock for Location",
+        "category" : "location",
+        "fileName" : "Location.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/lat"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "latitude",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/long"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "longitude",
+          "description" : null,
+          "type" : "FLOAT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-Location-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    } ],
+    "fullQualifiedFileName" : "vorto.private.somesh-ACMEWaterSensor-1.0.0.infomodel"
+  }
+}
