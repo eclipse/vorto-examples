@@ -33,7 +33,9 @@ const CATEGORIES = {
     'org.eclipse.vorto:Connectivity:1.0.0'
   ],
   NO_WIDGET: [
-    'org.eclipse.vorto:DeviceInformation:1.0.0'
+    'org.eclipse.vorto:DeviceInformation:1.0.0',
+    'org.eclipse.vorto:Topology:1.0.0',
+    'org.eclipse.vorto:Referencable:1.0.0'
   ],
   JSON: [],
 
