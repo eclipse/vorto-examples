@@ -103,19 +103,22 @@ function filterThings (filterString) {
   return new Promise((resolve, reject) => {
     pollThings()
       .then(things => {
-        log.debug(`Successfully polled ${things.length} things`)
         const filteredThings = things.filter(thing => {
+          if (!filterString) {
+            return true
+          }
+
           const hasFeature = Object.keys(thing.features).some(featureName => {
             const feature = thing.features[featureName]
             return feature.definition
               .map(definition => definition.toLowerCase())
-              .some(definition => {
-                return definition.includes(filterString)
-              })
+              .some(definition => definition.includes(filterString))
           })
-
           return hasFeature
         })
+
+        log.debug(filteredThings.length, filterString)
+
         resolve(filteredThings)
       })
       .catch(err => reject(`Could not get Things... ${err}`))
