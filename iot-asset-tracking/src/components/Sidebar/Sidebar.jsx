@@ -1,18 +1,26 @@
 import React, { Component } from 'react'
-import TreeView from 'react-treeview'
 
-const dataSource = [
-  ['Apple', 'Orange'],
-  ['Facebook', 'Google'],
-  ['Celery', 'Cheeseburger']
-]
+import { pollThings } from '../../util/DataPoller'
+import TreeViewNav from './TreeViewNav'
+import log from 'loglevel'
+log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
+const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
+
+function pollDevices () {
+  pollThings()
+    .then(things => {
+      console.log(`Topology things... ${JSON.stringify(things)}`)
+      this.setState({ ...this.state, things })
+    })
+    .catch(err => `Could not poll devices... ${err}`)
+}
 
 class Sidebar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      width: window.innerWidth,
-      collapsedBookkeeping: dataSource.map(() => false)
+      things: [],
+      width: window.innerWidth
     }
   }
 
@@ -27,22 +35,14 @@ class Sidebar extends Component {
   componentDidMount () {
     this.updateDimensions()
     window.addEventListener('resize', this.updateDimensions.bind(this))
+    this.thingInterval = setInterval(pollDevices.bind(this), DEVICE_REFRESH_MS)
   }
 
-  handleClick (i) {
-    const [...collapsedBookkeeping] = this.state.collapsedBookkeeping
-    collapsedBookkeeping[i] = !collapsedBookkeeping[i]
-    this.setState({ collapsedBookkeeping: collapsedBookkeeping })
-  }
-
-  collapseAll () {
-    this.setState({
-      collapsedBookkeeping: this.state.collapsedBookkeeping.map(() => true)
-    })
+  componentWillUnmount () {
+    clearInterval(this.thingInterval)
   }
 
   render () {
-    const collapsedBookkeeping = this.state.collapsedBookkeeping
     return (
       <div
         id='sidebar'
@@ -54,25 +54,7 @@ class Sidebar extends Component {
           </a>
         </div>
         <div className='sidebar-wrapper'>
-          <TreeView onClick={this.handleClick.bind(this)} nodeLabel={'Elements'}>
-            {dataSource.map((node, i) => {
-              // Let's make it so that the tree also toggles when we click the
-              // label. Controlled components make this effortless.
-              const label =
-                <span className='node' onClick={this.handleClick.bind(this, i)}>
-                  Type {i}
-                </span>
-              return (
-                <TreeView
-                  key={i}
-                  nodeLabel={label}
-                  collapsed={collapsedBookkeeping[i]}
-                  onClick={this.handleClick.bind(this, i)}>
-                  {node.map(entry => <div className='info' key={entry}>{entry}</div>)}
-                </TreeView>
-              )
-            }, this)}
-          </TreeView>
+          <TreeViewNav things={this.state.things} />
         </div>
       </div>
     )
