@@ -9,10 +9,9 @@ log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
 function pollDevices () {
-  pollThings("location")
+  pollThings('location')
     .then(things => applyFilters(things))
     .then(things => {
-      log.debug(things)
       this.setState({
         things
       })
