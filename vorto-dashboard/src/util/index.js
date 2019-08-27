@@ -41,8 +41,8 @@ function checkDeviceForQuery (device, { searching, query }) {
 }
 
 const DONT_DISPLAY_DEVICES_WITH_DEF = [
-  'org.eclipse.vorto.Topology:1.0.0',
-  'org.eclipse.vorto.Referencable:1.0.0'
+  'org.eclipse.vorto:Topology:1.0.0',
+  'org.eclipse.vorto:Referencable:1.0.0'
 ]
 
 function checkDeviceDefinition (device) {
