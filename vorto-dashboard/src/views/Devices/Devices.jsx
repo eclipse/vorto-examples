@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 
 import { DeviceCard } from '../../components/DeviceCard/DeviceCard.jsx'
 import Actions from '../../actions'
-import { checkDeviceForQuery } from '../../util'
+import { checkDeviceForQuery, checkDeviceDefinition } from '../../util'
 
 const mapStateToProps = state => {
   return {
     devices: state.devices.devices
+      .filter(device => checkDeviceDefinition(device))
       .filter(device => checkDeviceForQuery(device, state.search))
   }
 }
