@@ -36,8 +36,190 @@
       "namespace" : "org.eclipse.vorto",
       "version" : "1.0.0",
       "prettyFormat" : "org.eclipse.vorto:Location:1.0.0"
+    }, {
+      "name" : "DeviceInformation",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
     } ],
     "functionblocks" : [ {
+      "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "DeviceInfoPayloadMapping",
+        "namespace" : "vorto.private.somesh.acmewatersensor.deviceinfo",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.somesh.acmewatersensor.deviceinfo:DeviceInfoPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "deviceInfo",
+      "description" : "meta data about the water sensor device",
+      "type" : {
+        "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+        "stereotypes" : [ ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "DeviceInformation",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Device Information",
+        "description" : "Device Information, such as software version, OS etc.",
+        "category" : null,
+        "fileName" : "DeviceInformation.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"Steven\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "manufacturer",
+          "description" : "Company name of the device manufacturer, e.g. Bosch.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "\"000-1111\""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "serialNumber",
+          "description" : "serial number of the device",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "softwareVersion",
+          "description" : "Version of the software on your device. This could be the version of your firmware, e.g. 2.4.33",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "osName",
+          "description" : "Name of the operating system on the device",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "processorArchitecture",
+          "description" : "Architecture of the processor on the device, e.g x64 or ARM.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "processorManufacturer",
+          "description" : "Name of the manufacturer of the processor on the device, e.g Intel.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "totalMemory",
+          "description" : "Total available memory on the device in kilobytes",
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "totalStorage",
+          "description" : "Total available storage on the device in kilobytes",
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-DeviceInformation-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
       "targetPlatformKey" : "vorto_private_somesh_acmewatersensor",
       "stereotypes" : [ ],
       "mappingReference" : {
@@ -68,19 +250,24 @@
         "type" : "Functionblock",
         "displayName" : "WaterLevel",
         "description" : "Functionblock for WaterLevel",
-        "category" : null,
+        "category" : "sensors",
         "fileName" : "WaterLevel.fbmodel",
         "modelType" : "FunctionblockModel",
         "references" : [ {
-          "name" : "SoilState",
-          "namespace" : "vorto.private.somesh",
-          "version" : "1.0.0",
-          "prettyFormat" : "vorto.private.somesh:SoilState:1.0.0"
-        }, {
           "name" : "SensorValue",
           "namespace" : "org.eclipse.vorto.types",
           "version" : "1.0.0",
           "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+        }, {
+          "name" : "Unit",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Unit:1.0.0"
+        }, {
+          "name" : "SoilState",
+          "namespace" : "vorto.private.somesh",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.somesh:SoilState:1.0.0"
         } ],
         "configurationProperties" : [ ],
         "statusProperties" : [ {
@@ -251,6 +438,16 @@
               "attributes" : {
                 "xpath" : "/battery"
               }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "0"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "100"
+              }
             } ],
             "mappingReference" : null,
             "vortolang" : "1.0",
@@ -289,7 +486,7 @@
               "stereotypes" : [ {
                 "name" : "source",
                 "attributes" : {
-                  "xpath" : ""
+                  "xpath" : "0"
                 }
               } ],
               "mappingReference" : null,
@@ -306,7 +503,7 @@
               "stereotypes" : [ {
                 "name" : "source",
                 "attributes" : {
-                  "xpath" : ""
+                  "xpath" : "100"
                 }
               } ],
               "mappingReference" : null,
@@ -427,7 +624,7 @@
           "stereotypes" : [ {
             "name" : "source",
             "attributes" : {
-              "xpath" : ""
+              "xpath" : "\"Connected\""
             }
           } ],
           "mappingReference" : null,
