@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 
-import Search from './Search'
-
 class Header extends Component {
   constructor (props) {
     super(props)
@@ -34,7 +32,6 @@ class Header extends Component {
       <Navbar fluid>
         <Navbar.Header>
           <Nav pullRight>
-            <Search />
             <Navbar.Toggle onClick={this.mobileSidebarToggle} />
           </Nav>
         </Navbar.Header>

@@ -125,12 +125,15 @@
 .map-wrapper {
     position: absolute;
     height: 100%;
-    -webkit-min-height: 53vh;
+    width: calc(100% - 30px);
+    width: -moz-calc(100% - 30px);
+    width: -webkit-calc(100% - 30px);
+    -webkit-min-height: 53h;
     -moz-min-height: 53vh;
     -ms-min-height: 53vh;
     -o-min-height: 53vh;
     min-height: 53vh;
-    width: 80vw;
+    overflow: hidden;
 }
 
 .content {
@@ -202,6 +205,10 @@
 
 .tree-view .node:hover {
     cursor: pointer;
+}
+
+.tree-view .info:hover {
+  cursor: pointer;
 }
 
 .spinner {
