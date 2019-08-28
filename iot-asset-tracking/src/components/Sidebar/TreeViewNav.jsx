@@ -72,7 +72,7 @@ class TreeViewNav extends Component {
   getTreeViewStructure (topology) {
     return Object.keys(topology).map((label, index) => {
       if (topology[label].length === 0) {
-        return <div className='info' key={index}>{label}</div>
+        return <div className='info' onClick={() => { }} key={index}>{label}</div>
       }
 
       const labelNode =
@@ -84,7 +84,6 @@ class TreeViewNav extends Component {
         <TreeView
           key={index}
           nodeLabel={labelNode}
-          collapsed={false}
           onClick={() => {}}>
           {topology[label].map(child => this.getTreeViewStructure(child), this)}
         </TreeView>)
@@ -96,7 +95,7 @@ class TreeViewNav extends Component {
     const treeViewRoot = topology[treeViewRootName]
 
     if (!treeViewRoot) {
-      return (<TreeView collapsed={true} />)
+      return (<TreeView />)
     }
 
     const labelNode =

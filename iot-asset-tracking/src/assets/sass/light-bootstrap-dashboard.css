@@ -3073,12 +3073,15 @@ body > .navbar-collapse[data-color="purple"]:after {
 .map-wrapper {
   position: absolute;
   height: 100%;
-  -webkit-min-height: 53vh;
+  width: calc(100% - 30px);
+  width: -moz-calc(100% - 30px);
+  width: -webkit-calc(100% - 30px);
+  -webkit-min-height: 53h;
   -moz-min-height: 53vh;
   -ms-min-height: 53vh;
   -o-min-height: 53vh;
   min-height: 53vh;
-  width: 80vw; }
+  overflow: hidden; }
 
 .content {
   width: 100%; }
@@ -3136,6 +3139,9 @@ body > .navbar-collapse[data-color="purple"]:after {
   transform: rotate(-90deg); }
 
 .tree-view .node:hover {
+  cursor: pointer; }
+
+.tree-view .info:hover {
   cursor: pointer; }
 
 .spinner {
