@@ -6,9 +6,15 @@ log.setLevel(process.env.LOG_LEVEL || 'error')
 const imgUrls = {}
 
 function getImgUrl (device) {
-  const savedImgUrl = imgUrls[device.attributes.definition]
+  const thingImageUrl = device.attributes['img-url']
+  const thingDefinition = device.attributes.definition
+  const savedImgUrl = imgUrls[thingDefinition]
 
-  if (!device.attributes.definition) {
+  if (thingImageUrl) {
+    return Promise.resolve(thingImageUrl)
+  }
+
+  if (!thingDefinition) {
     return Promise.resolve('https://www.eclipse.org/vorto/images/vorto.png')
   }
 
@@ -16,22 +22,24 @@ function getImgUrl (device) {
     return Promise.resolve(savedImgUrl)
   }
 
-  const url = `http://vorto.eclipse.org/rest/models/${device.attributes.definition}/images`
-  const reqOpts = {
-    url,
-    method: 'GET'
-  }
+  return new Promise((resolve, reject) => {
+    const url = `http://vorto.eclipse.org/rest/models/${thingDefinition}/images`
+    const reqOpts = {
+      url,
+      method: 'GET'
+    }
 
-  return new Promise((resolve) => request(reqOpts)
-    .then(res => {
-      imgUrls[device.attributes.definition] = url
-      resolve(url)
-    })
-    .catch(err => {
-      log.warn(`Could not get device img, using default vorto logo... ${err}`)
-      imgUrls[device.attributes.definition] = 'https://www.eclipse.org/vorto/images/vorto.png'
-      resolve('https://www.eclipse.org/vorto/images/vorto.png')
-    }))
+    request(reqOpts)
+      .then(res => {
+        imgUrls[thingDefinition] = url
+        resolve(url)
+      })
+      .catch(err => {
+        log.warn(`Could not get device img, using default vorto logo... ${err}`)
+        imgUrls[thingDefinition] = 'https://www.eclipse.org/vorto/images/vorto.png'
+        resolve('https://www.eclipse.org/vorto/images/vorto.png')
+      })
+  })
 }
 
 const getReqOpts = (accessToken) => ({
