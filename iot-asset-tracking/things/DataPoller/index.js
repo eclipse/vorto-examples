@@ -1,4 +1,3 @@
-const fs = require('fs')
 const request = require('request-promise-native')
 const AuthToken = require('./AuthToken')
 const log = require('loglevel')
@@ -7,9 +6,13 @@ log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const imgUrls = {}
 
 function getImgUrl (device) {
+  const thingImageUrl = device.attributes['img-url']
   const thingDefinition = device.attributes.definition
   const savedImgUrl = imgUrls[thingDefinition]
-  const imgFolder = `${__dirname}/../../public/images`
+
+  if (thingImageUrl) {
+    return Promise.resolve(thingImageUrl)
+  }
 
   if (!thingDefinition) {
     return Promise.resolve('https://www.eclipse.org/vorto/images/vorto.png')
@@ -19,37 +22,23 @@ function getImgUrl (device) {
     return Promise.resolve(savedImgUrl)
   }
 
-  log.debug(imgFolder)
   return new Promise((resolve, reject) => {
-    fs.readdir(imgFolder, (err, files) => {
-      if (err) {
-        log.debug(`Could not read image directory, getting image from repository... ${err}`)
+    const url = `http://vorto.eclipse.org/rest/models/${thingDefinition}/images`
+    const reqOpts = {
+      url,
+      method: 'GET'
+    }
 
-        const url = `http://vorto.eclipse.org/rest/models/${thingDefinition}/images`
-        const reqOpts = {
-          url,
-          method: 'GET'
-        }
-
-        request(reqOpts)
-          .then(res => {
-            imgUrls[thingDefinition] = url
-            resolve(url)
-          })
-          .catch(err => {
-            log.warn(`Could not get device img, using default vorto logo... ${err}`)
-            imgUrls[thingDefinition] = 'https://www.eclipse.org/vorto/images/vorto.png'
-            resolve('https://www.eclipse.org/vorto/images/vorto.png')
-          })
-      } else {
-        log.debug(`Trying to find thing image from local assets... ${imgFolder}`)
-        const filePath = files.find(file => file.includes(thingDefinition))
-        if (filePath) {
-          imgUrls[thingDefinition] = `images/${filePath}`
-          resolve(`images/${filePath}`)
-        }
-      }
-    })
+    request(reqOpts)
+      .then(res => {
+        imgUrls[thingDefinition] = url
+        resolve(url)
+      })
+      .catch(err => {
+        log.warn(`Could not get device img, using default vorto logo... ${err}`)
+        imgUrls[thingDefinition] = 'https://www.eclipse.org/vorto/images/vorto.png'
+        resolve('https://www.eclipse.org/vorto/images/vorto.png')
+      })
   })
 }
 
@@ -74,6 +63,7 @@ function pollThings () {
         request(getReqOpts(token))
           .then(res => {
             const devices = res.items.map(device => new Promise((resol) => {
+              // enrich with img source to be displayed
               getImgUrl(device)
                 .then(imgSrc => resol({ ...device, imgSrc }))
             }))
@@ -97,11 +87,17 @@ function pollThings () {
   })
 }
 
+// Get rid of all the things that don't have topology attribute
+function removeNonTopology (things) {
+  return Promise.resolve(things.filter(thing => thing.attributes.topology))
+}
+
 function filterThings (filterString) {
   filterString = filterString.toLowerCase()
 
   return new Promise((resolve, reject) => {
     pollThings()
+      .then(things => removeNonTopology(things))
       .then(things => {
         const filteredThings = things.filter(thing => {
           if (!filterString) {
@@ -117,8 +113,7 @@ function filterThings (filterString) {
           return hasFeature
         })
 
-        log.debug(filteredThings.length, filterString)
-
+        log.info(`Found ${filteredThings.length} things for filter ${filterString}`)
         resolve(filteredThings)
       })
       .catch(err => reject(`Could not get Things... ${err}`))

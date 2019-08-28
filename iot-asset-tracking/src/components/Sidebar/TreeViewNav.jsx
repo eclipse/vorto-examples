@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TreeView from 'react-treeview'
 
 import log from 'loglevel'
+import Spinner from '../Spinner/Spinner';
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 
 function getTextAfterColon (text) {
@@ -9,6 +10,10 @@ function getTextAfterColon (text) {
 }
 
 class TreeViewNav extends Component {
+  state = {
+    loading: true
+  }
+
   getEntityChilds (things, references) {
     if (references.length === 0) {
       return []
@@ -107,6 +112,17 @@ class TreeViewNav extends Component {
   render () {
     const topology = this.buildTopology(this.props.things)
     const TreeViewNav = this.buildTreeView(topology)
+
+    if (this.state.loading && Object.keys(topology).length !== 0) {
+      this.setState({
+        ...this.state,
+        loading: false
+      })
+    }
+
+    if (this.state.loading) {
+      return <Spinner />
+    }
 
     return TreeViewNav
   }
