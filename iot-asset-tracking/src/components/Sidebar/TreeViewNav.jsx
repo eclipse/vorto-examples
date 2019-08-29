@@ -3,11 +3,8 @@ import TreeView from 'react-treeview'
 
 import log from 'loglevel'
 import Spinner from '../Spinner/Spinner';
+import { getTextAfterColon } from '../../util'
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
-
-function getTextAfterColon (text) {
-  return /.*?:(.*)/.exec(text)[1]
-}
 
 class TreeViewNav extends Component {
   state = {
