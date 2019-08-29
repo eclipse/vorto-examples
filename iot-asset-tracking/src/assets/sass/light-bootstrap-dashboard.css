@@ -3012,6 +3012,11 @@ body > .navbar-collapse[data-color="purple"]:after {
   height: 100%;
   overflow: auto; }
 
+.no-overflow {
+  overflow: hidden;
+  width: 100%;
+  height: 100%; }
+
 .logo {
   height: 60px; }
 
@@ -3144,6 +3149,9 @@ body > .navbar-collapse[data-color="purple"]:after {
 .tree-view .info:hover {
   cursor: pointer; }
 
+.spinner-half {
+  transform: scale(0.5, 0.5); }
+
 .spinner {
   color: #7a7a7a;
   font-size: 90px;
@@ -3207,3 +3215,24 @@ body > .navbar-collapse[data-color="purple"]:after {
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
+
+.kpi-heading {
+  margin-top: 15px;
+  text-align: center; }
+
+.kpi-item-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 60%; }
+
+.kpi-item-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60%; }
+
+.data-val {
+  font-weight: bold; }

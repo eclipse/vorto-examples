@@ -10,14 +10,7 @@ log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
 function pollDevices () {
-  const query = this.props.config.modelId
-  log.debug(query)
-
-  if (!query) {
-    return
-  }
-
-  pollThings(query)
+  pollThings()
     .then(things => applyFilters(things))
     .then(things => {
       this.setState({
@@ -27,7 +20,7 @@ function pollDevices () {
     .catch(err => `Could not poll devices... ${err}`)
 }
 
-export class KpiCard extends Component {
+export class KpiCardSingleValue extends Component {
   state = {
     loading: true,
     things: []
@@ -45,7 +38,7 @@ export class KpiCard extends Component {
     return (
       <div className='card card-stats attr-card'>
         <div className='content no-overflow'>
-          <h4>{this.props.heading}</h4>
+          <h4 className='kpi-heading'>{this.props.heading}</h4>
           {content}
         </div>
       </div>
@@ -60,16 +53,28 @@ export class KpiCard extends Component {
       })
     }
 
+    log.debug(this.state.things)
+
     if (this.state.loading) {
-      return this.getKpiCard(<Spinner />)
+      return this.getKpiCard(<div className='spinner-half'><Spinner /></div>)
     }
 
+    const featureDef = this.props.feature.toLowerCase()
+
+    const dataValue = this.state.things.filter(thing => {
+      return Object.keys(thing.features).some(feature => {
+        return thing.features[feature].definition.some(def => def.toLowerCase().includes(featureDef))
+      })
+    }).length
+
     return this.getKpiCard(
-      <div className='attr-container'>
-        {this.props.content}
+      <div className='kpi-item-container'>
+        <div className='kpi-item-row'>
+          <h1 className='data-val'>{dataValue}</h1>
+        </div>
       </div>
     )
   }
 }
 
-export default KpiCard
+export default KpiCardSingleValue
