@@ -9,7 +9,7 @@ class OSMap extends Component {
   render () {
     const things = this.props.things
 
-    if (things.length === 0) {
+    if (things.length === 0 || !things[0].features) {
       return (
         <Map className='map-wrapper' center={[1.347, 103.841]} zoom={11}>
           <TileLayer
