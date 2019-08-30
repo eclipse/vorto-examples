@@ -6,6 +6,10 @@ log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const imgUrls = {}
 
 function getImgUrl (device) {
+  if (!device.attributes) {
+    return Promise.resolve('https://www.eclipse.org/vorto/images/vorto.png')
+  }
+  
   const thingImageUrl = device.attributes['img-url']
   const thingDefinition = device.attributes.definition
   const savedImgUrl = imgUrls[thingDefinition]
@@ -62,11 +66,13 @@ function pollThings () {
         // request all things the user has created and have a policy
         request(getReqOpts(token))
           .then(res => {
-            const devices = res.items.map(device => new Promise((resol) => {
-              // enrich with img source to be displayed
-              getImgUrl(device)
-                .then(imgSrc => resol({ ...device, imgSrc }))
-            }))
+            const devices = res.items
+              .filter(device => device.attributes)
+              .map(device => new Promise((resol) => {
+                // enrich with img source to be displayed
+                getImgUrl(device)
+                  .then(imgSrc => resol({ ...device, imgSrc }))
+              }))
 
             Promise.all(devices)
               .then(resDevices => {
