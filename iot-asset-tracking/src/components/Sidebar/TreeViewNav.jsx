@@ -35,6 +35,8 @@ class TreeViewNav extends Component {
       return {}
     }
 
+    log.debug('Found toplology elem', things)
+
     const root = things.find(thing => {
       const thingTopo = thing.attributes.topology
 

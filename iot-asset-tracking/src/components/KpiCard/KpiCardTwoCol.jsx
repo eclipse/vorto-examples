@@ -109,11 +109,11 @@ export class KpiCardTwoCol extends Component {
 
       return {zone: zoneName, state: majorState}
     })
-    .map(zoneState => {
+    .map((zoneState, index) => {
       const zoneName = getTextAfterColon(zoneState.zone)
 
       return (
-        <h3>{zoneName}: <span className='data-val'>{zoneState.state}</span></h3>
+        <h3 key={index}>{zoneName}: <span className='data-val'>{zoneState.state}</span></h3>
       )
     })
 

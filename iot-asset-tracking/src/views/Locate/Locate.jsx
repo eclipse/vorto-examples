@@ -6,8 +6,8 @@ import Actions from '../../actions'
 import MapCard from '../../components/MapCard/MapCard'
 
 // import kpiConfig from '../../util/kpi_config.json'
-import KpiCardSingleValue from '../../components/KpiCard/KpiCardSingleValue';
-import KpiCardTwoCol from '../../components/KpiCard/KpiCardTwoCol';
+import KpiCardSingleValue from '../../components/KpiCard/KpiCardSingleValue'
+import KpiCardTwoCol from '../../components/KpiCard/KpiCardTwoCol'
 
 const mapStateToProps = state => {
   return {
