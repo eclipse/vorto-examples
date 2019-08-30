@@ -6,6 +6,10 @@ log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const imgUrls = {}
 
 function getImgUrl (device) {
+  if (!device.attributes) {
+    return Promise.resolve('https://www.eclipse.org/vorto/images/vorto.png')
+  }
+  
   const thingImageUrl = device.attributes['img-url']
   const thingDefinition = device.attributes.definition
   const savedImgUrl = imgUrls[thingDefinition]
