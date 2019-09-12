@@ -31,7 +31,9 @@ public class Context {
 	public Context(String deviceId, String namespace, MimeType mimeType, Object rawPayload) {
 		super();
 		this.deviceId = getDeviceId(deviceId);
-		this.namespace = getNamespace(deviceId, namespace);
+		if (namespace != null) {
+		  this.namespace = getNamespace(deviceId, namespace);
+		}
 		this.mimeType = mimeType;
 		this.rawPayload = rawPayload;
 	}
