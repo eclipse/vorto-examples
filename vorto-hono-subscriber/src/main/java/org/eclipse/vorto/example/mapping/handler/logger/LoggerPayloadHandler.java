@@ -36,13 +36,13 @@ public class LoggerPayloadHandler implements IPayloadHandler {
 
 	@Override
 	public void handlePayload(InfomodelValue infomodelValue, Context context) {
-		logger.trace("--> Normalized json for device ID " + context.getDeviceId());
+		logger.info("--> Normalized json for device ID " + context.getDeviceId());
 		
 		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {  
-          logger.trace(System.lineSeparator() + (String)context.getRawPayload());
+          logger.info(System.lineSeparator() + (String)context.getRawPayload());
 
 		} else {
-          logger.trace(System.lineSeparator() + gson.toJson(infomodelValue.serialize()));
+          logger.info(System.lineSeparator() + gson.toJson(infomodelValue.serialize()));
 
 		}
 	}
