@@ -12,16 +12,21 @@
 package org.eclipse.vorto.example.mapping.handler.amqp;
 
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
+
 import org.eclipse.vorto.example.mapping.handler.Context;
 import org.eclipse.vorto.example.mapping.handler.IPayloadHandler;
 import org.eclipse.vorto.example.mapping.internal.deserializer.MimeType;
-import org.eclipse.vorto.mapping.engine.twin.TwinPayloadFactory;
+import org.eclipse.vorto.mapping.targetplatform.ditto.TwinPayloadFactory;
 import org.eclipse.vorto.model.runtime.FunctionblockValue;
 import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessagePostProcessor;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -54,7 +59,15 @@ public class AMQPDittoHandler implements IPayloadHandler {
             context.getNamespace(), context.getDeviceId());
         String updateCommandJson =  gson.toJson(updateCommand);
         logger.debug(updateCommandJson);
-        jmsTemplate.convertAndSend(topic, updateCommandJson);
+        jmsTemplate.convertAndSend(topic, updateCommandJson, new MessagePostProcessor() {
+            
+            @Override
+            public Message postProcessMessage(Message message) throws JMSException {
+              logger.debug("Adding additional headers to message");
+              message.setJMSExpiration(1000 * 60);
+              return message;
+            }
+          }); 
       }
     }
 

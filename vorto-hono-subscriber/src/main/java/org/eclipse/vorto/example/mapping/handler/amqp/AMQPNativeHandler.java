@@ -61,6 +61,7 @@ public class AMQPNativeHandler implements IPayloadHandler {
           message.setStringProperty("device_id", context.getDeviceId());
           message.setStringProperty("vorto_model_id",value.getMeta().getId().getPrettyFormat());
           message.setStringProperty("vorto_model_name", fbProperty);
+          message.setJMSExpiration(1000 * 60);
           return message;
         }
       }); 
