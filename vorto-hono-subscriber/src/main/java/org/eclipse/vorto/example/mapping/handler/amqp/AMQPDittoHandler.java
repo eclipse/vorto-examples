@@ -41,6 +41,7 @@ public class AMQPDittoHandler implements IPayloadHandler {
 
   public AMQPDittoHandler(ConnectionFactory connectionFactory) {
     this.jmsTemplate = new JmsTemplate(connectionFactory);
+    this.jmsTemplate.setExplicitQosEnabled(true);
     this.jmsTemplate.setTimeToLive(1000 * 60);
   }
 

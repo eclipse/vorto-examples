@@ -40,6 +40,7 @@ public class AMQPNativeHandler implements IPayloadHandler {
 
   public AMQPNativeHandler(ConnectionFactory connectionFactory) {
     this.jmsTemplate = new JmsTemplate(connectionFactory);
+    this.jmsTemplate.setExplicitQosEnabled(true);
     this.jmsTemplate.setTimeToLive(1000 * 60);
   }
 
