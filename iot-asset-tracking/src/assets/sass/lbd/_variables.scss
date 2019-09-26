@@ -261,3 +261,19 @@ $azure-navbar:              lighten($new-blue, 15%);
 $green-navbar:              lighten($new-green, 10%);
 $orange-navbar:             lighten($new-orange, 10%);
 $red-navbar:                lighten($new-red, 10%);
+
+
+//custom colors:
+
+$default-white: rgb(255, 255, 255);
+$default-white-transparent: rgba(255, 255, 255, 0.95);
+$default-grey: rgb(175, 175, 175);
+$default-black:rgb(17, 0, 0);
+$default-dark: rgb(10, 10, 10);
+$default-dark-hover: #14181b;
+$default-selection-color: #005c97;
+$default-background-color: #282828;
+
+
+//cards:
+$card-header-color: rgb(177, 177, 177);

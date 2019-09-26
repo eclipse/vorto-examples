@@ -1,14 +1,9 @@
 export const selectDevice = (state = {}, action) => {
-  if (action.type === 'SELECT_DEVICE') {
+switch(action.type){
+  case 'SELECT_DEVICE':  
     return action.device
-  }
-
-  // return the updated version of the currently selected
-  // TODO think about only saving the idea to avoid updating the selectedDevice
-  // object on update of all device (reference instead of copy of device)
-  if (action.type === 'UPDATE_DEVICES') {
-    const selectedId = state.thingId
-
+  case 'UPDATE_DEVICES': 
+  const selectedId = state.thingId
     if (selectedId) {
       const updatedSelected = action.devices.filter(device => {
         if (device.thingId === selectedId) {
@@ -20,8 +15,10 @@ export const selectDevice = (state = {}, action) => {
 
       return updatedSelected[0]
     }
-  }
-
+}
+  // return the updated version of the currently selected
+  // TODO think about only saving the idea to avoid updating the selectedDevice
+  // object on update of all device (reference instead of copy of device)
   return state
 }
 

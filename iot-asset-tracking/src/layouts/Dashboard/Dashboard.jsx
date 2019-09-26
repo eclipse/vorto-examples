@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-
 import Header from '../../components/Header/Header'
 import Sidebar from '../../components/Sidebar/Sidebar'
-
 import dashboardRoutes from '../../routes/dashboard.jsx'
+import { connect } from 'react-redux';
+
+const { store } = require('../../store')
+
+const mapStateToProps = function() {
+  return {
+    selectedDevice: store.getState().selectedDevice,
+  }
+}
 
 class Dashboard extends Component {
-  componentDidUpdate (e) {
+  
+  componentDidUpdate(e) {
     if (
       e.history.location.pathname !== e.location.pathname &&
       document.documentElement.className.indexOf('nav-open') !== -1
@@ -21,13 +29,17 @@ class Dashboard extends Component {
     }
   }
 
-  render () {
+
+ 
+
+  render() {
     const routes = dashboardRoutes.map((prop, key) => {
       if (prop.redirect) {
         return (<Redirect from={prop.path} to={prop.to} key={key} />)
       }
       return (<Route path={prop.path} component={prop.component} key={key} />)
     })
+    
 
     return (
       <div className='wrapper'>
@@ -43,4 +55,6 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
+
+
+export default connect(mapStateToProps)(Dashboard)

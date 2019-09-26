@@ -13,11 +13,12 @@
 
     .sidebar-wrapper{
         position: relative;
-        height: calc(100vh - 75px);
+        height: calc(100vh - 60px);
         overflow: auto;
         width: 260px;
         z-index: 4;
         padding-bottom: 30px;
+        box-shadow: 0 1px 2px rgba(29, 29, 29, 0.9);
     }
 
     .sidebar-background{
@@ -34,9 +35,12 @@
 
     .logo{
         padding: 10px 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 1px 2px rgba(29, 29, 29, 0.9);
         position: relative;
         z-index: 4;
+        display: flex;
+        align-items: center;
+        
 
         p{
             float: left;
@@ -57,12 +61,14 @@
                 width: 40px;
                 margin-left: -3px;
                 display: block;
-                margin-top: 2px;
             }
         }
 
         a.logo-normal{
             display: block;
+            &:hover{
+                opacity: 0.9;
+            }
         }
 
         .logo-img{
@@ -76,22 +82,6 @@
             text-align: center;
         }
     }
-
-    .logo-tim{
-        border-radius: 50%;
-        border: 1px solid #333;
-        display: block;
-        height: 61px;
-        width: 61px;
-        float: left;
-        overflow: hidden;
-
-        img{
-            width: 60px;
-            height: 60px;
-        }
-    }
-
     .nav{
         margin-top: 20px;
 
@@ -144,12 +134,11 @@
     }
 }
 
-
 .sidebar,
 body > .navbar-collapse{
     .logo{
         padding: 10px 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 1px 2px rgba(29, 29, 29, 0.9);
 
         p{
             float: left;
@@ -161,31 +150,18 @@ body > .navbar-collapse{
         }
 
         .simple-text{
-            text-transform: uppercase;
             padding: $padding-small-vertical $padding-zero;
             display: block;
             font-size: $font-size-large;
-            color: $white-color;
+            color: $default-white;
             font-weight: $font-weight-normal;
             line-height: 30px;
+            &:hover{
+                color: $default-white;
+
+            }
         }
     }
-
-    .logo-tim{
-        border-radius: 50%;
-        border: 1px solid #333;
-        display: block;
-        height: 61px;
-        width: 61px;
-        float: left;
-        overflow: hidden;
-
-        img{
-            width: 60px;
-            height: 60px;
-        }
-    }
-
     &:after,
     &:before{
         display: block;
@@ -264,4 +240,114 @@ body > .navbar-collapse{
     -webkit-transition-timing-function: linear,linear;
     transition-timing-function: linear,linear;
     -webkit-overflow-scrolling: touch;
+}
+
+
+
+// Custom Changes to Sidebar
+.sidebar {
+
+    &:after {
+        background: $default-background-color;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+
+    .sidebar-wrapper {
+
+        padding: 10px 15px 10px 10px;
+
+        .tree-view {
+            //text on buttons not accidentially selectable 
+            -webkit-user-select: none; /* Safari */        
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
+            .clickable-label {
+                display: flex;
+                height: 38px;
+                width: 100%;
+
+                &.selected {
+                    color: $default-selection-color;
+                }
+            }
+
+            .tree-view_item {
+                background: $default-white-transparent;
+                border: 0.7px solid $default-dark;
+                color: $default-dark;
+                border-radius: 4px;
+                height: 38px;
+                margin: 2px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                &:hover {
+                    background: $default-white;
+                    color: $default-dark-hover;
+                }
+
+                .tree-view_arrow {
+                    margin: 4px;
+                    font-size: 25px;
+                }
+
+                span {
+                    align-self: center;
+                }
+
+            }
+
+            .tree-view_children {
+                overflow: hidden;
+
+                .thing {
+                    cursor: pointer;
+                    margin: 8px 2px 10px 8px;
+                    color: $default-white;
+                    background: $default-dark;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 4px;
+
+                    span {
+                        padding-left: 16px;
+
+                    }
+
+                    &:hover {
+                        background: $default-dark-hover;
+                    }
+
+                    &.selected {
+                        background: $default-selection-color;
+                    }
+
+                    &_icon-container {
+                        position: absolute;
+                        margin-left: -24px;
+                        background: $default-dark;
+                        border: 0.5px solid $default-grey;
+                        border-radius: 50%;
+                        width: 37px;
+                        height: 37px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        img {
+                            height: 24px;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
 }

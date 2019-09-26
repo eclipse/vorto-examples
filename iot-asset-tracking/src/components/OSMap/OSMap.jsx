@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
-
+import log from 'loglevel'
 import DeviceTooltip from '../DeviceTooltip/DeviceTooltip'
 
-import { workerIcon, machineIcon } from './Icon'
+log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
+
+
+
 
 class OSMap extends Component {
+// handle click on marker
+  handleMarkerClick = deviceId => e => {
+    log.debug("marker clicked", {deviceId})    
+
+};
+
   render () {
     const things = this.props.things
 
@@ -26,22 +35,28 @@ class OSMap extends Component {
       const deviceLocStatus = device.features.location.properties.status
       const position = [deviceLocStatus.latitude, deviceLocStatus.longitude]
 
+      const deviceId = device.thingId
+
       const popUp = this.props.displayTooltip
         ? (<Popup>
           <DeviceTooltip
             device={device}
           />
         </Popup>)
-        : <div />
+        : <div></div>
 
       return (
-        <Marker position={position}
-          // icon={regularIcon}
+        <Marker position={position}  
+        value={deviceId}
+        onClick={this.handleMarkerClick(deviceId)}
+        // icon={regularIcon}
           key={index} >
           {popUp}
         </Marker>
       )
     })
+
+ 
 
     return (
       <Map className='map-wrapper' center={position} zoom={12}>
