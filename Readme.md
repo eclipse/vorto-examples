@@ -23,22 +23,13 @@ Vorto Importers convert 3rd party platform descriptions to Vorto models. Just as
 
 To get started, checkout the [LwM2M example](vorto-importers/lwm2m), that converts LwM2M/IPSO XML descriptions to Vorto Function Block - and Mapping models. This example is deployed as a AWS Lambda service.
 
-## Eclipse Vorto Payload Mappings
+## Eclipse Vorto Semantic Middleware
 
-### Eclipse Hono AMQP Subscriber for payload mappings
+The Eclipse Vorto Semantic Middleware is a small and light-weight microservice that is able to convert any device telemetry payload (binary, json, xml, ...) to semantic Vorto compliant data structures and exposes this "harmonized API" via AMQP. Other micro services can easily consume the datav to further process it, e.g. for running analytics on the data. 
 
-The following example demonstrates, how you you can provide a Hono AMQP listener that normalizes telemetry device data to Vorto Information Model compliant data.
+The middleware provides an API, where additional forward-handlers can be plugged in, e.g. forward the "harmonized data" to AWS Timeseries etc. 
 
 [Read more](vorto-hono-subscriber/Readme.md)
-
-### Vorto Connector for Bosch Security Cameras
-
-The Vorto Connector integrates Bosch Security Cameras with the Bosch IoT Suite. 
-The following [Blog Post](https://blog.bosch-si.com/developer/avoid-tight-coupling-of-devices-in-iot-solutions/) gives a general overview about Vorto and this integration. 
-
-In short, the connector processes Vorto Information Models to retrieve meta-data about the cameras on the one hand, as well as uses the [Vorto Mapping Engine](https://github.com/eclipse/vorto/tree/development/mapping-engine) to convert Camera Binary data to Vorto/Ditto compliant data.
-
-[Read tutorial](vorto-connector/Readme.md) to set it up and run it.
 
 ## Using Vorto Models from your custom DSL
 
