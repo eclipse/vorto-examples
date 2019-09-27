@@ -36,7 +36,7 @@ Before we dive-in and uncover the details let's look at the architecture diagram
 
 ## Useful links
 
-- [Vorto Middleware](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md)
+- [Vorto Semantic Middleware](https://github.com/eclipse/vorto-examples/blob/master/vorto-hono-subscriber/Readme.md)
 - [Getting started with Vorto](https://github.com/eclipse/vorto/blob/development/docs/gettingstarted.md)
 
 ## I would like to know more, how do I get in touch?
