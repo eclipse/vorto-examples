@@ -12,11 +12,11 @@ const thingsReqOpts = (filterString) => ({
 
 function pollThings (filterString) {
   return new Promise((resolve, reject) => {
-    request(thingsReqOpts(filterString))
+   request(thingsReqOpts(filterString))
       .then(res => {
-        log.debug(res)
         resolve(res.data)
       })
+        
       .catch(err => reject(err))
   })
 }

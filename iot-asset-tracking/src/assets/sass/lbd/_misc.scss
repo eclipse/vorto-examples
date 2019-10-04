@@ -3,7 +3,7 @@ body,
 .wrapper{
     min-height: 100vh;
     position: relative;
-    background-color: white;
+    background-color: $default-background-color;
 }
 a{
   color: $info-color;

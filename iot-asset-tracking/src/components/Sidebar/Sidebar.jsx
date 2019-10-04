@@ -3,13 +3,15 @@ import React, { Component } from 'react'
 import { pollThings } from '../../util/DataPoller'
 import TreeViewNav from './TreeViewNav'
 import log from 'loglevel'
+import logo from '../../assets/img/vorto_logo.png'
+
+
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
 function pollDevices () {
   pollThings()
     .then(things => {
-      console.log(`Topology things... ${JSON.stringify(things)}`)
       this.setState({ ...this.state, things })
     })
     .catch(err => `Could not poll devices... ${err}`)
@@ -49,16 +51,31 @@ class Sidebar extends Component {
         className='sidebar'
         data-color='black'>
         <div className='logo'>
-          <a className='simple-text logo-normal text-center'>
-            Asset Tracking
+          <a
+            target="_blank" rel="noopener noreferrer"
+            href='https://www.eclipse.org/vorto/'
+            className='simple-text logo-mini'
+          >
+            <div className='logo-img'>
+              <img src={logo} alt='logo_image' />
+            </div>
+          </a>
+          <a
+            target="_blank" rel="noopener noreferrer"
+            href='https://www.eclipse.org/vorto/'
+            className='simple-text logo-normal'>
+            Eclipse Vorto
           </a>
         </div>
         <div className='sidebar-wrapper'>
-          <TreeViewNav things={this.state.things} />
+          <TreeViewNav 
+            things={this.state.things} 
+            />
         </div>
       </div>
     )
   }
+  
 }
 
 export default Sidebar

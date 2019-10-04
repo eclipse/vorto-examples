@@ -100,7 +100,7 @@ export class KpiCardTwoCol extends Component {
 
       let majorState
       let majorStateAmount = 0
-      for (const state in zoneValuesObj) {
+      for (var state in zoneValuesObj) {
         if (zoneValuesObj[state] > majorStateAmount) {
           majorStateAmount = zoneValuesObj[state]
           majorState = state
