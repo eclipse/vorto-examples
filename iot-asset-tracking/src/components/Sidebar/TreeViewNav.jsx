@@ -16,27 +16,41 @@ const { store } = require('../../store')
 class TreeViewNav extends Component {
   state = {
     loading: true,
-    selectedStates: {}
+    selectedStates: []
   }
 
 
   getEntityChilds(things, references) {
-    if (references.length === 0) {
-      return []
-    }
 
     const referenceLabels = references.map(ref => ref.thingId)
+
     const entityList = referenceLabels.map(label => {
       const elem = things.find(thing => thing.thingId === label)
       const elemLabel = getTextAfterColon(elem.thingId)
       const elemReferences = elem.attributes.topology.references
 
-      const topology = {}
+      const topology = []
       topology[elemLabel] = this.getEntityChilds(things, elemReferences)
       return topology
     }, this)
     return entityList
   }
+
+
+  getThingsWithoutTopology(things) {
+    const toplessThings = []
+    things.find(thing => {
+      const thingTopo = thing.attributes.topology
+      if (!thingTopo) {
+        const thingId = getTextAfterColon(thing.thingId)
+        toplessThings.push({ [thingId]: [] })
+      }
+    })
+    return toplessThings
+  }
+
+
+
 
   buildTopology(things) {
     if (!things) {
@@ -53,15 +67,27 @@ class TreeViewNav extends Component {
       return thingTopo.definition.includes('org.eclipse.vorto:Topology')
     })
 
+
+    const defaultLabel = "My Devices"
+    const topology = {}
+
     if (!root) {
-      return {}
+      if (things.length !== 0) {
+        topology[defaultLabel] = this.getThingsWithoutTopology(things)
+        return topology
+      } else return {}
     }
 
+    // if root of topology exists
     const rootLabel = getTextAfterColon(root.thingId)
     const rootReferences = root.attributes.topology.references
 
-    const topology = {}
+    // add both topologies
     topology[rootLabel] = this.getEntityChilds(things, rootReferences)
+    topology[rootLabel]["selected"] = false
+
+    topology[defaultLabel] = this.getThingsWithoutTopology(things)
+    topology[defaultLabel]["selected"] = false
     return topology
   }
 
@@ -70,21 +96,25 @@ class TreeViewNav extends Component {
   handleUnselect(id, origin) {
     var joined = this.state.selectedStates
     // unselect all other nodes with different id
+    Object.keys(joined).map(key => {
+      joined[key].subNodes.forEach(element => {
+        if (element.id !== id || joined.id === id) {
+          element.selected = false
+        }
 
-    joined.subNodes.forEach(element => {
-      if (element.id !== id || joined.id === id) {
-        element.selected = false
-      }
+        element.subNodes.forEach(unselect => {
+          unselect.selected = false
+        })
 
-      element.subNodes.forEach(unselect => {
-        unselect.selected = false
-      })
-
-      // if thing clicked unselect all others things with different id
-      element.subNodes.forEach(subElement => {
-        subElement.selected = (subElement.id === id && element.id === origin) ? true : false
+        // if thing clicked unselect all others things with different id
+        element.subNodes.forEach(subElement => {
+          subElement.selected = (subElement.id === id && element.id === origin) ? true : false
+        })
       })
     })
+
+
+
 
     this.setState({
       selectedStates: { ...joined }
@@ -94,45 +124,58 @@ class TreeViewNav extends Component {
 
   handleLabelClick(id, origin) {
     var joined = this.state.selectedStates
-    joined.subNodes.forEach(element => {
-      if (element.id === id) {
-        //unselect all other labels
-        this.handleUnselect(id, origin)
-        //label selected
-        element.selected = true
-        this.dispatchSelectedDevice(id)
-      }
+    Object.keys(joined).map(key => {
 
-      //thing selected if origin is the parent -> go to subNode
-      if (element.id === origin) {
-        element.subNodes.forEach(subElement => {
+      joined[key].subNodes.forEach(element => {
 
-          //if thing selected
-          if (subElement.id === id) {
-
-            subElement.selected = true
-            if (subElement.selected) {
-              this.handleUnselect(id, origin)
-            }
+       //if either a label or a thing as direct child of root node selected
+        if (element.id === id) {
+            //unselect all other labels
+            this.handleUnselect(id, origin)
+            element.selected = true
             this.dispatchSelectedDevice(id)
-            this.props.history.push('/device')
-          }
-        })
-      }
-    })
 
-    //root
-    joined.selected = (joined.id === id) ? true : false
+             // no subchild = empty label or device => select it, go to devices route
+            if (element.subNodes.length === 0) {
+              this.props.history.push('/device')
+            }
+        }
+
+        
+
+        //thing in label selected if origin is the parent -> go to subNode
+        if (element.id === origin) {
+          element.subNodes.forEach(subElement => {
+
+            //if thing selected
+            if (subElement.id === id) {
+
+              subElement.selected = true
+              if (subElement.selected) {
+                this.handleUnselect(id, origin)
+              }
+              this.dispatchSelectedDevice(id)
+              this.props.history.push('/device')
+            }
+          })
+        }
+
+      })
+      //root
+      joined[key].selected = (key === id) ? true : false
+    })
     this.handleUnselect(id, origin)
     this.dispatchSelectedDevice(id)
+
     // set State for ui
     this.setState({ selectedStates: { ...joined } })
+    console.log("after click", this.state.selectedStates)
   }
 
   dispatchSelectedDevice(id) {
     // save selected thing to redux store
     store.dispatch(Actions.selectDevice(
-      this.props.things.find(element => {return getTextAfterColon(element.thingId) === id})))
+      this.props.things.find(element => { return getTextAfterColon(element.thingId) === id })))
 
   }
 
@@ -152,17 +195,17 @@ class TreeViewNav extends Component {
     const selectedStates = this.state.selectedStates
     const propsSelectedDeviceId = getTextAfterColon(this.props.selectedDevice.thingId)
 
-    if (selectedStates.subNodes !== undefined) {
-
+Object.keys(selectedStates).map(key => {
+    if (selectedStates[key].subNodes !== undefined) {
       //root
-      if (selectedStates.id === id && selectedStates.selected | 
+      if (key === id && selectedStates[key].selected |
         // if selected in props after e.g. page reload 
-        selectedStates.id === propsSelectedDeviceId) {
+        key === propsSelectedDeviceId) {
         isSelected = true
       }
 
       //labels
-      selectedStates.subNodes.forEach(element => {
+      selectedStates[key].subNodes.forEach(element => {
 
         if (element.id === id && element.selected |
           element.id === propsSelectedDeviceId) {
@@ -180,67 +223,96 @@ class TreeViewNav extends Component {
         }
       })
     }
+  })
     return isSelected
   }
 
 
-  buildTreeView(topology) {
-    const treeViewRootName = Object.keys(topology)[0]
-    const treeViewRoot = topology[treeViewRootName]
 
-    if (!treeViewRoot) {
-      return (<TreeView />)
+  buildTreeView(topology, things) {
+
+    var treeViewResult = []
+
+    for (let [key, values] of Object.entries(topology)) {
+      // Mapping through root
+
+      const treeViewRootName = key
+      const treeViewRoot = topology[treeViewRootName]
+
+      /// root nodes for items with topology
+      const rootNode =
+        <div className={"clickable-label " + (this.isNodeSelected(treeViewRootName) ? "selected" : "")}
+          onClick={() => {
+            this.handleLabelClick(treeViewRootName)
+            this.props.history.push('/main')
+          }}>
+          <span >
+            {treeViewRootName}
+          </span>
+        </div>
+
+      const selectedRoot = { selected: false, subNodes: [] };
+      let joined = this.state.selectedStates
+
+      //add root of selectedState Array
+      if (this.state.loading && Object.keys(topology).length !== 0) {
+
+        joined[treeViewRootName] = selectedRoot
+        this.setState({ selectedStates: { ...joined } });
+      }
+
+      treeViewResult = [treeViewResult, <TreeView
+        onClick={() => { }}
+        nodeLabel={rootNode}>
+        {treeViewRoot.map((child) => this.getTreeViewStructure(child, treeViewRootName, true), this)}
+      </TreeView>]
     }
-
-    const selectedRoot = { id: treeViewRootName, selected: false, subNodes: [] };
-
-    //add root of selectedState Array
-    if (this.state.loading && Object.keys(topology).length !== 0) {
-      this.setState({ selectedStates: { ...selectedRoot } });
-    }
-
-    const rootNode =
-      <div className={"clickable-label " + (this.isNodeSelected(treeViewRootName) ? "selected" : "")}
-        onClick={() => {
-          this.handleLabelClick(treeViewRootName)
-          this.props.history.push('/main')
-        }}>
-        <span >
-          {treeViewRootName}
-        </span>
-      </div>
-
-    return (<TreeView 
-      onClick={() => {}} 
-      nodeLabel={rootNode}>
-      {treeViewRoot.map(child => this.getTreeViewStructure(child, treeViewRootName), this)}
-    </TreeView>)
+    return (<div>{treeViewResult}</div>)
   }
 
-  getTreeViewStructure(topology, origin) {
-    // const thingIcon_helmet = require('../../assets/img/thing-icons/helmet.svg');
+
+
+  getTreeViewStructure(topology, origin, isRootNode) {
     const thingIcon = require('../../assets/img/thing-icons/thing.svg');
 
     var joined = this.state.selectedStates
+
 
     return Object.keys(topology).map((label) => {
 
       // if it has no child nodes it is a child node/thing
       if (topology[label].length === 0) {
 
-        //add things to selectedState array
-        if (joined.subNodes !== undefined) {
-          joined.subNodes.forEach(element => {
+        const selectedThing = { id: label, selected: false, subNodes: [] };
 
-            if (!this.isLabelInside(element.subNodes, label)) {
-              const selectedThing = { id: label, selected: false, subNodes: [] };
+        // if we are adding things without topology directly to the root element && element is not already inside
+        if (isRootNode && !this.isLabelInside(joined[origin].subNodes, label)) {
 
-              if (element.id === origin) {
-                element.subNodes.push(selectedThing)
-                this.setState({
-                  selectedStates: { ...joined }
-                })
-              }
+          joined[origin].subNodes.push(selectedThing)
+          this.setState({
+            selectedStates: { ...joined }
+          })
+        }
+
+        //if we are adding a thing and we are not coming from a root element, so coming from a sublabel
+        if (!isRootNode) {
+
+          Object.keys(joined).map(key => {
+            // add things to selectedState array
+            if (joined[key].subNodes !== undefined) {
+              joined[key].subNodes.forEach(element => {
+
+                // if we are adding things in a sublabel
+                if (!this.isLabelInside(element.subNodes, label)) {
+
+                  if (element.id === origin) {
+                    element.subNodes.push(selectedThing)
+                    this.setState({
+                      selectedStates: { ...joined }
+                    })
+                  }
+                }
+              })
             }
           })
         }
@@ -258,15 +330,20 @@ class TreeViewNav extends Component {
         </div>
       }
 
-      //add labels to selectedState array
-      if (joined.subNodes !== undefined) {
-        if (!this.isLabelInside(joined.subNodes, label)) {
-          const selectedLabel = { id: label, selected: false, subNodes: [] };
-          joined.subNodes.push(selectedLabel)
-          this.setState({
-            selectedStates: { ...joined }
-          })
+
+      //   add labels to selectedState array
+      if (isRootNode) {
+        if (joined[origin]) {
+          if (!this.isLabelInside(joined[origin].subNodes, label)) {
+            const selectedLabel = { id: label, selected: false, subNodes: [] };
+            joined[origin].subNodes.push(selectedLabel)
+            this.setState({
+              selectedStates: { ...joined }
+            })
+          }
+
         }
+
       }
 
 
@@ -283,11 +360,11 @@ class TreeViewNav extends Component {
         </div>
 
 
-
       return (
         <TreeView
           nodeLabel={labelNode}>
-          {topology[label].map(child => this.getTreeViewStructure(child, label), this)}
+          {topology[label].map((child) =>
+            this.getTreeViewStructure(child, label, false), this)}
         </TreeView>)
     }, this)
   }
@@ -296,18 +373,11 @@ class TreeViewNav extends Component {
 
   render() {
 
-
     const topology = this.buildTopology(this.props.things)
-    const TreeViewNav = this.buildTreeView(topology)
-
-
+    const TreeViewNav = this.buildTreeView(topology, this.props.things)
     if (this.state.loading && Object.keys(topology).length !== 0) {
       this.setState({ loading: false });
-      ;
     }
-
-
-
     if (this.state.loading) {
       return <Spinner />
     }
@@ -316,7 +386,7 @@ class TreeViewNav extends Component {
   }
 }
 
-const mapStateToProps = function() {
+const mapStateToProps = function () {
   return {
     selectedDevice: store.getState().selectedDevice,
   }

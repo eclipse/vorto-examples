@@ -52,7 +52,7 @@ class Sidebar extends Component {
         data-color='black'>
         <div className='logo'>
           <a
-            target="_blank"
+            target="_blank" rel="noopener noreferrer"
             href='https://www.eclipse.org/vorto/'
             className='simple-text logo-mini'
           >
@@ -61,7 +61,7 @@ class Sidebar extends Component {
             </div>
           </a>
           <a
-            target="_blank"
+            target="_blank" rel="noopener noreferrer"
             href='https://www.eclipse.org/vorto/'
             className='simple-text logo-normal'>
             Eclipse Vorto

@@ -1,7 +1,9 @@
 export const selectDevice = (state = {}, action) => {
 switch(action.type){
   case 'SELECT_DEVICE':  
-    return action.device
+    if(action.selectedDevice !== undefined){
+      return action.selectedDevice
+    }
   case 'UPDATE_DEVICES': 
   const selectedId = state.thingId
     if (selectedId) {
@@ -15,11 +17,12 @@ switch(action.type){
 
       return updatedSelected[0]
     }
+    default:
+    return state
 }
   // return the updated version of the currently selected
   // TODO think about only saving the idea to avoid updating the selectedDevice
   // object on update of all device (reference instead of copy of device)
-  return state
 }
 
 export const updateDevices = (state = { devices: [], lastUpdated: '', lastState: [] }, action) => {

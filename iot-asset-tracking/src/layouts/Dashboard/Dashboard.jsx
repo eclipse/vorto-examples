@@ -2,19 +2,22 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import Sidebar from '../../components/Sidebar/Sidebar'
+import Banner from '../../components/Banner/Banner'
+
 import dashboardRoutes from '../../routes/dashboard.jsx'
 import { connect } from 'react-redux';
 
+
 const { store } = require('../../store')
 
-const mapStateToProps = function() {
+const mapStateToProps = function () {
   return {
     selectedDevice: store.getState().selectedDevice,
   }
 }
 
 class Dashboard extends Component {
-  
+
   componentDidUpdate(e) {
     if (
       e.history.location.pathname !== e.location.pathname &&
@@ -30,7 +33,7 @@ class Dashboard extends Component {
   }
 
 
- 
+
 
   render() {
     const routes = dashboardRoutes.map((prop, key) => {
@@ -39,13 +42,16 @@ class Dashboard extends Component {
       }
       return (<Route path={prop.path} component={prop.component} key={key} />)
     })
-    
+
 
     return (
       <div className='wrapper'>
+        <Banner />
         <Sidebar {...this.props} />
+
         <div id='main-panel' className='main-panel' ref='mainPanel'>
-          <Header {...this.props} />
+        <Header {...this.props} />
+
           <Switch>
             {routes}
           </Switch>

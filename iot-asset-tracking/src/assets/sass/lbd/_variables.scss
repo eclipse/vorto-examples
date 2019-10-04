@@ -266,14 +266,18 @@ $red-navbar:                lighten($new-red, 10%);
 //custom colors:
 
 $default-white: rgb(255, 255, 255);
-$default-white-transparent: rgba(255, 255, 255, 0.95);
+$default-white-transparent: rgba(255, 255, 255, 0.6);
 $default-grey: rgb(175, 175, 175);
 $default-black:rgb(17, 0, 0);
 $default-dark: rgb(10, 10, 10);
+$default-dark-transparent: rgba(10, 10, 10, 0.1);
 $default-dark-hover: #14181b;
-$default-selection-color: #005c97;
+$default-selection-color: #005d97d8;
 $default-background-color: #282828;
 
 
 //cards:
 $card-header-color: rgb(177, 177, 177);
+$card-header-background-color: #1d2022;
+
+$card-temperature-red: #be4136;

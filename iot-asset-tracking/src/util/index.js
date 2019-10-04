@@ -1,5 +1,8 @@
 function getTextAfterColon (text) {
-  return /.*?:(.*)/.exec(text)[1]
+  if(text){
+    return /.*?:(.*)/.exec(text)[1]
+  }
+  return ""
 }
 
 

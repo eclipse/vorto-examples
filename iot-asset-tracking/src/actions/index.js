@@ -1,6 +1,6 @@
-export const selectDevice = device => ({
+export const selectDevice = selectedDevice => ({
   type: 'SELECT_DEVICE',
-  device
+  selectedDevice
 })
 
 export const updateDevices = devices => ({

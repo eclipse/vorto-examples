@@ -4,15 +4,16 @@ import { Grid, Row, Col } from 'react-bootstrap'
 import { getRepositoryLink } from '../../../util'
 
 export class AttributesCard extends Component {
-  render () {
-    const device = this.props.device
-    const attributes = device.attributes
-    const thingName = attributes.thingName
+  render() {
+   
+    const device = (this.props.device.thingId !== undefined) ? this.props.device : {}
+    const attributes = (device.attributes !== undefined) ? device.attributes : {}
+    const thingName =  (attributes.thingName !== undefined) ? attributes.thingName : "undefined"
 
     const features = device.features
     let deviceInformation
 
-    for (const feature in features) {
+    for (var feature in features) {
       const featureObj = features[feature]
       let definition = featureObj.definition
 
@@ -31,51 +32,69 @@ export class AttributesCard extends Component {
       deviceInformation = featureObj.properties.status
     }
 
-    const deviceInformationCol = deviceInformation ? <Col lg={4} sm={6} xs={12}>
-      <div className='attr-container'>
-        <p className='attribute'><span className='attr-keyword header-keyword'>Physical Device Information</span></p>
-        {Object.keys(deviceInformation).map((key, index) => {
-          const information = deviceInformation[key]
-          if (!information) {
-            return null
-          }
+    const deviceInformationCol = deviceInformation ?
+      <Col lg={7} md={12} xs={12}>
 
-          const upperCaseKey = key.replace(/./, x => x.toUpperCase())
-          return <p className='attribute' key={index}><span className='attr-keyword'>{upperCaseKey}: </span>{information}</p>
-        })}
-      </div>
-    </Col> : <Col />
+        <div className='attr-container'>
+          <div className='attr-img-container'>
+            <img src={device.imgSrc} className='attr-img' alt='IoT device' />
+          </div>
+
+          <div className="attr-info-block">
+            <p className='attribute'>
+              <span className='attr-info-block_header'>Physical Device Information</span>
+            </p>
+
+
+            {Object.keys(deviceInformation).map((key, index) => {
+              const information = deviceInformation[key]
+              if (!information) {
+                return null
+              }
+
+              const upperCaseKey = key.replace(/./, x => x.toUpperCase())
+              return <p className='attribute' key={index}><span className='attr-keyword'>{upperCaseKey}: </span>{information}</p>
+            })}
+
+          </div>
+        </div>
+      </Col> : <Col />
+
 
     return (
       <div className='card card_attributes'>
-        <h3 className='thing-name'>
-                  {thingName}
-                </h3>
-          <Grid fluid>
-            <Row>
-              <Col lg={4} sm={6} xs={12}>
-                <div className='attr-img-container'>
-                  <img src={device.imgSrc} className='attr-img' alt='IoT device' />
-                </div>
-              </Col>
-              {deviceInformationCol}
-              <Col lg={4} sm={6} xs={12}>
-                <div className='attr-container'>
-                  <p className='attribute'><span className='attr-keyword header-keyword'>Virtual Device Information</span></p>
+        
+        <div className='thing-name'>
+        <div className='attr-img-container-mobile'>
+            <img src={device.imgSrc} className='attr-img' alt='IoT device' />
+          </div>
+          <span>{thingName}</span>
+        </div>
+        <Grid fluid>
+          <Row>
+            {deviceInformationCol}
+            <Col lg={5} md={12} xs={12}>
+              <div className='attr-info-block_virtual'>
+                <div className="attr-info-block">
+                  <p className='attribute'>
+                    <span className='attr-info-block_header'>Virtual Device Information</span>
+                  </p>
                   <p className='attribute'><span className='attr-keyword'>Thing ID: </span>{device.thingId}</p>
                   <p className='attribute'>
                     <span className='attr-keyword'>Definition: </span>
-                    <a target='_blank' href={getRepositoryLink(attributes.definition)}>
+                    <a target='_blank' rel="noopener noreferrer" href={getRepositoryLink(attributes.definition)}>
                       {attributes.definition}
                     </a>
                   </p>
                 </div>
-              </Col>
-            </Row>
-          </Grid>
-        </div>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     )
   }
 }
+
 
 export default AttributesCard

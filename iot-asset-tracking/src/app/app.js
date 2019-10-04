@@ -15,8 +15,6 @@ export class App extends Component {
       return <Route to={prop.path} component={prop.component} key={key} />
     })
 
-    
-
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
