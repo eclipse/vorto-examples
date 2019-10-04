@@ -66,6 +66,7 @@ function pollThings () {
         // request all things the user has created and have a policy
         request(getReqOpts(token))
           .then(res => {
+        
             const devices = res.items
               .filter(device => device.attributes)
               .map(device => new Promise((resol) => {
@@ -93,6 +94,8 @@ function pollThings () {
   })
 }
 
+
+// TODO: Remove this 
 // Get rid of all the things that don't have topology attribute
 function removeNonTopology (things) {
   return Promise.resolve(things.filter(thing => thing.attributes.topology))
@@ -103,7 +106,7 @@ function filterThings (filterString) {
 
   return new Promise((resolve, reject) => {
     pollThings()
-      .then(things => removeNonTopology(things))
+      // .then(things => removeNonTopology(things))
       .then(things => {
         const filteredThings = things.filter(thing => {
           if (!filterString) {

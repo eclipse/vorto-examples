@@ -39,13 +39,13 @@
 @import "lbd/responsive";
 
 .body {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .main-panel {
-    height: 100%;
-    overflow: auto;
+  height: 100%;
+  overflow: auto;
 }
 
 .no-overflow {
@@ -55,116 +55,160 @@
 }
 
 .logo {
-    height: 60px;
+  height: 60px;
+  box-shadow: 0 2px 0px rgba(29, 29, 29, 0.9);
+
 }
 
 .sidebar-wrapper {
-    padding: 30px;
+  padding: 30px;
+  box-shadow: 0 1px 0px rgba(29, 29, 29, 0.9);
+
 }
 
 .nav {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar-default {
-    padding: 0;
+  padding: 0;
 }
 
 .navbar-header {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &__button-row{
+    right: 45px;
+    height: 60px;
+    position: absolute;
+    color: white;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    align-items: center;
+
+    .header-button{
+      background: $default-dark-hover;
+      color: $card-header-color;
+      border-radius: 4px;
+      height: 38px;
+      margin: 0px 4px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      outline: none;
+
+      &:hover {
+          color: $default-white;
+          background: $default-dark-hover;
+      }
+    }
+
+  }
 }
 
 .navbar-right {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background: $default-background-color;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  box-shadow: 0 1px 2px rgba(29, 29, 29, 0.9);
 }
 
 .navbar-toggle {
-    background-color: #333333 !important;
+  background-color: #333333 !important;
 }
 
 .navbar-toggle:hover {
-    background-color: #555555 !important;
+  background-color: #555555 !important;
 }
 
 .navbar-toggle:focus {
-    background-color: #333333 !important;
+  background-color: #333333 !important;
 }
 
 .navbar-toggle {
-    .icon-bar {
-        margin-bottom: 5px !important;
-        margin-top: 5px !important;
-    }
+  .icon-bar {
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+  }
 }
 
 @media only screen and (min-width: 400px) {
-    .navbar-toggle {
-        width: 0px;
-        height: 0px;
-    }
+  .navbar-toggle {
+    display: none;
+    width: 0px;
+    height: 0px;
+  }
 }
 
 .search-box {
-    position: relative;
-    float: right;
-    width: 200px;
-    height: 40px;
-    margin: 10px;
+  position: relative;
+  float: right;
+  width: 200px;
+  height: 40px;
+  margin: 10px;
 }
 
 .fill-hw-locate {
-    width: 100%;
-    height: calc(100% - 60px);
-    height: -moz-calc(100% - 60px);
-    height: -webkit-calc(100% - 60px);
+  width: 100%;
+  height: calc(100% - 60px);
+  height: -moz-calc(100% - 60px);
+  height: -webkit-calc(100% - 60px);
+  overflow: auto;
 }
 
 .map-wrapper {
-    position: absolute;
-    height: 100%;
-    width: calc(100% - 30px);
-    width: -moz-calc(100% - 30px);
-    width: -webkit-calc(100% - 30px);
-    -webkit-min-height: 53h;
-    -moz-min-height: 53vh;
-    -ms-min-height: 53vh;
-    -o-min-height: 53vh;
-    min-height: 53vh;
-    overflow: hidden;
+  position: absolute;
+  height: 100%;
+  width: calc(100% - 30px);
+  width: -moz-calc(100% - 30px);
+  width: -webkit-calc(100% - 30px);
+  -webkit-min-height: 50vh;
+  -moz-min-height: 50vh;
+  -ms-min-height: 50vh;
+  -o-min-height: 50vh;
+  min-height: 50vh;
+  overflow: hidden;
 }
 
 .content {
-    width: 100%;
+  width: 100%;
 }
 
 .map-card {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .attr-card {
-    overflow: auto;
-    height: 30vh;
-    margin-top: 15px;
+  overflow: auto;
+  height: 300px;
 }
 
 .card {
-    margin-bottom: 15px;
+  margin-bottom: 27px;
 }
 
 .map-attr-card {
-    overflow: auto;
-    height: 57vh;
-    overflow: hidden;
+  overflow: auto;
+  height: 50vh;
+  overflow: hidden;
 }
 
 /* the tree node's style */
@@ -210,7 +254,7 @@
 }
 
 .tree-view .node:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tree-view .info:hover {
@@ -237,65 +281,81 @@
   -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
   animation: load6 1.7s infinite ease, round 1.7s infinite ease;
 }
+
 @-webkit-keyframes load6 {
   0% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   5%,
   95% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   10%,
   59% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
   }
+
   20% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
   }
+
   38% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
   }
+
   100% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
 }
+
 @keyframes load6 {
   0% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   5%,
   95% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   10%,
   59% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
   }
+
   20% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
   }
+
   38% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
   }
+
   100% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
 }
+
 @-webkit-keyframes round {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes round {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -323,6 +383,29 @@
   height: 60%;
 }
 
-.data-val {
-  font-weight: bold;
+.banner {
+  color: #333333;
+  background: rgba(255, 255, 255, 0.801);
+  position: fixed;
+  bottom: 40px;
+  left: -80px;
+  width: 300px;
+  height: 50px;
+  z-index: 100;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: rotate(45deg);
+
+  -webkit-box-shadow: 0px 0px 25px black;
+  -moz-box-shadow: 0px 0px 25px black;
+  box-shadow: 0px 0px 25px black;
+
+  &:hover {
+    background: rgb(255, 255, 255);
+    transition: 800ms;
+
+  }
 }

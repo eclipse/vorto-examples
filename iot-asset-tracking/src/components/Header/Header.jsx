@@ -33,6 +33,12 @@ class Header extends Component {
         <Navbar.Header>
           <Nav pullRight>
             <Navbar.Toggle onClick={this.mobileSidebarToggle} />
+            <div className='navbar-header__button-row'>
+                <button className='header-button'>Run Simulation</button>
+                {/* <button className='header-button'>color Toggle</button> */}
+
+            </div>
+
           </Nav>
         </Navbar.Header>
       </Navbar >

@@ -40,7 +40,9 @@ app.get('/', function (req, res) {
 apiRouter.get('/devices', (req, res) => {
   const filterString = req.query.filterString !== 'undefined' ? req.query.filterString : ''
 
-  log.debug(`Backend queried with filerString... ${filterString}`)
+
+
+  log.debug(`Backend queried with filterString... ${filterString}`)
 
   pollThings(filterString)
     .then(devices => {

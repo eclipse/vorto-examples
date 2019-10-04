@@ -9,13 +9,17 @@ import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage: storage
 }
 
 const persistedReducer = persistReducer(persistConfig, Reducers)
 
+
+
 export const store = createStore(persistedReducer)
+
 export const persistor = persistStore(store)
+
 
 store.dispatch(Actions.selectDevice({}))
 store.dispatch(Actions.updateDevices([]))
