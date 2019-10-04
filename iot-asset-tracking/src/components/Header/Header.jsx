@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 
 class Header extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this)
     this.state = {
@@ -10,7 +10,7 @@ class Header extends Component {
     }
   }
 
-  mobileSidebarToggle (e) {
+  mobileSidebarToggle(e) {
     if (this.state.sidebarExists === false) {
       this.setState({
         sidebarExists: true
@@ -27,15 +27,18 @@ class Header extends Component {
     document.body.appendChild(node)
   }
 
-  render () {
+  render() {
     return (
       <Navbar fluid>
         <Navbar.Header>
           <Nav pullRight>
             <Navbar.Toggle onClick={this.mobileSidebarToggle} />
             <div className='navbar-header__button-row'>
-                <button className='header-button'>Run Simulation</button>
-                {/* <button className='header-button'>color Toggle</button> */}
+            <a href='https://github.com/eclipse/vorto-examples/tree/master/vorto-dashboard/docs/AssetTracking.md'
+                target='_blank' rel='noopener noreferrer' className='how-link'>How it works</a>
+              <button className='header-button'>Run Simulation</button>
+             
+              {/* <button className='header-button'>color Toggle</button> */}
 
             </div>
 
