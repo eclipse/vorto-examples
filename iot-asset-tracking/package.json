@@ -60,7 +60,7 @@
     "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "dist": "mkdir dist && cp -r package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r asset-tracking-dashboard.zip .",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject"
   },
   "browserslist": {
