@@ -45,6 +45,7 @@
     "request-promise-native": "^1.0.7"
   },
   "scripts": {
-    "start": "node index.js config.json"
+    "start": "node index.js config.json",
+    "test": "react-scripts test --passWithNoTests"
   }
 }
