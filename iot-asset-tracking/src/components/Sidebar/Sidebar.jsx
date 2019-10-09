@@ -9,6 +9,8 @@ import logo from '../../assets/img/vorto_logo.png'
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
+
+
 function pollDevices () {
   pollThings()
     .then(things => {
@@ -25,6 +27,8 @@ class Sidebar extends Component {
       width: window.innerWidth
     }
   }
+
+
 
   activeRoute (routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : ''

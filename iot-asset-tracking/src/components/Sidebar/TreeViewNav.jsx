@@ -13,6 +13,10 @@ import { withRouter } from 'react-router';
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const { store } = require('../../store')
 
+
+
+let changingValuesIds = []
+
 class TreeViewNav extends Component {
   state = {
     loading: true,
@@ -48,8 +52,6 @@ class TreeViewNav extends Component {
     })
     return toplessThings
   }
-
-
 
 
   buildTopology(things) {
@@ -113,35 +115,43 @@ class TreeViewNav extends Component {
       })
     })
 
-
-
-
     this.setState({
       selectedStates: { ...joined }
     })
 
   }
 
+  removeBodyClickDiv() {
+    if (document.getElementById('bodyClick')) {
+      document.getElementById('bodyClick').remove();
+    }
+    document.documentElement.classList.toggle('nav-open')
+  }
+
+
   handleLabelClick(id, origin) {
+
+    this.removeBodyClickDiv()
+
     var joined = this.state.selectedStates
     Object.keys(joined).map(key => {
 
       joined[key].subNodes.forEach(element => {
 
-       //if either a label or a thing as direct child of root node selected
+        //if either a label or a thing as direct child of root node selected
         if (element.id === id) {
-            //unselect all other labels
-            this.handleUnselect(id, origin)
-            element.selected = true
-            this.dispatchSelectedDevice(id)
+          //unselect all other labels
+          this.handleUnselect(id, origin)
+          element.selected = true
+          this.dispatchSelectedDevice(id)
 
-             // no subchild = empty label or device => select it, go to devices route
-            if (element.subNodes.length === 0) {
-              this.props.history.push('/device')
-            }
+          // no subchild = empty label or device => select it, go to devices route
+          if (element.subNodes.length === 0) {
+            this.props.history.push('/device')
+          }
         }
 
-        
+
 
         //thing in label selected if origin is the parent -> go to subNode
         if (element.id === origin) {
@@ -167,16 +177,20 @@ class TreeViewNav extends Component {
     this.handleUnselect(id, origin)
     this.dispatchSelectedDevice(id)
 
-    // set State for ui
+    // set State for ui update
     this.setState({ selectedStates: { ...joined } })
-    console.log("after click", this.state.selectedStates)
   }
 
   dispatchSelectedDevice(id) {
     // save selected thing to redux store
     store.dispatch(Actions.selectDevice(
       this.props.things.find(element => { return getTextAfterColon(element.thingId) === id })))
+  }
 
+  dispatchValueChanges(ids) {
+    if (ids.length > 0) {
+      store.dispatch(Actions.changingValues(ids))
+    }
   }
 
 
@@ -190,40 +204,66 @@ class TreeViewNav extends Component {
     return contains
   }
 
+
+
+  areValuesChanging(id) {
+    var isSimulating = false
+    const selectedStates = this.state.selectedStates
+
+    Object.keys(selectedStates).map(key => {
+      if (selectedStates[key].subNodes) {
+
+        selectedStates[key].subNodes.forEach(element => {
+          if (element.id === id && element.simulating) {
+            isSimulating = true
+          }
+
+          element.subNodes.forEach(subElement => {
+            if (subElement.id === id && subElement.simulating) {
+              isSimulating = true
+            }
+          })
+
+        })
+      }
+    })
+    return isSimulating
+  }
+
   isNodeSelected(id, origin) {
     var isSelected = false
     const selectedStates = this.state.selectedStates
     const propsSelectedDeviceId = getTextAfterColon(this.props.selectedDevice.thingId)
 
-Object.keys(selectedStates).map(key => {
-    if (selectedStates[key].subNodes !== undefined) {
-      //root
-      if (key === id && selectedStates[key].selected |
-        // if selected in props after e.g. page reload 
-        key === propsSelectedDeviceId) {
-        isSelected = true
-      }
-
-      //labels
-      selectedStates[key].subNodes.forEach(element => {
-
-        if (element.id === id && element.selected |
-          element.id === propsSelectedDeviceId) {
+    Object.keys(selectedStates).map(key => {
+      if (selectedStates[key].subNodes !== undefined) {
+        //root
+        if (key === id && selectedStates[key].selected |
+          // if selected in props after e.g. page reload 
+          key === propsSelectedDeviceId) {
           isSelected = true
         }
 
-        //things
-        if (element.id === origin) {
-          element.subNodes.forEach(subElement => {
-            if (subElement.id === id && subElement.selected |
-              subElement.id === propsSelectedDeviceId) {
-              isSelected = true
-            }
-          })
-        }
-      })
-    }
-  })
+        //labels
+        selectedStates[key].subNodes.forEach(element => {
+
+          if (element.id === id && element.selected |
+            element.id === propsSelectedDeviceId) {
+            isSelected = true
+          }
+
+          //things
+          if (element.id === origin) {
+            element.subNodes.forEach(subElement => {
+              if (subElement.id === id && subElement.selected |
+                subElement.id === propsSelectedDeviceId) {
+                isSelected = true
+              }
+            })
+          }
+        })
+      }
+    })
     return isSelected
   }
 
@@ -233,7 +273,7 @@ Object.keys(selectedStates).map(key => {
 
     var treeViewResult = []
 
-    for (let [key, values] of Object.entries(topology)) {
+    for (let [key] of Object.entries(topology)) {
       // Mapping through root
 
       const treeViewRootName = key
@@ -271,10 +311,19 @@ Object.keys(selectedStates).map(key => {
   }
 
 
+  getThingIcon(id) {
+    let thingIcon = require('../../assets/img/thing-icons/thing.svg');
+    const things = (this.props.things) ? (this.props.things) : {}
+    for (var thing of things) {
+      if (getTextAfterColon(thing.thingId) === id) {
+        thingIcon = (thing.imgSrc) || thingIcon
+      }
+    }
+    return thingIcon
+  }
+
 
   getTreeViewStructure(topology, origin, isRootNode) {
-    const thingIcon = require('../../assets/img/thing-icons/thing.svg');
-
     var joined = this.state.selectedStates
 
 
@@ -283,7 +332,8 @@ Object.keys(selectedStates).map(key => {
       // if it has no child nodes it is a child node/thing
       if (topology[label].length === 0) {
 
-        const selectedThing = { id: label, selected: false, subNodes: [] };
+        const selectedThing = { id: label, selected: false, simulating: false, subNodes: [] };
+
 
         // if we are adding things without topology directly to the root element && element is not already inside
         if (isRootNode && !this.isLabelInside(joined[origin].subNodes, label)) {
@@ -317,10 +367,12 @@ Object.keys(selectedStates).map(key => {
           })
         }
 
+        const thingIcon = this.getThingIcon(label)
 
         return <div className={"thing " + (this.isNodeSelected(label, origin) ? "selected" : "")} onClick={() => {
           this.handleLabelClick(label, origin)
         }}>
+          <div className={"simulation-indicator " + (this.areValuesChanging(label, origin) ? "visible" : "")}><div></div><div></div><div></div><div></div></div>
           <div className='thing_icon-container'>
             <img className='thing_icon'
               alt="thing-icon"
@@ -369,9 +421,63 @@ Object.keys(selectedStates).map(key => {
     }, this)
   }
 
+  refreshUpdatingAnimation(id, simulating) {
+    var joined = this.state.selectedStates
+    Object.keys(joined).map(key => {
+      joined[key].subNodes.forEach(element => {
+        if (element.id === id) {
+          element.simulating = simulating
+        }
+
+        element.subNodes.forEach(subElement => {
+          if (subElement.id === id) {
+            subElement.simulating = simulating
+          }
+        })
+      })
+    })
+    this.setState({ selectedStates: { ...joined } })
+  }
+
+  checkForValueChanges() {
+    const current = store.getState().devices.devices
+    const previous = store.getState().devices.lastState
+
+    for (var i in current) {
+      const thingId = getTextAfterColon(current[i].thingId)
+      const areEqual = (JSON.stringify(current[i]) === JSON.stringify(previous[i]))
+      const hasFeatures = (current[i].features && current[i].features.length !== 0) ? true : false
+      // const isAThing = (current[i].features && previous[i].features)
+
+      if (!areEqual) {
+        if (changingValuesIds.indexOf(thingId) === -1 && hasFeatures) {
+          changingValuesIds.push(thingId)
+          this.dispatchValueChanges(changingValuesIds)
+          this.refreshUpdatingAnimation(thingId, true)
+        }
+      }
+      
+      for (var changingValId of changingValuesIds) {
+        if (thingId === changingValId && areEqual) {
+          //remove from changing values array
+          const index = changingValuesIds.map(function (item) {
+            return item
+          }).indexOf(thingId);
+
+          changingValuesIds.splice(index, 1);
+          this.dispatchValueChanges(changingValuesIds)
+          this.refreshUpdatingAnimation(thingId, false)
+        }
+      }
+    }
+
+
+  }
 
 
   render() {
+
+    store.subscribe(() => { this.checkForValueChanges() })
 
     const topology = this.buildTopology(this.props.things)
     const TreeViewNav = this.buildTreeView(topology, this.props.things)
@@ -388,7 +494,7 @@ Object.keys(selectedStates).map(key => {
 
 const mapStateToProps = function () {
   return {
-    selectedDevice: store.getState().selectedDevice,
+    selectedDevice: store.getState().selectedDevice
   }
 }
 

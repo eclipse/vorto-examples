@@ -105,11 +105,14 @@
 
             &_virtual {
                 height: 100%;
+                max-height: 250px;
                 width: 100%;
                 display: flex;
                 justify-content: center;
 
                 .attr-info-block {
+                    padding: 0px;
+
                     background: none;
                     box-shadow: none;
 
@@ -359,6 +362,7 @@
     }
 
     .inner-card-container {
+        overflow-y: hidden;
         height: 100%;
         padding: 10px;
         align-items: center;

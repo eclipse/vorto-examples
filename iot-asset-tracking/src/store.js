@@ -23,12 +23,14 @@ export const persistor = persistStore(store)
 
 store.dispatch(Actions.selectDevice({}))
 store.dispatch(Actions.updateDevices([]))
+store.dispatch(Actions.changingValues([]))
 store.dispatch(Actions.updateSearch(''))
+store.dispatch(Actions.updateSimulator({}))
 
 /* State
 {
     // TODO update to only thingId instead of full qualified object
-    selectedAsset: {
+    selectedDevice: {
         ...
     },
     assets: {

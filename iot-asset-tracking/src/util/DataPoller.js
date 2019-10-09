@@ -10,6 +10,7 @@ const thingsReqOpts = (filterString) => ({
   json: true
 })
 
+// things by filter string
 function pollThings (filterString) {
   return new Promise((resolve, reject) => {
    request(thingsReqOpts(filterString))
@@ -21,6 +22,6 @@ function pollThings (filterString) {
   })
 }
 
+
 export {
-  pollThings
-}
+  pollThings}

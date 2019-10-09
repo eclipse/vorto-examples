@@ -62,17 +62,5 @@
     "dist": "mkdir dist && cp -r package_for_deployment.json things build README.md index.js dist/ && cd dist && mv package_for_deployment.json package.json && zip -r asset-tracking-dashboard.zip .",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
