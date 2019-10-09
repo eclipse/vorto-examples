@@ -8,6 +8,12 @@ export const updateDevices = devices => ({
   devices
 })
 
+
+export const changingValues = deviceIds => ({
+  type: 'VALUES_CHANGING',
+  deviceIds
+})
+
 export const updateSearch = query => ({
   type: 'UPDATE_SEARCH',
   query
@@ -21,6 +27,7 @@ export const updateSimulator = simulatorState => ({
 export default {
   selectDevice,
   updateDevices,
+  changingValues,
   updateSearch,
   updateSimulator
 }

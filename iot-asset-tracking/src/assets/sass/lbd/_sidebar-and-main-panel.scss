@@ -267,7 +267,7 @@ body>.navbar-collapse {
 
     .sidebar-wrapper {
 
-        padding: 10px 15px 10px 10px;
+        padding: 15px 15px 90px 15px;
 
         .tree-view {
             //text on buttons not accidentially selectable 
@@ -282,11 +282,13 @@ body>.navbar-collapse {
             /* Standard */
             .clickable-label {
                 display: flex;
+                height: 40px;
+
                 width: 100%;
-                font-weight: bolder;
+                font-weight: lighter;
 
                 &.selected {
-                    color: $default-selection-color;
+                    color: $default-white;
                 }
             }
 
@@ -294,7 +296,7 @@ body>.navbar-collapse {
                 background: $default-dark-hover;
                 color: $card-header-color;
                 border-radius: 4px;
-                height: 38px;
+                height: 40px;
                 margin: 2px;
                 display: flex;
                 align-items: center;
@@ -322,16 +324,24 @@ body>.navbar-collapse {
                 .thing {
                     cursor: pointer;
                     margin: 8px 2px 5px 8px;
-                    color: $default-white;
+                    color: $card-header-color;
                     background: $default-dark;
-                    height: 34px;
+                    height: 38px;
                     display: flex;
                     align-items: center;
                     border-radius: 4px;
                     font-weight: 100;
 
+
                     span {
-                        padding-left: 16px;
+                        overflow: hidden;
+                        width: 100%;
+                        padding-left: 21px;
+                        padding-right: 4px;
+                        white-space: nowrap;
+
+                        text-overflow: ellipsis;
+
 
                     }
 
@@ -341,26 +351,80 @@ body>.navbar-collapse {
 
                     &.selected {
                         background: $default-selection-color;
+                        color: $default-white;
                     }
 
                     &_icon-container {
                         position: absolute;
-                        margin-left: -24px;
+                        margin-left: -23px;
                         background: $default-dark;
                         border: 0.5px solid $default-grey;
                         border-radius: 50%;
-                        width: 37px;
-                        height: 37px;
+                        width: 40px;
+                        height: 40px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        background: $default-white;
+                        overflow: hidden;
+
+
 
                         img {
-                            height: 24px;
+                            width: auto;
+                            height: 100%;
                         }
                     }
 
+                    .simulation-indicator {
+                        margin-left: -25px;
+                        display: inline-block;
+                        position: absolute;
+                        height: 44.5px;
+                        display: none;
+                        &.visible{
+                            display: inline-block;
+                        }
+                    }
+
+                    .simulation-indicator div {
+                        box-sizing: border-box;
+                        display: block;
+                        position: absolute;
+                        height: 44px;
+                        width: 44px;
+                        border: 3px solid #fff;
+                        border-radius: 50%;
+                        animation: simulation-indicator 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                        border-color: $loading-color transparent transparent transparent;
+                        
+                    }
+
+                    .simulation-indicator div:nth-child(1) {
+                        animation-delay: -0.45s;
+                    }
+
+                    .simulation-indicator div:nth-child(2) {
+                        animation-delay: -0.3s;
+                    }
+
+                    .simulation-indicator div:nth-child(3) {
+                        animation-delay: -0.15s;
+                    }
+
+                    @keyframes simulation-indicator {
+                        0% {
+                            transform: rotate(0deg);
+                        }
+
+                        100% {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+
                 }
+
             }
         }
     }
