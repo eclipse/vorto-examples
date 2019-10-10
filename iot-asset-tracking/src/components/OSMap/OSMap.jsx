@@ -5,11 +5,12 @@ import DeviceTooltip from '../DeviceTooltip/DeviceTooltip'
 import { CATEGORIES } from "../../util/cardUtils"
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 
-const geoFeatureTypes = {
-  geolocation: 'geolocation',
-  location: 'location',
-  none: 'none'
-}
+// const geoFeatureTypes = {
+//   geolocation: 'geolocation',
+//   location: 'location',
+//   none: 'none'
+// }
+
 
 
 
