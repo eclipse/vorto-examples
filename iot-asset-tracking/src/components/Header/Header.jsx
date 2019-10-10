@@ -18,7 +18,6 @@ const simReqOpts = {
 function pollSimulatorState () {
   request(simReqOpts)
     .then(res => {
-      console.log("received", res)
       const running = res.running
       const startTime = res.startTime
       store.dispatch(Actions.updateSimulator({ running, startTime }))
