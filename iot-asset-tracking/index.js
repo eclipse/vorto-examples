@@ -16,7 +16,7 @@ const { pollThings } = require('./things/DataPoller')
 const app = express()
 const server = require('http').createServer(app)
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.REACT_APP_PORT || 8080
 // Simulater Paths
 const TRACI_SIM_PATH = process.env.TRACI_SIM_PATH || path.join(__dirname, 'Simulators/TraciMock_Hub')
 const PMSM_SIM_PATH = process.env.PMSM_SIM_PATH || path.join(__dirname, '/Simulators/PMSMotorMock_Hub')

@@ -79,7 +79,7 @@ class SimulationPopup extends React.Component {
                         <div className='simulator-state' style={{
                             backgroundColor: `${stateColor}`
                         }} />
-                        <p>{textInfo}</p>
+                        {textInfo}
                         <div className='simulator-buttons'>
                             {this.SimulatorButton(simulatorState.running)}
                         </div>
