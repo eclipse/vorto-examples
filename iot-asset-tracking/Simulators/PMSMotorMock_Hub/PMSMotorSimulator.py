@@ -51,7 +51,8 @@ timePeriod = simulation_interval
 current_element = 0
 running = True
 # Configuration of client ID and publish topic	
-publishTopic = "telemetry/" + tenantId + "/" + deviceId
+
+publishTopic = "telemetry/" + str(tenantId) + "/" + deviceId
 
 # Output relevant information for consumers of our information
 print("Connecting client:    ", clientId)
@@ -66,7 +67,9 @@ client.enable_logger(logger)
 
 client.tls_set(certificatePath)
 
-username = authId + "@" + tenantId
+
+username = str(authId) + "@" + str(tenantId)
+
 client.username_pw_set(username, device_password)
 
 # The callback for when the client receives a CONNACK response from the server.
