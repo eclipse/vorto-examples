@@ -1,13 +1,26 @@
-import Locate from '../views/Locate/Locate'
+import Main from '../views/Main/Main'
+import Device from '../views/Device/Device'
+
 
 const dashboardRoutes = [
   {
-    path: '/locate',
+    path: '/main',
     name: 'Locate things',
     icon: 'pe-7s-global',
-    component: Locate
+    component: Main
   },
-  { redirect: true, path: '/', to: '/locate', name: 'Locate Assets' }
+  {
+    path: '/device',
+    name: 'Show single device',
+    icon: 'pe-7s-global',
+    component: Device
+  },
+  { 
+    redirect: true, 
+    path: '/', 
+    to: '/main', 
+    name: 'Locate Assets' 
+  }
 ]
 
 export default dashboardRoutes

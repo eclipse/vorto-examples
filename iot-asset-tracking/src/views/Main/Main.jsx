@@ -11,7 +11,8 @@ import KpiCardTwoCol from '../../components/KpiCard/KpiCardTwoCol';
 
 const mapStateToProps = state => {
   return {
-    devices: state.devices.devices
+    devices: state.devices.devices,
+
   }
 }
 
@@ -21,7 +22,9 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-const ConnectedMaps = ({ devices, selectDevice }) => {
+
+
+const MainView = ({ devices, selectDevice }) => {
   const singleValKpi = (
     <Col xs={6} sm={6} md={6} lg={6} key={0}>
       <KpiCardSingleValue heading={'Number of Water Level Sensors'} feature={'waterlevel'} />
@@ -31,6 +34,8 @@ const ConnectedMaps = ({ devices, selectDevice }) => {
     <Col xs={6} sm={6} md={6} lg={6} key={0}>
       <KpiCardTwoCol heading={'Predominant soil state per Zone'} feature={'waterlevel'} />
     </Col>)
+
+
 
   return (
     <div className='fill-hw-locate'>
@@ -49,6 +54,6 @@ const ConnectedMaps = ({ devices, selectDevice }) => {
   )
 }
 
-const Maps = connect(mapStateToProps, mapDispatchToProps)(ConnectedMaps)
+const Main = connect(mapStateToProps, mapDispatchToProps)(MainView)
 
-export default Maps
+export default Main

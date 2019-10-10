@@ -10,17 +10,18 @@ const thingsReqOpts = (filterString) => ({
   json: true
 })
 
+// things by filter string
 function pollThings (filterString) {
   return new Promise((resolve, reject) => {
-    request(thingsReqOpts(filterString))
+   request(thingsReqOpts(filterString))
       .then(res => {
-        log.debug(res)
         resolve(res.data)
       })
+        
       .catch(err => reject(err))
   })
 }
 
+
 export {
-  pollThings
-}
+  pollThings}

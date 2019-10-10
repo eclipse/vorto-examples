@@ -3,7 +3,7 @@ body,
 .wrapper{
     min-height: 100vh;
     position: relative;
-    background-color: white;
+    background-color: $default-background-color;
 }
 a{
   color: $info-color;
@@ -56,7 +56,9 @@ input:focus {
 }
 
 .wrapper{
-    position: relative;
     top: 0;
+    left: 0;
     height: 100vh;
+    width: 100vw;
+    position: fixed;
 }

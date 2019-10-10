@@ -2,11 +2,15 @@ import { combineReducers } from 'redux'
 import {
   selectDevice,
   updateDevices,
-  updateSearch
+  changingValues,
+  updateSearch,
+  updateSimulator
 } from './reducers.js'
 
 export default combineReducers({
   selectedDevice: selectDevice,
   devices: updateDevices,
-  search: updateSearch
+  valueChanges: changingValues,
+  search: updateSearch,
+  simulator: updateSimulator
 })
