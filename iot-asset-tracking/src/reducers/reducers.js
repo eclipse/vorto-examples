@@ -4,6 +4,7 @@ switch(action.type){
     if(action.selectedDevice !== undefined){
       return action.selectedDevice
     }
+    break;
     default:
     return state
 }

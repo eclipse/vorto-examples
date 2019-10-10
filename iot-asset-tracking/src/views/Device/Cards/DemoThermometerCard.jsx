@@ -7,7 +7,7 @@ export class DemoThermometerCard extends Component {
     render() {
         const values = this.props.feature.properties
         const currVal = Math.round(values.status.value * 100) / 100 || 0
-        const unit = values.status.unit
+        // const unit = values.status.unit
         const minVal = -5
         const maxVal = 5
 
