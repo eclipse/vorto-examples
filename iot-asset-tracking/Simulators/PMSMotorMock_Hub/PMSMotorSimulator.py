@@ -9,10 +9,6 @@ import sys
 from random import randint
 from os import environ
 
-# tenantId = "t99b370dafe3a4f08bc35c14cd06351ba_hub"  #os.getenv('TENANT_ID')
-# device_password = os.getenv('DEVICE_PASSWORD')
-# hub_adapter_host = "mqtt.bosch-iot-hub.com"
-
 # DEVICE CONFIG GOES HERE
 tenantId = os.getenv('TENANT_ID')
 device_password = os.getenv('DEVICE_PASSWORD')
@@ -55,6 +51,7 @@ timePeriod = simulation_interval
 current_element = 0
 running = True
 # Configuration of client ID and publish topic	
+
 publishTopic = "telemetry/" + str(tenantId) + "/" + deviceId
 
 # Output relevant information for consumers of our information
@@ -70,7 +67,9 @@ client.enable_logger(logger)
 
 client.tls_set(certificatePath)
 
+
 username = str(authId) + "@" + str(tenantId)
+
 client.username_pw_set(username, device_password)
 
 # The callback for when the client receives a CONNACK response from the server.

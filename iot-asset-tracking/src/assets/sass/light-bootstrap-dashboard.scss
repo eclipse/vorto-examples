@@ -491,27 +491,25 @@
       border-radius: 50%;
       margin-right: -25px;
       margin-top: 5px;
+      &:hover {
+        background: $default-white-transparent;
 
-
+      }
     }
 
     img {
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      border: 1px solid rgba(212, 212, 212, 0.5);
       margin-right: -15px;
 
       &:hover {
-        -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
-        box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
+        -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
         transition: 200ms;
-
       }
-
     }
-
 
   }
   &__simulator-image{
@@ -528,7 +526,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-
+    span{
+      color: $default-white;
+    }
     .simulator-state {
       margin:15px;
       height: 30px;

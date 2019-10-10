@@ -3215,7 +3215,8 @@ body > .navbar-collapse[data-color="purple"]:after {
     display: block;
     position: relative;
     background: #fff;
-    width: 24px;
+    width: 100%;
+    padding: 0 8px;
     height: 2px;
     border-radius: 1px;
     margin: 0 auto; }
@@ -3882,16 +3883,17 @@ body > .navbar-collapse[data-color="purple"]:after {
     border-radius: 50%;
     margin-right: -25px;
     margin-top: 5px; }
+    .simulation-popup__close-button .background-layer:hover {
+      background: rgba(255, 255, 255, 0.6); }
   .simulation-popup__close-button img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 1px solid rgba(212, 212, 212, 0.5);
     margin-right: -15px; }
     .simulation-popup__close-button img:hover {
-      -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
-      box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
       transition: 200ms; }
 
 .simulation-popup__simulator-image {
@@ -3907,6 +3909,8 @@ body > .navbar-collapse[data-color="purple"]:after {
   flex-direction: column;
   align-items: center;
   justify-content: space-around; }
+  .simulation-popup__simulator-elements span {
+    color: white; }
   .simulation-popup__simulator-elements .simulator-state {
     margin: 15px;
     height: 30px;
