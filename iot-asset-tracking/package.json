@@ -21,6 +21,7 @@
   },
   "main": "./index.js",
   "dependencies": {
+    "@babel/runtime": "^7.6.3",
     "argparse": "^1.0.10",
     "body-parser": "^1.19.0",
     "bootstrap": ">=3.4.1",

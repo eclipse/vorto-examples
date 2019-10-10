@@ -6,8 +6,6 @@ import { Provider } from 'react-redux'
 import indexRoutes from '../routes/index.jsx'
 
 
-
-
 export class App extends Component {
 
   render () {

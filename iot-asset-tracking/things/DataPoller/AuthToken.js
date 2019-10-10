@@ -3,15 +3,9 @@ const log = require('loglevel')
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'error')
 
 // get environment variables
-// const envId = process.env.BOSCH_CLIENT_ID
-// const envSecret = process.env.BOSCH_CLIENT_SECRET
-// const envScope = process.env.BOSCH_SCOPE
-///
-
-// Somesh credentials
-const envId = "d07be814-cfd2-4fb2-b3ed-31672a084d79"
-const envSecret = "39CF1726976720F6BBCBD69E9BAB2308"
-const envScope = "service:iot-hub-prod:t99b370dafe3a4f08bc35c14cd06351ba_hub/full-access"
+const envId = process.env.BOSCH_CLIENT_ID
+const envSecret = process.env.BOSCH_CLIENT_SECRET
+const envScope = process.env.BOSCH_SCOPE
 
 if (!envId || !envSecret || !envScope) {
   log.error('No credentials given, can not get things')
