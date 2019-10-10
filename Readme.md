@@ -15,9 +15,9 @@ The Eclipse Vorto Semantic Middleware is a small and light-weight microservice t
 
 The middleware provides an API, where additional forward-handlers can be plugged in, e.g. forward the "harmonized data" to AWS Timeseries etc. 
 
-[Read more](vorto-hono-subscriber/Readme.md)
+[Read more](vorto-middleware/Readme.md)
 
-<img src="vorto-hono-subscriber/overview.png"/>
+<img src="vorto-middleware/overview.png"/>
 
 ## Vorto Generator Plugins
 
