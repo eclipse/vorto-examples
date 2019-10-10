@@ -1,28 +1,13 @@
 export const selectDevice = (state = {}, action) => {
-  if (action.type === 'SELECT_DEVICE') {
-    return action.device
-  }
-
-  // return the updated version of the currently selected
-  // TODO think about only saving the idea to avoid updating the selectedDevice
-  // object on update of all device (reference instead of copy of device)
-  if (action.type === 'UPDATE_DEVICES') {
-    const selectedId = state.thingId
-
-    if (selectedId) {
-      const updatedSelected = action.devices.filter(device => {
-        if (device.thingId === selectedId) {
-          return true
-        }
-
-        return false
-      })
-
-      return updatedSelected[0]
+switch(action.type){
+  case 'SELECT_DEVICE':  
+    if(action.selectedDevice !== undefined){
+      return action.selectedDevice
     }
-  }
-
-  return state
+    break;
+    default:
+    return state
+}
 }
 
 export const updateDevices = (state = { devices: [], lastUpdated: '', lastState: [] }, action) => {
@@ -33,9 +18,18 @@ export const updateDevices = (state = { devices: [], lastUpdated: '', lastState:
       lastUpdated: new Date().toString()
     }
   }
-
   return state
 }
+
+export const changingValues = (state = { deviceIds: [] }, action) => {
+  if (action.type === 'VALUES_CHANGING') {
+    return {
+      changingValues: [...action.deviceIds]
+    }
+  }
+  return state
+}
+
 
 export const updateSearch = (state = { searching: false, query: '' }, action) => {
   if (action.type === 'UPDATE_SEARCH') {
@@ -61,6 +55,7 @@ export const updateSimulator = (state = { running: false, startTime: '' }, actio
       running: action.simulatorState.running,
       startTime: action.simulatorState.startTime
     }
+
   }
 
   return state
@@ -70,5 +65,6 @@ export default {
   selectDevice,
   updateDevices,
   updateSearch,
+  changingValues,
   updateSimulator
 }

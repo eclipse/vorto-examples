@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import { Provider } from 'react-redux'
 import { store, persistor } from '../store'
 import { PersistGate } from 'redux-persist/integration/react'
-
+import { Provider } from 'react-redux'
 import indexRoutes from '../routes/index.jsx'
 
+
 export class App extends Component {
+
   render () {
     const routes = indexRoutes.map((prop, key) => {
       return <Route to={prop.path} component={prop.component} key={key} />

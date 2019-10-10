@@ -1,15 +1,64 @@
 import React, { Component } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
-
+import log from 'loglevel'
 import DeviceTooltip from '../DeviceTooltip/DeviceTooltip'
+import { CATEGORIES } from "../../util/cardUtils"
+log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 
-import { workerIcon, machineIcon } from './Icon'
+// const geoFeatureTypes = {
+//   geolocation: 'geolocation',
+//   location: 'location',
+//   none: 'none'
+// }
+
+
 
 class OSMap extends Component {
-  render () {
-    const things = this.props.things
+  // handle click on marker
+  handleMarkerClick = deviceId => e => {
+    log.debug("marker clicked", { deviceId })
 
+  };
+
+  render() {
+    var things = {}
+
+    // on a widget
+    if (this.props.devices !== undefined) {
+      things = this.props.devices.filter(device => {
+        const features = device.features;
+
+        for (var feature in features) {
+          const featureObj = features[feature]
+          let definition = featureObj.definition
+
+          if (!definition) {
+            continue;
+          }
+
+          if (Array.isArray(definition)) {
+            definition = definition[0]
+          }
+
+          if (!CATEGORIES.LOCATION.includes(definition)) {
+            continue;
+          }
+
+          const { latitude, longitude } = featureObj.properties.status
+          if (latitude && longitude) {
+            return true
+          }
+        }
+
+        return false
+      });
+    }
+
+    if (this.props.things !== undefined) {
+      things = this.props.things
+    }
     if (things.length === 0 || !things[0].features) {
+
       return (
         <Map className='map-wrapper' center={[1.347, 103.841]} zoom={11}>
           <TileLayer
@@ -19,12 +68,25 @@ class OSMap extends Component {
       )
     }
 
-    const deviceLocStatus = things[0].features.location.properties.status
+
+
+// contains features?
+    const featuresOfFirst = (things[0].features !== undefined) ? things[0].features : {}
+// contains location or geolocation?
+    const deviceLocStatus = (featuresOfFirst.location !== undefined) ?
+      featuresOfFirst.location.properties.status : featuresOfFirst.geolocation.properties.status.geoposition
+
     const position = [deviceLocStatus.latitude, deviceLocStatus.longitude]
 
     const mappedDevices = things.map((device, index) => {
-      const deviceLocStatus = device.features.location.properties.status
+      
+// contains location or geolocation?
+      const deviceLocStatus = (device.features.location !== undefined) ?
+        device.features.location.properties.status : device.features.geolocation.properties.status.geoposition
+
       const position = [deviceLocStatus.latitude, deviceLocStatus.longitude]
+
+      const deviceId = device.thingId
 
       const popUp = this.props.displayTooltip
         ? (<Popup>
@@ -32,16 +94,20 @@ class OSMap extends Component {
             device={device}
           />
         </Popup>)
-        : <div />
+        : <div></div>
 
       return (
         <Marker position={position}
+          value={deviceId}
+          onClick={this.handleMarkerClick(deviceId)}
           // icon={regularIcon}
           key={index} >
           {popUp}
         </Marker>
       )
     })
+
+
 
     return (
       <Map className='map-wrapper' center={position} zoom={12}>
