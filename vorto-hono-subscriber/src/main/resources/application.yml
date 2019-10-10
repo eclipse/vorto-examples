@@ -1,18 +1,13 @@
 hono:
-  tenantId:
-  password: 
+  tenantId: td879f7e1e3a442c388dd64c5c4ae1d77
+  password: RjDXkaGjsnS6JWdrLCAW
 
 msg:
   queue: telemetry/${hono.tenantId}
 
-amqp:
-  username:
-  password:
-  url: 
-  topic:
-    ditto: 
-    native:
-
 session:
   cache:
     size: 1
+    
+spring:
+  jackson.serialization.write-dates-as-timestamps: false
