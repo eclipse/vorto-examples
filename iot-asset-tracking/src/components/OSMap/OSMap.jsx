@@ -13,6 +13,7 @@ log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 
 
 
+
 class OSMap extends Component {
   // handle click on marker
   handleMarkerClick = deviceId => e => {
