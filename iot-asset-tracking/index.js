@@ -51,6 +51,9 @@ apiRouter.get('/devices', (req, res) => {
 
   log.debug(`Backend queried with filterString... ${filterString}`)
 
+
+  log.debug(`Backend queried with filterString... ${filterString}`)
+
   pollThings(filterString)
     .then(devices => {
       res.send({ status: 'OK', data: devices })
