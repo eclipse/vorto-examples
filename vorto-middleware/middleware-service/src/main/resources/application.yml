@@ -1,6 +1,6 @@
 hono:
   tenantId: 
-  password:
+  password: 
   
 admin:
   password:

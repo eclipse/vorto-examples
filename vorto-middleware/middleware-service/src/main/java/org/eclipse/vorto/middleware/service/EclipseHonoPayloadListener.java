@@ -21,6 +21,7 @@ import org.eclipse.vorto.middleware.plugins.IPlugin.ExecutionProblem;
 import org.eclipse.vorto.middleware.service.deserializer.DeserializerFactory;
 import org.eclipse.vorto.middleware.service.deserializer.IDeserializer;
 import org.eclipse.vorto.middleware.service.deserializer.MimeType;
+import org.eclipse.vorto.middleware.service.impl.DefaultMappingService;
 import org.eclipse.vorto.model.ModelId;
 import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class EclipseHonoPayloadListener implements MessageListener {
   private String tenantId;
 
   @Autowired
-  private MappingService mappingService;
+  private DefaultMappingService mappingService;
 
   @Autowired
   private IPluginService pluginService;
