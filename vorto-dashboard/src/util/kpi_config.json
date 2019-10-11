@@ -1,0 +1,90 @@
+[
+    {
+        "heading": "WaterLevel Sensors",
+        "modelId": "org.eclipse.vorto:WaterLevelSensor:1.0.0",
+        "kpis": [
+            {
+                "operation": "count",
+                "label": "Total WaterLevel Sensors",
+                "field": "soilState"
+            },
+            {
+                "operation": "categoryCount",
+                "label": "Sensors per Soil States",
+                "field": "soilState"
+            },
+            {
+                "operation": "avg",
+                "label": "Avg aterLevel",
+                "field": "value",
+                "unit": "mm"
+            }
+        ],
+        "filters": {
+            "topology": {
+                "references": [],
+                "referencedBy": []
+            }
+        }
+    },
+    {
+        "heading": "WaterLevel Sensors ZoneA",
+        "modelId": "org.eclipse.vorto:WaterLevelSensor:1.0.0",
+        "kpis": [
+            {
+                "operation": "count",
+                "label": "Total WaterLevel Sensors",
+                "field": "soilState"
+            },
+            {
+                "operation": "categoryCount",
+                "label": "Sensors per Soil States",
+                "field": "soilState"
+            },
+            {
+                "operation": "avg",
+                "label": "Avg aterLevel",
+                "field": "value",
+                "unit": "mm"
+            }
+        ],
+        "filters": {
+            "topology": {
+                "references": [],
+                "referencedBy": [
+                    "ZoneA"
+                ]
+            }
+        }
+    },
+    {
+        "heading": "WaterLevel Sensors ZoneB",
+        "modelId": "org.eclipse.vorto:WaterLevelSensor:1.0.0",
+        "kpis": [
+            {
+                "operation": "count",
+                "label": "Total WaterLevel Sensors",
+                "field": "soilState"
+            },
+            {
+                "operation": "categoryCount",
+                "label": "Sensors per Soil States",
+                "field": "soilState"
+            },
+            {
+                "operation": "avg",
+                "label": "Avg aterLevel",
+                "field": "value",
+                "unit": "mm"
+            }
+        ],
+        "filters": {
+            "topology": {
+                "references": [],
+                "referencedBy": [
+                    "ZoneB"
+                ]
+            }
+        }
+    }
+]

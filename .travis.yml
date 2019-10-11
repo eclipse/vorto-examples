@@ -26,7 +26,8 @@ jobs:
         app: "Vorto-Payload-Normalizer-Service"
         env: "Payload-Normalizer-Dev"
         bucket_name: "$VORTO_S3_BUCKET"
-      
+
+
     - stage: deploy-dashboard-aws
       name: "Deploys the Vorto-Dashboard to AWS Beanstalk"
       language: node_js
@@ -67,6 +68,7 @@ jobs:
         bucket_name: "$VORTO_S3_BUCKET"
         on:
           branch: master
+
       
     - stage: deploy-npm
       name: "Publish Vorto-Dashboard to NPM"
