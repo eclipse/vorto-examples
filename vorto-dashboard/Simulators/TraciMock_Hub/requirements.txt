@@ -1,2 +1,0 @@
-netifaces
-paho-mqtt
