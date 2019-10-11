@@ -24,13 +24,13 @@ public class DataSocket {
 
 	
 	@MessageMapping("/endpoint/subscribe")
-	public void subscribe(String thingId) throws Exception {
+	public void subscribe() throws Exception {
 		
 		messageLogger.registerCallback(new IPayloadMonitorCallback() {
 			
 			@Override
 			public void onMessage(MonitorMessage message) {
-				messagingTemplate.convertAndSend( "/topic/device/" + thingId, gson.toJson(message));	
+				messagingTemplate.convertAndSend( "/topic/device/", gson.toJson(message));	
 			}
 		});
 	}
