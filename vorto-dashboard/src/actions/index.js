@@ -1,11 +1,17 @@
-export const selectDevice = device => ({
+export const selectDevice = selectedDevice => ({
   type: 'SELECT_DEVICE',
-  device
+  selectedDevice
 })
 
 export const updateDevices = devices => ({
   type: 'UPDATE_DEVICES',
   devices
+})
+
+
+export const changingValues = deviceIds => ({
+  type: 'VALUES_CHANGING',
+  deviceIds
 })
 
 export const updateSearch = query => ({
@@ -21,6 +27,7 @@ export const updateSimulator = simulatorState => ({
 export default {
   selectDevice,
   updateDevices,
+  changingValues,
   updateSearch,
   updateSimulator
 }

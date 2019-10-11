@@ -2,11 +2,6 @@
 By default, the dashboard for now only supports a limited amount of defined vorto compliant function blocks. 
 Even though this will be extended in the future, you might want to create UI Cards for custom Function Blocks.
 
-> **Note**
-> In order to work with the development environment and get actual data from things, you have to start two processes.
-> 1. The React Frontend dev server using `npm start` (sudo on Unix)
-> 2. The NodeJS Backend that polls the data from things using `node index.js config.json`
-
 ## Step by Step creating a custom Card
 **1.** Open the project and duplicate the TemplateCard folder
 

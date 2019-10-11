@@ -1,17 +1,34 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
 
+import { pollThings } from '../../util/DataPoller'
+import TreeViewNav from './TreeViewNav'
+import log from 'loglevel'
 import logo from '../../assets/img/vorto_logo.png'
 
-import dashboardRoutes from '../../routes/dashboard.jsx'
+
+log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
+const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
+
+
+
+function pollDevices () {
+  pollThings()
+    .then(things => {
+      this.setState({ ...this.state, things })
+    })
+    .catch(err => `Could not poll devices... ${err}`)
+}
 
 class Sidebar extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      things: [],
       width: window.innerWidth
     }
   }
+
+
 
   activeRoute (routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? 'active' : ''
@@ -24,38 +41,14 @@ class Sidebar extends Component {
   componentDidMount () {
     this.updateDimensions()
     window.addEventListener('resize', this.updateDimensions.bind(this))
+    this.thingInterval = setInterval(pollDevices.bind(this), DEVICE_REFRESH_MS)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.thingInterval)
   }
 
   render () {
-    const routes = dashboardRoutes.map((prop, key) => {
-      if (prop.hidden) {
-        return null
-      }
-
-      if (!prop.redirect) {
-        return (
-          <li
-            className={
-              prop.upgrade
-                ? 'active active-pro'
-                : this.activeRoute(prop.path)
-            }
-            key={key}
-          >
-            <NavLink
-              to={prop.path}
-              className='nav-link'
-              activeClassName='active'
-            >
-              <i className={prop.icon} />
-              <p>{prop.name}</p>
-            </NavLink>
-          </li>
-        )
-      }
-      return null
-    })
-
     return (
       <div
         id='sidebar'
@@ -63,6 +56,7 @@ class Sidebar extends Component {
         data-color='black'>
         <div className='logo'>
           <a
+            target="_blank" rel="noopener noreferrer"
             href='https://www.eclipse.org/vorto/'
             className='simple-text logo-mini'
           >
@@ -71,20 +65,21 @@ class Sidebar extends Component {
             </div>
           </a>
           <a
+            target="_blank" rel="noopener noreferrer"
             href='https://www.eclipse.org/vorto/'
-            className='simple-text logo-normal'
-          >
+            className='simple-text logo-normal'>
             Eclipse Vorto
           </a>
         </div>
         <div className='sidebar-wrapper'>
-          <ul className='nav'>
-            {routes}
-          </ul>
+          <TreeViewNav 
+            things={this.state.things} 
+            />
         </div>
       </div>
     )
   }
+  
 }
 
 export default Sidebar

@@ -61,9 +61,9 @@ class Device(object):
         self.location_dataset_file = location_dataset_file
         self.prepare_location_data()
         # Configuration of client ID and publish topic	
-        self.publishTopic = "telemetry/" + tenantId + "/" + deviceId
+        self.publishTopic = "telemetry/" + str(tenantId) + "/" + str(deviceId)
         # Create the MQTT client
-        self.username = authId + "@" + tenantId
+        self.username = str(authId) + "@" + str(tenantId)
 
         self.client = mqtt.Client(clientId)
         self.client.username_pw_set(self.username, device_password)
