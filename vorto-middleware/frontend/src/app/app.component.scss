@@ -1,0 +1,19 @@
+.main-container {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #1e1e1f;
+  display: flex;
+  flex-direction: row;
+
+  .content {
+      background: white;
+      margin: 60px 16px 60px 0 ;
+      width: 100%;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+
+  }
+}
