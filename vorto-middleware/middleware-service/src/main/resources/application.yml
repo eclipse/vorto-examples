@@ -1,6 +1,9 @@
 hono:
   tenantId: 
-  password: 
+  password:
+  
+admin:
+  password:
 
 msg:
   queue: telemetry/${hono.tenantId}
