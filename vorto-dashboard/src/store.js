@@ -9,16 +9,21 @@ import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage: storage
 }
 
 const persistedReducer = persistReducer(persistConfig, Reducers)
 
+
+
 export const store = createStore(persistedReducer)
+
 export const persistor = persistStore(store)
+
 
 store.dispatch(Actions.selectDevice({}))
 store.dispatch(Actions.updateDevices([]))
+store.dispatch(Actions.changingValues([]))
 store.dispatch(Actions.updateSearch(''))
 store.dispatch(Actions.updateSimulator({}))
 
@@ -28,7 +33,7 @@ store.dispatch(Actions.updateSimulator({}))
     selectedDevice: {
         ...
     },
-    devices: {
+    assets: {
         lastUpdated: "...",
         devices: [...],
         lastState: [... state of last upadte],
@@ -36,10 +41,6 @@ store.dispatch(Actions.updateSimulator({}))
     search: {
         searching: true/false,
         query: "..."
-    },
-    simulator: {
-        running: true/false,
-        startTime: "..."
     }
 }
 */

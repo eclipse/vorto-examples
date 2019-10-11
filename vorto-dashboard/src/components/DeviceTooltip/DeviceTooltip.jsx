@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 
+const PORT = process.env.REACT_APP_PORT || 8080
+
 export class DeviceTooltip extends Component {
   render () {
     const locationFeature = this.props.device.features.location
     const latitude = locationFeature.properties.status.latitude
     const longitude = locationFeature.properties.status.longitude
 
+    // decide whether to use full web url pointing to either vorto or default, or to local file 
+    const thingImgSrc = this.props.device.imgSrc
+    const imgSrc = thingImgSrc.startsWith('http') ? thingImgSrc : `http://${window.location.hostname}:${PORT}/${this.props.device.imgSrc}`
+
     return (
       <div className='content'>
         <div>
-          <h4><button className='text-button' onClick={this.props.redirect}>{this.props.device.attributes.thingName}</button></h4>
+          <h4>{this.props.device.attributes.thingName}</h4>
         </div>
         <Row>
           <Col xs={12} sm={12} md={12} lg={12}>
             <div className='text-center center-text'>
-              <img alt='img of the device' src={this.props.device.imgSrc} height='100px' />
+              <img alt='img of the device' src={imgSrc} height='100px' />
             </div>
           </Col>
         </Row>

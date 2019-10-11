@@ -147,6 +147,7 @@ client.loop_start()
 
 while (1):
     if running == True:
+        time.sleep(1)
         pass
     else:
         sys.exit(0)

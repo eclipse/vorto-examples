@@ -1,5 +1,5 @@
 import Dashboard from '../layouts/Dashboard/Dashboard.jsx'
 
-var indexRoutes = [{ path: '/devices', name: 'Devices', component: Dashboard }]
+var indexRoutes = [{ path: '/main', name: 'Main Dashboard', component: Dashboard }]
 
 export default indexRoutes

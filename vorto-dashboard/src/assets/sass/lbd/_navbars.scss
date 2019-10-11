@@ -65,7 +65,7 @@
     }
     
     &.fixed{
-        width: calc(100% - $sidebar-width);
+        width: $sidebar-width;
         right: 0;
         left: auto;
         border-radius: 0;
@@ -132,7 +132,6 @@
     }
     .btn-default.btn-fill{
         color: $dark-gray;
-        background-color: $white-color;
         @include opacity(.9);
     }
     .btn-default.btn-fill:hover, 
@@ -157,8 +156,8 @@
 }
 
 .navbar-default {
-    background-color: $white-navbar;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 0px rgba(29, 29, 29, 0.9);
+
   
     .navbar-nav{
         > li > a:not(.btn){

@@ -1,40 +1,26 @@
-import Devices from '../views/Devices/Devices'
-import DeviceDashboard from '../views/DeviceDashboard/DeviceDashboard'
-import Locate from '../views/Locate/Locate'
-import Simulator from '../views/Simulator/Simulator'
+import Main from '../views/Main/Main'
+import Device from '../views/Device/Device'
 
-const SHOW_SIMULATOR = process.env.REACT_APP_SHOW_SIMULATOR || true
-const simulatorRoute = {
-  path: '/simulator',
-  name: 'Simulate things',
-  icon: 'pe-7s-edit',
-  component: Simulator
-}
 
 const dashboardRoutes = [
   {
-    path: '/devices',
-    name: 'Browse things',
-    icon: 'pe-7s-usb',
-    component: Devices
-  },
-  {
-    path: '/devicedashboard',
-    name: 'Device Dashboard',
-    component: DeviceDashboard,
-    hidden: true
-  },
-  {
-    path: '/locate',
+    path: '/main',
     name: 'Locate things',
     icon: 'pe-7s-global',
-    component: Locate
+    component: Main
   },
-  { redirect: true, path: '/', to: '/devices', name: 'Browse things' }
+  {
+    path: '/device',
+    name: 'Show single device',
+    icon: 'pe-7s-global',
+    component: Device
+  },
+  { 
+    redirect: true, 
+    path: '/', 
+    to: '/main', 
+    name: 'Locate Assets' 
+  }
 ]
-
-if (SHOW_SIMULATOR) {
-  dashboardRoutes.splice(3, 0, simulatorRoute)
-}
 
 export default dashboardRoutes
