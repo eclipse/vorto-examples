@@ -1,3 +1,0 @@
-netifaces
-paho-mqtt
-pysocks

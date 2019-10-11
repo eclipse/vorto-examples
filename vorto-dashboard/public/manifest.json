@@ -1,6 +1,6 @@
 {
-  "short_name": "Vorto Dashboard",
-  "name": "Vorto IoT Device Dashboard",
+  "short_name": "Asset Tracking",
+  "name": "Vorto Asset Tracking Dashboard",
   "icons": [
     {
       "src": "favicon.ico",

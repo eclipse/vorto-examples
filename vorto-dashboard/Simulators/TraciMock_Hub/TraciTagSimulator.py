@@ -61,9 +61,9 @@ class Device(object):
         self.location_dataset_file = location_dataset_file
         self.prepare_location_data()
         # Configuration of client ID and publish topic	
-        self.publishTopic = "telemetry/" + tenantId + "/" + deviceId
+        self.publishTopic = "telemetry/" + str(tenantId) + "/" + str(deviceId)
         # Create the MQTT client
-        self.username = authId + "@" + tenantId
+        self.username = str(authId) + "@" + str(tenantId)
 
         self.client = mqtt.Client(clientId)
         self.client.username_pw_set(self.username, device_password)
@@ -84,7 +84,7 @@ class Device(object):
         print("dataset size is: ", dataset_size)
 
         # store just enough coordinates to complete the simulation within the defined period        
-        coordinates_to_skip = int(dataset_size / repeat_count)
+        coordinates_to_skip = int(dataset_size / (repeat_count-1) )
         ctr = 1
         dataset = []
         with open(self.location_dataset_file,'rt')as f:
@@ -203,26 +203,34 @@ device_list.append(Device("com.bosch.si.sgp:Truck-SG1023H", "com.bosch.si.sgp:Tr
                             "./tanjong2bosch.csv"))
 
 def on_connect(client, userdata, flags, rc):
-    if rc != 0:
-        print("Connection to MQTT broker failed: " + str(rc))
+    if rc == 0:
+        client.connected_flag=True #set flag
+        print("Connected OK Returned code=", rc)
+        client.subscribe("commands/" + tenantId + "/")
+    else:
+        print("Bad connection Returned code= ", rc)
         return
-
-    client.subscribe("commands/" + tenantId + "/")
 
 # Setup connections
 for device in device_list:
     # Connect to the MQTT broker
+    device.client.connected_flag = False
+    device.client.on_connect = on_connect #call back function
+    device.client.loop_start()
     device.client.connect(hub_adapter_host, 8883, 60)
-    device.client.on_connect = on_connect
+    while not device.client.connected_flag: #wait for the connection to be established
+        print("In wait loop")
+        time.sleep(1)
+    print("in Main Loop")
 
 # Send data
-for i in range(repeat_count - 1):
+for i in range(repeat_count):
     for device in device_list:
         device.publish_data(i)
     time.sleep(TIME_INTERVAL_TELEMETRY)
 
 for device in device_list:
-    # Connect to the MQTT broker
     device.client.disconnect()
+    device.client.loop_stop()    #Stop loop 
 
 sys.exit(0)

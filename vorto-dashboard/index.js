@@ -3,20 +3,23 @@
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
+const log = require('loglevel')
+
 const spawn = require('child_process').spawn
 const exec = require('child_process').exec
-const log = require('loglevel')
-log.setLevel(process.env.LOG_LEVEL || 'error')
+
+
+log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'error')
+
+const { pollThings } = require('./things/DataPoller')
 
 const app = express()
 const server = require('http').createServer(app)
-// const io = require('socket.io')(server);
 
-const { getUpdatedDevices } = require('./things')
+const PORT = process.env.REACT_APP_PORT || 8080
 
-// get PORT and set for Frontend to get device data from
-const PORT = process.env.PORT || 8080
-const TRACI_SIM_PATH = process.env.TRACI_SIM_PATH || path.join(__dirname, 'Simulators/TraciMock_Hub')
+// Simulater Paths
+const TRACI_SIM_PATH = process.env.TRACI_SIM_PATH || path.join(__dirname, '/Simulators/TraciMock_Hub')
 const PMSM_SIM_PATH = process.env.PMSM_SIM_PATH || path.join(__dirname, '/Simulators/PMSMotorMock_Hub')
 
 // Cross origin fix
@@ -44,7 +47,11 @@ app.get('/', function (req, res) {
 
 // API for devices and simulator
 apiRouter.get('/devices', (req, res) => {
-  getUpdatedDevices()
+  const filterString = req.query.filterString !== 'undefined' ? req.query.filterString : ''
+
+  log.debug(`Backend queried with filterString... ${filterString}`)
+
+  pollThings(filterString)
     .then(devices => {
       res.send({ status: 'OK', data: devices })
       res.end()
@@ -69,11 +76,6 @@ function checkSimulatorsRunning () {
   })
 }
 
-function delay (t, v) {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve.bind(null, v), t)
-  })
-}
 
 let simulatorStartTime = ''
 apiRouter.get('/simulator', (req, res) => {
@@ -88,6 +90,13 @@ apiRouter.get('/simulator', (req, res) => {
       res.end()
     })
 })
+
+function delay (t, v) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve.bind(null, v), t)
+  })
+}
+
 
 apiRouter.post('/simulator', (req, res) => {
   log.info('Starting Simulator Process...')
@@ -111,7 +120,6 @@ apiRouter.post('/simulator', (req, res) => {
     })
     .catch(err => {
       log.error(`Couldn't start the simulator... ${err}`)
-
       res.send({ started: false, error: `Couldn't start the simulator... ${err}` })
     })
 
@@ -150,19 +158,5 @@ apiRouter.post('/simulator', (req, res) => {
   })
 })
 
-/* io.on('connection', function (socket) {
- setInterval(() => {
-    getUpdatedDevices()
-        .then(devices => {
-            log.debug(devices)
-        })
-        .catch(err => log.error(`Could not fetch things... - ${err}`))
-}, config.things.intervalMS)
-
-  socket.emit('event', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    log.debug(data);
-  });
-}); */
 
 server.listen(PORT, () => log.info(`App running on port ${PORT}`))

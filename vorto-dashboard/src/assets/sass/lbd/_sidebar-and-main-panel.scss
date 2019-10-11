@@ -1,26 +1,27 @@
-.sidebar{
+.sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     width: 260px;
     display: block;
-    z-index: 1;
+    z-index: 2;
     color: #fff;
     font-weight: 200;
     background-size: cover;
     background-position: center center;
 
-    .sidebar-wrapper{
+    .sidebar-wrapper {
         position: relative;
-        height: calc(100vh - 75px);
+        height: calc(100vh - 60px);
         overflow: auto;
         width: 260px;
         z-index: 4;
         padding-bottom: 30px;
+        box-shadow: 0 1px 2px rgba(29, 29, 29, 0.9);
     }
 
-    .sidebar-background{
+    .sidebar-background {
         position: absolute;
         z-index: 1;
         height: 100%;
@@ -32,13 +33,14 @@
         background-position: center center;
     }
 
-    .logo{
-        padding: 10px 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    .logo {
         position: relative;
-        z-index: 4;
+        z-index: 5;
+        display: flex;
+        align-items: center;
 
-        p{
+
+        p {
             float: left;
             font-size: 20px;
             margin: 10px 10px;
@@ -47,25 +49,28 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
-        a.logo-mini{
+        a.logo-mini {
             float: left;
             text-align: center;
             width: 30px;
             margin-right: 15px;
 
-            img{
+            img {
                 width: 40px;
                 margin-left: -3px;
                 display: block;
-                margin-top: 2px;
             }
         }
 
-        a.logo-normal{
+        a.logo-normal {
             display: block;
+
+            &:hover {
+                opacity: 0.9;
+            }
         }
 
-        .logo-img{
+        .logo-img {
             width: 34px;
             display: inline-block;
             height: 34px;
@@ -77,49 +82,34 @@
         }
     }
 
-    .logo-tim{
-        border-radius: 50%;
-        border: 1px solid #333;
-        display: block;
-        height: 61px;
-        width: 61px;
-        float: left;
-        overflow: hidden;
-
-        img{
-            width: 60px;
-            height: 60px;
-        }
-    }
-
-    .nav{
+    .nav {
         margin-top: 20px;
 
-        li{
-            > a{
+        li {
+            >a {
                 color: #FFFFFF;
                 margin: 5px 15px;
                 opacity: .86;
                 border-radius: 4px;
             }
 
-            &:hover > a,
-            &.open > a,
-            &.open > a:focus,
-            &.open > a:hover{
-                background: rgba(255,255,255,0.13);
+            &:hover>a,
+            &.open>a,
+            &.open>a:focus,
+            &.open>a:hover {
+                background: rgba(255, 255, 255, 0.13);
                 opacity: 1;
             }
 
-            &.active > a{
+            &.active>a {
                 color: #FFFFFF;
                 opacity: 1;
-                background: rgba(255,255,255,0.23);
+                background: rgba(255, 255, 255, 0.23);
 
             }
         }
 
-        p{
+        p {
             margin: 0;
             line-height: 30px;
             font-size: 12px;
@@ -127,13 +117,13 @@
             text-transform: uppercase;
         }
 
-        .caret{
+        .caret {
             top: 24px;
             position: absolute;
             right: 15px;
         }
 
-        i{
+        i {
             font-size: 28px;
             float: left;
             margin-right: 15px;
@@ -144,14 +134,12 @@
     }
 }
 
-
 .sidebar,
-body > .navbar-collapse{
-    .logo{
+body>.navbar-collapse {
+    .logo {
         padding: 10px 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
-        p{
+        p {
             float: left;
             font-size: 20px;
             margin: 10px 10px;
@@ -160,34 +148,23 @@ body > .navbar-collapse{
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
-        .simple-text{
-            text-transform: uppercase;
+        .simple-text {
             padding: $padding-small-vertical $padding-zero;
             display: block;
             font-size: $font-size-large;
-            color: $white-color;
+            color: $default-white;
             font-weight: $font-weight-normal;
             line-height: 30px;
-        }
-    }
 
-    .logo-tim{
-        border-radius: 50%;
-        border: 1px solid #333;
-        display: block;
-        height: 61px;
-        width: 61px;
-        float: left;
-        overflow: hidden;
+            &:hover {
+                color: $default-white;
 
-        img{
-            width: 60px;
-            height: 60px;
+            }
         }
     }
 
     &:after,
-    &:before{
+    &:before {
         display: block;
         content: "";
         position: absolute;
@@ -198,70 +175,257 @@ body > .navbar-collapse{
         z-index: 2;
     }
 
-    &:before{
+    &:before {
         opacity: .33;
         background: #000000;
     }
 
-    &:after{
-       @include icon-gradient($black-color-top, $black-color-bottom);
-       z-index: 3;
-       opacity: 1;
+    &:after {
+        @include icon-gradient($black-color-top, $black-color-bottom);
+        z-index: 3;
+        opacity: 1;
     }
 
     &[data-image]:after,
-    &.has-image:after{
+    &.has-image:after {
         opacity: .77;
     }
 
-    &[data-color="blue"]:after{
+    &[data-color="blue"]:after {
         @include icon-gradient($new-dark-blue, $blue-color-bottom);
     }
-    &[data-color="azure"]:after{
+
+    &[data-color="azure"]:after {
         @include icon-gradient($new-blue, $azure-color-bottom);
     }
-    &[data-color="green"]:after{
+
+    &[data-color="green"]:after {
         @include icon-gradient($new-green, $green-color-bottom);
     }
-    &[data-color="orange"]:after{
+
+    &[data-color="orange"]:after {
         @include icon-gradient($new-orange, $orange-color-bottom);
     }
-    &[data-color="red"]:after{
+
+    &[data-color="red"]:after {
         @include icon-gradient($new-red, $red-color-bottom);
     }
-    &[data-color="purple"]:after{
+
+    &[data-color="purple"]:after {
         @include icon-gradient($new-purple, $purple-color-bottom);
     }
 }
 
 
-.main-panel{
-    background: rgba(203,203,210,.15);
+.main-panel {
+    background: rgba(203, 203, 210, .15);
     position: relative;
     float: right;
     width: $sidebar-width;
 
-    > .content{
+    >.content {
+        z-index: 0;
         padding: 30px 15px;
-        min-height: calc(100% - 123px);
+        overflow: auto;
+        height: calc(100vh - 60px);
     }
 
-    > .footer{
+    >.footer {
         border-top: 1px solid #e7e7e7;
     }
 
-    .navbar{
+    .navbar {
         margin-bottom: 0;
     }
 }
 
 .sidebar,
-.main-panel{
-    -webkit-transition-property: top,bottom;
-    transition-property: top,bottom;
-    -webkit-transition-duration: .2s,.2s;
-    transition-duration: .2s,.2s;
-    -webkit-transition-timing-function: linear,linear;
-    transition-timing-function: linear,linear;
+.main-panel {
+    -webkit-transition-property: top, bottom;
+    transition-property: top, bottom;
+    -webkit-transition-duration: .2s, .2s;
+    transition-duration: .2s, .2s;
+    -webkit-transition-timing-function: linear, linear;
+    transition-timing-function: linear, linear;
     -webkit-overflow-scrolling: touch;
+}
+
+
+
+// Custom Changes to Sidebar
+.sidebar {
+
+
+    &:after {
+        background: $default-background-color;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+
+    .sidebar-wrapper {
+
+        padding: 15px 15px 90px 15px;
+
+        .tree-view {
+            //text on buttons not accidentially selectable 
+            -webkit-user-select: none;
+            /* Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE10+/Edge */
+            user-select: none;
+
+            /* Standard */
+            .clickable-label {
+                display: flex;
+                height: 40px;
+
+                width: 100%;
+                font-weight: lighter;
+
+                &.selected {
+                    color: $default-white;
+                }
+            }
+
+            .tree-view_item {
+                background: $default-dark-hover;
+                color: $card-header-color;
+                border-radius: 4px;
+                height: 40px;
+                margin: 2px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                &:hover {
+                    color: $default-white;
+                    background: $default-dark-hover;
+                }
+
+                .tree-view_arrow {
+                    margin: 4px;
+                    font-size: 25px;
+                }
+
+                span {
+                    align-self: center;
+                }
+
+            }
+
+            .tree-view_children {
+                overflow: hidden;
+
+                .thing {
+                    cursor: pointer;
+                    margin: 8px 2px 5px 8px;
+                    color: $card-header-color;
+                    background: $default-dark;
+                    height: 38px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 4px;
+                    font-weight: 100;
+
+
+                    span {
+                        overflow: hidden;
+                        width: 100%;
+                        padding-left: 21px;
+                        padding-right: 4px;
+                        white-space: nowrap;
+
+                        text-overflow: ellipsis;
+
+
+                    }
+
+                    &:hover {
+                        background: $default-dark-hover;
+                    }
+
+                    &.selected {
+                        background: $default-selection-color;
+                        color: $default-white;
+                    }
+
+                    &_icon-container {
+                        position: absolute;
+                        margin-left: -23px;
+                        background: $default-dark;
+                        border: 0.5px solid $default-grey;
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: $default-white;
+                        overflow: hidden;
+
+
+
+                        img {
+                            width: auto;
+                            height: 100%;
+                        }
+                    }
+
+                    .simulation-indicator {
+                        margin-left: -25px;
+                        display: inline-block;
+                        position: absolute;
+                        height: 44.5px;
+                        display: none;
+                        &.visible{
+                            display: inline-block;
+                        }
+                    }
+
+                    .simulation-indicator div {
+                        box-sizing: border-box;
+                        display: block;
+                        position: absolute;
+                        height: 44px;
+                        width: 44px;
+                        border: 3px solid #fff;
+                        border-radius: 50%;
+                        animation: simulation-indicator 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                        border-color: $loading-color transparent transparent transparent;
+                        
+                    }
+
+                    .simulation-indicator div:nth-child(1) {
+                        animation-delay: -0.45s;
+                    }
+
+                    .simulation-indicator div:nth-child(2) {
+                        animation-delay: -0.3s;
+                    }
+
+                    .simulation-indicator div:nth-child(3) {
+                        animation-delay: -0.15s;
+                    }
+
+                    @keyframes simulation-indicator {
+                        0% {
+                            transform: rotate(0deg);
+                        }
+
+                        100% {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+
+                }
+
+            }
+        }
+    }
 }
