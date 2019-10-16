@@ -60,10 +60,7 @@ public class DefaultPluginService implements IPluginService {
 			((AbstractPlugin) plugin.get()).setConfiguration(configuration);
 		}
 
-		XStream xstream = new XStream();
-
-		// saving configuration to DB
-		pluginRepository.save(new PluginConfig(pluginId, xstream.toXML(configuration), plugin.get().isStarted()));
+		savePlugin(plugin.get());
 	}
 
 	@PostConstruct
@@ -103,6 +100,8 @@ public class DefaultPluginService implements IPluginService {
 			plugin.init();
 		}
 		
+		savePlugin(plugin);
+		
 		return plugin;
 	}
 
@@ -118,9 +117,23 @@ public class DefaultPluginService implements IPluginService {
 		
 		if (plugin.isStarted()) {
 			plugin.destroy();
+			savePlugin(plugin);
 		}
 		
 		return plugin;
+	}
+	
+	private void savePlugin(IPlugin plugin) {
+		XStream xstream = new XStream();
+		PluginConfig configuration = pluginRepository.findOne(plugin.getId());
+		if (configuration != null) {
+			configuration.setConfigurationXml(xstream.toXML(plugin.getConfiguration()));
+			configuration.setIsStarted(plugin.isStarted());
+		} else {
+			configuration = new PluginConfig(plugin.getId(), xstream.toXML(plugin.getConfiguration()), plugin.isStarted());
+		}
+		pluginRepository.save(configuration);
+
 	}
 
 }
