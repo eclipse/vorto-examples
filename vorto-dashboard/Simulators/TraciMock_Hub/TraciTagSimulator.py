@@ -198,9 +198,6 @@ device_list.append(Device("com.bosch.si.sgp:Truck-SG1021H", "com.bosch.si.sgp:Tr
 device_list.append(Device("com.bosch.si.sgp:Truck-SG1022H", "com.bosch.si.sgp:Truck-SG1022H", \
                             "com.bosch.si.sgp/Truck-SG1022H", "com.bosch.si.sgp_Truck-SG1022H", \
                             "./tuas2bosch.csv"))
-device_list.append(Device("com.bosch.si.sgp:Truck-SG1023H", "com.bosch.si.sgp:Truck-SG1023H", \
-                            "com.bosch.si.sgp/Truck-SG1023H", "com.bosch.si.sgp_Truck-SG1023H", \
-                            "./tanjong2bosch.csv"))
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
