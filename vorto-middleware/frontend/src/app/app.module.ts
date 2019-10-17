@@ -7,6 +7,9 @@ import { SettingsViewComponent } from './component/settings-view/settings-view.c
 import { MonitoringViewComponent } from './component/monitoring-view/monitoring-view.component';
 import { PluginsViewComponent } from './component/plugins-view/plugins-view.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MessageListComponent } from './component/monitoring-view/message-list/message-list.component'; 
+
 
 @NgModule({
   declarations: [
@@ -14,11 +17,13 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
     SettingsViewComponent,
     MonitoringViewComponent,
     PluginsViewComponent,
-    SidebarComponent
+    SidebarComponent,
+    MessageListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

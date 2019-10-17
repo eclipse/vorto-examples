@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,7 +23,6 @@ public class DataSocket {
 	
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-	
 	@MessageMapping("/endpoint/subscribe")
 	public void subscribe() throws Exception {
 		
@@ -30,6 +30,8 @@ public class DataSocket {
 			
 			@Override
 			public void onMessage(MonitorMessage message) {
+				if(message.getDeviceId().equals("com.bosch.si.sgp:PMSMotor-4")) 
+					System.out.println("message is"+ message.getText());
 				messagingTemplate.convertAndSend( "/topic/device/", gson.toJson(message));	
 			}
 		});

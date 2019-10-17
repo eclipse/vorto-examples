@@ -11,6 +11,8 @@
  */
 package org.eclipse.vorto.middleware.service;
 
+import java.util.Arrays;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -59,7 +61,16 @@ public class EclipseHonoPayloadListener implements MessageListener {
 
       final IDeserializer deserializer = DeserializerFactory.getDeserializer(contentType);
       final Object rawPayload = deserializer.deserialize(message);
+      
+      if(rawPayload instanceof String[]) {
+    	  String[] rawPayloadArray = (String[]) rawPayload;
+    	  logger.info(deviceId, Arrays.toString(rawPayloadArray));
+      }
+      else {
+    	  logger.info(deviceId, rawPayload.toString());
+      }
 
+      
       InfomodelValue normalizedData = null;
       
       if (contentType != MimeType.ECLIPSE_DITTO) {

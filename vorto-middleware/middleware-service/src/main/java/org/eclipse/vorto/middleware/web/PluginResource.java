@@ -13,6 +13,7 @@ import org.eclipse.vorto.middleware.web.model.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,9 @@ public class PluginResource {
 
 	@Autowired
 	private IPluginService pluginService;
-
+	
+	
+    @CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(method = RequestMethod.GET)
 	public Collection<Plugin> getPlugins() {
 		List<Plugin> plugins = new ArrayList<Plugin>();
@@ -44,7 +47,8 @@ public class PluginResource {
 			return new ResponseEntity<Plugin>(Plugin.of(plugin.get()), HttpStatus.ACCEPTED);
 		}
 	}
-
+	
+    @CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/{pluginId}", method = RequestMethod.PUT)
 	public ResponseEntity<Plugin> applyConfiguration(@PathVariable String pluginId,
 			@RequestBody Map<String, TextConfigurationItem> configuration) {
