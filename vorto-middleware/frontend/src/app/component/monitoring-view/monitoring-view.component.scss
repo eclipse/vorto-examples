@@ -7,18 +7,17 @@
   &-search {
     input {
       height: 28px;
-      background: rgb(31, 29, 29);
-      color: white;
+      background: rgb(15, 15, 15);
       margin: 8px;
+      color: white;
       font-size: 0.9em;
-      padding-left: 4px;
+      padding-left: 8px;
       padding-right: 18px;
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
       border: none;
       font-weight: 100;
       border: 1px solid transparent;
-
 
       &:focus {
         outline: none;

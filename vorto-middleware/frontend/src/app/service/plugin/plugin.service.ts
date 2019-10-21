@@ -3,9 +3,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { of, EMPTY, Observable, throwError } from 'rxjs';
 
-const apiBaseURL: string = "http://localhost:8080/api/v1"
-const username: string = "admin"
-const password: string = "secret"
+const apiBaseURL = 'http://localhost:8080/api/v1'
+const username = 'admin'
+const password = 'secret'
 
 const DEFAULT_MAX_RETRIES = 5
 
@@ -20,12 +20,12 @@ let retries = maxRetry
 return (src: Observable<any>) =>
 src.pipe(retryWhen((errors: Observable<any>) => errors.pipe(
   delay(delayMs),
-  mergeMap(error => retries--> 0 ? of(error) : throwError(getErrorMessage(maxRetry)))
+  mergeMap(error => retries --> 0 ? of(error) : throwError(getErrorMessage(maxRetry)))
 )))
 }
 
 @Injectable({ providedIn: 'root' })
-export class PluginService implements OnInit {
+export class PluginService {
 
   constructor(private http: HttpClient) { }
 
@@ -37,7 +37,7 @@ export class PluginService implements OnInit {
     }
 
     return this.http
-      .get(apiBaseURL + "/plugins", httpOptions)
+      .get(apiBaseURL + '/plugins', httpOptions)
       .pipe(  
         delayedRetry(1000, 3),
         catchError(error =>{
@@ -51,7 +51,5 @@ export class PluginService implements OnInit {
 
 
 
-  ngOnInit(): void {
-  }
 
 }
