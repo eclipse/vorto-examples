@@ -29,21 +29,17 @@ export class Plugin {
             this.configuration = new Map(Object.entries(configuration));
         }
         else {
-            this.configuration.set("no configuration provided", "")
+            this.configuration.set('no configuration provided', '')
         }
     }
-
     hidePassword() {
-        if (this.configuration.has("password")) {
-            let pwField = this.configuration.get("password") ? this.configuration.get("password") : {}
+        if (this.configuration.has('password')) {
+            let pwField = this.configuration.get('password') ? this.configuration.get('password') : {}
                 pwField['value'] = (pwField['value']) ?
-                    "*".repeat(pwField['value'].length) :
-                    ""
+                    '*'.repeat(pwField['value'].length) :
+                    ''
             }
-        
-
     }
-
 
 
     activate() {

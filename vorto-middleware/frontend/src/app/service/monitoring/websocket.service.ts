@@ -7,7 +7,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
-const WEBSOCKET_URL: string = "http://localhost:8080/endpoint/"
+const WEBSOCKET_URL: string = 'http://localhost:8080/endpoint/'
 
 export interface Message {
   content: string;
@@ -43,10 +43,10 @@ export class WebsocketService {
     this.stompClient.connect({}, function (frame) {
       console.log('Connected to websocket. Now subscribing: ' + frame);
 
-      _this.stompClient.send("/middleware/endpoint/subscribe")
+      _this.stompClient.send('/middleware/endpoint/subscribe');
 
       _this.stompClient.subscribe('/topic/device/', function (response) {
-        result.push(JSON.parse(response.body))
+        result.push(JSON.parse(response.body));
         // Push a new copy of our message list to all Subscribers.
         _this._messages.next(result)
       });
@@ -56,11 +56,11 @@ export class WebsocketService {
   }
 
   reconnect = function() {
-    console.log(":zooo")
+    console.log(':zooo')
       this.connect();
   };
 
-  //Todo: to be used
+  // Todo: to be used
   disconnect() {
     if (this.stompClient != null) {
       this.stompClient.disconnect();

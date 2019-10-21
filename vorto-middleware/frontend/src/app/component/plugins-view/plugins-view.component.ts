@@ -79,7 +79,7 @@ export class PluginsViewComponent implements OnInit {
   }
 
   isExtended(id) {
-    var isExtended = this.extendedPluginIds.find(function (element) {
+    var isExtended = this.extendedPluginIds.find((element) => {
       return element === id;
     });
     return isExtended
