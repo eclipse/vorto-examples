@@ -8,10 +8,7 @@ export class DemoGaugeCard extends Component {
         const values = this.props.feature.properties
         var unit = (values.status.unit) ? values.status.unit : ""
         if(unit == "second"){
-            console.log("whhaa")
             unit += "s"
-            console.log(unit)
-
         }
         const value = Math.round(values.status.value * 100) / 100
 
