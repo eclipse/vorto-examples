@@ -12,16 +12,10 @@
  */
 package org.eclipse.vorto.middleware.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.annotation.PostConstruct;
 
 import org.eclipse.vorto.mapping.engine.MappingEngine;
 import org.eclipse.vorto.mapping.engine.model.spec.IMappingSpecification;
@@ -30,7 +24,6 @@ import org.eclipse.vorto.model.ModelId;
 import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -52,36 +45,15 @@ public class DefaultMappingService implements IMappingService {
 	public Collection<IMappingSpecification> listMappings() {
 		return cache.values();
 	}
-
-	@PostConstruct
-	private void loadMappingSpecifications() throws Exception {
-		File[] mappingFiles = new ClassPathResource("specs").getFile().listFiles(new FilenameFilter() {
-
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.endsWith(".json");
-			}
-		});
-
-		for (File file : mappingFiles) {
-			IMappingSpecification spec = loadMappingFromFile(file);
-			this.cache.put(spec.getInfoModel().getId().getPrettyFormat(), spec);
-		}
-	}
 	
-	private IMappingSpecification loadMappingFromFile(File file) {
-		try {
-			return IMappingSpecification.newBuilder().fromInputStream(new FileInputStream(file)).build();
-		} catch (IOException e) {
-			logger.error("Problem reading mapping specification from classpath", e);
-			return null;
-		}
-	}
-
 	@Override
 	public Optional<IMappingSpecification> getMappingForModelId(ModelId modelId) {
 		return Optional.of(cache.get(modelId.getPrettyFormat()));
 
+	}
+	
+	public void addMappingSpec(IMappingSpecification specification) {
+		this.cache.put(specification.getInfoModel().getId().getPrettyFormat(), specification);
 	}
 
 }
