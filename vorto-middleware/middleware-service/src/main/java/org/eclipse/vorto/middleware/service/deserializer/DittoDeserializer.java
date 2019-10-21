@@ -16,14 +16,16 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.TextMessage;
 
-public class DittoDeserializer implements IDeserializer {
+import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
+
+public class DittoDeserializer extends AbstractDeserializer {
 
   @Override
-	public Object deserialize(Message message) {
+	public Object deserialize(Message message,IPayloadMonitor monitor) {
 	  String textMessage;
       try {
           textMessage = ((TextMessage) message).getText();
-
+          monitor.info(getDeviceId(message),textMessage);
           return textMessage;
       } catch (JMSException e) {
           return null;

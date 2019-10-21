@@ -1,0 +1,86 @@
+.console-window{
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 38px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgb(15, 15, 15);
+    padding: 8px;
+    margin: 8px;
+    padding-right: -17px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: grey;
+    -webkit-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.5);
+&__message{
+    font-family: 'Inconsolata', monospace;
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    &-title{
+        color:rgb(180, 180, 180);
+        font-weight: bolder;
+    }
+
+}
+.blinking-cursor {
+    font-weight: 100;
+    font-size: 1em;
+    color: grey;
+    -webkit-animation: 1s blink step-end infinite;
+    -moz-animation: 1s blink step-end infinite;
+    -ms-animation: 1s blink step-end infinite;
+    -o-animation: 1s blink step-end infinite;
+    animation: 1s blink step-end infinite;
+  }
+  
+  @keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: grey;
+      ;
+    }
+  }
+  
+  @-moz-keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: grey;
+    }
+  }
+  
+  @-webkit-keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: grey;
+    }
+  }
+  
+  @-ms-keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: grey;
+    }
+  }
+  
+  @-o-keyframes blink {
+    from, to {
+      color: transparent;
+    }
+    50% {
+      color: grey;
+    }
+  }
+
+}
