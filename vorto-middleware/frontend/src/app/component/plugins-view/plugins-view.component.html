@@ -16,7 +16,7 @@
 
 
       <div class="plugin-list__item-image unselectable">
-        <img [src]="plugin.imageUrl">
+        <img class="unselectable" [src]="plugin.imageUrl">
       </div>
 
       <div class="plugin-list__item-field">
@@ -25,7 +25,7 @@
       </div>
 
 
-      <div (click)="toggle(plugin.id)" class="plugin-list__item-toggle-button">
+      <div (click)="toggle(plugin.id)" class="plugin-list__item-toggle-button unselectable">
         <img [ngClass]="{'extended': isExtended(plugin.id)}" [src]="toggleIcon">
       </div>
     </div>

@@ -14,6 +14,8 @@ package org.eclipse.vorto.middleware.service.deserializer;
 
 import javax.jms.Message;
 
+import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
+
 public class DeserializerFactory {
     private static final IDeserializer CSV_DESERIALIZER = new CsvDeserializer();
     private static final IDeserializer JSON_DESERIALIZER = new JsonDeserializer();
@@ -22,7 +24,7 @@ public class DeserializerFactory {
     private static final IDeserializer NOOP_DESERIALIZER = new IDeserializer() {
       
       @Override
-      public Object deserialize(Message message) {
+      public Object deserialize(Message message, IPayloadMonitor monitor ) {
         return message;
       }
     };

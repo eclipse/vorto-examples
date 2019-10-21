@@ -16,23 +16,24 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.TextMessage;
 
+import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CsvDeserializer implements IDeserializer {
-
-	private static final Logger logger = LoggerFactory.getLogger(CsvDeserializer.class);
-
+public class CsvDeserializer extends AbstractDeserializer {
+	
 	@Override
-	public Object deserialize(Message message) {
+	public Object deserialize(Message message, IPayloadMonitor monitor) {
+		
 		String textMessage;
-		try {
+		try {			
 			textMessage = ((TextMessage) message).getText();
+			monitor.info(getDeviceId(message),textMessage);
 			final String[] payload = textMessage.split(",");
 
 			return payload;
 		} catch (JMSException e) {
-			logger.error(String.format("Unable to deserialize CSV payload to Array. Could not get text from message."));
+			monitor.error(getDeviceId(message),String.format("Unable to deserialize CSV payload to Array. Could not get text from message."));
 			e.printStackTrace();
 			return null;
 		}

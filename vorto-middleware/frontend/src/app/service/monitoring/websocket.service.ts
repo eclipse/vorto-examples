@@ -7,27 +7,36 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
+const WEBSOCKET_URL: string = "http://localhost:8080/endpoint/"
 
 export interface Message {
   content: string;
 }
 
-@Injectable({ providedIn: 'root' })
+
+export function SocketFactory() {
+  return new SockJS(WEBSOCKET_URL);
+}
+
+@Injectable()
 export class WebsocketService {
-   private _messages = new BehaviorSubject<String[]>([]);
-   readonly messages = this._messages.asObservable()
-
-  constructor() {
-   }
-
+  private _messages = new BehaviorSubject<String[]>([]);
+  readonly messages = this._messages.asObservable()
 
   private stompClient = null;
 
 
+  constructor() {
 
-  public connect(url) {
-    const socket = new SockJS(url);
+  }
+
+
+
+
+  public connect() {
+    const socket = SocketFactory;
     this.stompClient = Stomp.Stomp.over(socket)
+    this.stompClient.reconnect_delay = 5000;
     const _this = this
     let result: Array<String> = []
 
@@ -41,18 +50,22 @@ export class WebsocketService {
         // Push a new copy of our message list to all Subscribers.
         _this._messages.next(result)
       });
-    });
+    }
+    );
+
   }
 
-
-
+  reconnect = function() {
+    console.log(":zooo")
+      this.connect();
+  };
 
   //Todo: to be used
   disconnect() {
     if (this.stompClient != null) {
       this.stompClient.disconnect();
     }
-     console.log('Disconnected!');
+    console.log('Disconnected!');
   }
 
 }

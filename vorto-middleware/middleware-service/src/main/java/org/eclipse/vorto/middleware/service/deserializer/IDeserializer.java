@@ -14,6 +14,8 @@ package org.eclipse.vorto.middleware.service.deserializer;
 
 import javax.jms.Message;
 
+import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
+
 public interface IDeserializer {
-	public Object deserialize(Message message);
+	public Object deserialize(Message message, IPayloadMonitor monitor);
 }

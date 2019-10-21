@@ -1,13 +1,36 @@
-.monitoring__container{
-    position: relative;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    
-    &-output{
-        height: 100%;
- 
+.monitoring__container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  &-search {
+    input {
+      height: 28px;
+      background: rgb(31, 29, 29);
+      color: white;
+      margin: 8px;
+      font-size: 0.9em;
+      padding-left: 4px;
+      padding-right: 18px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border: none;
+      font-weight: 100;
+      border: 1px solid transparent;
+
+
+      &:focus {
+        outline: none;
+        border: 1px solid #005d979a;
+      }
     }
-  
+  }
+
+  &-output {
+    height: 100%;
+
+  }
+
 
 }

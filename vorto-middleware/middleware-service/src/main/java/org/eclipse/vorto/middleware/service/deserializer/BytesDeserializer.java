@@ -19,6 +19,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 
 import org.eclipse.vorto.mapping.engine.model.binary.BinaryData;
+import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,13 +27,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
-public class BytesDeserializer implements IDeserializer {
+public class BytesDeserializer extends AbstractDeserializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(BytesDeserializer.class);
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Override
-	public Object deserialize(Message message) {
+	public Object deserialize(Message message,IPayloadMonitor monitor) {
 		if (message instanceof BytesMessage) {
 			final BytesMessage byteMessage = (BytesMessage) message;
 			BinaryData binary;

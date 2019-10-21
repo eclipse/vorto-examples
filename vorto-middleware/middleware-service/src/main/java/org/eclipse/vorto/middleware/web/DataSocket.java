@@ -30,8 +30,6 @@ public class DataSocket {
 			
 			@Override
 			public void onMessage(MonitorMessage message) {
-				if(message.getDeviceId().equals("com.bosch.si.sgp:PMSMotor-4")) 
-					System.out.println("message is"+ message.getText());
 				messagingTemplate.convertAndSend( "/topic/device/", gson.toJson(message));	
 			}
 		});

@@ -8,7 +8,8 @@ import { MonitoringViewComponent } from './component/monitoring-view/monitoring-
 import { PluginsViewComponent } from './component/plugins-view/plugins-view.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MessageListComponent } from './component/monitoring-view/message-list/message-list.component'; 
+import { MonitoringConsole } from './component/monitoring-view/monitoring-console/monitoring-console.component'; 
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,12 +19,13 @@ import { MessageListComponent } from './component/monitoring-view/message-list/m
     MonitoringViewComponent,
     PluginsViewComponent,
     SidebarComponent,
-    MessageListComponent
+    MonitoringConsole
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

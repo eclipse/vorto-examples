@@ -16,27 +16,25 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.TextMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class JsonDeserializer implements IDeserializer {
+public class JsonDeserializer extends AbstractDeserializer {
 
-	private static final Logger logger = LoggerFactory.getLogger(JsonDeserializer.class);
 	protected static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Override
-	public Object deserialize(Message message) {
+	public Object deserialize(Message message, IPayloadMonitor monitor) {
 		String textMessage;
 		try {
 			textMessage = ((TextMessage) message).getText();
+			monitor.info(getDeviceId(message),textMessage);
 			final Object payload = gson.fromJson(textMessage, Object.class);
-
 			return payload;
 		} catch (JMSException e) {
-			logger.error(
+			monitor.error(getDeviceId(message),
 					String.format("Unable to deserialize JSON payload to Object. Could not get text from message."));
 			e.printStackTrace();
 			return null;

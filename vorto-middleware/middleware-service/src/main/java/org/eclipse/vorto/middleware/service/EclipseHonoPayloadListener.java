@@ -60,16 +60,7 @@ public class EclipseHonoPayloadListener implements MessageListener {
       final MimeType contentType = MimeType.create(message.getStringProperty(HEADER_CONTENT_TYPE));
 
       final IDeserializer deserializer = DeserializerFactory.getDeserializer(contentType);
-      final Object rawPayload = deserializer.deserialize(message);
-      
-      if(rawPayload instanceof String[]) {
-    	  String[] rawPayloadArray = (String[]) rawPayload;
-    	  logger.info(deviceId, Arrays.toString(rawPayloadArray));
-      }
-      else {
-    	  logger.info(deviceId, rawPayload.toString());
-      }
-
+      final Object rawPayload = deserializer.deserialize(message, logger);
       
       InfomodelValue normalizedData = null;
       

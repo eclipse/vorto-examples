@@ -16,7 +16,7 @@ export class PluginsViewComponent implements OnInit {
 
   constructor(private pluginService: PluginService) { }
 
-  private PLUGIN_UPDATE_INTERVAL = 3000
+  private PLUGIN_UPDATE_INTERVAL = 5000
   public result = ""
 
   public pluginList: Array<Plugin> = []

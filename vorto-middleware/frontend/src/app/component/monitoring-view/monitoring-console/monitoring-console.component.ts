@@ -1,13 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'message-list',
-  templateUrl: './message-list.component.html',
-  styleUrls: ['./message-list.component.scss']
+  selector: 'monitoring-console',
+  templateUrl: './monitoring-console.component.html',
+  styleUrls: ['./monitoring-console.component.scss']
 })
-export class MessageListComponent implements OnInit {
+export class MonitoringConsole implements OnInit {
 
   constructor() { }
+
   ngOnInit() {
 
   }
@@ -23,7 +24,7 @@ export class MessageListComponent implements OnInit {
     return i;
   }
   getMessageTitle(message){
-    let timestamp = new Date()   
+    let timestamp = new Date(message.timestamp)
     let severity = (message.severity) ? message.severity : "INFO"
     let deviceId = (message.deviceId) ? message.deviceId.substring(message.deviceId.indexOf(":") + 1, message.deviceId.length) : "no-deviceId"
 
@@ -33,10 +34,6 @@ export class MessageListComponent implements OnInit {
             "[" + severity + "] "+ deviceId +": "
   }
   getMessageString(message){
-    // let text = (message.text) ? message.text : ""
-    // let changes = (text.substring(text.indexOf("/features") + 10, text.length))
-    // let changesWithoutConfig = changes.substring(0, changes.indexOf(", \"configuration"))
-
     return JSON.stringify(message)
   
   }}
