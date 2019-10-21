@@ -48,7 +48,11 @@ const CATEGORIES = {
     ],
     DEMO_GAGE: [
       'org.eclipse.vorto.tutorial:RotationalSpeed:1.0.0',
-      'org.eclipse.vorto.tutorial:Torque:1.0.0'
+      'org.eclipse.vorto.tutorial:Torque:1.0.0',
+      'vorto.private.timgrossmann:AirQuality:1.0.0',
+      'org.eclipse.vorto:Luminance:1.0.0',
+      'vorto.private.timgrossmann:Irradiance:1.0.0'
+
     ]
   }
   

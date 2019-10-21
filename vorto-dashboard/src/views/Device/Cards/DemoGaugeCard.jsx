@@ -6,7 +6,10 @@ import { getRepositoryLink } from '../../../util'
 export class DemoGaugeCard extends Component {
     render() {
         const values = this.props.feature.properties
-        const unit = values.status.unit
+        var unit = (values.status.unit) ? values.status.unit : ""
+        if(unit == "second"){
+            unit += "s"
+        }
         const value = Math.round(values.status.value * 100) / 100
 
         const currVal = value || 0
