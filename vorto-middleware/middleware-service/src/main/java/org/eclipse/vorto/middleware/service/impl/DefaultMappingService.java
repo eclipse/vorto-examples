@@ -55,7 +55,7 @@ public class DefaultMappingService implements IMappingService {
 
 	@PostConstruct
 	private void loadMappingSpecifications() throws Exception {
-		File[] mappingFiles = new ClassPathResource("specs/").getFile().listFiles(new FilenameFilter() {
+		File[] mappingFiles = new ClassPathResource("specs").getFile().listFiles(new FilenameFilter() {
 
 			@Override
 			public boolean accept(File dir, String name) {
