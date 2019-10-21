@@ -1,0 +1,16 @@
+hono:
+  tenantId: 
+  password: 
+  
+admin:
+  password: 
+
+msg:
+  queue: telemetry/${hono.tenantId}
+
+session:
+  cache:
+    size: 1
+    
+spring:
+  jackson.serialization.write-dates-as-timestamps: false
