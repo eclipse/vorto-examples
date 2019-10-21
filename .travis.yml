@@ -26,27 +26,6 @@ jobs:
         app: "Vorto-Payload-Normalizer-Service"
         env: "Payload-Normalizer-Dev"
         bucket_name: "$VORTO_S3_BUCKET"
-
-    - stage: deploy-middleware-frontend-aws
-      name: "Deploys the Vorto-Middlware Frontend to AWS"
-      language: node_js
-      node_js:
-        - '10'
-      before_script:
-        - npm install -g @angular/cli
-        
-      script:
-
-      before_install:
-        - cd vorto-middleware/frontend
-
-      install:
-        - echo "Installing dependencies"
-        - npm install
-
-      after_success:
-        - echo "Creating build"
-        - ng build --prod
       
       
     - stage: deploy-dashboard-aws
@@ -91,10 +70,6 @@ jobs:
         on:
           branch: master
       
-
-
-
-
     - stage: deploy-npm
       name: "Publish Vorto-Dashboard to NPM"
       language: node_js
