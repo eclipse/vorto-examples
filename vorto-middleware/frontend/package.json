@@ -1,10 +1,10 @@
 {
-  "name": "vorto-middleware-ui",
+  "name": "vorto-middleware",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build && cd dist && zip -r middleware-frontend.zip .",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'vorto-middleware-ui'`, () => {
+  it(`should have as title 'vorto-middleware'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('vorto-middleware-ui');
+    expect(app.title).toEqual('vorto-middleware');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('vorto-middleware-ui app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('vorto-middleware app is running!');
   });
 });
