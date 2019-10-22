@@ -5,7 +5,7 @@ hono:
 admin:
   password: 
   
-cors: 
+cors:
 
 msg:
   queue: telemetry/${hono.tenantId}
