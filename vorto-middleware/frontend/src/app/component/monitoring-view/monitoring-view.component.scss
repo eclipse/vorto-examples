@@ -6,22 +6,23 @@
 
   &-search {
     input {
-      height: 28px;
-      background: rgb(15, 15, 15);
-      margin: 8px;
-      color: white;
-      font-size: 0.9em;
+      height: 38px;
+      margin: 8px 7px;
+      color: rgb(68, 68, 68);
+      font-size: 0.9rem;
       padding-left: 8px;
       padding-right: 18px;
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
+      border-top-right-radius: 0.4rem;
+      border-bottom-right-radius: 0.4rem;
       border: none;
       font-weight: 100;
-      border: 1px solid transparent;
+      border: 0.5px solid rgba(163, 163, 163, 0.603);
+      font-family: 'Open Sans', sans-serif;
+
 
       &:focus {
         outline: none;
-        border: 1px solid #005d979a;
+        border: 0.5px solid rgba(0, 0, 0, 0.267);
       }
     }
   }

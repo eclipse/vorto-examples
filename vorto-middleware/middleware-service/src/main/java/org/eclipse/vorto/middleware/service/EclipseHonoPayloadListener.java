@@ -11,8 +11,6 @@
  */
 package org.eclipse.vorto.middleware.service;
 
-import java.util.Arrays;
-
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -50,13 +48,11 @@ public class EclipseHonoPayloadListener implements MessageListener {
   private static final String HEADER_DEVICE_ID = "device_id";
   private static final String HEADER_VORTO_ID = "vorto";
   private static final String HEADER_CONTENT_TYPE = "JMS_AMQP_CONTENT_TYPE";
-  private static final String HEADER_NAMESPACE = "namespace";
 
   @Override
   public void onMessage(Message message) {
     try {
       final String deviceId = message.getStringProperty(HEADER_DEVICE_ID);
-      final String namespace = message.getStringProperty(HEADER_NAMESPACE);      
       final MimeType contentType = MimeType.create(message.getStringProperty(HEADER_CONTENT_TYPE));
 
       final IDeserializer deserializer = DeserializerFactory.getDeserializer(contentType);
@@ -78,7 +74,7 @@ public class EclipseHonoPayloadListener implements MessageListener {
       
       pluginService.startedPlugins().stream().forEach(handler -> {
         try {
-          handler.execute(normalizedPayload, new ExecutionContext(deviceId, namespace, contentType,rawPayload,logger));
+          handler.execute(normalizedPayload, new ExecutionContext(deviceId, contentType,rawPayload,logger));
         } catch (ExecutionProblem t) {
           logger.error(deviceId,t.getMessage());
         }

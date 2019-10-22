@@ -1,1 +1,13 @@
-<p>settings-view works!</p>
+<div class="settings__container">
+  <div class="settings__container-header">Activated mappings:</div>
+  <div class="mapping-item" *ngFor="let mapping of mappingList">
+      {{mapping.mappingId}}
+      <div class="mapping-item-toggle unselectable" (click)="toggle(mapping.mappingId)">
+        <img [ngClass]="{'extended': isExtended(mapping.mappingId)}" [src]="toggleIcon">
+      </div>
+    <div class="json-container" [ngClass]="{'extended': isExtended(mapping.mappingId)}">
+      <pre>{{mapping.content | json}}</pre>
+
+    </div>
+
+  </div>

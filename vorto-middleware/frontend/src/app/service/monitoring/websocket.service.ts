@@ -60,7 +60,6 @@ export class WebsocketService {
       this.connect();
   };
 
-  // Todo: to be used
   disconnect() {
     if (this.stompClient != null) {
       this.stompClient.disconnect();

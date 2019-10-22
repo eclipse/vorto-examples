@@ -1,6 +1,5 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { PluginService } from 'src/app/service/plugin/plugin.service';
-import { async } from 'q';
+import { APIService } from 'src/app/service/api/api.service';
 import { interval } from 'rxjs';
 
 import { startWith, switchMap } from 'rxjs/operators';
@@ -10,11 +9,11 @@ import { Plugin } from 'src/app/model/plugin';
   selector: 'app-plugins-view',
   templateUrl: './plugins-view.component.html',
   styleUrls: ['./plugins-view.component.scss'],
-  providers: [PluginService]
+  providers: [APIService]
 })
 export class PluginsViewComponent implements OnInit {
 
-  constructor(private pluginService: PluginService) { }
+  constructor(private pluginService: APIService) { }
 
   private PLUGIN_UPDATE_INTERVAL = 5000
   public result = ""
@@ -93,7 +92,7 @@ export class PluginsViewComponent implements OnInit {
       .subscribe(
         async res => {
           this.getPluginData(res)
-          console.log("updating plugin list: ", res)
+          console.log("updating plugins: ", res)
         }, (err) => console.log(err)
       )
   }
