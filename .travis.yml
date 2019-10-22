@@ -40,7 +40,7 @@ jobs:
       install:
         - npm install
       after_success:
-        - ng build --prod --aot
+        - ng build --prod
       before_deploy:
         - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} vorto-middleware-frontend "
         - export ELASTIC_BEANSTALK_ENV=vorto-middleware-frontend-${TRAVIS_BRANCH}
