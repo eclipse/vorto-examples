@@ -1,0 +1,48 @@
+<div class="plugin-list__container">
+    <div *ngFor="let plugin of pluginList">
+      <div class="plugin-list__item" [ngClass]="{'extended': isExtended(plugin.id)}">
+  
+        <div class="plugin-list__item-name unselectable">
+          <span>{{plugin.name}}</span>
+          <div class="triangle-background"></div>
+        </div>
+  
+  
+        <div class="plugin-list__item-state">
+          <span class="activated" *ngIf="plugin.isActivated; else elseBlock"> running</span>
+          <ng-template #elseBlock><span>inactive</span></ng-template>
+          <div [ngClass]="{'updating': plugin.isUpdating, 'activated': plugin.isActivated}" class="state-loading-ring"> </div>
+        </div>
+  
+  
+        <div class="plugin-list__item-image unselectable">
+          <img class="unselectable" [src]="plugin.imageUrl">
+        </div>
+  
+        <div class="plugin-list__item-field">
+          <span class="title unselectable">{{plugin.description}} </span>
+          <span></span>
+        </div>
+  
+  
+        <div (click)="toggle(plugin.id)" class="plugin-list__item-toggle-button unselectable">
+          <img [ngClass]="{'extended': isExtended(plugin.id)}" [src]="toggleIcon">
+        </div>
+      </div>
+      <div [ngClass]="{'extended': isExtended(plugin.id)}" class="plugin-list__item-extension">
+        <div class="configuration-container" *ngIf="isExtended(plugin.id)">
+          <span class="configuration-container-header unselectable">Configuration:</span>
+  
+          <div class="configuration-container-field" *ngFor="let configurationItem of plugin.configuration | keyvalue">
+            <span class="title unselectable">{{configurationItem.key}}</span> <span class="title"
+              *ngIf="configurationItem.value.value?.length > 0">: </span>
+            <span>{{configurationItem.value.value}}</span>
+  
+  
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

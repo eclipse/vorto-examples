@@ -1,0 +1,38 @@
+.monitoring__container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  &-search {
+    input {
+      height: 38px;
+      margin: 8px 7px;
+      color: black;
+      font-size: 0.9rem;
+      padding-left: 8px;
+      padding-right: 18px;
+      border-top-right-radius: 0.4rem;
+      border-bottom-right-radius: 0.4rem;
+      border: none;
+      font-weight: 100;
+      background: rgb(241, 241, 241);  
+      font-family: 'Open Sans', sans-serif;
+      -webkit-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
+      box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
+
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &-output {
+    height: 100%;
+
+  }
+
+
+}
