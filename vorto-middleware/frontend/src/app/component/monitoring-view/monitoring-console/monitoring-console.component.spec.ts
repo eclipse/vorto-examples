@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageListComponent } from './monitoring-console.component';
+import { MonitoringConsole } from './monitoring-console.component';
 
-describe('MessageListComponent', () => {
-  let component: MessageListComponent;
-  let fixture: ComponentFixture<MessageListComponent>;
+describe('MonitoringConsole', () => {
+  let component: MonitoringConsole;
+  let fixture: ComponentFixture<MonitoringConsole>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageListComponent ]
+      declarations: [ MonitoringConsole ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessageListComponent);
+    fixture = TestBed.createComponent(MonitoringConsole);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

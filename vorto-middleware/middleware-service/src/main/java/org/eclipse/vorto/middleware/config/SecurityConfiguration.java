@@ -21,7 +21,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Value("${cors}")
+	@Value(value = "${cors}")
 	private String crossOrigin;
 
 	@Value("${admin.password}")
