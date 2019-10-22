@@ -2,6 +2,7 @@
   <div class="monitoring__container-search">
     <input type="text" placeholder="Enter a device id to filter..." (keyup)='refreshList()' [(ngModel)]="filterString">
     <span *ngIf="filteredMessages.length === 0 && messageList.length != 0">please enter a valid deviceId</span>
+    <button (click)="clearResults()">clear</button>
 
   </div>
   <div class="monitoring__container-output">
