@@ -38,7 +38,7 @@ export class PluginsViewComponent implements OnInit {
           plugin.name = element.name ? element.name : ""
           plugin.description = element.description ? element.description : ""
           plugin.imageUrl = element.imageUrl ? element.imageUrl : ""
-          plugin.isActivated = element.isActivated ? element.isActivated : false
+          plugin.isActivated = element.started ? element.started : false
           plugin.getConfiguration(element.configuration)
           plugin.hidePassword()
           refreshedPlugins.push(plugin)
