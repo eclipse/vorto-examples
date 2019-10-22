@@ -6,7 +6,7 @@ import * as SockJS from 'sockjs-client'
 import { BehaviorSubject } from 'rxjs';
 
 
-//const WEBSOCKET_URL: string = 'http://localhost:8080/endpoint/'
+// const WEBSOCKET_URL: string = 'http://localhost:8080/endpoint/'
 const WEBSOCKET_URL: string = 'http://vorto-normalizer-dev.eu-central-1.elasticbeanstalk.com:8080/endpoint/'
 
 
