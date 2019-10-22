@@ -1,5 +1,5 @@
 {
-  "name": "vorto-middleware-ui",
+  "name": "vorto-middleware",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

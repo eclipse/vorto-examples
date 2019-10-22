@@ -4,8 +4,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { of, EMPTY, Observable, throwError } from 'rxjs';
 
 
-export const apiBaseURL = 'http://localhost:8080/api/v1'
-//export const apiBaseURL = 'http://vorto-normalizer-dev.eu-central-1.elasticbeanstalk.com:8080/api/v1'
+// export const apiBaseURL = 'http://localhost:8080/api/v1'
+export const apiBaseURL = 'http://vorto-normalizer-dev.eu-central-1.elasticbeanstalk.com:8080/api/v1'
 
 
 const username = 'admin'

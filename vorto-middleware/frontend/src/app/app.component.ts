@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 
-  title = 'vorto-middleware-ui';
+  title = 'vorto-middleware';
 
 
   constructor(private wsService: WebsocketService) { }
