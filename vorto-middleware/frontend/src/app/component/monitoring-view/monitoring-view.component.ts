@@ -35,6 +35,9 @@ export class MonitoringViewComponent implements OnInit {
       }
     }
   }
+  clearResults(){
+    this.messageList = []
+  }
 
   filterMessages(messages, filterString){
     if(filterString.length !== 0 && filterString.length >= 2 ){

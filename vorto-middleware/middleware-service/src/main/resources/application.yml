@@ -1,11 +1,11 @@
 hono:
-  tenantId: td879f7e1e3a442c388dd64c5c4ae1d77
-  password: RjDXkaGjsnS6JWdrLCAW
+  tenantId:
+  password:
   
 admin:
   password: 
   
-cors: http://localhost:4200
+cors: 
 
 msg:
   queue: telemetry/${hono.tenantId}
@@ -16,3 +16,4 @@ session:
     
 spring:
   jackson.serialization.write-dates-as-timestamps: false
+
