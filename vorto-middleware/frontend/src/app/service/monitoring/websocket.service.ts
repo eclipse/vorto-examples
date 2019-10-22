@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client'
-import { Subject, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 
-const WEBSOCKET_URL: string = 'http://localhost:8080/endpoint/'
+//const WEBSOCKET_URL: string = 'http://localhost:8080/endpoint/'
+const WEBSOCKET_URL: string = 'http://vorto-normalizer-dev.eu-central-1.elasticbeanstalk.com:8080/endpoint/'
+
+
 
 export interface Message {
   content: string;
