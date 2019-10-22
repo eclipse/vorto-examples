@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PluginService } from './plugin.service';
+import { APIService } from './api.service';
 
 describe('PluginService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: PluginService = TestBed.get(PluginService);
+    const service: APIService = TestBed.get(APIService);
     expect(service).toBeTruthy();
   });
 });

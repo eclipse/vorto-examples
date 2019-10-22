@@ -21,10 +21,11 @@ public class DeserializerFactory {
     private static final IDeserializer JSON_DESERIALIZER = new JsonDeserializer();
     private static final IDeserializer DITTO_DESERIALIZER = new DittoDeserializer();
 
-    private static final IDeserializer NOOP_DESERIALIZER = new IDeserializer() {
+    private static final IDeserializer NOOP_DESERIALIZER = new AbstractDeserializer() {
       
       @Override
       public Object deserialize(Message message, IPayloadMonitor monitor ) {
+    	monitor.warn(getDeviceId(message), "No deserializer found for this payload.");
         return message;
       }
     };

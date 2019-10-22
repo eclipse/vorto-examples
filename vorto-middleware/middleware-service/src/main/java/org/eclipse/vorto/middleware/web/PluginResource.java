@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/v1/plugins")
 public class PluginResource {
 
@@ -28,7 +29,6 @@ public class PluginResource {
 	private IPluginService pluginService;
 	
 	
-    @CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(method = RequestMethod.GET)
 	public Collection<Plugin> getPlugins() {
 		List<Plugin> plugins = new ArrayList<Plugin>();
@@ -37,7 +37,7 @@ public class PluginResource {
 		});
 		return plugins;
 	}
-
+    
 	@RequestMapping(value = "/{pluginId}", method = RequestMethod.GET)
 	public ResponseEntity<Plugin> getPlugin(@PathVariable String pluginId) {
 		Optional<IPlugin> plugin = this.pluginService.getPlugin(pluginId);
@@ -48,7 +48,6 @@ public class PluginResource {
 		}
 	}
 	
-    @CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/{pluginId}", method = RequestMethod.PUT)
 	public ResponseEntity<Plugin> applyConfiguration(@PathVariable String pluginId,
 			@RequestBody Map<String, TextConfigurationItem> configuration) {

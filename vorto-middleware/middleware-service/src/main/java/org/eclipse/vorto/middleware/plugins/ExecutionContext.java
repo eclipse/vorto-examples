@@ -12,10 +12,6 @@
  */
 package org.eclipse.vorto.middleware.plugins;
 
-import java.util.NoSuchElementException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
 import org.eclipse.vorto.middleware.service.deserializer.MimeType;
 
@@ -26,18 +22,14 @@ import org.eclipse.vorto.middleware.service.deserializer.MimeType;
 public class ExecutionContext {
 
 	private String deviceId;
-	private String namespace;
 	private MimeType mimeType;
 	private Object rawPayload;
 	
 	private IPayloadMonitor logger = null;
 	
-	public ExecutionContext(String deviceId, String namespace, MimeType mimeType, Object rawPayload, IPayloadMonitor logger) {
+	public ExecutionContext(String deviceId, MimeType mimeType, Object rawPayload, IPayloadMonitor logger) {
 		super();
-		this.deviceId = getDeviceId(deviceId);
-		if (namespace != null) {
-		  this.namespace = getNamespace(deviceId, namespace);
-		}
+		this.deviceId = deviceId;
 		this.mimeType = mimeType;
 		this.rawPayload = rawPayload;
 		this.logger = logger;
@@ -46,10 +38,6 @@ public class ExecutionContext {
 
 	public String getDeviceId() {
 		return deviceId;
-	}
-
-	public String getNamespace() {
-		return namespace;
 	}
 	
 	public MimeType getMimeType() {
@@ -64,34 +52,5 @@ public class ExecutionContext {
 		return this.logger;
 	}
 	
-	private String getDeviceId(String deviceId) {
-		if (!deviceId.contains(":")) {
-			return deviceId;
-		}
-
-		Pattern pattern = Pattern.compile(".*:(.*)");
-		Matcher matcher = pattern.matcher(deviceId);
-
-		if (matcher.matches()) {
-			return matcher.group(1);
-		}
-
-		throw new NoSuchElementException("No deviceID was provided for your device. Please use the deviceId header.");
-	}
-
-	private String getNamespace(String deviceId, String namespace) {
-		if (namespace != null) {
-			return namespace;
-		}
-
-		Pattern pattern = Pattern.compile("(.*):.*");
-		Matcher matcher = pattern.matcher(deviceId);
-
-		if (matcher.matches()) {
-			return matcher.group(1);
-		}
-
-		throw new NoSuchElementException(
-				"No namespace was provided for your device. Please use the namespace header or prefix your deviceId with the according namespace");
-	}
+	
 }

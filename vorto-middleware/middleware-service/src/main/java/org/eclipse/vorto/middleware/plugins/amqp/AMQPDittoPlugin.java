@@ -18,6 +18,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
 import org.eclipse.vorto.mapping.targetplatform.ditto.TwinPayloadFactory;
 import org.eclipse.vorto.middleware.plugins.AbstractPlugin;
+import org.eclipse.vorto.middleware.plugins.DittoUtils;
 import org.eclipse.vorto.middleware.plugins.ExecutionContext;
 import org.eclipse.vorto.middleware.plugins.config.TextConfigurationItem;
 import org.eclipse.vorto.middleware.service.deserializer.MimeType;
@@ -45,7 +46,7 @@ public class AMQPDittoPlugin extends AbstractPlugin {
 	public void doExecute(InfomodelValue infomodelValue, ExecutionContext context) {
 		context.getLogger().info(context.getDeviceId(), "Publishing ditto protocol payload to AMQP endpoint");
 		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {
-			context.getLogger().info(context.getDeviceId(), (String) context.getRawPayload());
+			context.getLogger().info(context.getDeviceId(),(String) context.getRawPayload());
 			try {
 				jmsTemplate.convertAndSend(topic, (String) context.getRawPayload());
 			} catch(JmsException exception) {
@@ -54,8 +55,8 @@ public class AMQPDittoPlugin extends AbstractPlugin {
 		} else {
 			for (String fbProperty : infomodelValue.getProperties().keySet()) {
 				FunctionblockValue value = infomodelValue.get(fbProperty);
-				JsonObject updateCommand = TwinPayloadFactory.toDittoProtocol(value, fbProperty, context.getNamespace(),
-						context.getDeviceId());
+				JsonObject updateCommand = TwinPayloadFactory.toDittoProtocol(value, fbProperty, DittoUtils.getDittoNamespaceFromDeviceId(context.getDeviceId()),
+						DittoUtils.getDittoSuffixFromDeviceId(context.getDeviceId()));
 				String updateCommandJson = gson.toJson(updateCommand);
 				context.getLogger().info(context.getDeviceId(), updateCommandJson);
 				try {
