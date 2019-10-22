@@ -19,6 +19,8 @@ export class SettingsViewComponent implements OnInit {
   public extendedMappingIds: Array<string> = []
 
   public toggleIcon = "../../assets/icon/single-toggle.svg";
+  public urlIcon = "../../assets/icon/url.svg";
+
 
 
 
@@ -32,7 +34,8 @@ export class SettingsViewComponent implements OnInit {
     if (res) {
       res.map(element => {if (element) {
         const id = (element.infoModel.fullQualifiedFileName) ? element.infoModel.fullQualifiedFileName : "no id provided"
-        refreshedMappings.push({mappingId : id, content : element})}});
+        const url = (element.infoModel.id.prettyFormat) ? this.getRepositoryUrl(element.infoModel.id.prettyFormat) : "empty"
+        refreshedMappings.push({mappingId : id, url : url})}});
       if (JSON.stringify(this.mappingList) !== JSON.stringify(refreshedMappings)) {
         this.mappingList = refreshedMappings
        }
@@ -62,7 +65,6 @@ export class SettingsViewComponent implements OnInit {
         this.extendedMappingIds.splice(index, 1);
       }
     }
-    console.log(this.extendedMappingIds)
   }
 
 
@@ -73,6 +75,6 @@ export class SettingsViewComponent implements OnInit {
     return isExtended
   }
 
-}
-
-
+  getRepositoryUrl(id){
+    return "https://vorto.eclipse.org/#/details/"+ id
+  }}
