@@ -25,6 +25,8 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 	
 	private IPayloadMonitorCallback callback = null;
 	
+	private static int activeConnections = 0;
+	
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPayloadMonitor.class);
 
 	@Override
@@ -46,7 +48,18 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 
 	@Override
 	public void registerCallback(IPayloadMonitorCallback callback) {
-		this.callback = callback;	
+		this.callback = callback;
+		activeConnections++;
+		
+	}
+
+	@Override
+	public void unregisterCallback() {
+		activeConnections--;
+		 if (activeConnections <= 0) {
+			 callback = null;
+		 }
+		
 	}
 
 }

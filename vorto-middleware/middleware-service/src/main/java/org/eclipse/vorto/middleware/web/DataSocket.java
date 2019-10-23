@@ -29,8 +29,13 @@ public class DataSocket {
 			
 			@Override
 			public void onMessage(MonitorMessage message) {
-				//messagingTemplate.convertAndSend( "/topic/device/", gson.toJson(message));	
+				messagingTemplate.convertAndSend( "/topic/device/", gson.toJson(message));	
 			}
 		});
+	}
+	
+	@MessageMapping("/endpoint/unsubscribe")
+	public void unsubscribe() throws Exception {
+		messageLogger.unregisterCallback();
 	}
 }
