@@ -9,7 +9,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.eclipse.vorto.middleware.plugins.amqp;
+package org.eclipse.vorto.middleware.plugins.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-public class AMQPDittoPlugin extends AbstractPlugin {
+public class EclipseDittoPlugin extends AbstractPlugin {
 
 	private JmsTemplate jmsTemplate;
 
@@ -76,12 +76,12 @@ public class AMQPDittoPlugin extends AbstractPlugin {
 
 	@Override
 	public String getName() {
-		return "Eclipse Ditto - AMQP 1.0";
+		return "Eclipse Ditto - Digital Twin API";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Publishes payload as Eclipse Ditto protocol to an AMQP endpoint.";
+		return "Publishes harmonized device telemetry data to Eclipse Ditto Service.";
 	}
 
 	@Override

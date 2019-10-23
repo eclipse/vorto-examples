@@ -1,4 +1,4 @@
-package org.eclipse.vorto.middleware.plugins.unide;
+package org.eclipse.vorto.middleware.plugins.impl;
 
 import java.util.Collections;
 import java.util.Map;
@@ -10,26 +10,26 @@ import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PPMPlugin extends AbstractPlugin {
+public class AzureIoTPlugin extends AbstractPlugin {
 
 	@Override
 	public String getId() {
-		return "PPM";
+		return "Azure_IoT";
 	}
 
 	@Override
 	public String getName() {
-		return "PPM";
+		return "Azure IoT - Digital Twin API";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Publishes Eclipse Unide compliant device measurements to the PPM Platform";
+		return "Publishes harmonized device telemetry data to an Azure IoT Digital Twin Service.";
 	}
 
 	@Override
 	public String getImageUrl() {
-		return "https://www.eclipse.org/unide/logo.svg";
+		return "https://mspoweruser.com/wp-content/uploads/2017/09/azure-1.png";
 	}
 
 	@Override
@@ -58,3 +58,5 @@ public class PPMPlugin extends AbstractPlugin {
 	}
 
 }
+
+

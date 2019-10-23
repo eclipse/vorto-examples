@@ -1,7 +1,7 @@
 package org.eclipse.vorto.middleware.config;
 
 import org.eclipse.vorto.middleware.plugins.IPlugin;
-import org.eclipse.vorto.middleware.plugins.amqp.AMQPDittoPlugin;
+import org.eclipse.vorto.middleware.plugins.impl.EclipseDittoPlugin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class PluginsConfiguration {
 	
 	@Bean
 	public IPlugin dittoPlugin() {
-		AMQPDittoPlugin dittoPlugin = new AMQPDittoPlugin();
+		EclipseDittoPlugin dittoPlugin = new EclipseDittoPlugin();
 		dittoPlugin.setAmqpUrl(amqpUrl);
 		dittoPlugin.setTopic(topic);
 		dittoPlugin.setUsername(username);
