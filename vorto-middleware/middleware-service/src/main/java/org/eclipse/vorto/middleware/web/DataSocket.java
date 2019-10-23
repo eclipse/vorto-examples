@@ -20,7 +20,7 @@ public class DataSocket {
 	@Autowired
 	private IPayloadMonitor messageLogger;
 	
-	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private static Gson gson = new GsonBuilder().create();
 
 	@MessageMapping("/endpoint/subscribe")
 	public void subscribe() throws Exception {
@@ -33,10 +33,4 @@ public class DataSocket {
 			}
 		});
 	}
-	
-	@MessageMapping("/endpoint/unsubscribe")
-	public void unsubscribe() throws Exception {
-		messageLogger.unregisterCallback();
-	}
-	
 }
