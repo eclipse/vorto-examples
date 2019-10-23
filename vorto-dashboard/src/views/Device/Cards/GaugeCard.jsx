@@ -15,8 +15,9 @@ export class GaugeCard extends Component {
         const minVal = values.status.value.minMeasured || 0
         const maxVal = values.status.value.maxMeasured || currVal
 
-        const currDeg = ((currVal - minVal) * 180) / (maxVal - minVal)
-
+        let currDeg = ((currVal - minVal) * 180) 
+        currDeg = ((maxVal - minVal) > 0) ? currDeg / (maxVal - minVal) : 0
+    
         const fontSize = `${currVal}`.length > 4 ? 28 : 38
 
         return (
