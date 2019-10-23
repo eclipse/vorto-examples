@@ -16,6 +16,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 
 import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage.Severity;
 import org.eclipse.vorto.middleware.plugins.ExecutionContext;
 import org.eclipse.vorto.middleware.plugins.IPlugin.ExecutionProblem;
 import org.eclipse.vorto.middleware.service.deserializer.DeserializerFactory;
@@ -63,8 +65,7 @@ public class EclipseHonoPayloadListener implements MessageListener {
       if (contentType != MimeType.ECLIPSE_DITTO) {
         final String modelId = message.getStringProperty(HEADER_VORTO_ID);
         if (modelId == null) {
-          logger.error(deviceId,
-              "No vorto model id found in message. Please add a field 'vorto' as a custom field during device registration.");
+          logger.monitor(MonitorMessage.inboundMessage(message.getJMSCorrelationID(), deviceId, "No vorto model id found in message. Please add a field 'vorto' as a custom field during device registration.", Severity.ERROR));
           return;
         }
         normalizedData = mappingService.map(ModelId.fromPrettyFormat(modelId), rawPayload);
@@ -74,14 +75,24 @@ public class EclipseHonoPayloadListener implements MessageListener {
       
       pluginService.startedPlugins().stream().forEach(handler -> {
         try {
-          handler.execute(normalizedPayload, new ExecutionContext(deviceId, contentType,rawPayload,logger));
+          handler.execute(normalizedPayload, new ExecutionContext(deviceId,message.getJMSCorrelationID(), contentType,rawPayload,logger));
         } catch (ExecutionProblem t) {
-          logger.error(deviceId,t.getMessage());
+          try {
+			logger.monitor(MonitorMessage.inboundMessage(message.getJMSCorrelationID(), deviceId, t.getMessage(), Severity.ERROR));
+		} catch (JMSException e) {
+			//FIXME
+		}
+        } catch(JMSException ex) {
+        	//FIXME
         }
       });
 
     } catch (JMSException e) {
-      logger.error("","Problem with consuming AMQP message:"+e.getMessage());
+      try {
+		logger.monitor(MonitorMessage.inboundMessage(message.getJMSCorrelationID(), "unknown", "Problem with consuming AMQP message:"+e.getMessage(), Severity.ERROR));
+	} catch (JMSException e1) {
+		//FIXME
+	}
     }
   }
 }

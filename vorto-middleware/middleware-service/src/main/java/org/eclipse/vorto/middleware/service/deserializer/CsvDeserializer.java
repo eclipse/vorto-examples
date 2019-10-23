@@ -17,8 +17,8 @@ import javax.jms.Message;
 import javax.jms.TextMessage;
 
 import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage.Severity;
 
 public class CsvDeserializer extends AbstractDeserializer {
 	
@@ -28,13 +28,12 @@ public class CsvDeserializer extends AbstractDeserializer {
 		String textMessage;
 		try {			
 			textMessage = ((TextMessage) message).getText();
-			monitor.info(getDeviceId(message),textMessage);
+			monitor.monitor(MonitorMessage.inboundMessage(getCorrelationId(message),getDeviceId(message),textMessage,Severity.INFO));
 			final String[] payload = textMessage.split(",");
 
 			return payload;
 		} catch (JMSException e) {
-			monitor.error(getDeviceId(message),String.format("Unable to deserialize CSV payload to Array. Could not get text from message."));
-			e.printStackTrace();
+			monitor.monitor(MonitorMessage.inboundMessage(getCorrelationId(message),getDeviceId(message),String.format("Unable to deserialize CSV payload to Array. Could not get text from message."),Severity.ERROR));
 			return null;
 		}
 	}

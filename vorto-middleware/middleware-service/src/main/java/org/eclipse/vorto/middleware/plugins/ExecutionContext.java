@@ -22,17 +22,19 @@ import org.eclipse.vorto.middleware.service.deserializer.MimeType;
 public class ExecutionContext {
 
 	private String deviceId;
+	private String correlationId;
 	private MimeType mimeType;
 	private Object rawPayload;
 	
 	private IPayloadMonitor logger = null;
 	
-	public ExecutionContext(String deviceId, MimeType mimeType, Object rawPayload, IPayloadMonitor logger) {
+	public ExecutionContext(String deviceId, String correlationId, MimeType mimeType, Object rawPayload, IPayloadMonitor logger) {
 		super();
 		this.deviceId = deviceId;
 		this.mimeType = mimeType;
 		this.rawPayload = rawPayload;
 		this.logger = logger;
+		this.correlationId = correlationId;
 	}
 	
 
@@ -51,6 +53,10 @@ public class ExecutionContext {
 	public IPayloadMonitor getLogger() {
 		return this.logger;
 	}
-	
+
+
+	public String getCorrelationId() {
+		return correlationId;
+	}
 	
 }
