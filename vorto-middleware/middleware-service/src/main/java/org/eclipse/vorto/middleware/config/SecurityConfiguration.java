@@ -1,20 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@tmtnckff 
-7
-98eclipse/vorto-examples
- Code Issues 10 Pull requests 0 Projects 1 Wiki Security Insights
-vorto-examples/vorto-middleware/middleware-service/src/main/java/org/eclipse/vorto/middleware/config/SecurityConfiguration.java
-@aedelmann aedelmann modified monitor message for correlation
-83d5e79 7 days ago
-65 lines (57 sloc)  2.52 KB
-  
 /**
  * Copyright (c) 2018 Contributors to the Eclipse Foundation
  *
@@ -79,15 +62,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  		return bean;
  	}
 }
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
