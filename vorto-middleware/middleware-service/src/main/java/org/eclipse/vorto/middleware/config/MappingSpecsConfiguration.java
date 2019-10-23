@@ -21,6 +21,7 @@ public class MappingSpecsConfiguration {
 	public void addMappingSpecs() throws Exception {
 		mappingService.addMappingSpec(loadMappingFromFile(new ClassPathResource("specs/org.eclipse.vorto.tutorial_PMSMotor_1.0.0-mappingspec.json").getInputStream()));
 		mappingService.addMappingSpec(loadMappingFromFile(new ClassPathResource("specs/vorto.private.somesh_ACMEWaterSensor_1.0.0-mappingspec.json").getInputStream()));
+		mappingService.addMappingSpec(loadMappingFromFile(new ClassPathResource("specs/vorto.private.timgrossmann_Plantect_1.0.0-mappingspec.json").getInputStream()));
 
 	}
 	

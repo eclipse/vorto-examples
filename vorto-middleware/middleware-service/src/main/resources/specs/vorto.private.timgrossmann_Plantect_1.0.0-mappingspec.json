@@ -1,0 +1,1853 @@
+{
+  "infoModel" : {
+    "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+    "stereotypes" : [ ],
+    "mappingReference" : null,
+    "vortolang" : "1.0",
+    "id" : {
+      "name" : "Plantect",
+      "namespace" : "vorto.private.timgrossmann",
+      "version" : "1.0.0",
+      "prettyFormat" : "vorto.private.timgrossmann:Plantect:1.0.0"
+    },
+    "type" : "InformationModel",
+    "displayName" : "Plantect",
+    "description" : "Information Model for Plantect",
+    "category" : null,
+    "fileName" : "Plantect.infomodel",
+    "modelType" : "Infomodel",
+    "references" : [ {
+      "name" : "DeviceInformation",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
+    }, {
+      "name" : "Temperature",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Temperature:1.0.0"
+    }, {
+      "name" : "Luminance",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Luminance:1.0.0"
+    }, {
+      "name" : "Irradiance",
+      "namespace" : "vorto.private.timgrossmann",
+      "version" : "1.0.0",
+      "prettyFormat" : "vorto.private.timgrossmann:Irradiance:1.0.0"
+    }, {
+      "name" : "AirQuality",
+      "namespace" : "vorto.private.timgrossmann",
+      "version" : "1.0.0",
+      "prettyFormat" : "vorto.private.timgrossmann:AirQuality:1.0.0"
+    }, {
+      "name" : "Connectivity",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Connectivity:1.0.0"
+    } ],
+    "functionblocks" : [ {
+      "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "DeviceInformationPayloadMapping",
+        "namespace" : "vorto.private.timgrossmann.plantect.deviceinformation",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.timgrossmann.plantect.deviceinformation:DeviceInformationPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "deviceInformation",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "obj.object.device_info != null"
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "DeviceInformation",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:DeviceInformation:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Device Information",
+        "description" : "Device Information, such as software version, OS etc.",
+        "category" : null,
+        "fileName" : "DeviceInformation.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/manufacturer"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "manufacturer",
+          "description" : "Company name of the device manufacturer, e.g. Bosch.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/serialNumber"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "serialNumber",
+          "description" : "serial number of the device",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/softwareVersion"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "softwareVersion",
+          "description" : "Version of the software on your device. This could be the version of your firmware, e.g. 2.4.33",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/osName"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "osName",
+          "description" : "Name of the operating system on the device",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/processorArchitecture"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "processorArchitecture",
+          "description" : "Architecture of the processor on the device, e.g x64 or ARM.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/processorManufacturer"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "processorManufacturer",
+          "description" : "Name of the manufacturer of the processor on the device, e.g Intel.",
+          "type" : "STRING",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/totalMemory"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "totalMemory",
+          "description" : "Total available memory on the device in kilobytes",
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/device_info/totalStorage"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "totalStorage",
+          "description" : "Total available storage on the device in kilobytes",
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-DeviceInformation-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "TemperaturePayloadMapping",
+        "namespace" : "vorto.private.timgrossmann.plantect.temperature",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.timgrossmann.plantect.temperature:TemperaturePayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "temperature",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "obj.object.temperature != null"
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Temperature",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Temperature:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Temperature",
+        "description" : "Functionblock for Temperature",
+        "category" : "sensors",
+        "fileName" : "Temperature.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "SensorValue",
+          "namespace" : "org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : {
+            "name" : "ValuePayloadMapping",
+            "namespace" : "vorto.private.timgrossmann.plantect.temperature.value",
+            "version" : "1.0.0",
+            "prettyFormat" : "vorto.private.timgrossmann.plantect.temperature.value:ValuePayloadMapping:1.0.0"
+          },
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+            "stereotypes" : [ {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/temperature/currentMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/temperature/minMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/temperature/maxMeasured"
+              }
+            } ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "SensorValue",
+              "namespace" : "org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "SensorValue",
+            "description" : "A float-based data type representing a sensor's current, minimum and maximum measured output",
+            "category" : null,
+            "fileName" : "SensorValue.type",
+            "modelType" : "EntityModel",
+            "references" : [ ],
+            "properties" : [ {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/temperature/currentMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : true,
+              "name" : "currentMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/temperature/minMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "minMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/temperature/maxMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "maxMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            } ],
+            "fullQualifiedFileName" : "org.eclipse.vorto.types-SensorValue-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-Temperature-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "LuminancePayloadMapping",
+        "namespace" : "vorto.private.timgrossmann.plantect.luminance",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.timgrossmann.plantect.luminance:LuminancePayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "luminance",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "obj.object.luminance != null"
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Luminance",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Luminance:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Luminance",
+        "description" : "Functionblock for Luminance",
+        "category" : "sensors",
+        "fileName" : "Luminance.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "SensorValue",
+          "namespace" : "org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : {
+            "name" : "ValuePayloadMapping",
+            "namespace" : "vorto.private.timgrossmann.plantect.luminance.value",
+            "version" : "1.0.0",
+            "prettyFormat" : "vorto.private.timgrossmann.plantect.luminance.value:ValuePayloadMapping:1.0.0"
+          },
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+            "stereotypes" : [ {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/luminance/currentMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/luminance/minMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/luminance/maxMeasured"
+              }
+            } ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "SensorValue",
+              "namespace" : "org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "org.eclipse.vorto.types:SensorValue:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "SensorValue",
+            "description" : "A float-based data type representing a sensor's current, minimum and maximum measured output",
+            "category" : null,
+            "fileName" : "SensorValue.type",
+            "modelType" : "EntityModel",
+            "references" : [ ],
+            "properties" : [ {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/luminance/currentMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : true,
+              "name" : "currentMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/luminance/minMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "minMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/luminance/maxMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "maxMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            } ],
+            "fullQualifiedFileName" : "org.eclipse.vorto.types-SensorValue-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-Luminance-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "IrradiancePayloadMapping",
+        "namespace" : "vorto.private.timgrossmann.plantect.irradiance",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.timgrossmann.plantect.irradiance:IrradiancePayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "irradiance",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "obj.object.irradiance != null"
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Irradiance",
+          "namespace" : "vorto.private.timgrossmann",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.timgrossmann:Irradiance:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Irradiance",
+        "description" : "Functionblock for Irradiance",
+        "category" : null,
+        "fileName" : "Irradiance.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "SensorValue",
+          "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto.types:SensorValue:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : {
+            "name" : "ValuePayloadMapping",
+            "namespace" : "vorto.private.timgrossmann.plantect.irradiance.value",
+            "version" : "1.0.0",
+            "prettyFormat" : "vorto.private.timgrossmann.plantect.irradiance.value:ValuePayloadMapping:1.0.0"
+          },
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+            "stereotypes" : [ {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/irradiance/currentMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/irradiance/minMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/irradiance/maxMeasured"
+              }
+            } ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "SensorValue",
+              "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto.types:SensorValue:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "SensorValue",
+            "description" : "A float-based data type representing a sensor's current, minimum and maximum measured output",
+            "category" : null,
+            "fileName" : "SensorValue.type",
+            "modelType" : "EntityModel",
+            "references" : [ ],
+            "properties" : [ {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/irradiance/currentMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : true,
+              "name" : "currentMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/irradiance/minMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "minMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/irradiance/maxMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "maxMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            } ],
+            "fullQualifiedFileName" : "vorto.private.timgrossmann.org.eclipse.vorto.types-SensorValue-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "vorto.private.timgrossmann-Irradiance-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "CarbonDioxidePayloadMapping",
+        "namespace" : "vorto.private.timgrossmann.plantect.carbondioxide",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.timgrossmann.plantect.carbondioxide:CarbonDioxidePayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "carbonDioxide",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "obj.object.carbonDioxide != null"
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "AirQuality",
+          "namespace" : "vorto.private.timgrossmann",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.timgrossmann:AirQuality:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "AirQuality",
+        "description" : "Functionblock for AirQuality",
+        "category" : null,
+        "fileName" : "AirQuality.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "SensorValue",
+          "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto.types:SensorValue:1.0.0"
+        }, {
+          "name" : "Unit",
+          "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : {
+            "name" : "ValuePayloadMapping",
+            "namespace" : "vorto.private.timgrossmann.plantect.carbondioxide.value",
+            "version" : "1.0.0",
+            "prettyFormat" : "vorto.private.timgrossmann.plantect.carbondioxide.value:ValuePayloadMapping:1.0.0"
+          },
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+            "stereotypes" : [ {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/carbonDioxide/currentMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/carbonDioxide/minMeasured"
+              }
+            }, {
+              "name" : "source",
+              "attributes" : {
+                "xpath" : "/object/carbonDioxide/maxMeasured"
+              }
+            } ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "SensorValue",
+              "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto.types:SensorValue:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "SensorValue",
+            "description" : "A float-based data type representing a sensor's current, minimum and maximum measured output",
+            "category" : null,
+            "fileName" : "SensorValue.type",
+            "modelType" : "EntityModel",
+            "references" : [ ],
+            "properties" : [ {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/carbonDioxide/currentMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : true,
+              "name" : "currentMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/carbonDioxide/minMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "minMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : "/object/carbonDioxide/maxMeasured"
+                }
+              } ],
+              "mappingReference" : null,
+              "mandatory" : false,
+              "name" : "maxMeasured",
+              "description" : null,
+              "type" : "FLOAT",
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : true
+            } ],
+            "fullQualifiedFileName" : "vorto.private.timgrossmann.org.eclipse.vorto.types-SensorValue-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "'ppm'"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "unit",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+            "stereotypes" : [ ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "Unit",
+              "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+              "version" : "1.0.0",
+              "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "Unit",
+            "description" : "SI units plus some common imperial units",
+            "category" : null,
+            "fileName" : "Unit.type",
+            "modelType" : "EnumModel",
+            "references" : [ ],
+            "literals" : [ {
+              "name" : "second",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "metre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kilogram",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "ampere",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kelvin",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "mole",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "candela",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "squareMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "cubicMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "metrePerSecond",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "reciprocalMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kilogramPerCubicMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kilogramPerSquareMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "cubicMetrePerKilogram",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "amperePerSquareMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "amperePerMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "molePerCubicMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "candelaPerSquareMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "radian",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "steriadian",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "hertz",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "newton",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "pascal",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "joule",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "watt",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "coulomb",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "volt",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "farad",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "ohm",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "siemens",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "weber",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "tesla",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "henry",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "degreeCelsius",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "lumen",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "lux",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "becquerel",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "gray",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "sievert",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "katal",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "pascalSecond",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "newtonMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "newtonPerMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "radianPerSecond",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "radianPerSecondSquared",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "wattPerSquareMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "joulePerKelvin",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "joulePerKilogramKelvin",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "joulePerKilogram",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "wattPerMetreKelvin",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "joulePerCubicMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "voltPerMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "coulombPerCubicMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "coulombPerSquareMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "faradPerMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "henryPerMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "joulePerMole",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "joulePerMoleKelvin",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "coulombPerKilogram",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "grayPerSecond",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "wattPerSteradian",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "wattPerSquareMetreSteradia",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "katalPerCubicMetre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "calorie",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kiloCalorie",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "inch",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "feet",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "yard",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "mile",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "nauticalMile",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "pound",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "stone",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "poundPerSquareInch",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "milePerHour",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "fahrenheit",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "percent",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "beatsPerMinute",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "rotationsPerMinute",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kilometre",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kilometrePerHour",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "degreeAngle",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "secondsSinceBegin1970",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "minute",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "bar",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "millibar",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            }, {
+              "name" : "kiloWattHour",
+              "description" : null,
+              "parent" : {
+                "name" : "Unit",
+                "namespace" : "vorto.private.timgrossmann.org.eclipse.vorto",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.org.eclipse.vorto:Unit:1.0.0"
+              }
+            } ],
+            "fullQualifiedFileName" : "vorto.private.timgrossmann.org.eclipse.vorto-Unit-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "vorto.private.timgrossmann-AirQuality-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "LorawanConnectivityPayloadMapping",
+        "namespace" : "vorto.private.timgrossmann.plantect.lorawanconnectivity",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.timgrossmann.plantect.lorawanconnectivity:LorawanConnectivityPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "lorawanConnectivity",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+        "stereotypes" : [ {
+          "name" : "condition",
+          "attributes" : {
+            "value" : "obj.object.connectivity != null"
+          }
+        } ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Connectivity",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Connectivity:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Connectivity",
+        "description" : "Functionblock for Connectivity",
+        "category" : "connectivity",
+        "fileName" : "Connectivity.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "ConnectivityStatus",
+          "namespace" : "org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/connectivity/rssi"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "rssi",
+          "description" : null,
+          "type" : "INT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/connectivity/snr"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "snr",
+          "description" : null,
+          "type" : "INT",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "number:toLong(/object/connectivity/lastSeen)"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : true,
+          "name" : "lastSeen",
+          "description" : null,
+          "type" : "LONG",
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : true
+        }, {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : "/object/connectivity/status"
+            }
+          } ],
+          "mappingReference" : null,
+          "mandatory" : false,
+          "name" : "status",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+            "stereotypes" : [ ],
+            "mappingReference" : null,
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "ConnectivityStatus",
+              "namespace" : "org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "ConnectivityStatus",
+            "description" : "Functionblock for ConnectivityStatus",
+            "category" : "connectivity",
+            "fileName" : "ConnectivityStatus.type",
+            "modelType" : "EnumModel",
+            "references" : [ ],
+            "literals" : [ {
+              "name" : "Connected",
+              "description" : null,
+              "parent" : {
+                "name" : "ConnectivityStatus",
+                "namespace" : "org.eclipse.vorto.types",
+                "version" : "1.0.0",
+                "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+              }
+            }, {
+              "name" : "Connecting",
+              "description" : null,
+              "parent" : {
+                "name" : "ConnectivityStatus",
+                "namespace" : "org.eclipse.vorto.types",
+                "version" : "1.0.0",
+                "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+              }
+            }, {
+              "name" : "Disconnected",
+              "description" : null,
+              "parent" : {
+                "name" : "ConnectivityStatus",
+                "namespace" : "org.eclipse.vorto.types",
+                "version" : "1.0.0",
+                "prettyFormat" : "org.eclipse.vorto.types:ConnectivityStatus:1.0.0"
+              }
+            } ],
+            "fullQualifiedFileName" : "org.eclipse.vorto.types-ConnectivityStatus-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-Connectivity-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    } ],
+    "fullQualifiedFileName" : "vorto.private.timgrossmann-Plantect-1.0.0.infomodel"
+  }
+}
