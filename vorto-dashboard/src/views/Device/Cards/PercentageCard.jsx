@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 
 import { getRepositoryLink } from '../../../util'
+import { isNumber } from 'util'
 
 
 export class PercentageCard extends Component {
   render() {
     const values = this.props.feature.properties
-    const currVal = values.status.value.currentMeasured.value || 0
+    let currVal = 0
+    if(values.status.value.currentMeasured){
+       currVal = (typeof values.status.value.currentMeasured === 'number') ? values.status.value.currentMeasured : 0
+    }
+    if(values.status.value.currentMeasured && values.status.value.currentMeasured.value){
+       currVal =  (typeof values.status.value.currentMeasured.value === 'number') ? values.status.value.currentMeasured.value : currVal
+    }
+
+  
     const minVal = 0
     const maxVal = 100
 

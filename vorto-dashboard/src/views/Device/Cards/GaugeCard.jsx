@@ -7,6 +7,10 @@ export class GaugeCard extends Component {
         // TODO adjust retrieval of attributes to be smarter
         // (Get the definition of the function blocks and find attribute values)
         const values = this.props.feature.properties
+        var unit = (values.status.unit) ? values.status.unit : ""
+        if(unit === "second"){
+            unit += "s"
+        }
         const currVal = values.status.value.currentMeasured || 0
         const minVal = values.status.value.minMeasured || 0
         const maxVal = values.status.value.maxMeasured || currVal
@@ -29,8 +33,8 @@ export class GaugeCard extends Component {
                 <div className='inner-card-container'>
                 <div className='gauge-container'>
                     <div className='gauge'>
-                        <span className='gauge-min data-val'>{minVal}</span>
-                        <span className='gauge-max data-val'>{maxVal}</span>
+                    <span className='gauge-min data-val'>{minVal}{` `}{unit}</span>
+                        <span className='gauge-max data-val'>{maxVal}{` `}{unit}</span>
                         <div className='gauge-percentage' style={{ transform: `rotate(${currDeg}deg)` }} />
 
                         <span className='gauge-value data-val' style={{

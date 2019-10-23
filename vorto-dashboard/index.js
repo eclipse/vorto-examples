@@ -48,7 +48,6 @@ app.get('/', function (req, res) {
 // API for devices and simulator
 apiRouter.get('/devices', (req, res) => {
   const filterString = req.query.filterString !== 'undefined' ? req.query.filterString : ''
-
   log.debug(`Backend queried with filterString... ${filterString}`)
 
   pollThings(filterString)

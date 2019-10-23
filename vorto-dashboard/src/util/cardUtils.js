@@ -7,7 +7,10 @@ const CATEGORIES = {
       'org.eclipse.vorto:Voltage:1.0.0',
       'org.eclipse.vorto:Illuminance:1.0.0',
       'org.eclipse.vorto:Acoustics:1.0.0',
-      'org.eclipse.vorto:BarometricPressure:1.0.0'
+      'org.eclipse.vorto:BarometricPressure:1.0.0',
+      'vorto.private.timgrossmann:AirQuality:1.0.0',
+      'org.eclipse.vorto:Luminance:1.0.0',
+      'vorto.private.timgrossmann:Irradiance:1.0.0'
     ],
     BAR3CHART: [
       'org.eclipse.vorto:MagneticStrength:1.0.0',
@@ -48,11 +51,7 @@ const CATEGORIES = {
     ],
     DEMO_GAGE: [
       'org.eclipse.vorto.tutorial:RotationalSpeed:1.0.0',
-      'org.eclipse.vorto.tutorial:Torque:1.0.0',
-      'vorto.private.timgrossmann:AirQuality:1.0.0',
-      'org.eclipse.vorto:Luminance:1.0.0',
-      'vorto.private.timgrossmann:Irradiance:1.0.0'
-
+      'org.eclipse.vorto.tutorial:Torque:1.0.0'
     ]
   }
   
