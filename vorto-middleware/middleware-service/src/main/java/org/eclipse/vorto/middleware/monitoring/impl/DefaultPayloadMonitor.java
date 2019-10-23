@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2018 Contributors to the Eclipse Foundation
+ *
+ * See the NOTICE file(s) distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ */
 package org.eclipse.vorto.middleware.monitoring.impl;
 
 import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
@@ -18,23 +30,15 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPayloadMonitor.class);
 
 	@Override
-	public void info(String deviceId, String message) {
-		logger.info(deviceId + "---> "+message);
-		this.doLog(new MonitorMessage(deviceId, message,Severity.INFO));
-	}
-
-	@Override
-	public void warn(String deviceId, String message) {
-		logger.warn(deviceId + "---> "+message);
-		this.doLog(new MonitorMessage(deviceId, message,Severity.WARNING));
-		
-	}
-
-	@Override
-	public void error(String deviceId, String message) {
-		logger.error(deviceId + "---> "+message);
-		this.doLog(new MonitorMessage(deviceId, message,Severity.ERROR));
-		
+	public void monitor(MonitorMessage message) {
+		if (message.getSeverity() == Severity.INFO)  {
+			logger.info(message.toString());
+		} else if (message.getSeverity() == Severity.WARNING)  {
+			logger.warn(message.toString());
+		} else if (message.getSeverity() == Severity.ERROR)  {
+			logger.error(message.toString());
+		}
+		this.doLog(message);
 	}
 	
 	private void doLog(MonitorMessage message) {

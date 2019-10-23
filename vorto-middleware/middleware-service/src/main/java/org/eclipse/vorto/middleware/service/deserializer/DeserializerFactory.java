@@ -15,6 +15,8 @@ package org.eclipse.vorto.middleware.service.deserializer;
 import javax.jms.Message;
 
 import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage.Severity;
 
 public class DeserializerFactory {
     private static final IDeserializer CSV_DESERIALIZER = new CsvDeserializer();
@@ -25,7 +27,7 @@ public class DeserializerFactory {
       
       @Override
       public Object deserialize(Message message, IPayloadMonitor monitor ) {
-    	monitor.warn(getDeviceId(message), "No deserializer found for this payload.");
+    	monitor.monitor(MonitorMessage.inboundMessage(getCorrelationId(message),getDeviceId(message),"No deserializer found for this payload.",Severity.WARNING));
         return message;
       }
     };

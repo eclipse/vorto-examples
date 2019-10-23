@@ -17,6 +17,8 @@ import java.util.Map;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
 import org.eclipse.vorto.mapping.targetplatform.ditto.TwinPayloadFactory;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage.Severity;
 import org.eclipse.vorto.middleware.plugins.AbstractPlugin;
 import org.eclipse.vorto.middleware.plugins.DittoUtils;
 import org.eclipse.vorto.middleware.plugins.ExecutionContext;
@@ -44,9 +46,9 @@ public class EclipseDittoPlugin extends AbstractPlugin {
 
 	@Override
 	public void doExecute(InfomodelValue infomodelValue, ExecutionContext context) {
-		context.getLogger().info(context.getDeviceId(), "Publishing ditto protocol payload to AMQP endpoint");
+		context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), "Publishing ditto protocol payload to AMQP endpoint", Severity.INFO));
 		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {
-			context.getLogger().info(context.getDeviceId(),(String) context.getRawPayload());
+			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), (String) context.getRawPayload(), Severity.INFO));
 			try {
 				jmsTemplate.convertAndSend(topic, (String) context.getRawPayload());
 			} catch(JmsException exception) {
@@ -58,7 +60,7 @@ public class EclipseDittoPlugin extends AbstractPlugin {
 				JsonObject updateCommand = TwinPayloadFactory.toDittoProtocol(value, fbProperty, DittoUtils.getDittoNamespaceFromDeviceId(context.getDeviceId()),
 						DittoUtils.getDittoSuffixFromDeviceId(context.getDeviceId()));
 				String updateCommandJson = gson.toJson(updateCommand);
-				context.getLogger().info(context.getDeviceId(), updateCommandJson);
+				context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), updateCommandJson, Severity.INFO));
 				try {
 					jmsTemplate.convertAndSend(topic, updateCommandJson);
 				} catch(JmsException exception) {

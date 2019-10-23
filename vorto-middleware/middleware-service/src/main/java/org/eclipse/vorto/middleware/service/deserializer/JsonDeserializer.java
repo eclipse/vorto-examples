@@ -17,6 +17,8 @@ import javax.jms.Message;
 import javax.jms.TextMessage;
 
 import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage.Severity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,13 +32,11 @@ public class JsonDeserializer extends AbstractDeserializer {
 		String textMessage;
 		try {
 			textMessage = ((TextMessage) message).getText();
-			monitor.info(getDeviceId(message),textMessage);
+			monitor.monitor(MonitorMessage.inboundMessage(getCorrelationId(message),getDeviceId(message),textMessage,Severity.INFO));
 			final Object payload = gson.fromJson(textMessage, Object.class);
 			return payload;
 		} catch (JMSException e) {
-			monitor.error(getDeviceId(message),
-					String.format("Unable to deserialize JSON payload to Object. Could not get text from message."));
-			e.printStackTrace();
+			monitor.monitor(MonitorMessage.inboundMessage(getCorrelationId(message),getDeviceId(message),String.format("Unable to deserialize JSON payload to Object. Could not get text from message."),Severity.ERROR));
 			return null;
 		}
 

@@ -17,6 +17,8 @@ import javax.jms.Message;
 import javax.jms.TextMessage;
 
 import org.eclipse.vorto.middleware.monitoring.IPayloadMonitor;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage.Severity;
 
 public class DittoDeserializer extends AbstractDeserializer {
 
@@ -25,7 +27,7 @@ public class DittoDeserializer extends AbstractDeserializer {
 	  String textMessage;
       try {
           textMessage = ((TextMessage) message).getText();
-          monitor.info(getDeviceId(message),textMessage);
+		  monitor.monitor(MonitorMessage.inboundMessage(getCorrelationId(message),getDeviceId(message),textMessage,Severity.INFO));
           return textMessage;
       } catch (JMSException e) {
           return null;
