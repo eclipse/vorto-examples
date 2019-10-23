@@ -25,15 +25,11 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 	
 	private IPayloadMonitorCallback callback = null;
 	
-	private static int activeCallbacks = 0;
-	
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPayloadMonitor.class);
 
 	@Override
 	public void monitor(MonitorMessage message) {
-		if (message.getSeverity() == Severity.INFO)  {
-			logger.info(message.toString());
-		} else if (message.getSeverity() == Severity.WARNING)  {
+		if (message.getSeverity() == Severity.WARNING)  {
 			logger.warn(message.toString());
 		} else if (message.getSeverity() == Severity.ERROR)  {
 			logger.error(message.toString());
@@ -50,18 +46,7 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 
 	@Override
 	public void registerCallback(IPayloadMonitorCallback callback) {
-		this.callback = callback;
-		activeCallbacks++;
-		
-	}
-
-	@Override
-	public void unregisterCallback() {
-		 activeCallbacks--;
-		 if (activeCallbacks == 0) {
-			 callback = null;
-		 }
-		
+		this.callback = callback;	
 	}
 
 }
