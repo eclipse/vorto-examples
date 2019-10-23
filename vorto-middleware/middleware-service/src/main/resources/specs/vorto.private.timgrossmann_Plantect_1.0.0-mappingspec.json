@@ -28,13 +28,19 @@
       "prettyFormat" : "org.eclipse.vorto:Temperature:1.0.0"
     }, {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> added mapping for humidity
       "name" : "Humidity",
       "namespace" : "org.eclipse.vorto",
       "version" : "1.0.0",
       "prettyFormat" : "org.eclipse.vorto:Humidity:1.0.0"
     }, {
+<<<<<<< HEAD
 =======
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+>>>>>>> added mapping for humidity
       "name" : "Luminance",
       "namespace" : "org.eclipse.vorto",
       "version" : "1.0.0",
@@ -401,6 +407,9 @@
       "stereotypes" : [ ],
       "mappingReference" : {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> added mapping for humidity
         "name" : "HumidityPayloadMapping",
         "namespace" : "vorto.private.timgrossmann.plantect.humidity",
         "version" : "1.0.0",
@@ -699,8 +708,11 @@
       "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
       "stereotypes" : [ ],
       "mappingReference" : {
+<<<<<<< HEAD
 =======
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+>>>>>>> added mapping for humidity
         "name" : "LuminancePayloadMapping",
         "namespace" : "vorto.private.timgrossmann.plantect.luminance",
         "version" : "1.0.0",
@@ -1070,6 +1082,7 @@
             }
           } ],
 <<<<<<< HEAD
+<<<<<<< HEAD
           "mappingReference" : null,
 =======
           "mappingReference" : {
@@ -1079,6 +1092,9 @@
             "prettyFormat" : "vorto.private.timgrossmann.plantect.carbondioxide.value:ValuePayloadMapping:1.0.0"
           },
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+          "mappingReference" : null,
+>>>>>>> added mapping for humidity
           "mandatory" : true,
           "name" : "value",
           "description" : null,
@@ -1088,28 +1104,40 @@
               "name" : "source",
               "attributes" : {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "xpath" : "/object/irradiance/currentMeasured"
 =======
                 "xpath" : "/object/carbonDioxide/currentMeasured"
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+                "xpath" : "/object/irradiance/currentMeasured"
+>>>>>>> added mapping for humidity
               }
             }, {
               "name" : "source",
               "attributes" : {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 "xpath" : "/object/irradiance/minMeasured"
 =======
                 "xpath" : "/object/carbonDioxide/minMeasured"
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+                "xpath" : "/object/irradiance/minMeasured"
+>>>>>>> added mapping for humidity
               }
             }, {
               "name" : "source",
               "attributes" : {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "xpath" : "/object/irradiance/maxMeasured"
 =======
                 "xpath" : "/object/carbonDioxide/maxMeasured"
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+                "xpath" : "/object/irradiance/maxMeasured"
+>>>>>>> added mapping for humidity
               }
             } ],
             "mappingReference" : null,
@@ -1133,10 +1161,14 @@
                 "name" : "source",
                 "attributes" : {
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "xpath" : "/object/irradiance/currentMeasured"
 =======
                   "xpath" : "/object/carbonDioxide/currentMeasured"
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+                  "xpath" : "/object/irradiance/currentMeasured"
+>>>>>>> added mapping for humidity
                 }
               } ],
               "mappingReference" : null,
@@ -1154,10 +1186,14 @@
                 "name" : "source",
                 "attributes" : {
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "xpath" : "/object/irradiance/minMeasured"
 =======
                   "xpath" : "/object/carbonDioxide/minMeasured"
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+                  "xpath" : "/object/irradiance/minMeasured"
+>>>>>>> added mapping for humidity
                 }
               } ],
               "mappingReference" : null,
@@ -1175,10 +1211,14 @@
                 "name" : "source",
                 "attributes" : {
 <<<<<<< HEAD
+<<<<<<< HEAD
                   "xpath" : "/object/irradiance/maxMeasured"
 =======
                   "xpath" : "/object/carbonDioxide/maxMeasured"
 >>>>>>> Added mapping spec for Plantect connected devices.
+=======
+                  "xpath" : "/object/irradiance/maxMeasured"
+>>>>>>> added mapping for humidity
                 }
               } ],
               "mappingReference" : null,
