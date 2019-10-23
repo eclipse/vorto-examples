@@ -22,7 +22,10 @@ public class MonitorMessage {
 	private String text;
 	private Severity severity;
 	private Direction direction;
+<<<<<<< HEAD
 	private String outboundPluginId;
+=======
+>>>>>>> modified monitor message for correlation
 	
 	private MonitorMessage(String correlationId, Date timestamp, String deviceId, String text, Severity severity, Direction direction) {
 		super();
@@ -58,10 +61,15 @@ public class MonitorMessage {
 	 * @param severity
 	 * @return
 	 */
+<<<<<<< HEAD
 	public static MonitorMessage outboundMessage(String correlationId, String deviceId, String text, Severity severity, String pluginId) {
 		MonitorMessage msg = new MonitorMessage(correlationId,new Date(),deviceId, text,severity, Direction.OUTBOUND);
 		msg.setOutboundPluginId(pluginId);
 		return msg;
+=======
+	public static MonitorMessage outboundMessage(String correlationId, String deviceId, String text, Severity severity) {
+		return new MonitorMessage(correlationId,new Date(),deviceId, text,severity, Direction.OUTBOUND);
+>>>>>>> modified monitor message for correlation
 	}
 
 	public String getCorrelationId() {
@@ -172,6 +180,7 @@ public class MonitorMessage {
 				+ ", text=" + text + ", severity=" + severity + ", direction=" + direction + "]";
 	}
 
+<<<<<<< HEAD
 
 	public String getOutboundPluginId() {
 		return outboundPluginId;
@@ -182,6 +191,8 @@ public class MonitorMessage {
 	}
 
 
+=======
+>>>>>>> modified monitor message for correlation
 
 
 

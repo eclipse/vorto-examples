@@ -31,7 +31,13 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 
 	@Override
 	public void monitor(MonitorMessage message) {
+<<<<<<< HEAD
 		if (message.getSeverity() == Severity.WARNING)  {
+=======
+		if (message.getSeverity() == Severity.INFO)  {
+			logger.info(message.toString());
+		} else if (message.getSeverity() == Severity.WARNING)  {
+>>>>>>> modified monitor message for correlation
 			logger.warn(message.toString());
 		} else if (message.getSeverity() == Severity.ERROR)  {
 			logger.error(message.toString());
