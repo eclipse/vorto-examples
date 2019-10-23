@@ -27,6 +27,11 @@
       "version" : "1.0.0",
       "prettyFormat" : "org.eclipse.vorto:Temperature:1.0.0"
     }, {
+      "name" : "Humidity",
+      "namespace" : "org.eclipse.vorto",
+      "version" : "1.0.0",
+      "prettyFormat" : "org.eclipse.vorto:Humidity:1.0.0"
+    }, {
       "name" : "Luminance",
       "namespace" : "org.eclipse.vorto",
       "version" : "1.0.0",
@@ -383,6 +388,304 @@
         "events" : [ ],
         "operations" : [ ],
         "fullQualifiedFileName" : "org.eclipse.vorto-Temperature-1.0.0.fbmodel"
+      },
+      "constraints" : [ ],
+      "attributes" : [ ],
+      "multiple" : false,
+      "primitive" : false
+    }, {
+      "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+      "stereotypes" : [ ],
+      "mappingReference" : {
+        "name" : "HumidityPayloadMapping",
+        "namespace" : "vorto.private.timgrossmann.plantect.humidity",
+        "version" : "1.0.0",
+        "prettyFormat" : "vorto.private.timgrossmann.plantect.humidity:HumidityPayloadMapping:1.0.0"
+      },
+      "mandatory" : false,
+      "name" : "humidity",
+      "description" : null,
+      "type" : {
+        "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+        "stereotypes" : [ ],
+        "mappingReference" : null,
+        "vortolang" : "1.0",
+        "id" : {
+          "name" : "Humidity",
+          "namespace" : "org.eclipse.vorto",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto:Humidity:1.0.0"
+        },
+        "type" : "Functionblock",
+        "displayName" : "Humidity",
+        "description" : "Functionblock for Humidity",
+        "category" : "sensors",
+        "fileName" : "Humidity.fbmodel",
+        "modelType" : "FunctionblockModel",
+        "references" : [ {
+          "name" : "SensorValuePercentage",
+          "namespace" : "org.eclipse.vorto.types",
+          "version" : "1.0.0",
+          "prettyFormat" : "org.eclipse.vorto.types:SensorValuePercentage:1.0.0"
+        } ],
+        "configurationProperties" : [ ],
+        "statusProperties" : [ {
+          "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+          "stereotypes" : [ {
+            "name" : "source",
+            "attributes" : {
+              "xpath" : ""
+            }
+          } ],
+          "mappingReference" : {
+            "name" : "ValuePayloadMapping",
+            "namespace" : "vorto.private.timgrossmann.plantect.humidity.value",
+            "version" : "1.0.0",
+            "prettyFormat" : "vorto.private.timgrossmann.plantect.humidity.value:ValuePayloadMapping:1.0.0"
+          },
+          "mandatory" : true,
+          "name" : "value",
+          "description" : null,
+          "type" : {
+            "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+            "stereotypes" : [ ],
+            "mappingReference" : {
+              "name" : "MaxMeasuredPayloadMapping",
+              "namespace" : "vorto.private.timgrossmann.plantect.humidity.value.maxmeasured",
+              "version" : "1.0.0",
+              "prettyFormat" : "vorto.private.timgrossmann.plantect.humidity.value.maxmeasured:MaxMeasuredPayloadMapping:1.0.0"
+            },
+            "vortolang" : "1.0",
+            "id" : {
+              "name" : "SensorValuePercentage",
+              "namespace" : "org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "org.eclipse.vorto.types:SensorValuePercentage:1.0.0"
+            },
+            "type" : "Datatype",
+            "displayName" : "SensorValuePercentage",
+            "description" : "A percentage-based data type representing a sensor's current, minimum and maximum measured output",
+            "category" : null,
+            "fileName" : "SensorValuePercentage.type",
+            "modelType" : "EntityModel",
+            "references" : [ {
+              "name" : "Percentage",
+              "namespace" : "org.eclipse.vorto.types",
+              "version" : "1.0.0",
+              "prettyFormat" : "org.eclipse.vorto.types:Percentage:1.0.0"
+            } ],
+            "properties" : [ {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : ""
+                }
+              } ],
+              "mappingReference" : {
+                "name" : "CurrentMeasuredPayloadMapping",
+                "namespace" : "vorto.private.timgrossmann.plantect.humidity.value.currentmeasured",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.plantect.humidity.value.currentmeasured:CurrentMeasuredPayloadMapping:1.0.0"
+              },
+              "mandatory" : true,
+              "name" : "currentMeasured",
+              "description" : null,
+              "type" : {
+                "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+                "stereotypes" : [ {
+                  "name" : "source",
+                  "attributes" : {
+                    "xpath" : "/object/humidity/value"
+                  }
+                } ],
+                "mappingReference" : null,
+                "vortolang" : "1.0",
+                "id" : {
+                  "name" : "Percentage",
+                  "namespace" : "org.eclipse.vorto.types",
+                  "version" : "1.0.0",
+                  "prettyFormat" : "org.eclipse.vorto.types:Percentage:1.0.0"
+                },
+                "type" : "Datatype",
+                "displayName" : "Percentage",
+                "description" : "Datatype for Percentage",
+                "category" : "units",
+                "fileName" : "Percentage.type",
+                "modelType" : "EntityModel",
+                "references" : [ ],
+                "properties" : [ {
+                  "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+                  "stereotypes" : [ {
+                    "name" : "source",
+                    "attributes" : {
+                      "xpath" : "/object/humidity/value"
+                    }
+                  } ],
+                  "mappingReference" : null,
+                  "mandatory" : true,
+                  "name" : "value",
+                  "description" : null,
+                  "type" : "FLOAT",
+                  "constraints" : [ {
+                    "type" : "MIN",
+                    "value" : "0"
+                  }, {
+                    "type" : "MAX",
+                    "value" : "100"
+                  } ],
+                  "attributes" : [ ],
+                  "multiple" : false,
+                  "primitive" : true
+                } ],
+                "fullQualifiedFileName" : "org.eclipse.vorto.types-Percentage-1.0.0.type"
+              },
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : false
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : ""
+                }
+              } ],
+              "mappingReference" : {
+                "name" : "MinMeasuredPayloadMapping",
+                "namespace" : "vorto.private.timgrossmann.plantect.humidity.value.minmeasured",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.plantect.humidity.value.minmeasured:MinMeasuredPayloadMapping:1.0.0"
+              },
+              "mandatory" : false,
+              "name" : "minMeasured",
+              "description" : null,
+              "type" : {
+                "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+                "stereotypes" : [ ],
+                "mappingReference" : null,
+                "vortolang" : "1.0",
+                "id" : {
+                  "name" : "Percentage",
+                  "namespace" : "org.eclipse.vorto.types",
+                  "version" : "1.0.0",
+                  "prettyFormat" : "org.eclipse.vorto.types:Percentage:1.0.0"
+                },
+                "type" : "Datatype",
+                "displayName" : "Percentage",
+                "description" : "Datatype for Percentage",
+                "category" : "units",
+                "fileName" : "Percentage.type",
+                "modelType" : "EntityModel",
+                "references" : [ ],
+                "properties" : [ {
+                  "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+                  "stereotypes" : [ {
+                    "name" : "source",
+                    "attributes" : {
+                      "xpath" : ""
+                    }
+                  } ],
+                  "mappingReference" : null,
+                  "mandatory" : true,
+                  "name" : "value",
+                  "description" : null,
+                  "type" : "FLOAT",
+                  "constraints" : [ {
+                    "type" : "MIN",
+                    "value" : "0"
+                  }, {
+                    "type" : "MAX",
+                    "value" : "100"
+                  } ],
+                  "attributes" : [ ],
+                  "multiple" : false,
+                  "primitive" : true
+                } ],
+                "fullQualifiedFileName" : "org.eclipse.vorto.types-Percentage-1.0.0.type"
+              },
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : false
+            }, {
+              "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+              "stereotypes" : [ {
+                "name" : "source",
+                "attributes" : {
+                  "xpath" : ""
+                }
+              } ],
+              "mappingReference" : {
+                "name" : "MaxMeasuredPayloadMapping",
+                "namespace" : "vorto.private.timgrossmann.plantect.humidity.value.maxmeasured",
+                "version" : "1.0.0",
+                "prettyFormat" : "vorto.private.timgrossmann.plantect.humidity.value.maxmeasured:MaxMeasuredPayloadMapping:1.0.0"
+              },
+              "mandatory" : false,
+              "name" : "maxMeasured",
+              "description" : null,
+              "type" : {
+                "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+                "stereotypes" : [ ],
+                "mappingReference" : null,
+                "vortolang" : "1.0",
+                "id" : {
+                  "name" : "Percentage",
+                  "namespace" : "org.eclipse.vorto.types",
+                  "version" : "1.0.0",
+                  "prettyFormat" : "org.eclipse.vorto.types:Percentage:1.0.0"
+                },
+                "type" : "Datatype",
+                "displayName" : "Percentage",
+                "description" : "Datatype for Percentage",
+                "category" : "units",
+                "fileName" : "Percentage.type",
+                "modelType" : "EntityModel",
+                "references" : [ ],
+                "properties" : [ {
+                  "targetPlatformKey" : "vorto_private_timgrossmann_Plantect_1_0_0",
+                  "stereotypes" : [ {
+                    "name" : "source",
+                    "attributes" : {
+                      "xpath" : ""
+                    }
+                  } ],
+                  "mappingReference" : null,
+                  "mandatory" : true,
+                  "name" : "value",
+                  "description" : null,
+                  "type" : "FLOAT",
+                  "constraints" : [ {
+                    "type" : "MIN",
+                    "value" : "0"
+                  }, {
+                    "type" : "MAX",
+                    "value" : "100"
+                  } ],
+                  "attributes" : [ ],
+                  "multiple" : false,
+                  "primitive" : true
+                } ],
+                "fullQualifiedFileName" : "org.eclipse.vorto.types-Percentage-1.0.0.type"
+              },
+              "constraints" : [ ],
+              "attributes" : [ ],
+              "multiple" : false,
+              "primitive" : false
+            } ],
+            "fullQualifiedFileName" : "org.eclipse.vorto.types-SensorValuePercentage-1.0.0.type"
+          },
+          "constraints" : [ ],
+          "attributes" : [ ],
+          "multiple" : false,
+          "primitive" : false
+        } ],
+        "faultProperties" : [ ],
+        "events" : [ ],
+        "operations" : [ ],
+        "fullQualifiedFileName" : "org.eclipse.vorto-Humidity-1.0.0.fbmodel"
       },
       "constraints" : [ ],
       "attributes" : [ ],
@@ -760,12 +1063,7 @@
               "xpath" : ""
             }
           } ],
-          "mappingReference" : {
-            "name" : "ValuePayloadMapping",
-            "namespace" : "vorto.private.timgrossmann.plantect.carbondioxide.value",
-            "version" : "1.0.0",
-            "prettyFormat" : "vorto.private.timgrossmann.plantect.carbondioxide.value:ValuePayloadMapping:1.0.0"
-          },
+          "mappingReference" : null,
           "mandatory" : true,
           "name" : "value",
           "description" : null,
@@ -774,17 +1072,17 @@
             "stereotypes" : [ {
               "name" : "source",
               "attributes" : {
-                "xpath" : "/object/carbonDioxide/currentMeasured"
+                "xpath" : "/object/irradiance/currentMeasured"
               }
             }, {
               "name" : "source",
               "attributes" : {
-                "xpath" : "/object/carbonDioxide/minMeasured"
+                "xpath" : "/object/irradiance/minMeasured"
               }
             }, {
               "name" : "source",
               "attributes" : {
-                "xpath" : "/object/carbonDioxide/maxMeasured"
+                "xpath" : "/object/irradiance/maxMeasured"
               }
             } ],
             "mappingReference" : null,
@@ -807,7 +1105,7 @@
               "stereotypes" : [ {
                 "name" : "source",
                 "attributes" : {
-                  "xpath" : "/object/carbonDioxide/currentMeasured"
+                  "xpath" : "/object/irradiance/currentMeasured"
                 }
               } ],
               "mappingReference" : null,
@@ -824,7 +1122,7 @@
               "stereotypes" : [ {
                 "name" : "source",
                 "attributes" : {
-                  "xpath" : "/object/carbonDioxide/minMeasured"
+                  "xpath" : "/object/irradiance/minMeasured"
                 }
               } ],
               "mappingReference" : null,
@@ -841,7 +1139,7 @@
               "stereotypes" : [ {
                 "name" : "source",
                 "attributes" : {
-                  "xpath" : "/object/carbonDioxide/maxMeasured"
+                  "xpath" : "/object/irradiance/maxMeasured"
                 }
               } ],
               "mappingReference" : null,
