@@ -15,7 +15,7 @@ public abstract class AbstractDeserializer implements IDeserializer {
 	
 	protected String getCorrelationId(Message message) {
 		try {
-			return message.getJMSCorrelationID();
+			return message.getJMSMessageID();
 		} catch (JMSException e) {
 			return "unknown";		
 		}
