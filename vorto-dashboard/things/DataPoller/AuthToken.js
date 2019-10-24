@@ -1,20 +1,74 @@
 const request = require('request-promise-native')
+const path = require('path')
+
+const ArgumentParser = require('argparse').ArgumentParser
+const parser = new ArgumentParser({
+  addHelp: true,
+  description: 'Eclipse Vorto Dashboard'
+})
+
 const log = require('loglevel')
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'error')
 
-// get environment variables
-const envId = process.env.BOSCH_CLIENT_ID
-const envSecret = process.env.BOSCH_CLIENT_SECRET
-const envScope = process.env.BOSCH_SCOPE
 
 
-if (!envId || !envSecret || !envScope) {
-  log.error('No credentials given, can not get things')
+parser.addArgument(
+  ['-c', '-C', '--config'],
+  {
+    help: 'Relative or absolute path to config file with OAuth2 Client credentials'
+  }
+)
+
+let clientId
+let clientSecret
+let scope
+
+
+try {
+  const cliArgs = process.argv.slice(2)
+  let configFilePath
+
+  // handle case of user only typing "vorto-dashboard config.json"
+  if (cliArgs.length > 1 || cliArgs[0].startsWith('-')) {
+    const args = parser.parseArgs()
+    configFilePath = args.config
+  } else {
+    configFilePath = cliArgs[0]
+  }
+
+// check path to config file, if absolute, keep it, otherwise use working dir and create abs path
+const configPath = path.isAbsolute(configFilePath) ? configFilePath : path.join(process.cwd(), configFilePath)
+
+const configFile = require(configPath)
+  log.info('Using config.json file from path: ', configPath)
+
+  clientId = configFile.client_id
+  clientSecret = configFile.client_secret
+  scope = configFile.scope
+} catch (err) {
+  log.warn('No config file provided, checking for environment variables...')
+
+  // get environment variables
+  const envId = process.env.BOSCH_CLIENT_ID
+  const envSecret = process.env.BOSCH_CLIENT_SECRET
+  const envScope = process.env.BOSCH_SCOPE
+
+  if (!envId || !envSecret || !envScope) {
+    log.error('No credentials given in either config file or environment, stopping dashboard!')
+    process.exit(1)
+  }
+
+
+
+  if (!envId || !envSecret || !envScope) {
+    log.error('No credentials given, can not get things')
+  }else{
+    clientId = envId
+    clientSecret = envSecret
+    scope = envScope
+  }
 }
 
-const clientId = envId
-const clientSecret = envSecret
-const scope = envScope
 
 class AuthToken {
   /* Intitally get the token and assign its value to the object */
@@ -96,3 +150,4 @@ class AuthToken {
 }
 
 module.exports = AuthToken
+
