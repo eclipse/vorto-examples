@@ -46,9 +46,8 @@ public class EclipseDittoPlugin extends AbstractPlugin {
 
 	@Override
 	public void doExecute(InfomodelValue infomodelValue, ExecutionContext context) {
-		context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), "Publishing ditto protocol payload to AMQP endpoint", Severity.INFO));
 		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {
-			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), (String) context.getRawPayload(), Severity.INFO));
+			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), (String) context.getRawPayload(), Severity.INFO,getId()));
 			try {
 				jmsTemplate.convertAndSend(topic, (String) context.getRawPayload());
 			} catch(JmsException exception) {
@@ -60,7 +59,7 @@ public class EclipseDittoPlugin extends AbstractPlugin {
 				JsonObject updateCommand = TwinPayloadFactory.toDittoProtocol(value, fbProperty, DittoUtils.getDittoNamespaceFromDeviceId(context.getDeviceId()),
 						DittoUtils.getDittoSuffixFromDeviceId(context.getDeviceId()));
 				String updateCommandJson = gson.toJson(updateCommand);
-				context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), updateCommandJson, Severity.INFO));
+				context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), updateCommandJson, Severity.INFO,getId()));
 				try {
 					jmsTemplate.convertAndSend(topic, updateCommandJson);
 				} catch(JmsException exception) {
