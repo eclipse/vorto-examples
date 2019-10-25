@@ -40,8 +40,9 @@ jobs:
         - npm install
       after_success:
         - ng build --prod
-        - npm run-script dist
       before_deploy:
+        - cd dist
+        - zip -r middleware-frontend.zip .
         - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} vorto-middleware-frontend "
         - export ELASTIC_BEANSTALK_ENV=vorto-middleware-frontend-${TRAVIS_BRANCH}
         - export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
