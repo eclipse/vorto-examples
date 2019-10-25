@@ -58,7 +58,7 @@ jobs:
         env: "Vorto-Middleware-Frontend-Dev"
         bucket_name: "$VORTO_S3_BUCKET"
         on:
-          branch: deploy-frontend
+          branch: master 
     
     - stage: deploy-dashboard-aws
       name: "Deploys the Vorto-Dashboard to AWS Beanstalk"
