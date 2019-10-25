@@ -4,8 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
-    "dist": "cd dist && zip -r middleware-frontend.zip .",
+    "build": "ng build && zip -r middleware-frontend.zip .",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
