@@ -32,12 +32,11 @@ jobs:
       language: node_js
       node_js:
         - '10'
-      before_script:
-         - npm install -g @angular/cli
       script:
       before_install:
         - cd vorto-middleware/frontend
       install:
+        - npm install -g @angular/cli
         - npm install
       after_success:
         - ng build --prod
