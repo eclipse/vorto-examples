@@ -10,19 +10,38 @@
     padding: 8px;
     margin: 8px;
     padding-right: -17px;
-    border-top-right-radius: 5px;
+    border-radius: 2px;
     border-bottom-right-radius: 5px;
     color: grey;
-    -webkit-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.5);
-    box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.5);
+
+
+    &__message-group{
+      margin: 0 4px 8px 4px;
+      border-top: solid 1px rgba(163, 163, 163, 0.9);
+      padding: 4px;
+      &__header{
+        font-weight: bold;
+      font-family: 'Inconsolata', monospace;
+      font-size: 1.2em;
+      margin: 0px 8px;
+      color:white
+
+      }
+    }
 &__message{
     font-family: 'Inconsolata', monospace;
     margin: 0 0 8px 0;
-    font-size: 1em;
+    font-size: 1rem;
     &-title{
         color:rgb(180, 180, 180);
         font-weight: bolder;
+    }
+    .plugin-icon{
+      display: inline;
+      margin-right: 4px;
+      img{
+        height: 20px;
+      }
     }
 
 }
