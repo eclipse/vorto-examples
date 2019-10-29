@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
 import { APIService } from 'src/app/service/api/api.service';
-import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings-view',
   templateUrl: './settings-view.component.html',
-  styleUrls: ['./settings-view.component.scss'],
-  providers: [APIService]
+  styleUrls: ['./settings-view.component.scss']
 })
 export class SettingsViewComponent implements OnInit {
 
   constructor(private mappingService: APIService) { }
 
-  private PLUGIN_UPDATE_INTERVAL = 5000
 
   public mappingList: Array<string> = []
   public extendedMappingIds: Array<string> = []
@@ -44,11 +40,10 @@ export class SettingsViewComponent implements OnInit {
 
   
   updateMappings() {
-    interval(this.PLUGIN_UPDATE_INTERVAL).pipe(startWith(0), switchMap(() => this.mappingService.getMappings()))
-      .subscribe(
+   this.mappingService.mappingsList.subscribe(
         async res => {
           this.refreshMappings(res)
-          console.log("updating mappings: ", this.mappingList)
+          console.log("refreshing mappings: ", res)
         }, (err) => console.log(err)
       )
   }

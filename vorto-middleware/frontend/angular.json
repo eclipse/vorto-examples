@@ -67,7 +67,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vorto-middleware-ui:build",
+            "browserTarget": "vorto-middleware:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {

@@ -12,21 +12,103 @@
       font-size: 0.9rem;
       padding-left: 8px;
       padding-right: 18px;
+      border-radius: 2px;
       border-top-right-radius: 0.4rem;
       border-bottom-right-radius: 0.4rem;
       border: none;
       font-weight: 100;
-      background: rgb(241, 241, 241);  
+      background: rgb(241, 241, 241);
       font-family: 'Open Sans', sans-serif;
       -webkit-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
       -moz-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
       box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
 
-
       &:focus {
         outline: none;
       }
     }
+
+      .loading-indicator {
+        height: 38px;
+        display: inline-flex;
+        position: absolute;
+        top: 16px;
+        background-color: transparent;
+        .circle-border {
+          width: 20px;
+          height: 20px;
+          padding: 2px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          background: linear-gradient(0deg, rgba(63, 249, 221, 0) 33%, #010c13 100%);
+          animation: spin 1s linear 0s infinite;
+        }
+        
+        .circle-core {
+          width: 100%;
+          height: 100%;
+          background: rgb(247, 241, 241);  
+          border-radius: 50%;
+        }
+        @keyframes spin {
+          from {
+            transform: rotate(0);
+          }
+          to{
+            transform: rotate(359deg);
+          }
+        }
+      
+     
+    }
+  }
+
+  button {
+    margin: 8px 8px 8px 0;
+    float: right;
+    border-radius: 2px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: #000000e0;
+
+    color: white;
+   
+
+    span {
+      display: flex;
+      font-size: 1.1em;
+      font-weight: lighter;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 100px;
+      margin-left: 8px;
+
+    }
+
+    img {
+      height: 22px;
+      width: auto;
+      padding: 8px;
+      justify-content: flex-end;
+    }
+
+    &:hover {
+      background: rgb(15, 15, 15);
+      -webkit-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
+      box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
+    }
+    &:active{
+      -webkit-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.3);
+      box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.3);
+
+    }
+
   }
 
   &-output {
