@@ -3,7 +3,7 @@
     height: auto;
     width: 100%;
   }
-
+  
   &__item {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -128,12 +128,22 @@
       display: block;
       padding: 8px;
     }
+    &-toggle-description{
+        color: white;
+        opacity: 0.1;
+        display: inline;
+        margin-right: 8px;
+        transition: opacity 300ms;
 
+        &.extended{
+          opacity: 0;
+        }
+      
+    }
     &-toggle-button {
       position: absolute;
       right: 0;
       bottom: 0;
-      width: 25px;
       margin: 8px;
       opacity: 0.8;
       display: flex;
@@ -148,18 +158,27 @@
         transition: transform 300ms;
         transform: rotate(90deg);
 
-        &:hover {
-          transform: rotate(86deg);
-          opacity: 0.9;
-        }
-
         &.extended {
           transform: rotate(0deg);
 
         }
       }
+      &:hover {
+        img{
+          transform: rotate(85deg);
+          opacity: 0.9;
+             transform: rotate(85deg);
+             &.extended {
+              transform: rotate(0deg);
+            }
+        }
+        .plugin-list__item-toggle-description{
+          opacity: 0.3;
+        }
+      }
 
     }
+   
 
     &-extension {
       background: #312e31;
@@ -206,6 +225,8 @@
       margin-bottom: -8px;
 
     }
+
+    
   }
 
 }
