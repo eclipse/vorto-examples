@@ -1,8 +1,14 @@
 <div class="console" #scroll [scrollTop]="scroll.scrollHeight">
-  <div *ngIf="messages.length === 0" class="console__message">The mapped device payload will appear here<span
-      class="blinking-cursor"> |</span></div>
-  <div class="console__message" *ngFor="let message of messages">
-    <span
-      class="console__message-title">{{getMessageTitle(message)}}</span><span>{{getMessageString(message)}}</span>
+  <div *ngIf="messageGroupCount() === 0" class="console__message">The mapped device payload will appear here<span
+      class="blinking-cursor"> |</span></div> 
+  
+   <div *ngFor="let messageGroup of messageGroups | keyvalue">
+      <div class="console__message-group__header">message: {{messageGroup.key}}</div>
+     <div class="console__message-group">
+    <div class="console__message" *ngFor="let message of messageGroup.value">
+      <span class="console__message-title">{{getMessageTitle(message)}}</span>
+      <span>{{getMessageString(message)}}</span>
+    </div> 
   </div>
+</div>
 </div>

@@ -24,8 +24,11 @@
           <span></span>
         </div>
   
-  
+        
         <div (click)="toggle(plugin.id)" class="plugin-list__item-toggle-button unselectable">
+          <span *ngIf="isExtended(plugin.id)" class="plugin-list__item-toggle-description unselectable">hide configuration</span>  
+          <span *ngIf="!isExtended(plugin.id)" class="plugin-list__item-toggle-description unselectable">show configuration</span>  
+
           <img [ngClass]="{'extended': isExtended(plugin.id)}" [src]="toggleIcon">
         </div>
       </div>
