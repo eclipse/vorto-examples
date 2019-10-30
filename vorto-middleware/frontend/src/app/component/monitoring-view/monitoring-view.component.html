@@ -1,11 +1,21 @@
 <div class="monitoring__container">
   <div class="monitoring__container-search">
     <input type="text" placeholder="Enter a device id to filter..." (keyup)='refreshList()' [(ngModel)]="filterString">
-    <span *ngIf="filteredMessages.length === 0 && messageList.length != 0">please enter a valid deviceId</span>
+    <div *ngIf="messagesActivity" class="loading-indicator">
+      <div class="circle-border">
+        <div class="circle-core"></div>
+      </div>
+    </div>
+    <button class="button" (click)="clearResults()"><span>Clear<img [src]="deleteIcon"></span></button>
+
+    <button class="button" (click)="toggleFreeze()">
+      <span *ngIf="outputFreezed">Resume<img [src]="resumeIcon"></span>
+      <span *ngIf="!outputFreezed">Freeze<img [src]="freezeIcon"></span>
+    </button>
 
   </div>
   <div class="monitoring__container-output">
-    <monitoring-console [messages]="filteredMessages"></monitoring-console>
+    <monitoring-console [messageGroups]="filteredGroupList"></monitoring-console>
   </div>
 
 

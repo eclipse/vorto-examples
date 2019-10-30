@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vorto-middleware-ui": {
+    "vorto-middleware": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vorto-middleware-ui",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,19 +67,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vorto-middleware-ui:build",
+            "browserTarget": "vorto-middleware:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "vorto-middleware-ui:build:production"
+              "browserTarget": "vorto-:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vorto-middleware-ui:build"
+            "browserTarget": "vorto-middleware:build"
           }
         },
         "test": {
@@ -116,15 +116,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "vorto-middleware-ui:serve"
+            "devServerTarget": "vorto-middleware:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "vorto-middleware-ui:serve:production"
+              "devServerTarget": "vorto-middleware:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "vorto-middleware-ui"
+  "defaultProject": "vorto-middleware"
 }
