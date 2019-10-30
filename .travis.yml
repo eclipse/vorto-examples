@@ -3,8 +3,8 @@ dist: trusty
 
 jobs:
   include:
-    - stage: deploy-normalizer-aws
-      name: "Deploys the Vorto-Normalizer to AWS Beanstalk"
+    - stage: deploy-middleware-backend-aws
+      name: "Deploys the Vorto-Middleware Backend to AWS Beanstalk"
       language: java
       jdk: oraclejdk8
       before_script:
@@ -26,7 +26,40 @@ jobs:
         app: "Vorto-Payload-Normalizer-Service"
         env: "Payload-Normalizer-Dev"
         bucket_name: "$VORTO_S3_BUCKET"
-
+    
+    - stage: deploy-middleware-frontend-aws
+      name: "Deploys the Vorto-Middleware Frontend to AWS Beanstalk"
+      language: node_js
+      node_js:
+        - '10'
+      script:
+      before_install:
+        - cd vorto-middleware/frontend
+      install:
+        - npm install -g @angular/cli
+        - npm install
+      after_success:
+        - ng build --prod --aot
+      before_deploy:
+        - cd dist
+        - zip -r middleware-frontend.zip .
+        - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} vorto-middleware-frontend "
+        - export ELASTIC_BEANSTALK_ENV=vorto-middleware-frontend-${TRAVIS_BRANCH}
+        - export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
+        - export ARTIFACT=$(ls middleware-frontend.zip)
+      deploy:
+        provider: elasticbeanstalk
+        access_key_id: "$VORTO_AWS_ACCESS_KEY"        
+        secret_access_key: "$VORTO_AWS_SECRET_KEY"
+        zip-file: "${ARTIFACT}"
+        skip_cleanup: true
+        region: "$VORTO_S3_REGION"  
+        app: "Vorto-Payload-Normalizer-Service"
+        env: "Vorto-Middleware-Frontend-Dev"
+        bucket_name: "$VORTO_S3_BUCKET"
+        on:
+          branch: master 
+    
     - stage: deploy-dashboard-aws
       name: "Deploys the Vorto-Dashboard to AWS Beanstalk"
       language: node_js
@@ -69,9 +102,6 @@ jobs:
         on:
           branch: master
       
-
-
-
 
     - stage: deploy-npm
       name: "Publish Vorto-Dashboard to NPM"

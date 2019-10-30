@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { WebsocketService } from 'src/app/service/monitoring/websocket.service';
-import { Observable } from 'rxjs';
+import { async } from 'q';
 
 
 
@@ -10,45 +10,101 @@ import { Observable } from 'rxjs';
   styleUrls: ['./monitoring-view.component.scss']
 })
 export class MonitoringViewComponent implements OnInit {
+
   @Input() filterString = ""
 
-  messages: Observable<String[]>;
-  public messageList: String[] = []
-  public filteredMessages: String[] = []
+
+  public messageGroupList: Array<any> = []
+  public filteredGroupList: Array<any> = []
+
+  public freezedList: Array<any> = []
+
+  public outputFreezed: boolean = false
+
+  public messagesActivity: boolean = false
+
+  public freezeIcon = "../../../assets/icon/console/freeze.svg";
+  public resumeIcon = "../../../assets/icon/console/resume.svg";
+  public deleteIcon = "../../../assets/icon/console/delete.svg";
 
 
-  constructor(private wsService: WebsocketService) {}
+
+
+  constructor(private wsService: WebsocketService) { }
+
+
 
   ngOnInit() {
-    this.wsService.messages.subscribe(async messages => {
-      this.filteredMessages = this.filterMessages(messages, this.filterString)  
-      this.messageList = messages
+    this.subscribeMessages()
+  }
+
+  subscribeMessages() {
+    this.wsService.correlatedMessages.subscribe(async messageGroupList => {
+      if (messageGroupList.length > 500) {
+        this.clearResults()
+      } else {
+        this.messageGroupList = messageGroupList
+        this.filteredGroupList = this.filterMessages(this.messageGroupList, this.filterString)
+      }
+    })
+    this.wsService.messagesActivity.subscribe(async messagesActivity => {
+      this.messagesActivity = messagesActivity
     })
   }
 
-  refreshList(){
-    if(this.messageList && this.filterString){
-      if(this.filterString.length >= 2){
-        this.filteredMessages = this.filterMessages(this.messageList, this.filterString)
-      }else{
-        this.filteredMessages = this.messageList
+
+  filterMessages(messageGroupList, filterString) {
+    if (filterString.length !== 0 && filterString.length >= 2) {
+      var searchRes = {}
+      let corrId = ''
+
+      Object.values(messageGroupList).forEach((messageGroup) => {
+        Object.values(messageGroup).forEach((message) => {
+          if (message.deviceId.toLowerCase().includes(filterString.toLowerCase())) {
+
+            // if correlation id is not already in
+            if (message.correlationId !== corrId) {
+              searchRes[message.correlationId] = messageGroup
+              corrId = message.correlationId
+            }
+          }
+        })
+      })
+
+      return searchRes
+    }
+    return messageGroupList
+  }
+
+
+  refreshList() {
+    if (this.messageGroupList && this.filterString) {
+      if (this.filterString.length >= 2) {
+        this.filteredGroupList = this.filterMessages(this.messageGroupList, this.filterString)
+      } else {
+        this.filteredGroupList = this.messageGroupList
       }
+
     }
   }
 
-  filterMessages(messages, filterString){
-    if(filterString.length !== 0 && filterString.length >= 2 ){
-       var searchRes: String[] = []
-       for(var message of messages){
-         if( message.deviceId.toLowerCase().includes(filterString.toLowerCase())){
-          searchRes.push(message)
-         }
-       }
-       return searchRes
-    }
-    return messages
+
+  clearResults() {
+    this.wsService.clearResults()
+    this.filteredGroupList = []
+    this.messageGroupList = []
+
   }
 
 
-
+  toggleFreeze() {
+    this.outputFreezed = this.outputFreezed ? false : true
+    if (this.outputFreezed) {
+      this.wsService.freeze(this.messageGroupList)
+      
+    }
+  else {
+      this.wsService.connect()
+    }
+  }
 }
