@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client'
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-//const WEBSOCKET_URL: string = 'http://localhost:8080/endpoint/'
-const WEBSOCKET_URL: string = 'http://vorto-normalizer-dev.eu-central-1.elasticbeanstalk.com:8080/endpoint/'
+const WEBSOCKET_URL: string = environment.apiBaseUrl + "/endpoint"
 
 export interface Message {
   content: string;
