@@ -1,21 +1,16 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/service/api/api.service';
-import { interval } from 'rxjs';
-
-import { startWith, switchMap } from 'rxjs/operators';
 import { Plugin } from 'src/app/model/plugin';
 
 @Component({
   selector: 'app-plugins-view',
   templateUrl: './plugins-view.component.html',
-  styleUrls: ['./plugins-view.component.scss'],
-  providers: [APIService]
+  styleUrls: ['./plugins-view.component.scss']
 })
 export class PluginsViewComponent implements OnInit {
 
   constructor(private pluginService: APIService) { }
 
-  private PLUGIN_UPDATE_INTERVAL = 5000
   public result = ""
 
   public pluginList: Array<Plugin> = []
@@ -38,7 +33,7 @@ export class PluginsViewComponent implements OnInit {
           plugin.name = element.name ? element.name : ""
           plugin.description = element.description ? element.description : ""
           plugin.imageUrl = element.imageUrl ? element.imageUrl : ""
-          plugin.isActivated = element.isActivated ? element.isActivated : false
+          plugin.isActivated = element.started ? element.started : false
           plugin.getConfiguration(element.configuration)
           plugin.hidePassword()
           refreshedPlugins.push(plugin)
@@ -88,11 +83,11 @@ export class PluginsViewComponent implements OnInit {
 
 
   updatePluginStates() {
-    interval(this.PLUGIN_UPDATE_INTERVAL).pipe(startWith(0), switchMap(() => this.pluginService.getPlugins()))
+    this.pluginService.pluginList
       .subscribe(
         async res => {
+          console.log("refreshing plugins: ", res)
           this.getPluginData(res)
-          console.log("updating plugins: ", res)
         }, (err) => console.log(err)
       )
   }
