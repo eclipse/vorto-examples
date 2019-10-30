@@ -39,7 +39,7 @@ jobs:
         - npm install -g @angular/cli
         - npm install
       after_success:
-        - ng build --prod
+        - ng build --prod --aot
       before_deploy:
         - cd dist
         - zip -r middleware-frontend.zip .
