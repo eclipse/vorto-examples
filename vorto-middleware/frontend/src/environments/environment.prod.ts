@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseURL :'http://localhost:8080/api/v1'
+  apiBaseUrl :'http://vorto-normalizer-dev.eu-central-1.elasticbeanstalk.com:8080'
 };
