@@ -225,7 +225,7 @@ body>.navbar-collapse {
 
     >.content {
         z-index: 0;
-        padding: 30px 15px;
+        padding: 15px;
         overflow: auto;
         height: calc(100vh - 60px);
     }
@@ -254,8 +254,6 @@ body>.navbar-collapse {
 
 // Custom Changes to Sidebar
 .sidebar {
-
-
     &:after {
         background: $default-background-color;
         -webkit-background-size: cover;

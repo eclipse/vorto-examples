@@ -27,7 +27,7 @@
     "bootstrap": ">=3.4.1",
     "express": "^4.16.4",
     "jquery": "^3.4.1",
-    "leaflet": "^1.4.0",
+    "leaflet": "^1.5.1",
     "leaflet.awesome-markers": "^2.0.5",
     "loglevel": "^1.6.3",
     "medium-zoom": "^1.0.4",

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Spinner from '../Spinner/Spinner';
 
 import { pollThings } from '../../util/DataPoller'
-import { applyFilters } from '../../util/ViewFilters'
 // import { buildKpiInfo } from '../../util/KPIConfigInterpreter'
 import { getTextAfterColon } from '../../util'
 
@@ -12,7 +11,6 @@ const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
 function pollDevices () {
   pollThings()
-    .then(things => applyFilters(things))
     .then(things => {
       this.setState({
         things
@@ -54,7 +52,6 @@ export class KpiCardTwoCol extends Component {
       })
     }
 
-    log.debug(this.state.things)
 
     if (this.state.loading) {
       return this.getKpiCard(<div className='spinner-half'><Spinner /></div>)

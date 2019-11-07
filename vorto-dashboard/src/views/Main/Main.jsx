@@ -1,57 +1,55 @@
 import React from 'react'
-import { Grid, Row, Col } from 'react-bootstrap'
-import { connect } from 'react-redux'
-
 import Actions from '../../actions'
+import { connect } from 'react-redux'
 import MapCard from '../../components/MapCard/MapCard'
+import { getThingsInTopology, countDevicesInTopoloy } from '../../util'
 
-// import kpiConfig from '../../util/kpi_config.json'
-import KpiCardSingleValue from '../../components/KpiCard/KpiCardSingleValue';
-import KpiCardTwoCol from '../../components/KpiCard/KpiCardTwoCol';
 
-const mapStateToProps = state => {
-  return {
-    devices: state.devices.devices,
 
-  }
+const { store } = require('../../store')
+
+
+const mapStateToProps = () => {
+    return {
+        selectedDevice: store.getState().selectedDevice,
+    }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    selectDevice: device => dispatch(Actions.selectDevice(device))
-  }
+function mapDispatchToProps(dispatch) {
+    return {
+        selectDevice: selectedDevice => dispatch(Actions.selectDevice(selectedDevice))
+    }
 }
 
 
+const MainView = () => {
+    
+   var device = store.getState().selectedDevice
 
-const MainView = ({ devices, selectDevice }) => {
-  const singleValKpi = (
-    <Col xs={6} sm={6} md={6} lg={6} key={0}>
-      <KpiCardSingleValue heading={'Number of Water Level Sensors'} feature={'waterlevel'} />
-    </Col>)
-
-  const twoColKpi = (
-    <Col xs={6} sm={6} md={6} lg={6} key={0}>
-      <KpiCardTwoCol heading={'Predominant soil state per Zone'} feature={'waterlevel'} />
-    </Col>)
+   const topology = (store.getState().topologyState) ? store.getState().topologyState : {}
+   var selectedDevice = (device.thingId) ? device.thingId : ''
 
 
+   const numDevices = countDevicesInTopoloy(getThingsInTopology(topology, selectedDevice), store.getState().devices.devices)
 
-  return (
-    <div className='fill-hw-locate'>
-      <Grid fluid>
-        <Row>
-          {singleValKpi}
-          {twoColKpi}
-        </Row>
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <MapCard />
-          </Col>
-        </Row>
-      </Grid>
-    </div>
-  )
+   const numDevicesString = (numDevices > 1) ? String(numDevices + " Devices") : String(numDevices + " Device")
+
+    if (device.thingId) {
+        return (
+            <div className='content'>
+                <div className="content-header"><span>{device.attributes.thingName}</span>
+                <span className="device-count">Contains {numDevicesString}</span>
+                </div>
+                <MapCard />
+            </div>
+        )
+    }
+    return (
+        <div className='content'>
+                <div className="content-header"><span>No device selected</span></div>
+            </div>
+    )
+    
 }
 
 const Main = connect(mapStateToProps, mapDispatchToProps)(MainView)

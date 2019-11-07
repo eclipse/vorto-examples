@@ -24,7 +24,6 @@ import {
 
 const { store } = require('../../store')
 
-
 const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
     switch (categorieType) {
         case CATEGORIES.GAUGE:
@@ -122,13 +121,14 @@ export class Sensors extends Component {
     }
 
     componentDidMount() {
+        this.unsubscribe = store.subscribe(() => { this.refreshSelectedDevice() })
         this.pollThingInterval = setInterval(pollDevices.bind(this), DEVICE_REFRESH_MS)
-        store.subscribe(() => { this.refreshSelectedDevice() })
 
     }
 
     componentWillUnmount() {
         clearInterval(this.pollThingInterval)
+        this.unsubscribe()
     }
 
 

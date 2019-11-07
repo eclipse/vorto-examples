@@ -83,7 +83,7 @@
   justify-content: space-between;
 
   &__button-row {
-    right: 45px;
+    right: 30px;
     height: 60px;
     position: absolute;
     color: white;
@@ -96,7 +96,6 @@
       color: $card-header-color;
       border-radius: 4px;
       height: 38px;
-      margin: 0px 4px;
       padding: 8px;
       display: flex;
       align-items: center;
@@ -175,21 +174,55 @@
 }
 
 .map-wrapper {
-  position: absolute;
+  position: relative;
   height: 100%;
-  width: calc(100% - 30px);
-  width: -moz-calc(100% - 30px);
-  width: -webkit-calc(100% - 30px);
-  -webkit-min-height: 50vh;
-  -moz-min-height: 50vh;
-  -ms-min-height: 50vh;
-  -o-min-height: 50vh;
-  min-height: 50vh;
+  min-height: calc(100vh - 180px);
+
   overflow: hidden;
+
+  .device-counter{
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    top: 8px;
+    opacity: 0.85;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: $card-header-color;
+    padding: 4px 8px;
+    background: $card-header-background-color;
+    font-size: 1.2rem;
+  }
 }
 
 .content {
   width: 100%;
+
+  &-header {
+    z-index: 99;
+    margin: 15px 15px 0 15px;
+    background: $card-header-background-color;
+    color: $card-header-color;
+    border-top-right-radius: $border-radius-base;
+    border-top-left-radius: $border-radius-base;
+    padding: 10px;
+    margin-left: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 0 0 1px rgba(30, 30, 31, 0.2);
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 24px;
+
+    }
+    .device-count{
+      position: absolute;
+      right: 40px;
+      color: rgb(209, 209, 209);
+      font-size: 18px;
+    }
+  }
+
 }
 
 .map-card {
@@ -207,9 +240,9 @@
 }
 
 .map-attr-card {
-  overflow: auto;
-  height: 50vh;
   overflow: hidden;
+  border-radius: 0;
+  margin: 0 15px;
 }
 
 /* the tree node's style */
@@ -456,23 +489,27 @@
     background: $default-dark-hover;
     box-shadow: 0 1px 2px rgba(29, 29, 29, 0.9);
     height: 60px;
-    span{
+
+    span {
       color: $card-header-color;
       font-weight: lighter;
       margin: 0 16px;
     }
-    a{
+
+    a {
       margin: 0 16px;
-      .link-image{
+
+      .link-image {
         height: 20px;
         width: 20px;
         margin-left: 8px;
       }
-      &:hover{
+
+      &:hover {
         opacity: 0.8;
       }
     }
-   
+
   }
 
 
@@ -500,6 +537,7 @@
       border-radius: 50%;
       margin-right: -25px;
       margin-top: 5px;
+
       &:hover {
         background: $default-white-transparent;
 
@@ -521,46 +559,54 @@
     }
 
   }
-  &__simulator-image{
+
+  &__simulator-image {
     position: relative;
     width: 100%;
     background: white;
     opacity: 0.95;
-    img{
+
+    img {
       width: 100%;
     }
   }
-&__simulator-elements {    
+
+  &__simulator-elements {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    span{
+
+    span {
       color: $default-white;
     }
+
     .simulator-state {
-      margin:15px;
+      margin: 15px;
       height: 30px;
       width: 30px;
       border-radius: 100%;
       border: 1px solid #333333;
+    }
   }
 }
-}
+
 .simulator-buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  
+
 }
 
 .simulator-buttons .btn {
   height: 50px;
   width: 200px;
   font-size: 20px;
-  &:disabled{
+
+  &:disabled {
     opacity: 0.5;
-    &:hover{
+
+    &:hover {
       cursor: not-allowed;
       color: #777777 !important;
       border-color: #777777 !important;
@@ -574,4 +620,66 @@
   border-color: #1DC7EA !important;
   background-color: #333333;
   color: #e5e5e5;
+}
+
+.leaflet-popup{
+ 
+  cursor: pointer;
+  .leaflet-popup-content-wrapper{
+    &:hover{
+      box-shadow:  1px 0px rgba(29, 29, 29, 0.3);
+      background: $default-dark-hover;
+      
+    }
+    color: $card-header-color;
+    background: $default-dark;
+
+    border-radius: 8px;
+  }
+  .leaflet-popup-tip{
+    background: $default-dark;
+
+  }
+ 
+  .lefelet-popup-close-button{
+    font: 24px/24px Tahoma, Verdana, sans-serif;
+    padding:4px;
+  }
+  .tooltip-content{
+    padding: 8px;
+
+    &__image{
+      position: absolute;
+      background: $default-white;
+      display: flex;
+      border-radius: 50%;
+      border:3px solid $default-dark-hover;
+      box-shadow: 0 0 0 3px $default-dark-transparent;
+      overflow: hidden;
+      height: 70px;
+      width: 70px;
+      top: -30px;
+      left: -30px;
+
+      img {
+          width: auto;
+          height: 100%;
+
+      }
+    }
+    &__title{
+      h4{
+        margin: 10px 0 0 0;
+      }
+    }
+    &__info{
+      .attr-keyword{
+        font-weight: bolder;
+      }
+      p{
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import OSMap from '../../../components/OSMap/OSMap'
+import OSMapWidget from '../../../components/OSMap/OSMapWidget'
 
 import { getRepositoryLink } from '../../../util'
 
@@ -13,7 +13,7 @@ export class LocationCard extends Component {
                     </div>
                 </a>
                 <div className="card-map">
-                    <OSMap devices={[this.props.device]} displayTooltip={false} />
+                    <OSMapWidget devices={[this.props.device]} displayTooltip={false} />
                 </div>
             </div>
         )

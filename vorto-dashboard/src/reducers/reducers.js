@@ -21,6 +21,25 @@ export const updateDevices = (state = { devices: [], lastUpdated: '', lastState:
   return state
 }
 
+export const updateTopology = (state = {topologyState: []}, action) => {
+  if (action.type === 'UPDATE_TOPOLOGY') {
+    return action.topologyState   
+}
+return state
+}
+
+export const countDevices = (state = {totalDevices: 0}, action) => {
+  if (action.type === 'COUNT_DEVICES') {
+    if(action !== undefined){
+      return {
+        totalDevices: action.totalDevices
+    }
+  }
+  }
+  return state
+  }
+
+
 export const changingValues = (state = { deviceIds: [] }, action) => {
   if (action.type === 'VALUES_CHANGING') {
     return {
@@ -64,6 +83,8 @@ export const updateSimulator = (state = { running: false, startTime: '' }, actio
 export default {
   selectDevice,
   updateDevices,
+  updateTopology,
+  countDevices,
   updateSearch,
   changingValues,
   updateSimulator
