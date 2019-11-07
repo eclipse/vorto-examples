@@ -23,5 +23,4 @@ function pollThings (filterString) {
 }
 
 
-export {
-  pollThings}
+export {pollThings}

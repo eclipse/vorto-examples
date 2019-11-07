@@ -10,7 +10,7 @@ import Sensors from '../../components/Sensors/Sensors'
 const { store } = require('../../store')
 
 
-const mapStateToProps = state => {
+const mapStateToProps = () => {
   return {
     selectedDevice: store.getState().selectedDevice,
   }
@@ -24,7 +24,7 @@ function mapDispatchToProps(dispatch) {
 
 
 const DeviceView = (props) => {
-var device = props.selectedDevice
+  var device = props.selectedDevice
   if (device.thingId) {
     return (
       <div className='content'>
@@ -39,6 +39,11 @@ var device = props.selectedDevice
       </div>
     )
   }
+  return (
+    <div className='content'>
+      <div className="content-header"><span>no device selected</span></div>
+    </div>
+  )
 }
 
 const Device = connect(mapStateToProps, mapDispatchToProps)(DeviceView)

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { getRepositoryLink } from '../../../util'
-import { isNumber } from 'util'
 
 
 export class PercentageCard extends Component {

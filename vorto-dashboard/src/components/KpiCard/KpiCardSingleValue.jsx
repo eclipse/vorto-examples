@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Spinner from '../Spinner/Spinner';
 
 import { pollThings } from '../../util/DataPoller'
-import { applyFilters } from '../../util/ViewFilters'
 // import { buildKpiInfo } from '../../util/KPIConfigInterpreter'
 
 import log from 'loglevel'
@@ -11,7 +10,6 @@ const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
 function pollDevices () {
   pollThings()
-    .then(things => applyFilters(things))
     .then(things => {
       this.setState({
         things

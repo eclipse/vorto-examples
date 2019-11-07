@@ -422,7 +422,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   width: calc(100% - 260px); }
   .main-panel > .content {
     z-index: 0;
-    padding: 30px 15px;
+    padding: 15px;
     overflow: auto;
     height: calc(100vh - 60px); }
   .main-panel > .footer {
@@ -1823,6 +1823,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   color: white; }
   .card_attributes {
     background: #282828;
+    margin-top: 15px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(63, 63, 68, 0.8); }
     .card_attributes .thing-name {
       background: #1d2022;
@@ -3564,7 +3565,7 @@ body > .navbar-collapse[data-color="purple"]:after {
   flex-direction: row;
   justify-content: space-between; }
   .navbar-header__button-row {
-    right: 45px;
+    right: 30px;
     height: 60px;
     position: absolute;
     color: white;
@@ -3576,7 +3577,6 @@ body > .navbar-collapse[data-color="purple"]:after {
       color: #b1b1b1;
       border-radius: 4px;
       height: 38px;
-      margin: 0px 4px;
       padding: 8px;
       display: flex;
       align-items: center;
@@ -3637,20 +3637,44 @@ body > .navbar-collapse[data-color="purple"]:after {
   overflow: auto; }
 
 .map-wrapper {
-  position: absolute;
+  position: relative;
   height: 100%;
-  width: calc(100% - 30px);
-  width: -moz-calc(100% - 30px);
-  width: -webkit-calc(100% - 30px);
-  -webkit-min-height: 50vh;
-  -moz-min-height: 50vh;
-  -ms-min-height: 50vh;
-  -o-min-height: 50vh;
-  min-height: 50vh;
+  min-height: calc(100vh - 180px);
   overflow: hidden; }
+  .map-wrapper .device-counter {
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    top: 8px;
+    opacity: 0.85;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    color: #b1b1b1;
+    padding: 4px 8px;
+    background: #1d2022;
+    font-size: 1.2rem; }
 
 .content {
   width: 100%; }
+  .content-header {
+    z-index: 99;
+    margin: 15px 15px 0 15px;
+    background: #1d2022;
+    color: #b1b1b1;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    padding: 10px;
+    margin-left: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(30, 30, 31, 0.2);
+    display: flex;
+    align-items: center; }
+    .content-header span {
+      font-size: 24px; }
+    .content-header .device-count {
+      position: absolute;
+      right: 40px;
+      color: #d1d1d1;
+      font-size: 18px; }
 
 .map-card {
   height: 100%;
@@ -3664,9 +3688,9 @@ body > .navbar-collapse[data-color="purple"]:after {
   margin-bottom: 27px; }
 
 .map-attr-card {
-  overflow: auto;
-  height: 50vh;
-  overflow: hidden; }
+  overflow: hidden;
+  border-radius: 0;
+  margin: 0 15px; }
 
 /* the tree node's style */
 .tree-view {
@@ -3945,3 +3969,42 @@ body > .navbar-collapse[data-color="purple"]:after {
   border-color: #1DC7EA !important;
   background-color: #333333;
   color: #e5e5e5; }
+
+.leaflet-popup {
+  cursor: pointer; }
+  .leaflet-popup .leaflet-popup-content-wrapper {
+    color: #b1b1b1;
+    background: #0a0a0a;
+    border-radius: 8px; }
+    .leaflet-popup .leaflet-popup-content-wrapper:hover {
+      box-shadow: 1px 0px rgba(29, 29, 29, 0.3);
+      background: #14181b; }
+  .leaflet-popup .leaflet-popup-tip {
+    background: #0a0a0a; }
+  .leaflet-popup .lefelet-popup-close-button {
+    font: 24px/24px Tahoma, Verdana, sans-serif;
+    padding: 4px; }
+  .leaflet-popup .tooltip-content {
+    padding: 8px; }
+    .leaflet-popup .tooltip-content__image {
+      position: absolute;
+      background: white;
+      display: flex;
+      border-radius: 50%;
+      border: 3px solid #14181b;
+      box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.1);
+      overflow: hidden;
+      height: 70px;
+      width: 70px;
+      top: -30px;
+      left: -30px; }
+      .leaflet-popup .tooltip-content__image img {
+        width: auto;
+        height: 100%; }
+    .leaflet-popup .tooltip-content__title h4 {
+      margin: 10px 0 0 0; }
+    .leaflet-popup .tooltip-content__info .attr-keyword {
+      font-weight: bolder; }
+    .leaflet-popup .tooltip-content__info p {
+      font-size: 14px;
+      margin: 0; }

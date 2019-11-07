@@ -10,17 +10,33 @@ import { withRouter } from 'react-router';
 
 
 
+
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const { store } = require('../../store')
 
+const LabelType = {
+  DEVICE: "DEVICE",
+  LABEL: "LABEL",
+  ROOT: "ROOT"
+}
 
+const FALLBACK_ROOT = {
+  thingId: ":My Devices",
+  attributes: {
+    topology: {
+      definition: "org.eclipse.vorto:Topology:1.0.0"
+    },
+    thingName: "My Devices",
+  }
+}
 
 let changingValuesIds = []
+
 
 class TreeViewNav extends Component {
   state = {
     loading: true,
-    selectedStates: []
+    topologyState: []
   }
 
 
@@ -58,50 +74,50 @@ class TreeViewNav extends Component {
     if (!things) {
       return {}
     }
-
-    const root = things.find(thing => {
-      const thingTopo = thing.attributes.topology
-
-      if (!thingTopo) {
-        return false
-      }
-
-      return thingTopo.definition.includes('org.eclipse.vorto:Topology')
-    })
-
-
-    const defaultLabel = "My Devices"
     const topology = {}
-
-    if (!root) {
-      if (things.length !== 0) {
-        topology[defaultLabel] = this.getThingsWithoutTopology(things)
-        return topology
-      } else return {}
-    }
-
-    // if root of topology exists
-    const rootLabel = getTextAfterColon(root.thingId)
-    const rootReferences = root.attributes.topology.references
-
-    // add both topologies
-    topology[rootLabel] = this.getEntityChilds(things, rootReferences)
-    topology[rootLabel]["selected"] = false
-
-    topology[defaultLabel] = this.getThingsWithoutTopology(things)
-    topology[defaultLabel]["selected"] = false
+    let totalDevicesCount = 0
+    things.forEach(thing => {
+      const thingTopo = thing.attributes.topology
+      if (!thingTopo) {
+        //counting all devices without topology
+        totalDevicesCount++
+      }
+      if (thingTopo) {
+        //counting all referencable devices with topology and excluding suptopologies e.g Zone A
+        if (JSON.stringify(thingTopo).includes("org.eclipse.vorto:Referencable:1.0.0") && thingTopo.references.length === 0) {
+          totalDevicesCount++
+        }
+        if (JSON.stringify(thingTopo).includes("org.eclipse.vorto:Topology")) {
+          const rootLabel = getTextAfterColon(thing.thingId)
+          const rootReferences = thing.attributes.topology.references
+          if (rootReferences) {
+            topology[rootLabel] = this.getEntityChilds(things, rootReferences)
+            topology[rootLabel]["selected"] = false
+          } else {
+            if (things.length > 1) {
+              // > 1 because the empty My Devices Topology is already inside
+              topology[rootLabel] = this.getThingsWithoutTopology(things)
+              topology[rootLabel]["selected"] = false
+            }
+          }
+        }
+      }
+    })
+    this.dispatchDeviceAmount(totalDevicesCount)
     return topology
   }
 
 
 
-  handleUnselect(id, origin) {
-    var joined = this.state.selectedStates
+  handleSelection(id, origin) {
+    var joined = this.state.topologyState
     // unselect all other nodes with different id
     Object.keys(joined).map(key => {
       joined[key].subNodes.forEach(element => {
         if (element.id !== id || joined.id === id) {
           element.selected = false
+        } else {
+          element.selected = true
         }
 
         element.subNodes.forEach(unselect => {
@@ -112,16 +128,20 @@ class TreeViewNav extends Component {
         element.subNodes.forEach(subElement => {
           subElement.selected = (subElement.id === id && element.id === origin) ? true : false
         })
-      })
+
+      }
+      )
+      joined[key].selected = (key === id) ? true : false
     })
 
     this.setState({
-      selectedStates: { ...joined }
+      topologyState: { ...joined }
     })
 
   }
 
   removeBodyClickDiv() {
+    //untoggle nav sidebar
     if (document.getElementById('bodyClick')) {
       document.getElementById('bodyClick').remove();
     }
@@ -129,62 +149,36 @@ class TreeViewNav extends Component {
   }
 
 
-  handleLabelClick(id, origin) {
 
+  handleLabelClick(id, origin, labelType) {
     this.removeBodyClickDiv()
-
-    var joined = this.state.selectedStates
-    Object.keys(joined).map(key => {
-
-      joined[key].subNodes.forEach(element => {
-
-        //if either a label or a thing as direct child of root node selected
-        if (element.id === id) {
-          //unselect all other labels
-          this.handleUnselect(id, origin)
-          element.selected = true
-          this.dispatchSelectedDevice(id)
-
-          // no subchild = empty label or device => select it, go to devices route
-          if (element.subNodes.length === 0) {
-            this.props.history.push('/device')
-          }
-        }
-
-
-
-        //thing in label selected if origin is the parent -> go to subNode
-        if (element.id === origin) {
-          element.subNodes.forEach(subElement => {
-
-            //if thing selected
-            if (subElement.id === id) {
-
-              subElement.selected = true
-              if (subElement.selected) {
-                this.handleUnselect(id, origin)
-              }
-              this.dispatchSelectedDevice(id)
-              this.props.history.push('/device')
-            }
-          })
-        }
-
-      })
-      //root
-      joined[key].selected = (key === id) ? true : false
-    })
-    this.handleUnselect(id, origin)
+    this.handleSelection(id, origin)
     this.dispatchSelectedDevice(id)
 
-    // set State for ui update
-    this.setState({ selectedStates: { ...joined } })
+    switch (labelType) {
+      case LabelType.DEVICE:
+        this.props.history.push('/device')
+        break;
+      case LabelType.LABEL:
+        this.props.history.push('/main')
+        break;
+      case LabelType.ROOT:
+        this.props.history.push('/main')
+        break;
+      default:
+        break;
+    }
   }
 
   dispatchSelectedDevice(id) {
     // save selected thing to redux store
-    store.dispatch(Actions.selectDevice(
-      this.props.things.find(element => { return getTextAfterColon(element.thingId) === id })))
+    try {
+      store.dispatch(Actions.selectDevice(
+        this.props.things.find(element => { return getTextAfterColon(element.thingId) === id })))
+    } catch (error) {
+      console.log("error while storing", error)
+    }
+
   }
 
   dispatchValueChanges(ids) {
@@ -193,6 +187,18 @@ class TreeViewNav extends Component {
     }
   }
 
+  dispatchTopologyState(topologyState) {
+    if (topologyState) {
+      store.dispatch(Actions.updateTopology(topologyState))
+    }
+  }
+
+  dispatchDeviceAmount(totalDevices){
+    if(totalDevices){
+      store.dispatch(Actions.countDevices(totalDevices))
+
+    }
+  }
 
   isLabelInside(struct, id) {
     var contains = false
@@ -208,12 +214,12 @@ class TreeViewNav extends Component {
 
   areValuesChanging(id) {
     var isSimulating = false
-    const selectedStates = this.state.selectedStates
+    const topologyState = this.state.topologyState
 
-    Object.keys(selectedStates).map(key => {
-      if (selectedStates[key].subNodes) {
+    Object.keys(topologyState).map(key => {
+      if (topologyState[key].subNodes) {
 
-        selectedStates[key].subNodes.forEach(element => {
+        topologyState[key].subNodes.forEach(element => {
           if (element.id === id && element.simulating) {
             isSimulating = true
           }
@@ -232,20 +238,19 @@ class TreeViewNav extends Component {
 
   isNodeSelected(id, origin) {
     var isSelected = false
-    const selectedStates = this.state.selectedStates
+    const topologyState = this.state.topologyState
     const propsSelectedDeviceId = getTextAfterColon(this.props.selectedDevice.thingId)
-
-    Object.keys(selectedStates).map(key => {
-      if (selectedStates[key].subNodes !== undefined) {
+    Object.keys(topologyState).map(key => {
+      if (topologyState[key].subNodes !== undefined) {
         //root
-        if (key === id && selectedStates[key].selected |
+        if (key === id && topologyState[key].selected |
           // if selected in props after e.g. page reload 
           key === propsSelectedDeviceId) {
           isSelected = true
         }
 
         //labels
-        selectedStates[key].subNodes.forEach(element => {
+        topologyState[key].subNodes.forEach(element => {
 
           if (element.id === id && element.selected |
             element.id === propsSelectedDeviceId) {
@@ -269,9 +274,10 @@ class TreeViewNav extends Component {
 
 
 
-  buildTreeView(topology, things) {
+  buildTreeView(topology) {
 
     var treeViewResult = []
+
 
     for (let [key] of Object.entries(topology)) {
       // Mapping through root
@@ -283,8 +289,7 @@ class TreeViewNav extends Component {
       const rootNode =
         <div className={"clickable-label " + (this.isNodeSelected(treeViewRootName) ? "selected" : "")}
           onClick={() => {
-            this.handleLabelClick(treeViewRootName)
-            this.props.history.push('/main')
+            this.handleLabelClick(treeViewRootName, null, LabelType.ROOT)
           }}>
           <span >
             {treeViewRootName}
@@ -292,17 +297,16 @@ class TreeViewNav extends Component {
         </div>
 
       const selectedRoot = { selected: false, subNodes: [] };
-      let joined = this.state.selectedStates
+      let joined = this.state.topologyState
 
       //add root of selectedState Array
       if (this.state.loading && Object.keys(topology).length !== 0) {
 
         joined[treeViewRootName] = selectedRoot
-        this.setState({ selectedStates: { ...joined } });
+        this.setState({ topologyState: { ...joined } });
       }
 
       treeViewResult = [treeViewResult, <TreeView
-        onClick={() => { }}
         nodeLabel={rootNode}>
         {treeViewRoot.map((child) => this.getTreeViewStructure(child, treeViewRootName, true), this)}
       </TreeView>]
@@ -324,7 +328,7 @@ class TreeViewNav extends Component {
 
 
   getTreeViewStructure(topology, origin, isRootNode) {
-    var joined = this.state.selectedStates
+    var joined = this.state.topologyState
 
 
     return Object.keys(topology).map((label) => {
@@ -340,7 +344,7 @@ class TreeViewNav extends Component {
 
           joined[origin].subNodes.push(selectedThing)
           this.setState({
-            selectedStates: { ...joined }
+            topologyState: { ...joined }
           })
         }
 
@@ -358,7 +362,7 @@ class TreeViewNav extends Component {
                   if (element.id === origin) {
                     element.subNodes.push(selectedThing)
                     this.setState({
-                      selectedStates: { ...joined }
+                      topologyState: { ...joined }
                     })
                   }
                 }
@@ -370,7 +374,8 @@ class TreeViewNav extends Component {
         const thingIcon = this.getThingIcon(label)
 
         return <div className={"thing " + (this.isNodeSelected(label, origin) ? "selected" : "")} onClick={() => {
-          this.handleLabelClick(label, origin)
+          //clicked device
+          this.handleLabelClick(label, origin, LabelType.DEVICE)
         }}>
           <div className={"simulation-indicator " + (this.areValuesChanging(label, origin) ? "visible" : "")}><div></div><div></div><div></div><div></div></div>
           <div className='thing_icon-container'>
@@ -390,12 +395,10 @@ class TreeViewNav extends Component {
             const selectedLabel = { id: label, selected: false, subNodes: [] };
             joined[origin].subNodes.push(selectedLabel)
             this.setState({
-              selectedStates: { ...joined }
+              topologyState: { ...joined }
             })
           }
-
         }
-
       }
 
 
@@ -403,8 +406,7 @@ class TreeViewNav extends Component {
         <div
           className={"clickable-label " + (this.isNodeSelected(label, origin) ? "selected" : "")}
           onClick={() => {
-            this.handleLabelClick(label, origin)
-            this.props.history.push('/main')
+            this.handleLabelClick(label, origin, LabelType.LABEL)
           }}>
           <span className='node'>
             {label}
@@ -422,7 +424,7 @@ class TreeViewNav extends Component {
   }
 
   refreshUpdatingAnimation(id, simulating) {
-    var joined = this.state.selectedStates
+    var joined = this.state.topologyState
     Object.keys(joined).map(key => {
       joined[key].subNodes.forEach(element => {
         if (element.id === id) {
@@ -436,7 +438,7 @@ class TreeViewNav extends Component {
         })
       })
     })
-    this.setState({ selectedStates: { ...joined } })
+    this.setState({ topologyState: { ...joined } })
   }
 
   checkForValueChanges() {
@@ -447,7 +449,6 @@ class TreeViewNav extends Component {
       const thingId = getTextAfterColon(current[i].thingId)
       const areEqual = (JSON.stringify(current[i]) === JSON.stringify(previous[i]))
       const hasFeatures = (current[i].features && current[i].features.length !== 0) ? true : false
-      // const isAThing = (current[i].features && previous[i].features)
 
       if (!areEqual) {
         if (changingValuesIds.indexOf(thingId) === -1 && hasFeatures) {
@@ -456,7 +457,7 @@ class TreeViewNav extends Component {
           this.refreshUpdatingAnimation(thingId, true)
         }
       }
-      
+
       for (var changingValId of changingValuesIds) {
         if (thingId === changingValId && areEqual) {
           //remove from changing values array
@@ -478,14 +479,23 @@ class TreeViewNav extends Component {
 
     store.subscribe(() => { this.checkForValueChanges() })
 
+    const last = this.props.things[this.props.things.length - 1]
+    if(last){
+      if(last.thingId !== FALLBACK_ROOT.thingId){
+        this.props.things.push(FALLBACK_ROOT)
+
+      }
+      
+    }
     const topology = this.buildTopology(this.props.things)
-    const TreeViewNav = this.buildTreeView(topology, this.props.things)
+    const TreeViewNav = this.buildTreeView(topology)
     if (this.state.loading && Object.keys(topology).length !== 0) {
       this.setState({ loading: false });
     }
     if (this.state.loading) {
       return <Spinner />
     }
+    this.dispatchTopologyState(this.state.topologyState)
 
     return TreeViewNav
   }

@@ -10,6 +10,7 @@
 
     &_attributes {
         background: $default-background-color;
+        margin-top: 15px;
         box-shadow: 0 1px 2px rgba(0, 0, 0, .9), 0 0 0 1px rgba(63, 63, 68, .8);
 
 
@@ -26,7 +27,6 @@
                 @media screen and (min-width:993px) {
                     display: none;
                 }
-
                 margin: 0 10px 0 0;
                 align-self: center;
                 background: $default-white;

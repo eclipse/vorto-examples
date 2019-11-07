@@ -53,6 +53,7 @@ const configFile = require(configPath)
   const envSecret = process.env.BOSCH_CLIENT_SECRET
   const envScope = process.env.BOSCH_SCOPE
 
+
   if (!envId || !envSecret || !envScope) {
     log.error('No credentials given in either config file or environment, stopping dashboard!')
     process.exit(1)

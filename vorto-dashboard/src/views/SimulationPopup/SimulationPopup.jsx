@@ -39,8 +39,13 @@ class SimulationPopup extends React.Component {
 
     
 componentDidMount () {
-    store.subscribe(() => { this.checkForValueChanges() })
+    this.unsubscribe = store.subscribe(() => { this.checkForValueChanges() })
 }
+
+componentWillUnmount() {
+    this.unsubscribe()
+  }
+
 
     SimulatorButton = (disableCond) => {
         
@@ -80,7 +85,7 @@ componentDidMount () {
                     </button>
                     <div className="simulation-popup__header">
                         <span>Simulate things</span>
-                        <a href='https://github.com/eclipse/vorto-examples/tree/master/vorto-dashboard/docs/AssetTracking.md'
+                        <a href='https://github.com/eclipse/vorto-examples/tree/master/vorto-dashboard/docs/behind_the_scenes.md'
                             target='_blank' rel='noopener noreferrer' className='how-link'>How it works
                             <img className="link-image"
                             alt="information-icon"

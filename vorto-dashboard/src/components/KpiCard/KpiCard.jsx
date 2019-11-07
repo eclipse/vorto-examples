@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Spinner from '../Spinner/Spinner';
 
 import { pollThings } from '../../util/DataPoller'
-import { applyFilters } from '../../util/ViewFilters'
 // import { buildKpiInfo } from '../../util/KPIConfigInterpreter'
 
 import log from 'loglevel'
@@ -18,7 +17,6 @@ function pollDevices () {
   }
 
   pollThings(query)
-    .then(things => applyFilters(things))
     .then(things => {
       this.setState({
         things

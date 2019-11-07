@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import OSMap from '../OSMap/OSMap'
 import { pollThings } from '../../util/DataPoller'
-import { applyFilters } from '../../util/ViewFilters'
 import log from 'loglevel'
 import Actions from '../../actions'
+
 
 
 
@@ -13,56 +13,62 @@ const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
 const { store } = require('../../store')
 
+let unsubscribe
 
 function pollDevices() {
-  pollThings('location')
-    .then(things => applyFilters(things))
-    .then(things => {
-      this.setState({
-        things
+  pollThings()
+      .then(things => {
+          this.setState({
+              things
+          })
       })
-    })
-    .catch(err => `Could not poll devices... ${err}`)
-    this.dispatchDevices()
+      .catch(err => `Could not poll devices... ${err}`)
+  this.dispatchDevices()
 
 }
+
+
+
+
 
 
 
 export class MapCard extends Component {
   state = {
     things: [],
-    selectedDevice: store.getState().selectedDevice
+    selectedDevice: ""
   }
 
   dispatchDevices() {
     const devices = this.state.things
     if (devices.length > 0) {
-      store.dispatch(Actions.updateDevices(devices, '', []))
+        store.dispatch(Actions.updateDevices(devices, '', []))
     }
+}
+
+refreshSelectedDevice() {
+  const thingId = store.getState().selectedDevice.thingId
+  const things = this.state.things
+  if (things.length > 0) {
+      this.setState({ selectedDevice: this.state.things.find(x => x.thingId === thingId) })
+  }else{
+      this.setState({ selectedDevice: store.getState().selectedDevice })
   }
+}
 
 
   componentDidMount() {
-    this.thingInterval = setInterval(pollDevices.bind(this), DEVICE_REFRESH_MS)
-    store.subscribe(() => { this.refreshSelectedDevice() })
-
+   this.thingInterval = setInterval(pollDevices.bind(this), DEVICE_REFRESH_MS)
+   this.unsubscribe = store.subscribe(() => { this.refreshSelectedDevice() })
   }
 
   componentWillUnmount() {
     clearInterval(this.thingInterval)
+    this.unsubscribe()
   }
 
   
-  refreshSelectedDevice() {
-    const thingId = store.getState().selectedDevice.thingId
-    const things = this.state.things
-    if (things.length > 0) {
-        this.setState({ selectedDevice: this.state.things.find(x => x.thingId === thingId) })
-    }else{
-        this.setState({ selectedDevice: store.getState().selectedDevice })
-    }
-}
+
 
   render() {
 

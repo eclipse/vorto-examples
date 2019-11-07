@@ -3,12 +3,16 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Banner from '../../components/Banner/Banner'
+import '../../assets/sass/lbd/_variables.scss';
+
+
 
 import dashboardRoutes from '../../routes/dashboard.jsx'
 import { connect } from 'react-redux';
 
 
 const { store } = require('../../store')
+
 
 const mapStateToProps = function () {
   return {

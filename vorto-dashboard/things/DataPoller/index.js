@@ -102,6 +102,7 @@ function removeNonTopology (things) {
 }
 
 function filterThings (filterString) {
+  
   filterString = filterString.toLowerCase()
 
   return new Promise((resolve, reject) => {

@@ -8,6 +8,15 @@ export const updateDevices = devices => ({
   devices
 })
 
+export const updateTopology = (topologyState) => ({
+  type: 'UPDATE_TOPOLOGY',
+  topologyState
+})
+
+export const countDevices = (totalDevices) => ({
+  type: 'COUNT_DEVICES',
+  totalDevices
+})
 
 export const changingValues = deviceIds => ({
   type: 'VALUES_CHANGING',
@@ -28,6 +37,8 @@ export default {
   selectDevice,
   updateDevices,
   changingValues,
+  updateTopology,
+  countDevices,
   updateSearch,
   updateSimulator
 }

@@ -23,6 +23,7 @@ export const persistor = persistStore(store)
 
 store.dispatch(Actions.selectDevice({}))
 store.dispatch(Actions.updateDevices([]))
+store.dispatch(Actions.updateTopology([]))
 store.dispatch(Actions.changingValues([]))
 store.dispatch(Actions.updateSearch(''))
 store.dispatch(Actions.updateSimulator({}))

@@ -1,11 +1,11 @@
-import Main from '../views/Main/Main'
 import Device from '../views/Device/Device'
+import Main from '../views/Main/Main'
 
 
 const dashboardRoutes = [
   {
     path: '/main',
-    name: 'Locate things',
+    name: 'Locates all contained things on a map',
     icon: 'pe-7s-global',
     component: Main
   },
