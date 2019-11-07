@@ -46,7 +46,7 @@ jobs:
         - cd vorto-middleware/middleware-service
       before_deploy:
         - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision ${TRAVIS_COMMIT_SHORT} vorto-middleware "
-        - export ELASTIC_BEANSTALK_ENV=vorto-middleware-${TRAVIS_BRANCH}
+        - export ELASTIC_BEANSTALK_ENV=vorto-middleware-service-${TRAVIS_BRANCH}
         - export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
         - export ARTIFACT_BACKEND=$(ls target/middleware-service-*.jar)
       deploy:
