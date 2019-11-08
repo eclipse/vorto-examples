@@ -1,11 +1,11 @@
-function getTextAfterColon (text) {
+export function getTextAfterColon (text) {
   if(text && text.includes(":")){
     return /.*?:(.*)/.exec(text)[1]
   }
   return ""
 }
 
-function countDevicesInTopoloy(thingsInTopo, allDevices){
+export function countDevicesInTopoloy(thingsInTopo, allDevices){
   let result = []
   if (!allDevices) {
     return 0
@@ -38,7 +38,7 @@ function countDevicesInTopoloy(thingsInTopo, allDevices){
 return result.length
 }
 
-function getThingsInTopology(topology, selectedDevice) {
+export function getThingsInTopology(topology, selectedDevice) {
   var thingsInTopology = []
   Object.entries(topology).map(
     ([key, value]) => {
@@ -74,18 +74,10 @@ function getThingsInTopology(topology, selectedDevice) {
 }
 
 
-function getRepositoryLink (path) {
+export function getRepositoryLink (path) {
   if (Array.isArray(path)) {
     return `https://vorto.eclipse.org/#/details/${path[0]}`
   }
 
   return `https://vorto.eclipse.org/#/details/${path}`
-}
-
-
-module.exports = {
-  getTextAfterColon,
-  getRepositoryLink,
-  getThingsInTopology,
-  countDevicesInTopoloy
 }
