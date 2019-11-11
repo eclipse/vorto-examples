@@ -135,7 +135,7 @@ jobs:
         skip_cleanup: true
         email: Alexander.Edelmann@bosch-si.com
         api_key:
-          secure: $NPM_API_TOKEN
+          secure: "$NPM_API_KEY"
         on:
           tags: true
           branches:
