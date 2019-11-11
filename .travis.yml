@@ -10,7 +10,7 @@ jobs:
         - '10'
       script:
       before_install:
-        - cd vorto-middleware/frontend
+        - cd vorto-middleware/middleware-frontend
       install:
         - npm install -g @angular/cli
         - npm install
