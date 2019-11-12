@@ -13,7 +13,6 @@ const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
 
 const { store } = require('../../store')
 
-let unsubscribe
 
 function pollDevices() {
   pollThings()

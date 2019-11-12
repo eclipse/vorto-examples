@@ -2418,6 +2418,12 @@ body > .navbar-collapse[data-color="purple"]:after {
   justify-content: center;
   align-items: center; }
 
+.img-card-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%; }
+
 .ct-label {
   fill: rgba(0, 0, 0, 0.4);
   color: rgba(0, 0, 0, 0.4);
