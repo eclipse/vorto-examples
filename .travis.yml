@@ -2,101 +2,7 @@ sudo: required
 dist: trusty
 jobs:
   include:
-  - stage: deploy-middleware-frontend-aws
-    name: Deploys the Vorto-Middleware Frontend to AWS Beanstalk
-    language: node_js
-    node_js:
-    - '10'
-    script: 
-    before_install:
-    - cd vorto-middleware/middleware-frontend
-    install:
-    - npm install -g @angular/cli
-    - npm install
-    after_success:
-    - ng build --configuration aws --aot
-    before_deploy:
-    - cd dist
-    - zip -r middleware-frontend.zip .
-    - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision
-      ${TRAVIS_COMMIT_SHORT} vorto-middleware-frontend "
-    - export ELASTIC_BEANSTALK_ENV=vorto-middleware-frontend-${TRAVIS_BRANCH}
-    - export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
-    - export ARTIFACT=$(ls middleware-frontend.zip)
-    deploy:
-      provider: elasticbeanstalk
-      access_key_id: "$VORTO_AWS_ACCESS_KEY"
-      secret_access_key: "$VORTO_AWS_SECRET_KEY"
-      zip-file: "${ARTIFACT}"
-      skip_cleanup: true
-      region: "$VORTO_S3_REGION"
-      app: Vorto-Payload-Normalizer-Service
-      env: Vorto-Middleware-Frontend-Dev
-      bucket_name: "$VORTO_S3_BUCKET"
-      on:
-        branch: master
-  - stage: deploy-middleware-backend-aws
-    name: Deploys the Vorto-Middleware Backend to AWS Beanstalk
-    language: java
-    jdk: oraclejdk8
-    before_script: 
-    script: 
-    before_install:
-    - cd vorto-middleware/middleware-service
-    before_deploy:
-    - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision
-      ${TRAVIS_COMMIT_SHORT} vorto-middleware "
-    - export ELASTIC_BEANSTALK_ENV=vorto-middleware-service-${TRAVIS_BRANCH}
-    - export ELASTIC_BEANSTALK_LABEL=git-backend-$(git rev-parse --verify HEAD --short)
-    - export ARTIFACT_BACKEND=$(ls target/middleware-service-*.jar)
-    deploy:
-      provider: elasticbeanstalk
-      access_key_id: "$VORTO_AWS_ACCESS_KEY"
-      secret_access_key: "$VORTO_AWS_SECRET_KEY"
-      zip_file: "${ARTIFACT_BACKEND}"
-      skip_cleanup: true
-      region: "$VORTO_S3_REGION"
-      app: Vorto-Payload-Normalizer-Service
-      env: Payload-Normalizer-Dev
-      bucket_name: "$VORTO_S3_BUCKET"
-  - stage: deploy-dashboard-aws
-    name: Deploys the Vorto-Dashboard to AWS Beanstalk
-    language: node_js
-    node_js:
-    - '10'
-    before_script: 
-    script: 
-    before_install:
-    - cd vorto-dashboard
-    install:
-    - echo "Installing dependencies"
-    - yarn install
-    after_success:
-    - echo "Creating build"
-    - npm run build
-    - npm run-script dist
-    before_deploy:
-    - rm -rf .tmp
-    - rm -rf .DS_Store
-    - rm -rf node_modules
-    - export ELASTIC_BEANSTALK_ENV=vorto-dashboard-${TRAVIS_BRANCH}
-    - export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
-    - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision
-      ${TRAVIS_COMMIT_SHORT} vorto-dashboard "
-    deploy:
-      provider: elasticbeanstalk
-      access_key_id: "$VORTO_AWS_ACCESS_KEY"
-      secret_access_key: "$VORTO_AWS_SECRET_KEY"
-      zip-file: dist/vorto-dashboard.zip
-      skip_cleanup: true
-      region: "$VORTO_S3_REGION"
-      app: Vorto Dashboard
-      env: VortoDashboard-dev
-      only_create_app_version: false
-      bucket_name: "$VORTO_S3_BUCKET"
-      on:
-        branch: master
-  - stage: deploy-npm
+  - stage: npm
     name: Publish Vorto-Dashboard to NPM
     language: node_js
     node_js:
@@ -123,8 +29,3 @@ jobs:
       email: Alexander.Edelmann@bosch-si.com
       api_key:
         secure: NaMr9PYGcBpfOAGP1fU/455Xm39OY0aiRFJ1tW3v7AxTrrsHqfSMqoCNGwips2M7TbpKWMiA1ml16iV6S0jy+sq7iMed0Xfc/Nh7ORX50TUNcEsNIPtRYXbZBeBIg8VmomwXysADVew8T1QX5VYvzxJe9Tdy6u0cgklLyYOKQUkQrbaT8tcgKes9pnUQ2OGXkd4fVcfudhDClg0wmw56//hGL9wj4TxECXqwS4d/VcDotXAca18huI4pbzFHU1KRQa6vSmrmRZhWQTLt+jTtPJw5ljzKzQw2PbnI3Rt3a0KMDwgNkemsahaH6PgtT1rxUonQ8bic7NdflYwS0FqaIbVUrUNx1DX9tpMBdf3pu3u05/2sDwf7h6Qsz5Zz3DJHTyFaH0uKajnuQoMtOXyuznmLb0jNWmLEjqTPYRH4c0P6LSQcmzkuXDKenoCTqQF55avWvWCJRKjTZuX4uI6W3EwVIlriHB7SYr6CAwXl8XUuMMrWTUc1DR5I/ITnd4ZG8sJJqPs/9HKfJb+FAaQt5XvY+TJ020SMq9D1psLzDA2AZXxbHdq05VHVibaQ3p6LkueVdFvMMptLttvwJ59kC9yuixwtS0HwF4MVc03JabbDBYrgP56dGomBuhaw1s3bFRfzy9eVx2DXNZlvREtPY91kzWdj4coBRg0qOxjDNNw=
-      on:
-        tags: true
-        branches:
-          only:
-          - master
