@@ -10,7 +10,7 @@ jobs:
       - docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:nightly ./vorto-middleware/middleware-frontend;
     deploy:
       - provider: script
-        script: bash docker/normalizer-ui_docker_push
+        script: bash vorto-middleware/docker/normalizer-ui_docker_push
         on:
           branch: master
   - stage: deploy-middleware-frontend-aws
