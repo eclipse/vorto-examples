@@ -59,11 +59,11 @@ class OSMap extends Component {
 
         const deviceLocStatus = (device.features.location !== undefined) ?
           device.features.location.properties.status : device.features.geolocation.properties.status.geoposition
-        
+        if(deviceLocStatus){
         if(deviceLocStatus.latitude && deviceLocStatus.longitude){
           position = [parseFloat(deviceLocStatus.latitude), parseFloat(deviceLocStatus.longitude) ]
         }
-
+      }
         const deviceId = device.thingId
         positionGroup.push(position)
         if(positionGroup.length === 1){
@@ -88,6 +88,7 @@ class OSMap extends Component {
           </Marker>
         )
       }
+    
     })
    
 
