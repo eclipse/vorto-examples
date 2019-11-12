@@ -33,12 +33,9 @@ public class DataSocket {
 			}
 		});
 	}
-<<<<<<< HEAD
 	
 	@MessageMapping("/endpoint/unsubscribe")
 	public void unsubscribe() throws Exception {
 		messageLogger.unregisterCallback();
 	}
-=======
->>>>>>> added heartbeat for web socket detection
 }

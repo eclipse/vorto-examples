@@ -25,26 +25,13 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 	
 	private IPayloadMonitorCallback callback = null;
 	
-<<<<<<< HEAD
 	private static int activeConnections = 0;
 	
-=======
->>>>>>> added heartbeat for web socket detection
 	private static final Logger logger = LoggerFactory.getLogger(DefaultPayloadMonitor.class);
 
 	@Override
 	public void monitor(MonitorMessage message) {
-<<<<<<< HEAD
-<<<<<<< HEAD
 		if (message.getSeverity() == Severity.WARNING)  {
-=======
-		if (message.getSeverity() == Severity.INFO)  {
-			logger.info(message.toString());
-		} else if (message.getSeverity() == Severity.WARNING)  {
->>>>>>> modified monitor message for correlation
-=======
-		if (message.getSeverity() == Severity.WARNING)  {
->>>>>>> added heartbeat for web socket detection
 			logger.warn(message.toString());
 		} else if (message.getSeverity() == Severity.ERROR)  {
 			logger.error(message.toString());
@@ -61,7 +48,6 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 
 	@Override
 	public void registerCallback(IPayloadMonitorCallback callback) {
-<<<<<<< HEAD
 		this.callback = callback;
 		activeConnections++;
 		
@@ -74,9 +60,6 @@ public class DefaultPayloadMonitor implements IPayloadMonitor {
 			 callback = null;
 		 }
 		
-=======
-		this.callback = callback;	
->>>>>>> added heartbeat for web socket detection
 	}
 
 }

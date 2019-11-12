@@ -16,7 +16,10 @@ public interface IPayloadMonitor {
 
 	void monitor(MonitorMessage message);
 	
-	void registerCallback(IPayloadMonitorCallback callback);	
+	void registerCallback(IPayloadMonitorCallback callback);
+	
+	void unregisterCallback();
+	
 }
 
 
