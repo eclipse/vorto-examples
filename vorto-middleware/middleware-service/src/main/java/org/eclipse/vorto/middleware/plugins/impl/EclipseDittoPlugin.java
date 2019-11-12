@@ -46,8 +46,19 @@ public class EclipseDittoPlugin extends AbstractPlugin {
 
 	@Override
 	public void doExecute(InfomodelValue infomodelValue, ExecutionContext context) {
+<<<<<<< HEAD
+<<<<<<< HEAD
 		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {
 			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), (String) context.getRawPayload(), Severity.INFO,getId()));
+=======
+		context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), "Publishing ditto protocol payload to AMQP endpoint", Severity.INFO));
+		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {
+			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), (String) context.getRawPayload(), Severity.INFO));
+>>>>>>> modified monitor message for correlation
+=======
+		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {
+			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), (String) context.getRawPayload(), Severity.INFO,getId()));
+>>>>>>> added info about plugin ID for outbound messages
 			try {
 				jmsTemplate.convertAndSend(topic, (String) context.getRawPayload());
 			} catch(JmsException exception) {
@@ -59,7 +70,15 @@ public class EclipseDittoPlugin extends AbstractPlugin {
 				JsonObject updateCommand = TwinPayloadFactory.toDittoProtocol(value, fbProperty, DittoUtils.getDittoNamespaceFromDeviceId(context.getDeviceId()),
 						DittoUtils.getDittoSuffixFromDeviceId(context.getDeviceId()));
 				String updateCommandJson = gson.toJson(updateCommand);
+<<<<<<< HEAD
+<<<<<<< HEAD
 				context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), updateCommandJson, Severity.INFO,getId()));
+=======
+				context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), updateCommandJson, Severity.INFO));
+>>>>>>> modified monitor message for correlation
+=======
+				context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), updateCommandJson, Severity.INFO,getId()));
+>>>>>>> added info about plugin ID for outbound messages
 				try {
 					jmsTemplate.convertAndSend(topic, updateCommandJson);
 				} catch(JmsException exception) {
