@@ -2,7 +2,7 @@
 # middleware frontend & server
 FROM node:10 AS middleware-frontend
 LABEL maintainer="Tim Tenckhoff tmtnckff@icloud.com"
-
+WORKDIR /code
 RUN apt-get update
 RUN apt-get install --no-install-recommends -y supervisor \
                                             curl\
@@ -18,11 +18,14 @@ RUN apt-get install --no-install-recommends -y supervisor \
 RUN node -v
 RUN npm -v
 
+ADD . /code
+
 RUN mkdir -p /usr/home/vorto-middleware-frontend
 RUN mkdir -p /usr/home/vorto-middleware-server
 
-COPY . /usr/home/vorto-middleware-frontend
-COPY ./frontend-server /usr/home/vorto-middleware-server
+
+COPY ./code /usr/home/vorto-middleware-frontend
+COPY .code/frontend-server /usr/home/vorto-middleware-server
 
 RUN npm i -g @angular/cli@latest
 
