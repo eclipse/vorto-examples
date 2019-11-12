@@ -21,8 +21,8 @@ RUN mkdir -p /usr/home/vorto-middleware-frontend
 RUN mkdir -p /usr/home/vorto-middleware-server
 
 
-ADD ./ /usr/home/vorto-middleware-frontend
-COPY /usr/home/vorto-middleware-frontend/frontend-server/ /usr/home/vorto-middleware-server
+ADD frontend-server/ /usr/home/vorto-middleware-server
+ADD . /usr/home/vorto-middleware-frontend
 
 RUN npm i -g @angular/cli@latest
 
