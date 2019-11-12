@@ -84,7 +84,7 @@ jobs:
         on:
           branch: master
       - provider: script
-        script: bash vorto-middleware/docker/normalizer_docker_push
+        script: bash ../docker/normalizer_docker_push
         on:
           branch: master
   - stage: deploy-dashboard-aws
