@@ -45,19 +45,19 @@ You can run the Vorto Normalizer service and frontend out of the box via **Docke
 
 -  **Running the Vorto Normalizer Service:**
 	 1. Pull the image from docker hub: 
-	 `docker pull vorto/vorto-middleware-service:v1`
+	 `docker pull eclipsevorto/vorto-normalizer:nightly`
 	 
 	2. Run the image:
 	To run the middleware, you need to set the following environment variables:
-	`docker run -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password 		-e admin.password=password -e amqp.url='amqp_url' -e amqp.username=amqp_username -e amqp.password=amqp_password vorto-middleware-service:v1`
+	`docker run -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password 		-e admin.password=password -e amqp.url='amqp_url' -e amqp.username=amqp_username -e amqp.password=amqp_password  eclipsevorto/vorto-normalizer:nightly`
 
 
 -  **Running the middleware frontend:**
 	 1. Pull the image from docker hub: 
-	 `docker pull vorto/vorto-middleware-frontend:v1`
+	 `docker pull eclipsevorto/vorto-normalizer-ui:nightly`
 	 
 	2.  Run the image:
-	`docker run -p 4200:4200 vorto-middleware-frontend:v1`
+	`docker run -p 4200:4200 eclipsevorto/vorto-normalizer-ui:nightly`
 
 
 
