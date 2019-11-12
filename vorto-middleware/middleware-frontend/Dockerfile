@@ -21,12 +21,15 @@ RUN npm -v
 RUN mkdir -p vorto-middleware-frontend
 RUN mkdir -p vorto-middleware-server
 
-
-ADD ./frontend-server /code/vorto-middleware-server
+RUN pwd
+RUN ls
 ADD ./ /code/vorto-middleware-frontend
+RUN pwd
+RUN ls
+ADD ./frontend-server /code/vorto-middleware-server
+
 
 RUN npm i -g @angular/cli@latest
-
 RUN cd /code/vorto-middleware-server && npm install
 RUN cd /code/vorto-middleware-frontend && npm install --save-dev && ng build --prod --aot && npm audit fix
 
