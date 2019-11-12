@@ -58,10 +58,10 @@ jobs:
       - docker
     before_script:
     script:
-      - docker build --build-arg JAR_FILE=./vorto-middleware/middleware-service/target/vorto-middleware-1.0.0.jar -f vorto-middleware/middleware-service/Dockerfile -t eclipsevorto/vorto-normalizer:nightly ./vorto-middleware/middleware-service;
+      - docker build --build-arg JAR_FILE=./target/vorto-middleware-1.0.0.jar -f ./Dockerfile -t eclipsevorto/vorto-normalizer:nightly .;
       - if [ -n "$TRAVIS_TAG" ]; then
-        docker build --build-arg JAR_FILE=./vorto-middleware/middleware-service/target/vorto-middleware-1.0.0.jar -f vorto-middleware/middleware-service/Dockerfile -t eclipsevorto/vorto-normalizer:latest ./vorto-middleware/middleware-service;
-        docker build --build-arg JAR_FILE=./vorto-middleware/middleware-service/target/vorto-middleware-1.0.0.jar -f vorto-middleware/middleware-service/Dockerfile -t eclipsevorto/vorto-normalizer:$TRAVIS_TAG ./vorto-middleware/middleware-service;
+        docker build --build-arg JAR_FILE=./target/vorto-middleware-1.0.0.jar -f ./Dockerfile -t eclipsevorto/vorto-normalizer:latest .;
+        docker build --build-arg JAR_FILE=./target/vorto-middleware-1.0.0.jar -f ./Dockerfile -t eclipsevorto/vorto-normalizer:$TRAVIS_TAG .;
         fi
     before_install:
     - cd vorto-middleware/middleware-service
