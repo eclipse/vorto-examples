@@ -2,12 +2,28 @@ sudo: required
 dist: trusty
 jobs:
   include:
+  - stage: push-middleware-frontend-docker
+    name: Pushes the middleware frontend to docker hub
+    services:
+      - docker
+    script:
+      - docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:nightly .;
+      - echo "TRAVIS_TAG------$TRAVIS_TAG" 
+      - if [ -n "$TRAVIS_TAG" ]; then
+        docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:latest .;
+        docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:$TRAVIS_TAG .;
+        fi
+    deploy:
+      - provider: script
+        script: bash docker/docker_push
+        on:
+          branch: master
   - stage: deploy-middleware-frontend-aws
     name: Deploys the Vorto-Middleware Frontend to AWS Beanstalk
     language: node_js
     node_js:
     - '10'
-    script: 
+    script:
     before_install:
     - cd vorto-middleware/middleware-frontend
     install:
