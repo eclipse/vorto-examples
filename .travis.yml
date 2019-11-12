@@ -7,7 +7,7 @@ jobs:
     services:
       - docker
     script:
-      - docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:nightly .;
+      - docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:nightly ./vorto-middleware/middleware-frontend;
     deploy:
       - provider: script
         script: bash docker/normalizer-ui_docker_push
