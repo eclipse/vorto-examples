@@ -27,5 +27,4 @@ jobs:
       provider: npm
       skip_cleanup: true
       email: Alexander.Edelmann@bosch-si.com
-      api_key:
-        secure: NaMr9PYGcBpfOAGP1fU/455Xm39OY0aiRFJ1tW3v7AxTrrsHqfSMqoCNGwips2M7TbpKWMiA1ml16iV6S0jy+sq7iMed0Xfc/Nh7ORX50TUNcEsNIPtRYXbZBeBIg8VmomwXysADVew8T1QX5VYvzxJe9Tdy6u0cgklLyYOKQUkQrbaT8tcgKes9pnUQ2OGXkd4fVcfudhDClg0wmw56//hGL9wj4TxECXqwS4d/VcDotXAca18huI4pbzFHU1KRQa6vSmrmRZhWQTLt+jTtPJw5ljzKzQw2PbnI3Rt3a0KMDwgNkemsahaH6PgtT1rxUonQ8bic7NdflYwS0FqaIbVUrUNx1DX9tpMBdf3pu3u05/2sDwf7h6Qsz5Zz3DJHTyFaH0uKajnuQoMtOXyuznmLb0jNWmLEjqTPYRH4c0P6LSQcmzkuXDKenoCTqQF55avWvWCJRKjTZuX4uI6W3EwVIlriHB7SYr6CAwXl8XUuMMrWTUc1DR5I/ITnd4ZG8sJJqPs/9HKfJb+FAaQt5XvY+TJ020SMq9D1psLzDA2AZXxbHdq05VHVibaQ3p6LkueVdFvMMptLttvwJ59kC9yuixwtS0HwF4MVc03JabbDBYrgP56dGomBuhaw1s3bFRfzy9eVx2DXNZlvREtPY91kzWdj4coBRg0qOxjDNNw=
+      api_key: $NPM_API_KEY
