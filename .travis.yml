@@ -2,12 +2,27 @@ sudo: required
 dist: trusty
 jobs:
   include:
+  - stage: push-middleware-frontend-docker
+    name: Pushes the middleware frontend to docker hub
+    services:
+      - docker
+    script:
+      - docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:nightly ./vorto-middleware/middleware-frontend;
+      - if [ -n "$TRAVIS_TAG" ]; then
+        docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:latest ./vorto-middleware/middleware-frontend;
+        docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:$TRAVIS_TAG ./vorto-middleware/middleware-frontend;
+        fi
+    deploy:
+      - provider: script
+        script: bash vorto-middleware/docker/normalizer-ui_docker_push
+        on:
+          branch: master
   - stage: deploy-middleware-frontend-aws
     name: Deploys the Vorto-Middleware Frontend to AWS Beanstalk
     language: node_js
     node_js:
     - '10'
-    script: 
+    script:
     before_install:
     - cd vorto-middleware/middleware-frontend
     install:
@@ -39,8 +54,15 @@ jobs:
     name: Deploys the Vorto-Middleware Backend to AWS Beanstalk
     language: java
     jdk: oraclejdk8
-    before_script: 
-    script: 
+    services:
+      - docker
+    before_script:
+    script:
+      - docker build --build-arg JAR_FILE=./target/vorto-middleware-1.0.0.jar -f ./Dockerfile -t eclipsevorto/vorto-normalizer:nightly .;
+      - if [ -n "$TRAVIS_TAG" ]; then
+        docker build --build-arg JAR_FILE=./target/vorto-middleware-1.0.0.jar -f ./Dockerfile -t eclipsevorto/vorto-normalizer:latest .;
+        docker build --build-arg JAR_FILE=./target/vorto-middleware-1.0.0.jar -f ./Dockerfile -t eclipsevorto/vorto-normalizer:$TRAVIS_TAG .;
+        fi
     before_install:
     - cd vorto-middleware/middleware-service
     before_deploy:
@@ -50,15 +72,21 @@ jobs:
     - export ELASTIC_BEANSTALK_LABEL=git-backend-$(git rev-parse --verify HEAD --short)
     - export ARTIFACT_BACKEND=$(ls target/middleware-service-*.jar)
     deploy:
-      provider: elasticbeanstalk
-      access_key_id: "$VORTO_AWS_ACCESS_KEY"
-      secret_access_key: "$VORTO_AWS_SECRET_KEY"
-      zip_file: "${ARTIFACT_BACKEND}"
-      skip_cleanup: true
-      region: "$VORTO_S3_REGION"
-      app: Vorto-Payload-Normalizer-Service
-      env: Payload-Normalizer-Dev
-      bucket_name: "$VORTO_S3_BUCKET"
+      - provider: elasticbeanstalk
+        access_key_id: "$VORTO_AWS_ACCESS_KEY"
+        secret_access_key: "$VORTO_AWS_SECRET_KEY"
+        zip_file: "${ARTIFACT_BACKEND}"
+        skip_cleanup: true
+        region: "$VORTO_S3_REGION"
+        app: Vorto-Payload-Normalizer-Service
+        env: Payload-Normalizer-Dev
+        bucket_name: "$VORTO_S3_BUCKET"
+        on:
+          branch: master
+      - provider: script
+        script: bash ../docker/normalizer_docker_push
+        on:
+          branch: master
   - stage: deploy-dashboard-aws
     name: Deploys the Vorto-Dashboard to AWS Beanstalk
     language: node_js
@@ -121,8 +149,7 @@ jobs:
       provider: npm
       skip_cleanup: true
       email: Alexander.Edelmann@bosch-si.com
-      api_key:
-        secure: NaMr9PYGcBpfOAGP1fU/455Xm39OY0aiRFJ1tW3v7AxTrrsHqfSMqoCNGwips2M7TbpKWMiA1ml16iV6S0jy+sq7iMed0Xfc/Nh7ORX50TUNcEsNIPtRYXbZBeBIg8VmomwXysADVew8T1QX5VYvzxJe9Tdy6u0cgklLyYOKQUkQrbaT8tcgKes9pnUQ2OGXkd4fVcfudhDClg0wmw56//hGL9wj4TxECXqwS4d/VcDotXAca18huI4pbzFHU1KRQa6vSmrmRZhWQTLt+jTtPJw5ljzKzQw2PbnI3Rt3a0KMDwgNkemsahaH6PgtT1rxUonQ8bic7NdflYwS0FqaIbVUrUNx1DX9tpMBdf3pu3u05/2sDwf7h6Qsz5Zz3DJHTyFaH0uKajnuQoMtOXyuznmLb0jNWmLEjqTPYRH4c0P6LSQcmzkuXDKenoCTqQF55avWvWCJRKjTZuX4uI6W3EwVIlriHB7SYr6CAwXl8XUuMMrWTUc1DR5I/ITnd4ZG8sJJqPs/9HKfJb+FAaQt5XvY+TJ020SMq9D1psLzDA2AZXxbHdq05VHVibaQ3p6LkueVdFvMMptLttvwJ59kC9yuixwtS0HwF4MVc03JabbDBYrgP56dGomBuhaw1s3bFRfzy9eVx2DXNZlvREtPY91kzWdj4coBRg0qOxjDNNw=
+      api_key: $NPM_API_KEY
       on:
         tags: true
         branches:
