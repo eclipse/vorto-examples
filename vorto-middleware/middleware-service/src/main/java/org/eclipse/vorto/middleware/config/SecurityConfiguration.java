@@ -43,22 +43,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, "/api/1/**").authenticated().and().csrf().disable();
 	}
 
+	@Bean
+	public FilterRegistrationBean corsFilter() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin(crossOrigin);
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+		bean.setOrder(0);
+		return bean;
+	}
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("admin").password(adminPassword).roles("ADMIN");
 	}
-
-	@Bean
- 	public FilterRegistrationBean corsFilter() {
- 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
- 		CorsConfiguration config = new CorsConfiguration();
- 		config.setAllowCredentials(true);
- 		config.addAllowedOrigin(crossOrigin);
- 		config.addAllowedHeader("*");
- 		config.addAllowedMethod("*");
- 		source.registerCorsConfiguration("/**", config);
- 		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
- 		bean.setOrder(0);
- 		return bean;
- 	}
 }

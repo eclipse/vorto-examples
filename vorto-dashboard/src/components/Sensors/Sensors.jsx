@@ -11,6 +11,7 @@ import LocationCard from '../../views/Device/Cards/LocationCard'
 import ThermometerCard from '../../views/Device/Cards/ThermometerCard'
 import GaugeCard from '../../views/Device/Cards/GaugeCard'
 import PercentageCard from '../../views/Device/Cards/PercentageCard'
+import ImageCard from '../../views/Device/Cards/ImageCard'
 
 // to be removed
 import DemoThermometerCard from '../../views/Device/Cards/DemoThermometerCard'
@@ -54,6 +55,12 @@ const mapCategorieToCard = (categorieType, device, featureObj, featureName) => {
                 <LocationCard
                     featureName={featureName}
                     device={device} />
+            )
+        case CATEGORIES.IMAGE:
+            return (
+                <ImageCard
+                    featureName={featureName}
+                    feature={featureObj} />
             )
         case CATEGORIES.TEMPERATURE:
             return (
@@ -138,7 +145,7 @@ export class Sensors extends Component {
         const things = this.state.things
         if (things.length > 0) {
             this.setState({ selectedDevice: this.state.things.find(x => x.thingId === thingId) })
-        }else{
+        } else {
             this.setState({ selectedDevice: store.getState().selectedDevice })
         }
     }
