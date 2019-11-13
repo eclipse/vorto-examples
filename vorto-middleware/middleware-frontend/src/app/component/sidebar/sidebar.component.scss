@@ -39,9 +39,35 @@
       font-weight: lighter;
       padding: 12px;
     }
+    .getting-started{
+      background: #312e31;
+      position: fixed;
+      right: 0;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      padding: 8px 0;
+      font-size: 1.1em;
+
+      &:hover{
+        background: rgb(241, 241, 241);  
+        span{
+          height: 48px;
+
+          color: #312c32;
+        }
+      }
+      a{
+        text-decoration: none;
+        span{
+          padding:16px;
+        }
+      }
+     
+    }
     &:hover{
       opacity: 0.9;
     }
+   
   }
 
   .nav-container {
@@ -55,6 +81,7 @@
       border-bottom-left-radius: 5px;
       display: flex;
       margin: 16px 0;
+      min-width: 110px;
       list-style-type: none;
       background: #232024;
       color: white;
