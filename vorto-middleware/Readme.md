@@ -74,12 +74,13 @@ You can run the Vorto Normalizer service and frontend out of the box via **Docke
  2. Run the image:
 
 	To run the middleware, you need to set the following environment variables:
-	**hono.tenantId**
-	**hono.password**
-	**amqp.url**
-	**amqp.username**
-	**amqp.password**
-	**cors** = Cross-Origin Resource Sharing (CORS) url, optional for connection to e.g the middleware ui
+	
+	* **hono.tenantId** _Eclipse Hono tenant ID, for receiving device telemetry messages_
+	* **hono.password** _Eclipse Hono messaging password, for receiving device telemetry messages_
+	* **amqp.url** _AMQP 1.0 Broker url, for the middleware to publish normalized device payload to_
+	* **amqp.username** _AMQP 1.0 Broker username for authentication_
+	* **amqp.password** _AMQP 1.0 Broker password for authentication_
+	* **cors** _Cross-Origin Resource Sharing (CORS) url, optional for connection to e.g the middleware ui_
 	
 	Start the image via e.g:
 `docker run -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
