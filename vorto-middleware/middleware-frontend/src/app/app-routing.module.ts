@@ -6,9 +6,14 @@ import { MonitoringViewComponent } from './component/monitoring-view/monitoring-
 
 
 const routes: Routes = [
-  {path: '', component: PluginsViewComponent},
+  {
+    path: '',
+    redirectTo: 'plugins',
+    pathMatch: 'full'
+  },
+  {path: 'plugins', component: PluginsViewComponent},
   {path: 'monitoring', component: MonitoringViewComponent},
-  {path: 'settings', component: SettingsViewComponent},
+  {path: 'settings', component: SettingsViewComponent}
 ];
 
 @NgModule({
