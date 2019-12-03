@@ -13,7 +13,7 @@ export class LocationCard extends Component {
                     </div>
                 </a>
                 <div className="card-map">
-                    <OSMapWidget devices={[this.props.device]} displayTooltip={false} />
+                    <OSMapWidget device={[this.props.device]} displayTooltip={false} />
                 </div>
             </div>
         )
