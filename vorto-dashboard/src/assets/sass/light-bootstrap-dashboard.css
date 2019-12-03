@@ -2192,6 +2192,13 @@ body > .navbar-collapse[data-color="purple"]:after {
     height: 248px;
     min-height: initial;
     /* or `unset` */ }
+  .card-map .invalid-location-note {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: black;
+    background: #b8b8ff; }
 
 .thermometer {
   width: 100%; }
