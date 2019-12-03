@@ -65,7 +65,7 @@ class OSMap extends Component {
               const latitude = featureObj.properties.status.latitude
               const longitude = featureObj.properties.status.longitude
 
-              if (latitude, longitude !== null) {
+              if (latitude, longitude) {
 
                 position = [parseFloat(latitude), parseFloat(longitude)]
                 positionGroup.push(position)
