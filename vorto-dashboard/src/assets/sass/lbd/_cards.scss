@@ -545,6 +545,14 @@
         /* or `unset` */
 
     }
+    .invalid-location-note{
+        height: 100%;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        color:black;
+        background: rgb(184, 184, 255);
+    }
 }
 
 /// thermometer card
