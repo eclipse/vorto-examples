@@ -23,17 +23,8 @@ export class DeviceTooltip extends Component {
  
 
   render() {
-    let latitude = 0
-    let longitude = 0
-    const features = this.props.device.features
-    if (features.location !== undefined || features.geolocation !== undefined) {
-
-      const locationFeature = (features.location !== undefined) ?
-        features.location.properties.status : features.geolocation.properties.status.geoposition
-      latitude = (locationFeature.latitude !== undefined) ? locationFeature.latitude : 0
-      longitude = (locationFeature.longitude !== undefined) ? locationFeature.longitude : 0
-    }
-    // decide whether to use full web url pointing to either vorto or default, or to local file 
+    let latitude = this.props.latitude
+    let longitude =  this.props.longitude
     const thingImgSrc = this.props.device.imgSrc
     const imgSrc = thingImgSrc.startsWith('http') ? thingImgSrc : `http://${window.location.hostname}:${PORT}/${this.props.device.imgSrc}`
 

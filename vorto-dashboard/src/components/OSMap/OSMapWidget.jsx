@@ -12,83 +12,36 @@ class OSMapWidget extends Component {
   state = {
     selectedStates: []
   }
-
-
-
-
-  
   render() {
-    let things = {}
-    // on a widget
-    if (this.props.devices !== undefined) {
-      things = this.props.devices.filter(device => {
-        const features = device.features;
+    let device = this.props.device
 
-        for (var feature in features) {
-
-          const featureObj = features[feature]
-          let definition = featureObj.definition
-
-          if (!definition) {
-            continue;
-          }
-
-          if (Array.isArray(definition)) {
-            definition = definition[0]
-          }
-
-          if (!CATEGORIES.LOCATION.includes(definition)) {
-            continue;
-          }
-
-          const { latitude, longitude } = featureObj.properties.status
-          if (latitude && longitude) {
-            return true
-
-          }
-        }
-        return false
-      });
-    }
-
-    if (things.length === 0 || !things[0].features) {
-
-      return (
-        <Map className='map-wrapper' center={[1.347, 103.841]} zoom={11}>
-          <TileLayer
-            url='http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
-          />
-        </Map>
-      )
-    }
+    const features = device[0].features
+    const deviceId = device.thingId
 
 
+    //check only for all items in the selected topology 
     let position = []
 
+      for (var feature in features) {
+        const featureObj = features[feature]
+        let definition = featureObj.definition
 
-    const geoLocationDevices = things.map((device, index) => {
-
-      // contains location or geolocation?
-      if (device.features.location !== undefined || device.features.geolocation !== undefined ) {
-        const deviceLocStatus = (device.features.location !== undefined) ?
-          device.features.location.properties.status : device.features.geolocation.properties.status.geoposition
-
-        position = [deviceLocStatus.latitude, deviceLocStatus.longitude]
-
-
-        const deviceId = device.thingId
-
-        
-        return (
-          <Marker position={position}
-            value={deviceId}
-            key={index} >
-          </Marker>
-        )
+        if (definition[0]) {
+          if (CATEGORIES.LOCATION.includes(definition[0])) {
+            const latitude = featureObj.properties.status.latitude
+            const longitude = featureObj.properties.status.longitude
+            if (latitude, longitude !== null) {
+             position = [parseFloat(latitude), parseFloat(longitude)]
+            }
+          }
+        } 
       }
-      return null
 
-    })
+      const locationMarker = 
+      <Marker position={position}
+      value={deviceId}>
+      </Marker>
+
 
     if (position.length !== 0) {
       return (
@@ -96,16 +49,17 @@ class OSMapWidget extends Component {
           <TileLayer
             url='http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
           />
-          {geoLocationDevices}
+          {locationMarker}
+        </Map>
+      )
+    }else{
+      return (
+        <Map className='map-wrapper' center={[0,0]} zoom={14}>
+          <span className='invalid-location-note'>invalid geolocation</span>
         </Map>
       )
     }
-
-    return null
-
   }
 }
-
-
 
 export default OSMapWidget

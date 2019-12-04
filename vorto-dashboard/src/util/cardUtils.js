@@ -1,7 +1,8 @@
 const CATEGORIES = {
   LOCATION: [
     'org.eclipse.vorto:Location:1.0.0',
-    'org.eclipse.vorto:Geolocation:1.0.0'
+    'org.eclipse.vorto:Geolocation:1.0.0',
+    'org.eclipse.vorto:GeoLocation:1.0.0'
   ],
   GAUGE: [
     'org.eclipse.vorto:Voltage:1.0.0',
