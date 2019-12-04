@@ -131,7 +131,7 @@ If required, the middleware allows the configuration of an additional folder con
 
 **Please note that `absolute_local_directory_path` has to be an absolute path in respect to the directory and operating system you are running the `docker run` command in.**
 
-Running the image can now looks like as e.g:
+Running the image can now look like as e.g:
 
 `docker run -it -v //C/absolute_local_dir:/customspecs -p 8080:8080   
 -e mapping_spec_dir=/customspecs -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
