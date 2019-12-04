@@ -1,3 +1,4 @@
+  
 
   
 
@@ -9,7 +10,11 @@
 
   
 
+  
+
 The Eclipse Vorto Semantic Normalizer middleware is a lightweight, stateless micro service that receives any device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) and normalizes it according to [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). Northbound IoT applications can leverage the semantics of the normalized data, e.g. for data analytics.
+
+  
 
   
 
@@ -21,7 +26,11 @@ The service provides an extension point API lets you easily implement custom log
 
   
 
+  
+
 The service supports the publish of normalized data to an AMQP message broker, e.g. Amazon MQ.
+
+  
 
   
 
@@ -33,7 +42,11 @@ Please follow [this link](https://github.com/eclipse/vorto/blob/development/docs
 
   
 
+  
+
 ![](overview.png)
+
+  
 
   
 
@@ -45,7 +58,11 @@ Please follow [this link](https://github.com/eclipse/vorto/blob/development/docs
 
   
 
+  
+
 The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 application, able to visualize the in-and outbounding device payload as well as listing the configured plugins. You can see a running example of what to expect under [this link](http://vorto-middleware.eu-central-1.elasticbeanstalk.com/)
+
+  
 
   
 
@@ -57,7 +74,11 @@ The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 app
 
   
 
+  
+
 # Running the middleware service
+
+  
 
   
 
@@ -65,39 +86,76 @@ You can run the Vorto Normalizer service and frontend out of the box via **Docke
 
   
 
-**Running the Vorto Normalizer Service:**
-
-1. Pull the image from docker hub:
-
-	`docker pull eclipsevorto/vorto-normalizer:nightly`
-
- 2. Run the image:
-
-	To run the middleware, you need to set the following environment variables:
-	
-	* **hono.tenantId** _Eclipse Hono tenant ID, for receiving device telemetry messages_
-	* **hono.password** _Eclipse Hono messaging password, for receiving device telemetry messages_
-	* **amqp.url** _AMQP 1.0 Broker url, for the middleware to publish normalized device payload to_
-	* **amqp.username** _AMQP 1.0 Broker username for authentication_
-	* **amqp.password** _AMQP 1.0 Broker password for authentication_
-	* **cors** _Cross-Origin Resource Sharing (CORS) url, optional for connection to e.g the middleware ui_
-	
-	Start the image via e.g:
-`docker run -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
-
   
-\
- **Running the middleware frontend:**
+
+## **Running the Vorto Normalizer Service**
+
+**Downloading the image:**
 
 1. Pull the image from docker hub:
-	`docker pull eclipsevorto/vorto-normalizer-ui:nightly`
+
+	 `docker pull eclipsevorto/vorto-normalizer:nightly`
+
+2. Run the image:
+
+
+**Running the image:**
+
+To run the middleware, you need to set the following environment variables:
+
+*  **-e hono.tenantId=**  _Eclipse Hono tenant ID, for receiving device telemetry messages_
+
+*  **-e hono.password=**  _Eclipse Hono messaging password, for receiving device telemetry messages_
+
+*  **-e amqp.url=**  _AMQP 1.0 Broker url, for the middleware to publish normalized device payload to_
+
+*  **-e amqp.username=**  _AMQP 1.0 Broker username for authentication_
+
+*  **-e amqp.password=**  _AMQP 1.0 Broker password for authentication_
+
+*  **-e cors=**  _Cross-Origin Resource Sharing (CORS) url, optional for connection to e.g the middleware ui_
+
+Start the image via e.g:
+
+`docker run -it -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
+
+
+**Custom Specifications:**
+
+If required, the middleware allows the configuration of an additional folder containing your custom .json mapping specifications. To do so, simply add a docker volume via `-v` and an additional environment variable as shown in the following. This will mount the respective folder on your local machine onto the middleware-service docker container.
+
+* **-v /absolute_local_directory_path:/directory_path_on_image**
+
+*  **-e mapping_spec_dir=**  _Path in the docker container, including custom mapping specifications as defined on the right side of the volume parameter (`directory_path_on_image`) in the previous command. It can e.g be named to /customspecs_.
+
+
+**Please note that `absolute_local_directory_path` has to be an absolute path in respect to the directory and operating system you are running the `docker run` command in.**
+
+Running the image can now looks like as e.g:
+
+`docker run -it -v //C/absolute_local_dir:/customspecs -p 8080:8080   
+-e mapping_spec_dir=/customspecs -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
+
+
+
+
+
+## **Running the middleware frontend**
+
+**Downloading the image:**
+
+1. Pull the image from docker hub:
+
+`docker pull eclipsevorto/vorto-normalizer-ui:nightly`
+
+**Running the image:**  
 
 3. Run the image:
-	`docker run -p 4200:4200 eclipsevorto/vorto-normalizer-ui:nightly`
+
+`docker run -p 4200:4200 eclipsevorto/vorto-normalizer-ui:nightly`
 
   
-  
-  
+
   
 
 ## What's next ?
@@ -108,7 +166,11 @@ You can run the Vorto Normalizer service and frontend out of the box via **Docke
 
   
 
+  
+
 *  [Read tutorial](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md), that uses the Vorto Semantic Middleware for an IoT Geolocation use case
+
+  
 
   
 
