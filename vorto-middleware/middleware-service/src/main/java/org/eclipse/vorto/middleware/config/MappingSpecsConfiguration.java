@@ -13,6 +13,7 @@
 package org.eclipse.vorto.middleware.config;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.InputStream;
 
@@ -51,11 +52,11 @@ public class MappingSpecsConfiguration {
 						.getInputStream()));
 
 		if (mappingSpecDirectory != null) {
-			ClassPathResource externalDirectory = new ClassPathResource(mappingSpecDirectory);
+			File externalDirectory = new File(System.getProperty("user.dir")+ mappingSpecDirectory);
 			if (!externalDirectory.exists()) {
-				logger.warn("The provided mapping spec directory does not exist");
+				logger.warn("The provided mapping spec directory " + externalDirectory.getPath() + " does not exist");
 			} else {
-				String[] mappingSpecFiles = externalDirectory.getFile().list(new FilenameFilter() {
+				File[] mappingSpecFiles = externalDirectory.listFiles(new FilenameFilter() {
 
 					@Override
 					public boolean accept(File dir, String name) {
@@ -64,12 +65,12 @@ public class MappingSpecsConfiguration {
 				});
 
 				logger.info("Found " + mappingSpecFiles.length + " mapping specifications in mapping spec directory.");
-				for (String specFileName : mappingSpecFiles) {
+				for (File specFile : mappingSpecFiles) {
 					logger.info(
-							"Configuring middleware with mapping file " + mappingSpecDirectory + "/" + specFileName);
+							"Configuring middleware with mapping file " + specFile.getName());
 					try {
 						IMappingSpecification specification = loadMappingFromFile(
-								new ClassPathResource(mappingSpecDirectory + "/" + specFileName).getInputStream());
+								new FileInputStream(specFile));
 						logger.info("Added mapping successfully.");
 						mappingService.addMappingSpec(specification);
 					} catch (Throwable ex) {
