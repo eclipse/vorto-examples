@@ -120,23 +120,23 @@ Start the image via e.g:
 `docker run -it -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
 
 
-**Custom Specifications:**
+**Adding your mapping specifications to the middleware**
 
-If required, the middleware allows the configuration of an additional folder containing your custom .json mapping specifications. To do so, simply add a docker volume via `-v` and an additional environment variable as shown in the following. This will mount the respective folder on your local machine onto the middleware-service docker container.
+In order to configure the normalizer middleware with your mapping specifications, you can simply mount a docker volume via `-v` and then point the middleware to this mounted directory, where it can find all mappings. 
 
-* **-v /absolute_local_directory_path:/directory_path_on_image**
+The following variables need to be passed when running the middleware docker container:
 
-*  **-e mapping_spec_dir=**  _Path in the docker container, including custom mapping specifications as defined on the right side of the volume parameter (`directory_path_on_image`) in the previous command. It can e.g be named to /customspecs_.
+* **-v** _/absolute_local_directory_path:/directory_path_on_image_
+
+*  **-e mapping_spec_dir**  _Path in the docker container, including your custom mappings as defined on the right side of the volume parameter (`directory_path_on_image`) in the previous command. It can e.g be named to /mappings_
 
 
 **Please note that `absolute_local_directory_path` has to be an absolute path in respect to the directory and operating system you are running the `docker run` command in.**
 
-Running the image can now look like as e.g:
+Here is an example how we can mount a volume with the directory ```mappings``` when running ```docker run```:
 
-`docker run -it -v //C/absolute_local_dir:/customspecs -p 8080:8080   
--e mapping_spec_dir=/customspecs -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
-
-
+`docker run -it -v //C/absolute_local_dir:/mappings -p 8080:8080   
+-e mapping_spec_dir=/mappings -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
 
 
 
@@ -154,26 +154,10 @@ Running the image can now look like as e.g:
 
 `docker run -p 4200:4200 eclipsevorto/vorto-normalizer-ui:nightly`
 
-  
-
-  
 
 ## What's next ?
 
-  
-
-  
-
-  
-
-  
 
 *  [Read tutorial](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md), that uses the Vorto Semantic Middleware for an IoT Geolocation use case
-
-  
-
-  
-
-  
 
 * Read more about the [Vorto Mapping Engine](https://github.com/eclipse/vorto/blob/development/mapping-engine/Readme.md), the core of the Vorto Semantic Middleware
