@@ -15,7 +15,6 @@ package org.eclipse.vorto.middleware.service.impl;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.eclipse.vorto.mapping.engine.MappingEngine;
 import org.eclipse.vorto.mapping.engine.model.spec.IMappingSpecification;
@@ -40,20 +39,17 @@ public class DefaultMappingService implements IMappingService {
 
 		return engine.mapSource(payload);
 	}
-
-	@Override
-	public Collection<IMappingSpecification> listMappings() {
-		return cache.values();
-	}
-	
-	@Override
-	public Optional<IMappingSpecification> getMappingForModelId(ModelId modelId) {
-		return Optional.of(cache.get(modelId.getPrettyFormat()));
-
-	}
 	
 	public void addMappingSpec(IMappingSpecification specification) {
 		this.cache.put(specification.getInfoModel().getId().getPrettyFormat(), specification);
+	}
+	
+	public void removeMappingSpec(ModelId mappingId) {
+		this.cache.remove(mappingId.getPrettyFormat());
+	}
+	
+	public Collection<IMappingSpecification> list() {
+		return this.cache.values();
 	}
 
 }
