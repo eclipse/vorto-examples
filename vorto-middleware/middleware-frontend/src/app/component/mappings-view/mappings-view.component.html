@@ -1,0 +1,88 @@
+<div class="mappings__container">
+  <div class="mappings__container-header unselectable">
+    <span>Installed</span>
+    <div class="triangle-background"></div>
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-md-4 col-lg-3 mapping-item__container" *ngFor="let mapping of mappingList">
+      <div class="container-content">
+        <div class="mapping-name">
+          <img [src]="vortoLogo">
+          {{mapping.displayName}}
+        </div>
+        <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
+          <span>Go to Information Model</span>
+        </a>
+        <span class="mapping-info">
+          Namespace: <span class="light">{{mapping.namespace}}</span>
+        </span>
+        <span class="mapping-info">
+          Version: <span class="light">{{mapping.version}}</span>
+        </span>
+        <!-- <div class="bottom-button-row">
+          <button class="action-button  action-button-uninstall">Uninstall</button>
+        </div> -->
+      </div>
+    </div>
+
+
+    <div class="col-md-4 col-lg-3 mapping-item__container" *ngFor="let mapping of mappingList">
+      <div class="container-content">
+        <div class="mapping-name">
+          <img [src]="vortoLogo">
+          {{mapping.displayName}}
+        </div>
+        <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
+          <span>Go to Information Model</span>
+        </a>
+        <span class="mapping-info">
+          Namespace: <span class="light">{{mapping.namespace}}</span>
+        </span>
+        <span class="mapping-info">
+          Version: <span class="light">{{mapping.version}}</span>
+        </span>
+
+        <!-- <div class="bottom-button-row">
+            <button class="action-button  action-button-uninstall">Uninstall</button>
+  
+          </div> -->
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<!-- <div class="mappings__container">
+    <div class="mappings__container-header unselectable">
+      <span>Available</span>
+      <div class="triangle-background"></div>
+    </div>
+  
+    <div class="row">
+    
+    
+        <div class="col-md-4 col-lg-3 mapping-item__container" *ngFor="let mapping of mappingList">
+            <div class="container-content">
+              <div class="mapping-id">
+              {{mapping.mappingId}}
+            </div>
+              <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
+                  <span>Go to Information Model</span>
+                </a>
+                <div class="bottom-button-row">
+                <button class="action-button  action-button-install">Install</button>
+              </div>
+            </div>
+          </div>
+    
+   
+      </div>
+  
+  
+  </div> -->

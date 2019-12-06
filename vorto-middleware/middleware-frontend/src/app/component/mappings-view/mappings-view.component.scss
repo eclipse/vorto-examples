@@ -1,0 +1,180 @@
+.mappings {
+  &__container {
+    height: auto;
+    background: #626262;
+    margin: 8px;
+    padding-bottom: 1px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    &-header {
+      font-size: 1.1em;
+      border-top-right-radius: 5px;
+
+      font-weight: 100;
+      background: #312e31;
+      color: white;
+      display: inline-block;
+      clear: both;
+      font-size: 18px;
+      display: flex;
+
+      span {
+        padding: 8px;
+        background: black;
+        margin: 0;
+      }
+
+      .triangle-background {
+        display: inline-block;
+        justify-self: flex-start;
+        top: 0;
+        padding: 0;
+        width: 0;
+        height: 0;
+        border-top: 0px solid transparent;
+        border-bottom: 40px solid transparent;
+        border-left: 40px solid black;
+        margin-right: -48px;
+        margin-bottom: -8px;
+
+      }
+
+    }
+
+    .row {
+      margin: 0;
+      padding: 0;
+      min-height: 30vh;
+
+
+    }
+
+    .mapping-item {
+      &__container {
+        min-height: 120px;
+        margin: 0;
+        padding: 0;
+
+
+        .container-content {
+          background: #312e31;
+          border-radius: 2px;
+          font-size: 0.9em;
+          margin: 1.5px;
+          height: calc(100% - 3px);
+          color: white;
+          position: relative;
+          font-weight: lighter;
+          -webkit-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+          -moz-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+          box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+          display: flex;
+          flex-direction: column;
+
+          .mapping-name {
+            padding: 8px;
+            background: #292829;
+            margin-bottom: 4px;
+
+            border-bottom: 1px solid black;
+            -webkit-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+
+            img {
+              height: 25px;
+              width: auto;
+
+            }
+
+          }
+
+          .url-button {
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.5s;
+            color: #007bff;
+
+            span:before {
+              content: '\00bb  ';
+              margin-left: -3px;
+              opacity: 0;
+            }
+
+            &:hover {
+              padding: 0 8px;
+              color: #007bff;
+
+              span:before {
+                opacity: 1;
+              }
+            }
+          }
+
+          .mapping-info {
+            margin-left: 8px;
+
+            .light {
+              font-weight: lighter;
+              color: rgb(177, 177, 177);
+            }
+          }
+
+
+
+          .bottom-button-row {
+            margin-top: auto;
+            display: flex;
+            justify-content: flex-end;
+
+            .action-button {
+
+              display: inline-block;
+              padding: 0.46em 1.6em;
+              border: 0.05em solid #312e31;
+              margin: 0 0.2em 0.2em 0;
+              border-radius: 0.12em;
+              box-sizing: border-box;
+              text-decoration: none;
+              font-family: 'Roboto', sans-serif;
+              font-weight: lighter;
+              color: #312e31;
+              text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.6);
+              text-align: center;
+              transition: all 0.15s;
+
+              &-install {
+                background-color: #4BB543;
+              }
+
+              &-uninstall {
+                background-color: #E9161D;
+              }
+            }
+
+            .action-button:hover {
+              text-shadow: 0 0 2em rgba(255, 255, 255, 1);
+              color: #FFFFFF;
+              border-color: #FFFFFF;
+            }
+
+            @media all and (max-width:30em) {
+
+              .action-button {
+                display: block;
+                margin: 0.4em auto;
+              }
+
+            }
+
+          }
+
+
+
+
+        }
+      }
+    }
+  }
+}
