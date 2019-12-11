@@ -38,7 +38,6 @@ import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticat
 import org.springframework.security.oauth2.client.token.AccessTokenProvider;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.annotation.RequestScope;
@@ -60,13 +59,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private String adminPassword = "";
 
 	@Autowired
-	private AccessTokenProvider accessTokenProvider;
-
-	@Autowired
 	private OAuth2ClientContext oauth2ClientContext;
-
-	@Autowired
-	private UserInfoTokenServices tokenService;
+	
+	@Value("${github.oauth2.resource.userInfoUri}")
+	private String githubUserInfoEndpointUrl;
+	
+	@Value("${github.oauth2.client.clientId}") 
+	private String githubClientId;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -86,11 +85,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private Filter filter() {
 		OAuth2RestTemplate restTemplate = createOAuthTemplate();
-
-		restTemplate.setAccessTokenProvider(accessTokenProvider);
-
 		OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(
 				"/github/login");
+		UserInfoTokenServices tokenService = new UserInfoTokenServices(githubUserInfoEndpointUrl, githubClientId);
 		tokenService.setRestTemplate(restTemplate);
 		filter.setRestTemplate(restTemplate);
 		filter.setTokenServices(tokenService);
