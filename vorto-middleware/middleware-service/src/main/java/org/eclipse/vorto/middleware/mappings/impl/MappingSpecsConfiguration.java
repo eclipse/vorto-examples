@@ -55,7 +55,7 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 						.getInputStream()));
 
 		if (mappingSpecDirectory != null) {
-			File externalDirectory = new File(System.getProperty("user.dir")+ mappingSpecDirectory);
+			File externalDirectory = new File(mappingSpecDirectory);
 			if (!externalDirectory.exists()) {
 				logger.warn("The provided mapping spec directory " + externalDirectory.getPath() + " does not exist");
 			} else {

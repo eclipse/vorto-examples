@@ -1,3 +1,7 @@
+
+a{
+  text-decoration: none;
+}
 .sidebar-nav-container {
   position: relative;
   margin: 0;
@@ -16,54 +20,95 @@
 
   
   .nav-header{
+    min-width: 800px;
+
     z-index: 99;
     position: fixed;
-    background: black;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    padding-left: 8px;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     top: 16px;
     left: 0;
-    align-items: center;
     img{
       height: 30px;
+      
     }
     span{
+      background: black;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
       color:white;
       font-size: 1.1em;
       font-weight: lighter;
       padding: 12px;
+      align-self: flex-start;
     }
-    .getting-started{
-      background: #312e31;
-      position: fixed;
-      right: 0;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      padding: 8px 0;
-      font-size: 1.1em;
+    .button-row-right{
+      display: flex;
+      flex-direction: row;
 
-      &:hover{
-        background: rgb(241, 241, 241);  
-        span{
-          height: 48px;
+      .button{
+        background: rgb(241, 241, 241);
+        color: #312e31;
+        cursor: pointer;
+        a{
+          color: #312e31;
+        }
 
-          color: #312c32;
+        &:hover{
+          background: #312e31;
+          color: rgb(241, 241, 241);  
+          a{
+            color: rgb(241, 241, 241);  
+          }
         }
       }
-      a{
-        text-decoration: none;
-        span{
-          padding:16px;
+
+      .github-button{
+        padding: 0 8px;
+        img{
+          margin-right: 8px;
         }
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        margin-right: 8px;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+      
+      }
+      .logged-in{
+        display: flex;
+        margin-right: 8px;
+        align-items: center;
+        justify-items: center;
+        background: none;
+        color: white;
+        cursor: default;
+        &:hover{
+          background:none;
+        }
+      }
+
+      .getting-started-button{
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        font-size: 1.1em;
+        padding: 12px;  
+        a{
+          color: b;
+        }
+        
       }
      
-    }
-    &:hover{
-      opacity: 0.9;
-    }
+
+
+  }
+   
+   
    
   }
 

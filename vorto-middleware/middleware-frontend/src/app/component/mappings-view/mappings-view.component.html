@@ -1,88 +1,57 @@
-<div class="mappings__container">
-  <div class="mappings__container-header unselectable">
-    <span>Installed</span>
-    <div class="triangle-background"></div>
-  </div>
+<div class="mapping-page-container">
 
-
-  <div class="row">
-
-    <div class="col-md-4 col-lg-3 mapping-item__container" *ngFor="let mapping of mappingList">
-      <div class="container-content">
-        <div class="mapping-name">
-          <img [src]="vortoLogo">
-          {{mapping.displayName}}
+    <div class="mappings__container">
+        <div class="mappings__container-header unselectable">
+          <span>Available Mappings</span>
+          <div class="triangle-background"></div>
         </div>
-        <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
-          <span>Go to Information Model</span>
-        </a>
-        <span class="mapping-info">
-          Namespace: <span class="light">{{mapping.namespace}}</span>
-        </span>
-        <span class="mapping-info">
-          Version: <span class="light">{{mapping.version}}</span>
-        </span>
-        <!-- <div class="bottom-button-row">
-          <button class="action-button  action-button-uninstall">Uninstall</button>
-        </div> -->
-      </div>
-    </div>
-
-
-    <div class="col-md-4 col-lg-3 mapping-item__container" *ngFor="let mapping of mappingList">
-      <div class="container-content">
-        <div class="mapping-name">
-          <img [src]="vortoLogo">
-          {{mapping.displayName}}
-        </div>
-        <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
-          <span>Go to Information Model</span>
-        </a>
-        <span class="mapping-info">
-          Namespace: <span class="light">{{mapping.namespace}}</span>
-        </span>
-        <span class="mapping-info">
-          Version: <span class="light">{{mapping.version}}</span>
-        </span>
-
-        <!-- <div class="bottom-button-row">
-            <button class="action-button  action-button-uninstall">Uninstall</button>
   
-          </div> -->
-      </div>
-    </div>
-
-
-
-
-  </div>
-</div>
-
-<!-- <div class="mappings__container">
-    <div class="mappings__container-header unselectable">
-      <span>Available</span>
-      <div class="triangle-background"></div>
-    </div>
+        <div *ngIf="mappingList.length !== 0" class="row">
   
-    <div class="row">
-    
-    
-        <div class="col-md-4 col-lg-3 mapping-item__container" *ngFor="let mapping of mappingList">
+          <div class="col-lg-4 mapping-item__container" *ngFor="let mapping of mappingList">
             <div class="container-content">
-              <div class="mapping-id">
-              {{mapping.mappingId}}
-            </div>
-              <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
-                  <span>Go to Information Model</span>
-                </a>
-                <div class="bottom-button-row">
-                <button class="action-button  action-button-install">Install</button>
+              <div class="mapping-name">
+                <img [src]="vortoLogo">
+                <span>{{mapping.displayName}}</span>
               </div>
+              <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
+                <span>Go to Information Model</span>
+              </a>
+              <span class="mapping-info">
+                <span class="smaller">{{mapping.description}}</span>
+              </span>
+              <span class="mapping-info">
+                Namespace: <span class="light">{{mapping.namespace}}</span>
+              </span>
+              <span class="mapping-info">
+                Version: <span class="light">{{mapping.version}}</span>
+              </span>
+              <div *ngIf="!mapping.isInstalled" class="bottom-button-row">
+                <div class="centered-elements">
+                    <div class="loading-indicator"><div></div><div></div><div></div><div></div></div>
+                    <button (click)="installMapping(mapping.modelId)" class="action-button action-button-install">Install</button>
+                </div> 
+                   </div>
+                <div *ngIf="mapping.isInstalled" class="bottom-button-row">
+                    <div class="centered-elements">
+                        <div class="loading-indicator"><div></div><div></div><div></div><div></div></div>
+                    <button (click)="uninstallMapping(mapping.modelId)" class="action-button action-button-uninstall">Uninstall</button>
+                    </div>
+                  </div>
             </div>
           </div>
-    
-   
+              
+  
+        </div>
+        <div *ngIf="mappingList.length === 0" class="row empty-mappings">
+          <span>
+            No mappings configured yet.
+          </span>
+        </div>
       </div>
+
+
+
   
-  
-  </div> -->
+
+</div>

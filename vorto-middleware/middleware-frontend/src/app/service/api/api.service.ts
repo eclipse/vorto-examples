@@ -7,13 +7,10 @@ import { environment } from 'src/environments/environment';
 
 export const apiBaseURL = environment.apiBaseUrl
 
-// const username = 'admin'
-// const password = 'secret'
-
 const DEFAULT_MAX_RETRIES = 5
 
 const getErrorMessage = (maxRetry: number) =>
-  'Tried to load plugins for ${maxRetry} times without success.'
+  'Tried to load '+ maxRetry + ' times without success.'
 
 
 const httpOptions = {
@@ -60,7 +57,6 @@ export class APIService {
   }
 
 
-
   public getMappings() {
     return this.http
       .get(apiBaseURL + '/api/v1' + '/mappings', httpOptions)
@@ -75,7 +71,52 @@ export class APIService {
         }))
   }
 
+  // install or uninstall mapping
+  public updateMappingInstallState(modelId, install) {
+    var actionSelector = install ? '/install' : '/uninstall'
+    this.http
+      .put(apiBaseURL + '/api/v1' + '/mappings/' + modelId + actionSelector, httpOptions).subscribe(
+        res => {
+          console.log("Updating " + modelId);
+        },
+        catchError(error => {
+          console.error(error);
+          return EMPTY
+        }))
+  }
 
 
+  
+  public login(){
 
+  }
+
+
+  public getLoginState() {
+    return this.http
+      .get(apiBaseURL + '/api/v1' + '/user', httpOptions)
+      .pipe(
+        delayedRetry(1000, 3),
+        catchError(error => {
+          switch (error.status) {
+            case 403:
+              //todo handle
+              console.log("An error occured: Unauthorized: ", error);
+              break;
+            case 400:
+              //todo handle
+                console.log("An error occured: already logged in: ", error);
+              break;
+            default:
+                console.log("(Login State) Error: ", error);
+              break;
+          }
+          return EMPTY
+        }),
+        map((res: any) => {
+          console.log("received "+res)
+          // this._mappingsList.next(res)
+        }))
+  }
 }
+

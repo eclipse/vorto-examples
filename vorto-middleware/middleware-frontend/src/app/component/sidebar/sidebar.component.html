@@ -1,12 +1,34 @@
 <div class="sidebar-nav-container">
-  <a href="https://www.eclipse.org/vorto/" target="_blank">
 
     <div class="nav-header">
-      <img [src]="vortoLogo">
-      <span>Vorto Normalizer</span>
-      <div class="getting-started"><a href="https://github.com/eclipse/vorto-examples/tree/master/vorto-middleware" target="_blank"><span>Get Started</span></a></div>
+        <a href="https://www.eclipse.org/vorto/" target="_blank">
+
+      <div class="button-row-left">
+          <span>   <img [src]="vortoLogo">
+            Vorto Normalizer</span>
+      </div>
+    </a>
+
+<div class="button-row-right">
+  
+  
+    <button *ngIf="!loggedIn" (click)="null" class="button github-button">
+      <img [src]="gitHubLogo"> Sign in with GitHub
+    </button>
+    <div *ngIf="loggedIn" class="button logged-in">
+     Logged in as {{username}}
     </div>
-  </a>
+
+    <div class="button getting-started-button">
+          <a href="https://github.com/eclipse/vorto-examples/tree/master/vorto-middleware" target="_blank">
+            Get Started
+          </a>    
+    </div>
+</div>
+     
+
+    </div>
+
 
   <ul class="nav-container">
     <a class="nav-container__element" routerLinkActive="isActive" routerLink="/plugins" [routerLinkActiveOptions]="{exact:
