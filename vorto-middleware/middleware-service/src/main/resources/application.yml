@@ -16,4 +16,19 @@ session:
     
 spring:
   jackson.serialization.write-dates-as-timestamps: false
+  
+  
+  
+github:
+  oauth2:
+    client:
+      clientId: ${github_clientId}
+      clientSecret: ${github_clientSecret}
+      accessTokenUri: https://github.com/login/oauth/access_token
+      userAuthorizationUri: https://github.com/login/oauth/authorize
+      clientAuthenticationScheme: form
+      scope:
+         - user:email
+    resource:
+      userInfoUri: https://api.github.com/user
 

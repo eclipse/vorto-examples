@@ -25,6 +25,7 @@ import org.eclipse.vorto.middleware.web.model.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +60,7 @@ public class PluginResource {
 	}
 	
 	@RequestMapping(value = "/{pluginId}", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Plugin> applyConfiguration(@PathVariable String pluginId,
 			@RequestBody Map<String, TextConfigurationItem> configuration) {
 
@@ -72,6 +74,7 @@ public class PluginResource {
 	}
 
 	@RequestMapping(value = "/{pluginId}/start", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Plugin> startPlugin(@PathVariable String pluginId) {
 		try {
 			return new ResponseEntity<>(Plugin.of(this.pluginService.start(pluginId)), HttpStatus.OK);
@@ -82,6 +85,7 @@ public class PluginResource {
 	}
 
 	@RequestMapping(value = "/{pluginId}/stop", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Plugin> disablePlugin(@PathVariable String pluginId) {
 		try {
 			return new ResponseEntity<>(Plugin.of(this.pluginService.stop(pluginId)), HttpStatus.OK);

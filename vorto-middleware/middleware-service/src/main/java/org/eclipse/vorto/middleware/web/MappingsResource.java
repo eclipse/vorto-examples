@@ -12,72 +12,100 @@
  */
 package org.eclipse.vorto.middleware.web;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.eclipse.vorto.mapping.engine.model.spec.IMappingSpecification;
 import org.eclipse.vorto.mapping.engine.model.spec.MappingSpecification;
 import org.eclipse.vorto.middleware.VortoMiddleware;
 import org.eclipse.vorto.middleware.mappings.IMappingConfigDao;
-import org.eclipse.vorto.middleware.mappings.MappingConfig;
-import org.eclipse.vorto.middleware.mappings.impl.MappingSpecsConfiguration;
-import org.eclipse.vorto.middleware.plugins.IPlugin;
+import org.eclipse.vorto.middleware.service.IVortoRepository;
 import org.eclipse.vorto.middleware.web.model.Mapping;
-import org.eclipse.vorto.middleware.web.model.Plugin;
+import org.eclipse.vorto.model.ModelId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import antlr.collections.List;
-
 @RestController
 @RequestMapping(value = "/api/v1/mappings")
 public class MappingsResource {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(VortoMiddleware.class);
 
-	
 	@Autowired
 	private IMappingConfigDao mappingConfigDao;
 	
-	private Collection<Mapping> mappingList = Collections.EMPTY_LIST;
-	
+	@Autowired
+	private IVortoRepository repository = null;
+
 	@RequestMapping(method = RequestMethod.GET)
 	public Collection<Mapping> getMappings() {
-		if(mappingList.isEmpty()) {
-		mappingList = mappingConfigDao.list().stream().map(config -> new Mapping(true,config.getInfoModel().getId(),config.getInfoModel().getDescription())).collect(Collectors.toList());
+		List<Mapping> mappings = new ArrayList<>();
+		
+		/**
+		 * First add all mappings that are already installed in the system
+		 */
+		mappings.addAll(mappingConfigDao.list().stream()
+				.map(config -> new Mapping(true, config.getInfoModel().getId(), config.getInfoModel().getDescription()))
+				.collect(Collectors.toList()));
+		
+		/**
+		 * Load mappings for authenticated user from Vorto Repository and add them to the mappings result set
+		 */
+		if (isAuthenticated()) {
+			this.repository.list().stream().forEach(mapping -> {
+				if (!mappings.stream().filter(m -> m.getModelId().equals(mapping.getInfoModel().getId())).findAny().isPresent()) {
+					mappings.add(new Mapping(false,mapping.getInfoModel().getId(),mapping.getInfoModel().getDescription()));
+				}
+			});
+			
 		}
-		return mappingList;
+		
+		return mappings;
 	}
-	
+
 	/**
-	 * FIXME: needs access to Vorto Repository to get mapping spec
+	 * Checks if it is an authenticated session
+	 * @return
+	 */
+	private boolean isAuthenticated() {
+		return SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+	}
+
+	/**	 
+	 * Installs the mapping specification for the given Vorto Information Model
 	 * @param modelId
 	 */
 	@RequestMapping(value = "/{modelId}/install", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('USER')")
 	public void installMapping(@PathVariable String modelId) {
-        LOG.info("Received "+ modelId +"...");     
-       mappingList.stream().filter(x-> x.getModelId().toString().equals(modelId)).forEach(x -> x.setInstalled(true));
-       
-}
-	
+		LOG.info("Installing " + modelId + "...");
+		Optional<MappingSpecification> spec = this.repository.getById(modelId);
+		if (!spec.isPresent()) {
+			throw new IllegalArgumentException("Could not find mapping specification with the provided ID.");
+		}
+		
+		this.mappingConfigDao.save(spec.get());
+		
+	}
+
 	/**
 	 * FIXME: needs access to Vorto Repository to get mapping spec
+	 * 
 	 * @param modelId
 	 */
 	@RequestMapping(value = "/{modelId}/uninstall", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('USER')")
 	public void uninstallMapping(@PathVariable String modelId) {
-       LOG.info("Received "+ modelId +"...");     
-       mappingList.stream().filter(x-> x.getModelId().toString().equals(modelId)).forEach(x -> x.setInstalled(false));
+		LOG.info("Uninstalling " + modelId + "...");
+		this.mappingConfigDao.remove(ModelId.fromPrettyFormat(modelId));
 	}
-	}
-
+}
