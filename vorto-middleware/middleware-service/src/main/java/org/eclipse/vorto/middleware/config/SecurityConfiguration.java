@@ -60,9 +60,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private String adminPassword = "";
 
 	@Autowired
-	private AuthenticationSuccessHandler successHandler;
-
-	@Autowired
 	private AccessTokenProvider accessTokenProvider;
 
 	@Autowired
@@ -94,7 +91,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(
 				"/github/login");
-		filter.setAuthenticationSuccessHandler(successHandler);
 		tokenService.setRestTemplate(restTemplate);
 		filter.setRestTemplate(restTemplate);
 		filter.setTokenServices(tokenService);
