@@ -44,6 +44,9 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 
 	@PostConstruct
 	public void addMappingSpecs() throws Exception {
+		/**
+		 * THESE ARE EXAMPLE MAPPINGS THAT ARE REGISTERED IN THE MIDDLEWARE
+		 */
 		mappingService.addMappingSpec(loadMappingFromFile(
 				new ClassPathResource("specs/org.eclipse.vorto.tutorial_PMSMotor_1.0.0-mappingspec.json")
 						.getInputStream()));
