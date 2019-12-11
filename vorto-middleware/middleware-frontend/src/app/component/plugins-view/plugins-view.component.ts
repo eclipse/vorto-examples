@@ -86,7 +86,7 @@ export class PluginsViewComponent implements OnInit {
     this.pluginService.pluginList
       .subscribe(
         async res => {
-          console.log("refreshing plugins: ", res)
+          console.log("Refreshing list of Plugins: ", res)
           this.getPluginData(res)
         }, (err) => console.log(err)
       )

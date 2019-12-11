@@ -28,55 +28,58 @@
       }
     }
 
-      .loading-indicator {
-        height: 38px;
-        display: inline-flex;
-        position: absolute;
-        top: 16px;
-        background-color: transparent;
-        .circle-border {
-          width: 20px;
-          height: 20px;
-          padding: 2px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 50%;
-          background: linear-gradient(0deg, rgba(63, 249, 221, 0) 33%, #010c13 100%);
-          animation: spin 1s linear 0s infinite;
+    .loading-indicator {
+      height: 38px;
+      display: inline-flex;
+      position: absolute;
+      top: 16px;
+      background-color: transparent;
+
+      .circle-border {
+        width: 20px;
+        height: 20px;
+        padding: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: linear-gradient(0deg, rgba(63, 249, 221, 0) 33%, #010c13 100%);
+        animation: spin 1s linear 0s infinite;
+      }
+
+      .circle-core {
+        width: 100%;
+        height: 100%;
+        background: rgb(247, 241, 241);
+        border-radius: 50%;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0);
         }
-        
-        .circle-core {
-          width: 100%;
-          height: 100%;
-          background: rgb(247, 241, 241);  
-          border-radius: 50%;
+
+        to {
+          transform: rotate(359deg);
         }
-        @keyframes spin {
-          from {
-            transform: rotate(0);
-          }
-          to{
-            transform: rotate(359deg);
-          }
-        }
-      
-     
+      }
+
+
     }
   }
 
   button {
     margin: 8px 8px 8px 0;
     float: right;
+    height: 38px;
     border-radius: 2px;
     color: white;
     cursor: pointer;
     border: none;
     outline: none;
     background: #000000e0;
-
     color: white;
-   
+
 
     span {
       display: flex;
@@ -90,9 +93,8 @@
     }
 
     img {
-      height: 22px;
-      width: auto;
-      padding: 8px;
+      width: 32px;
+      padding: 7px;
       justify-content: flex-end;
     }
 
@@ -102,7 +104,8 @@
       -moz-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
       box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.2);
     }
-    &:active{
+
+    &:active {
       -webkit-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.3);
       -moz-box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.3);
       box-shadow: 7px 0px 24px -2px rgba(0, 0, 0, 0.3);
