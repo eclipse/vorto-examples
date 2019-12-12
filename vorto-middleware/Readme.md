@@ -1,32 +1,15 @@
-  
-
-  
-
-  
-
 # Getting Started with the Eclipse Vorto Semantic Normalizer middleware
 
-  
+**Motivation**
 
-  
+In IoT, devices send their data in multifold formats to an IoT cloud platform. This makes it very cumbersome in the backend to process the data for these different sets of devices, despite the fact that the data is essentially semantically identical. Think of use cases such as anomaly detection or simply display the data in a user interface. 
+[Eclipse Vorto](https://www.eclipse.org/vorto) and the concept of Information Models is leveraged in order to firstly describe your own semantic data models (as Vorto Function Blocks) and secondly formally define the mapping rules to convert the device data to the Function Blocks. 
 
-  
+**What is the Eclipse Vorto Semantic Normalizer middleware?**
 
-The Eclipse Vorto Semantic Normalizer middleware is a lightweight, stateless micro service that receives any device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) and normalizes it according to [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). Northbound IoT applications can leverage the semantics of the normalized data, e.g. for data analytics.
+The Eclipse Vorto Semantic Normalizer middleware is a lightweight, stateless micro service that receives any arbitrary device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) protocol adapters and normalizes it according to [Vorto Information Model](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md) compliant semantic data models. Northbound IoT applications can leverage these semantics of the normalized data, e.g. for data analytics.
 
-  
-
-  
-
-  
-
-The service provides an extension point API lets you easily implement custom logic to process the normalized device payload, such as storing it in a Digital Twin service or run analytics on the data.
-
-  
-
-  
-
-  
+The service is pretty modular and provides an API lets you easily provide custom logic, so called middleware plugins, that are able to process the normalized device payload, such as forwarding it to AWS IoT Shadow Service or a Streaming analytics engine.
 
 The service supports the publish of normalized data to an AMQP message broker, e.g. Amazon MQ.
 
