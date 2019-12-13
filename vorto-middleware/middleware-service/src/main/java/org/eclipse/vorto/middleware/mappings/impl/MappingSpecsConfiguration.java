@@ -15,11 +15,13 @@ package org.eclipse.vorto.middleware.mappings.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.vorto.mapping.engine.model.spec.IMappingSpecification;
 import org.eclipse.vorto.middleware.mappings.IMappingConfigDao;
 import org.eclipse.vorto.middleware.service.impl.DefaultMappingService;
@@ -30,6 +32,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class MappingSpecsConfiguration implements IMappingConfigDao {
@@ -102,7 +107,34 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 
 	
 	private void saveFile(IMappingSpecification specification) {
-		//TODO: Implement saving the specification in the configured mapping directory
+		File mappingFile = new File(mappingSpecDirectory,specification.getInfoModel().getId().getPrettyFormat().replace(":", "_")+"-mappingspec.json");
+		
+		/**
+		 * Delete existing mapping file before we can save the new mapping file
+		 */
+		if (mappingFile.exists()) {
+			mappingFile.delete();
+		} else {
+			try {
+				mappingFile.createNewFile();
+			} catch (IOException e) {
+				logger.error("Problem creating mapping file in filesystem.",e);
+				throw new RuntimeException("Problem occured when saving mapping specification",e);
+			}
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();		
+		try {
+			byte[] mappingSpecContent = mapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(specification);
+			FileUtils.writeByteArrayToFile(mappingFile, mappingSpecContent);
+		} catch (JsonProcessingException e) {
+			logger.error("Could not serialize mapping spec ",e);
+			throw new RuntimeException("Problem occured when installing mapping specification",e);
+		} catch (IOException e) {
+			logger.error("Could not write file filesystem",e);
+			throw new RuntimeException("Problem occured when installing mapping specification",e);
+		} 
+ 
 		
 	}
 
