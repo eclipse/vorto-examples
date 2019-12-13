@@ -12,7 +12,7 @@
 <div class="button-row-right">
   
   
-    <button *ngIf="!loggedIn" (click)="null" class="button github-button">
+    <button *ngIf="!loggedIn" (click)="startAuthFlow()" class="button github-button">
       <img [src]="gitHubLogo"> Sign in with GitHub
     </button>
     <div *ngIf="loggedIn" class="button logged-in">

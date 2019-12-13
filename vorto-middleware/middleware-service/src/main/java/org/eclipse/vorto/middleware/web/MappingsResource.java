@@ -56,18 +56,18 @@ public class MappingsResource {
 		mappings.addAll(mappingConfigDao.list().stream()
 				.map(config -> new Mapping(true, config.getInfoModel().getId(), config.getInfoModel().getDescription()))
 				.collect(Collectors.toList()));
-		
-		/**
-		 * Load mappings for authenticated user from Vorto Repository and add them to the mappings result set
-		 */
-		if (isAuthenticated()) {
-			this.repository.list().stream().forEach(mapping -> {
-				if (!mappings.stream().filter(m -> m.getModelId().equals(mapping.getInfoModel().getId())).findAny().isPresent()) {
-					mappings.add(new Mapping(false,mapping.getInfoModel().getId(),mapping.getInfoModel().getDescription()));
-				}
-			});
-			
-		}
+//		
+//		/**
+//		 * Load mappings for authenticated user from Vorto Repository and add them to the mappings result set
+//		 */
+//		if (isAuthenticated()) {
+//			this.repository.list().stream().forEach(mapping -> {
+//				if (!mappings.stream().filter(m -> m.getModelId().equals(mapping.getInfoModel().getId())).findAny().isPresent()) {
+//					mappings.add(new Mapping(false,mapping.getInfoModel().getId(),mapping.getInfoModel().getDescription()));
+//				}
+//			});
+//			
+//		}
 		
 		return mappings;
 	}

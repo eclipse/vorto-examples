@@ -66,8 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.GET, "/api/1/**", "/login**", "/endpoint/**").permitAll()
-				.antMatchers(HttpMethod.PUT, "/api/1/**").authenticated().and().csrf().disable()
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/**", "/login**", "/endpoint/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/api/v1/**").authenticated().and().csrf().disable()
 				.exceptionHandling()
 				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
 				.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)

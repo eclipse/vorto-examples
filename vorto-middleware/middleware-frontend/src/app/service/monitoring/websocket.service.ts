@@ -51,7 +51,6 @@ export class WebsocketService {
     this.stompClient.heartbeatIncoming = 0 // Typical value 0 - disabled
     this.stompClient.heartbeatOutgoing = 20000 // Typical value 20000 - every 20 seconds
     const _this = this
-
     this.stompClient.connect({}, function (frame) {
       console.log('Connected to websocket. Now subscribing: ' + frame);
 
@@ -81,7 +80,6 @@ export class WebsocketService {
   reconnect = function () {
     this.connect();
   };
-
 
 
   public disconnect() {
