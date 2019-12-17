@@ -2,23 +2,17 @@
 
 **Motivation**
 
-In IoT, devices send their data in multifold formats to an IoT cloud platform. This makes it very cumbersome in the backend to process the data for these different sets of devices, despite the fact that the data is essentially semantically identical. Think of use cases such as anomaly detection or simply display the data in a user interface. 
-[Eclipse Vorto](https://www.eclipse.org/vorto) and the concept of Information Models is leveraged in order to firstly describe your own semantic data models (as Vorto Function Blocks) and secondly formally define the mapping rules to convert the device data to the Function Blocks. 
+In IoT, devices send their data in various formats to IoT cloud platforms, ie. as JSON, CSV, binary or others. You can imagine, that this requires a lot of integration logic development in the platform, such as preparing the payload in a way, that components can easily process the device messages. 
+
 
 **What is the Eclipse Vorto Semantic Normalizer middleware?**
 
-The Eclipse Vorto Semantic Normalizer middleware is a lightweight, stateless micro service that receives any arbitrary device telemetry data from [Eclipse Hono](https://www.eclipse.org/hono) protocol adapters and normalizes it according to [Vorto Information Model](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md) compliant semantic data models. Northbound IoT applications can leverage these semantics of the normalized data, e.g. for data analytics.
+The Eclipse Vorto Semantic Normalizer middleware is a lightweight, stateless micro service that normalizes device telemetry messages to a semantic model, that is defined as [Vorto Information Models](https://github.com/eclipse/vorto/blob/master/docs/vortolang-1.0.md). The core of the middleware is the [Vorto Mapping Engine](https://github.com/eclipse/vorto/blob/master/mapping-engine/Readme.md), a tiny runtime component, that applies Vorto Mapping Specifications to the device data, in order to output semantic, normalized data models. Mapping Specifications can be created easily using the [Eclipse Vorto Web Editors](https://vorto.eclipse.org)
+The middleware essentially wraps the mapping engine in a spring-boot application, creating a very efficient device telemetry data mapping pipeline.  
+In order to customize the middleware to your requirements, an extension point (API) is provided, that lets you easily implement middleware plugins. These plugins are able to process the normalized device payload, such as forwarding it to AWS IoT Shadow Service or a Streaming analytics engine. 
 
-The service is pretty modular and provides an API lets you easily provide custom logic, so called middleware plugins, that are able to process the normalized device payload, such as forwarding it to AWS IoT Shadow Service or a Streaming analytics engine.
-
-The service supports the publish of normalized data to an AMQP message broker, e.g. Amazon MQ.
-
+In a micro-service architecture, services communicate asynchronously via AMQP. Therefore, the middleware also uses AMQP technology to receive device messages from Eclipse Hono, and publishes normalized, semantic payload as an AMQP topic. To avoid confusion, the middleware itself, is not an AMQP server, but rather an AMQP client that is able to publish the normalized device messages to any AMQP message broker, e.g. Amazon MQ. 
   
-
-  
-
-  
-
 Please follow [this link](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md) to use the Vorto Normalizer middleware for a simple IoT geolocation use case.
 
   
