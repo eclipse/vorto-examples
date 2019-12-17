@@ -13,7 +13,8 @@
 package org.eclipse.vorto.middleware.config;
 
 import org.eclipse.vorto.middleware.plugins.IPlugin;
-import org.eclipse.vorto.middleware.plugins.impl.EclipseDittoPlugin;
+import org.eclipse.vorto.middleware.plugins.ditto.EclipseDittoPlugin;
+import org.eclipse.vorto.middleware.plugins.kinesis.AWSKinesisPlugin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,5 +44,11 @@ public class PluginsConfiguration {
 		dittoPlugin.init();
 		
 		return dittoPlugin;
+	}
+	
+	@Bean
+	public IPlugin kinesisPlugin() {
+		AWSKinesisPlugin kinesisPlugin = new AWSKinesisPlugin();
+		return kinesisPlugin;
 	}
 }
