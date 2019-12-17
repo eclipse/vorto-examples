@@ -12,26 +12,9 @@
 	<description>Micro-service that receives device data from Eclipse Hono and converts it according to Vorto Payload Mapping Models</description>
 
 	<properties>
-		<spring.boot.version>1.5.8.RELEASE</spring.boot.version>
-		<vorto.version>0.12.0</vorto.version>
 		<amq.version>5.15.8</amq.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
+	
 	<dependencies>
 
 		<dependency>
@@ -104,6 +87,17 @@
 			<groupId>org.eclipse.vorto</groupId>
 			<artifactId>mapping-engine-all</artifactId>
 			<version>${vorto.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.vorto.middleware</groupId>
+			<artifactId>middleware-ext-ditto</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.vorto.middleware</groupId>
+			<artifactId>middleware-ext-kinesis</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>

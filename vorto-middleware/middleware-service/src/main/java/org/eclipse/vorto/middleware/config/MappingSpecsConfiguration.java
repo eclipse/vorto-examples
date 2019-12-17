@@ -20,7 +20,7 @@ import java.io.InputStream;
 import javax.annotation.PostConstruct;
 
 import org.eclipse.vorto.mapping.engine.model.spec.IMappingSpecification;
-import org.eclipse.vorto.middleware.service.impl.DefaultMappingService;
+import org.eclipse.vorto.middleware.internal.service.impl.DefaultMappingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

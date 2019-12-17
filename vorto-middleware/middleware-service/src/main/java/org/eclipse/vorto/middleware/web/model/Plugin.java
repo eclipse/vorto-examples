@@ -3,9 +3,9 @@ package org.eclipse.vorto.middleware.web.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.vorto.middleware.plugins.ConfigurationItem;
 import org.eclipse.vorto.middleware.plugins.IPlugin;
-import org.eclipse.vorto.middleware.plugins.config.ConfigurationItem;
-import org.eclipse.vorto.middleware.plugins.config.TextConfigurationItem;
+import org.eclipse.vorto.middleware.plugins.TextConfigurationItem;
 
 public class Plugin {
 

@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.eclipse.vorto.middleware.internal.service.IPluginService;
 import org.eclipse.vorto.middleware.plugins.IPlugin;
-import org.eclipse.vorto.middleware.plugins.config.TextConfigurationItem;
-import org.eclipse.vorto.middleware.service.IPluginService;
+import org.eclipse.vorto.middleware.plugins.TextConfigurationItem;
 import org.eclipse.vorto.middleware.web.model.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

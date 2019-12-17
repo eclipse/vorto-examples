@@ -11,7 +11,29 @@
 	
 	<modules>
 		<module>middleware-service</module>
+		<module>middleware-api</module>
+		<module>middleware-ext-kinesis</module>
+		<module>middleware-ext-amqp</module>
+		<module>middleware-ext-ditto</module>
 	</modules>
 	
+	<properties>
+		<vorto.version>0.12.5</vorto.version>
+		<spring.boot.version>1.5.8.RELEASE</spring.boot.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

@@ -14,7 +14,7 @@ package org.eclipse.vorto.middleware.config;
 
 import javax.jms.ConnectionFactory;
 
-import org.eclipse.vorto.middleware.service.EclipseHonoPayloadListener;
+import org.eclipse.vorto.middleware.internal.service.EclipseHonoPayloadListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
