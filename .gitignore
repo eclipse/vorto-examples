@@ -13,3 +13,5 @@ xtend-gen/
 pom.xml.versionsBackup
 node_modules
 *.lock
+
+vorto-middleware/middleware-service/src/main/resources/static/

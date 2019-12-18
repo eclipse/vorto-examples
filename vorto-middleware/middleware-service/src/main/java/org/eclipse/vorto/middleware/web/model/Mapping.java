@@ -19,12 +19,14 @@ public class Mapping {
 	private boolean installed;
 	private ModelId modelId;
 	private String description;
+	private boolean unresolved;
 	
-	public Mapping(boolean installed, ModelId modelId, String description) {
+	public Mapping(boolean installed, ModelId modelId, String description, boolean unresolved) {
 		super();
 		this.installed = installed;
 		this.modelId = modelId;
 		this.description = description;
+		this.unresolved = unresolved;
 	}
 	
 	public Mapping() {
@@ -50,6 +52,14 @@ public class Mapping {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isUnresolved() {
+		return unresolved;
+	}
+
+	public void setUnresolved(boolean unresolved) {
+		this.unresolved = unresolved;
 	}
 	
 	

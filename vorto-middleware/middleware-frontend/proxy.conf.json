@@ -10,27 +10,6 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
-  },
-  "/login/*": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/mappings": ""
-    }
-  },
-  
-    "/login/oauth/*": {
-      "target": "https://github.com/",
-      "secure": false,
-      "logLevel": "debug",
-      "pathRewrite": {
-      "^/mappings": ""
-    },
-      "changeOrigin": true
-    }
-
-  
+  }
 
 }

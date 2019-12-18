@@ -1,0 +1,57 @@
+<div class="mapping-page-container">
+
+    <div class="mappings__container">
+        <div class="mappings__container-header unselectable">
+          <span>Available Mappings</span>
+          <div *ngIf=" mappingPollingState === pollingStateTypes.POLLING" class="polling-indicator">
+            <div class="circle-border">
+              <div class="circle-core"></div>
+            </div>
+          </div>
+          <div class="triangle-background"></div>
+        </div>
+        <div *ngIf="mappingPollingState === pollingStateTypes.SUCCESS || (mappingPollingState !== pollingStateTypes.ERROR && mappingList.length !== 0)" class="row">
+  
+          <div class="col-lg-4 mapping-item__container" *ngFor="let mapping of mappingList">
+            <!-- [ngClass]="{'unresolved unselectable': mapping.unresolved }" -->
+            <div  class="container-content">
+              <div class="mapping-name">
+                <img [src]="vortoLogo">
+                <span>{{mapping.displayName}}</span>
+              </div>
+              <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
+                <span>Go to Information Model</span>
+              </a>
+              <span class="mapping-info">
+                <span class="smaller">{{mapping.description}}</span>
+              </span>
+              <span class="mapping-info">
+                Namespace: <span class="light">{{mapping.namespace}}</span>
+              </span>
+              <span class="mapping-info">
+                Version: <span class="light">{{mapping.version}}</span>
+              </span>
+              <div *ngIf="isLoggedIn" class="bottom-button-row">
+                <div  class="centered-elements">
+                    <div class="updating-indicator"><div></div><div></div><div></div><div></div></div>
+                    <button *ngIf="!mapping.isInstalled" (click)="installMapping(mapping.modelId)" class="action-button action-button-install">Install</button>
+                    <button *ngIf="mapping.isInstalled" (click)="uninstallMapping(mapping.modelId)" class="action-button action-button-uninstall">Uninstall</button>
+                  </div> 
+                   </div>
+            </div>
+          </div>
+        </div>
+        <div class="row empty-mappings">
+          <span  *ngIf="mappingPollingState === pollingStateTypes.EMPTY && mappingList.length === 0" >
+            No mappings configured. To do so you can login to GitHub, or add mapping specifications manually.
+          </span>
+          <span class="polling" *ngIf="mappingPollingState === pollingStateTypes.POLLING && mappingList.length === 0" >
+            Loading Mappings
+            <div class="polling-indicator-big"><div></div><div></div><div></div><div></div></div>
+          </span>
+          <span  *ngIf="mappingPollingState === pollingStateTypes.ERROR && mappingList.length === 0" >
+            An Error occured.
+          </span>
+        </div>
+      </div>
+</div>

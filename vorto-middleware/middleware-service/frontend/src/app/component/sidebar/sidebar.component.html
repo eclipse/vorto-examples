@@ -1,0 +1,48 @@
+<div class="sidebar-nav-container">
+
+  <div class="nav-header">
+    <a href="https://www.eclipse.org/vorto/" target="_blank">
+
+      <div class="button-row-left">
+        <span> <img [src]="vortoLogo">
+          Vorto Normalizer</span>
+      </div>
+    </a>
+
+    <div class="button-row-right">
+
+      <div *ngIf="isLoggedIn" class="button logged-in">
+        Logged in as {{userName}}
+      </div>
+      <button *ngIf="!isLoggedIn" (click)="startAuthFlow()" class="button github-button">
+        <img [src]="gitHubLogo"> Sign in with GitHub
+      </button>
+      <button *ngIf="isLoggedIn" (click)="gitHubLogout()" class="button github-button">
+        <img [src]="gitHubLogo"> Log out
+      </button>
+      <div class="button getting-started-button">
+        <a href="https://github.com/eclipse/vorto-examples/tree/master/vorto-middleware" target="_blank">
+          Get Started
+        </a>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <ul class="nav-container">
+    <a class="nav-container__element" routerLinkActive="isActive" routerLink="/plugins" [routerLinkActiveOptions]="{exact:
+        true}">
+      <li>Plugins</li>
+    </a>
+    <a class="nav-container__element" routerLinkActive="isActive" routerLink="/monitoring" [routerLinkActiveOptions]="{exact:
+        true}">
+      <li>Monitoring</li>
+    </a>
+    <a class="nav-container__element" routerLinkActive="isActive" routerLink="/mappings" [routerLinkActiveOptions]="{exact:
+        true}">
+      <li>Mappings</li>
+    </a>
+  </ul>
+</div>
