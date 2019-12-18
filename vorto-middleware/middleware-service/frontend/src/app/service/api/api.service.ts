@@ -34,16 +34,16 @@ const httpOptions = {
   })
 }
 
-//try to reconnect on fail
-export function delayedRetry(delayMs: number, maxRetry = DEFAULT_MAX_RETRIES) {
-  let retries = maxRetry
+// //try to reconnect on fail
+// export function delayedRetry(delayMs: number, maxRetry = DEFAULT_MAX_RETRIES) {
+//   let retries = maxRetry
 
-  return (src: Observable<any>) =>
-    src.pipe(retryWhen((errors: Observable<any>) => errors.pipe(
-      delay(delayMs),
-      mergeMap(error => retries-- > 0 ? of(error) : throwError(getErrorMessage(maxRetry)))
-    )))
-}
+//   return (src: Observable<any>) =>
+//     src.pipe(retryWhen((errors: Observable<any>) => errors.pipe(
+//       delay(delayMs),
+//       mergeMap(error => retries-- > 0 ? of(error) : throwError(getErrorMessage(maxRetry)))
+//     )))
+// }
 
 @Injectable({ providedIn: 'root' })
 export class APIService {
@@ -57,8 +57,9 @@ export class APIService {
   private _installedMappingsList = new BehaviorSubject<any[]>([])
   readonly installedMappingsList = this._installedMappingsList.asObservable()
 
-  private _discoverMappingsList = new BehaviorSubject<any[]>([])
-  readonly discoverMappingsList = this._discoverMappingsList.asObservable()
+  private _discoveredMappingsList = new BehaviorSubject<any[]>([])
+  readonly discoveredMappingsList = this._discoveredMappingsList.asObservable()
+
 
   private _mappingPollingState = new BehaviorSubject<PollingState>(PollingState.EMPTY)
   readonly mappingPollingState = this._mappingPollingState.asObservable()
@@ -73,7 +74,7 @@ export class APIService {
     return this.http
       .get(BASE_URL + API_PATH + '/plugins', httpOptions)
       .pipe(
-        delayedRetry(1000, 3),
+        // delayedRetry(1000, 3),
         catchError(error => {
           console.error(error);
           return EMPTY
@@ -89,7 +90,6 @@ export class APIService {
     return this.http
       .get(BASE_URL + API_PATH + '/mappings/installed', httpOptions)
       .pipe(
-        delayedRetry(1000, 3),
         catchError(error => {
           console.error("Error receiving Mappings: ", error);
           this._mappingPollingState.next(PollingState.ERROR)
@@ -110,7 +110,6 @@ export class APIService {
     return this.http
       .get(BASE_URL + API_PATH + '/mappings/discovered', httpOptions)
       .pipe(
-        delayedRetry(1000, 3),
         catchError(error => {
           console.error("Error receiving Mappings: ", error);
           this._mappingPollingState.next(PollingState.ERROR)
@@ -122,24 +121,49 @@ export class APIService {
           } else if (res.length === 0) {
             this._mappingPollingState.next(PollingState.EMPTY)
           }
-          this._discoverMappingsList.next(res)
+          this._discoveredMappingsList.next(res)
+
+       
+            //only on first page load, dont check every time
+            //resolve all received mappings
+            this._discoveredMappingsList.getValue().forEach((mapping) => {
+              if(mapping.unresolved){
+                console.log("Trying to resolve model with id: ", mapping.modelId.prettyFormat)
+                this.resolveMapping(mapping).subscribe()
+              }
+            })
+        
         }))
   }
 
-  public getResolvedMapping(modelId){
+  public resolveMapping(mapping) {
     return this.http
-      .get(BASE_URL + API_PATH + '/mappings/'+ modelId + '/resolve', httpOptions)
+      .get(BASE_URL + API_PATH + '/mappings/' + mapping.modelId.prettyFormat + '/resolve' + '?description=' + mapping.description, httpOptions)
       .pipe(
         catchError(error => {
-          console.error("Error resolving mapping with modelId: ", modelId,"Error: ", error);
+          console.error("Error resolving mapping with modelId: ", mapping.modelId.prettyFormat, "Error: ", error);
           return EMPTY
         }),
         map((res: any) => {
-            console.log(res)
+          this.updateDiscoveredMappingState(res)
         }))
   }
 
 
+
+
+  updateDiscoveredMappingState(res) {
+    let discoveredMappingsToUpdate = this._discoveredMappingsList.getValue()
+    discoveredMappingsToUpdate.forEach((mapping, index) => {
+      if (mapping.modelId.prettyFormat === res.modelId.prettyFormat) {
+        discoveredMappingsToUpdate[index] = res
+      }
+    });
+
+    this._discoveredMappingsList.next(discoveredMappingsToUpdate)
+
+
+  }
 
   // install or uninstall mapping
   public updateMappingInstallState(modelId, install) {
@@ -186,11 +210,11 @@ export class APIService {
   }
 
 
-  public login(){
+  public login() {
     window.location.replace(BASE_URL + '/login/github')
- }
- public logout(){
-   window.location.replace(BASE_URL + '/logout')
-}
+  }
+  public logout() {
+    window.location.replace(BASE_URL + '/logout')
+  }
 }
 

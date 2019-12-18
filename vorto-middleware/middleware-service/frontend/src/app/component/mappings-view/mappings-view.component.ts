@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService, LoginState, PollingState } from 'src/app/service/api/api.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-mappings-view',
@@ -42,35 +43,24 @@ export class MappingsViewComponent implements OnInit {
     this.apiService.installedMappingsList.subscribe(
       async res => {
         console.log("Refreshing list of installed Mappings: ", res)
-        this.installedMappingList = []
         this.addToMappingList(res, this.installedMappingList)
         this.combineMappingLists()
-
-        
       }, (err) => console.log(err)
     )
 
-    this.apiService.discoverMappingsList.subscribe(
+    this.apiService.discoveredMappingsList.subscribe(
       async res => {
-        this.discoveredMappingList = []
         this.addToMappingList(res, this.discoveredMappingList)
         this.combineMappingLists()
-        this.resolveMappings(this.discoveredMappingList)
         console.log("Refreshing list of other discovered Mappings: ", res)
       }, (err) => console.log(err)
     )
   }
 
-  resolveMappings(unresolvedMappingList){
-    unresolvedMappingList.forEach( (mapping, index) => {
-      this.apiService.getResolvedMapping(mapping.modelId).subscribe()
-      // if(mapping.modelId === id) this.mappingList.splice(index,1);
-    });
-  }
-
 
 
   addToMappingList(mappingListToAdd, targetMappingList) {
+
 
     mappingListToAdd.map(element => {
 
@@ -83,7 +73,7 @@ export class MappingsViewComponent implements OnInit {
         description: (element.description) ? element.description : "No description provided",
         version: (element.modelId && element.modelId.version) ? element.modelId.version : "No version provided",
         isInstalled: (element.installed) ? element.installed : false,
-        unresolved: (element.unresolved) ? element.unresolved : false,
+        unresolved: element.unresolved,
         url: this.getRepositoryUrl(modelId)
       }
       targetMappingList.push(mapping)
@@ -91,18 +81,45 @@ export class MappingsViewComponent implements OnInit {
   }
 
   combineMappingLists() {
+
+
+
     this.installedMappingList.map(mapping => {
       if (!this.isMappingIn(mapping)) {
         this.mappingList.push(mapping)
-      }
+      } 
     })
+
+
 
     this.discoveredMappingList.map(mapping => {
-      if (!this.isMappingIn(mapping)) {
+
+      if (!this.isMappingIn(mapping) && !this.isMappingInstalled(mapping)) {
         this.mappingList.push(mapping)
       }
+
+      //updated if unresolved state has changed
+      if (this.hasUnresolvedStateChanged(mapping)) {
+        this.updateMappingInList(mapping)
+      }
+
+
     })
 
+  }
+
+  updateMappingInList(mapping2update) {
+    this.mappingList.forEach((mapping, index) => {
+      if (mapping.modelId === mapping2update.modelId) {
+        this.mappingList[index] = mapping2update
+      }
+    })
+  }
+
+  isMappingInstalled(mapping){
+    return this.installedMappingList.some(x =>
+      x.modelId === mapping.modelId &&
+      x.description === mapping.description)
   }
 
   isMappingIn(mapping) {
@@ -110,17 +127,23 @@ export class MappingsViewComponent implements OnInit {
       x.modelId === mapping.modelId &&
       x.description === mapping.description)
   }
+  hasUnresolvedStateChanged(mapping) {
+    return this.mappingList.some(x =>
+      x.modelId === mapping.modelId &&
+      x.unresolved !== mapping.unresolved)
+  }
 
 
-  removeFromMappingList(id){
-    this.mappingList.forEach( (mapping, index) => {
-      if(mapping.modelId === id) this.mappingList.splice(index,1);
+  removeFromMappingList(id) {
+    this.mappingList.forEach((mapping, index) => {
+      if (mapping.modelId === id) this.mappingList.splice(index, 1);
     });
- }
+  }
 
 
   installMapping(modelId) {
     this.apiService.updateMappingInstallState(modelId, true)
+    this.removeFromMappingList(modelId)
   }
 
   uninstallMapping(modelId) {

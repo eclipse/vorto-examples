@@ -3,6 +3,7 @@ package org.eclipse.vorto.middleware.service.impl;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,12 +33,22 @@ public class VortoRepositoryAdapter implements IVortoRepository {
 
 	@Override
 	public Optional<MappingSpecification> getById(String modelId) {
+		LOG.info("Trying to resolve mapping for model Id "+modelId); 
 		try {
-		ResponseEntity<MappingSpecification> spec = restTemplate.getForEntity(
-				BASE_URL + "/rest/mappings/specifications/{modelId}", MappingSpecification.class, modelId);
-		if (spec.getStatusCode().is2xxSuccessful()) {
-			return Optional.of(spec.getBody());
-		}
+			@SuppressWarnings("rawtypes")
+			ResponseEntity<Map> exists = restTemplate.getForEntity(BASE_URL + "/rest/mappings/specifications/{modelId}/exists",
+					Map.class, modelId);
+			if ((Boolean) exists.getBody().get("exists")) {
+				LOG.info("Mapping exists for model "+modelId+". Downloading mapping specification"); 
+				ResponseEntity<MappingSpecification> spec = restTemplate.getForEntity(
+						BASE_URL + "/rest/mappings/specifications/{modelId}", MappingSpecification.class, modelId);
+				if (spec.getStatusCode().is2xxSuccessful()) {
+					LOG.info("Mapping successfully downloaded."); 
+					return Optional.of(spec.getBody());
+				}
+			} else {
+				LOG.info("Mapping does not exist."); 
+			}
 		} catch (HttpClientErrorException ex) {
 			LOG.error("Fatal problem occured when downloading mapping spec",ex); 
 		}

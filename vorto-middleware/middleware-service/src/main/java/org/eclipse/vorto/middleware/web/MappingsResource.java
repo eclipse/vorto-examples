@@ -32,6 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -47,13 +48,13 @@ public class MappingsResource {
 	private IVortoRepository repository = null;
 
 	@RequestMapping(value = "/{modelId}/resolve", method = RequestMethod.GET)
-	public Mapping resolveMapping(@PathVariable String modelId) {
+	public Mapping resolveMapping(@PathVariable String modelId, @RequestParam String description) {
 		Optional<MappingSpecification> spec = repository.getById(modelId);
 		
 		if (spec.isPresent()) {
-			return new Mapping(true, spec.get().getInfoModel().getId(), spec.get().getInfoModel().getDescription(),true);
+			return new Mapping(false, spec.get().getInfoModel().getId(), spec.get().getInfoModel().getDescription(),false);
 		} else {
-			return new Mapping(false, spec.get().getInfoModel().getId(), spec.get().getInfoModel().getDescription(),true);
+			return new Mapping(false, ModelId.fromPrettyFormat(modelId), description,true);
 		}
 	}
 	

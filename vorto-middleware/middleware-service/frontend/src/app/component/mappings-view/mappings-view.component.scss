@@ -49,6 +49,8 @@
           margin-bottom: -8px;
 
         }
+
+  
       }
 
       .row {
@@ -65,9 +67,8 @@
             padding: 32px;
             width: 100%;
             justify-content: center;
+            align-content: center;
           }
-
-          .polling {}
 
         }
 
@@ -118,7 +119,11 @@
                 margin-bottom: auto;
                 margin-left: 4px;
               }
-
+              .polling-indicator{
+                background: transparent;
+                margin-left: 8px;
+                height: auto;
+              }
             }
 
             .url-button {
@@ -229,80 +234,12 @@
 
                 }
 
-                .updating-indicator {
-                  position: absolute;
-                  z-index: 1;
-                  display: inline-block;
-                  width: 80px;
-                  bottom: 33px;
-                  right: 26px;
-                }
 
-                .updating-indicator div {
-                  position: absolute;
-                  top: 33px;
-                  width: 13px;
-                  height: 13px;
-                  border-radius: 50%;
-                  background: rgb(228, 228, 228);
-                  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-                }
-
-                .updating-indicator div:nth-child(1) {
-                  left: 8px;
-                  animation: updating-indicator1 0.6s infinite;
-                }
-
-                .updating-indicator div:nth-child(2) {
-                  left: 8px;
-                  animation: updating-indicator2 0.6s infinite;
-                }
-
-                .updating-indicator div:nth-child(3) {
-                  left: 32px;
-                  animation: updating-indicator2 0.6s infinite;
-                }
-
-                .updating-indicator div:nth-child(4) {
-                  left: 56px;
-                  animation: updating-indicator3 0.6s infinite;
-                }
-
-                @keyframes updating-indicator1 {
-                  0% {
-                    transform: scale(0);
-                  }
-
-                  100% {
-                    transform: scale(1);
-                  }
-                }
-
-                @keyframes updating-indicator3 {
-                  0% {
-                    transform: scale(1);
-                  }
-
-                  100% {
-                    transform: scale(0);
-                  }
-                }
-
-                @keyframes updating-indicator2 {
-                  0% {
-                    transform: translate(0, 0);
-                  }
-
-                  100% {
-                    transform: translate(24px, 0);
-                  }
-                }
               }
             }
 
             &.unresolved {
               opacity: 0.9;
-              background: grey;
               pointer-events: none;
 
             }
@@ -348,21 +285,79 @@
       }
     }
 
-    &-big {
-      background: transparent;
+  }
 
-      .circle-border {
-        width: 20px;
-        height: 20px;
-        padding: 2px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        background: linear-gradient(0deg, rgb(247, 241, 241)33%, #010c13 100%);
-        animation: spin 1s linear 0s infinite;
-      }
+
+  .updating-indicator {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    width: 80px;
+    bottom: 33px;
+    right: 26px;
+  }
+
+  .updating-indicator div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: rgb(228, 228, 228);
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+
+
+  .updating-indicator div:nth-child(1) {
+    left: 8px;
+    animation: updating-indicator1 0.6s infinite;
+  }
+
+  .updating-indicator div:nth-child(2) {
+    left: 8px;
+    animation: updating-indicator2 0.6s infinite;
+  }
+
+  .updating-indicator div:nth-child(3) {
+    left: 32px;
+    animation: updating-indicator2 0.6s infinite;
+  }
+
+  .updating-indicator div:nth-child(4) {
+    left: 56px;
+    animation: updating-indicator3 0.6s infinite;
+  }
+
+  @keyframes updating-indicator1 {
+    0% {
+      transform: scale(0);
     }
 
+    100% {
+      transform: scale(1);
+    }
   }
+
+  @keyframes updating-indicator3 {
+    0% {
+      transform: scale(1);
+    }
+
+    100% {
+      transform: scale(0);
+    }
+  }
+
+  @keyframes updating-indicator2 {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+
+
+
 }
