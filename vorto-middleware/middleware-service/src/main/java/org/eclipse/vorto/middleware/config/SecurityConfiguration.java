@@ -12,12 +12,19 @@
  */
 package org.eclipse.vorto.middleware.config;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 
+import org.eclipse.vorto.model.IModel;
+import org.eclipse.vorto.model.IPropertyAttribute;
+import org.eclipse.vorto.model.IReferenceType;
+import org.eclipse.vorto.plugin.generator.adapter.ObjectMapperFactory.ModelDeserializer;
+import org.eclipse.vorto.plugin.generator.adapter.ObjectMapperFactory.ModelReferenceDeserializer;
+import org.eclipse.vorto.plugin.generator.adapter.ObjectMapperFactory.PropertyAttributeDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
@@ -29,17 +36,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
@@ -48,6 +59,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CompositeFilter;
 import org.springframework.web.filter.CorsFilter;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 @Configuration
 @EnableWebSecurity
@@ -66,8 +81,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.GET, "/api/1/**", "/login**", "/endpoint/**").permitAll()
-				.antMatchers(HttpMethod.PUT, "/api/1/**").authenticated().and().csrf().disable()
+		http.httpBasic().and().authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/**", "/login**", "/endpoint/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/api/v1/**").authenticated().and().csrf().disable()
 				.exceptionHandling()
 				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
 				.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
@@ -128,18 +143,43 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return bean;
 	}
 
-	@Bean
+	@Bean("repositoryTemplate")
 	@RequestScope
 	public RestTemplate restTemplate(HttpServletRequest request) {
-		final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-		final RestTemplate restTemplate = new RestTemplate();
-		if (authHeader != null && !authHeader.isEmpty()) {
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(0, mappingJacksonHttpMessageConverter());
+		
+		if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated() && SecurityContextHolder.getContext().getAuthentication() instanceof OAuth2Authentication) {
+			OAuth2Authentication auth = (OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication();
+			OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails)auth.getDetails();
 			restTemplate.getInterceptors().add((httpOut, bytes, clientHttpReqExec) -> {
-				httpOut.getHeaders().set(HttpHeaders.AUTHORIZATION, authHeader);
+				httpOut.getHeaders().set(HttpHeaders.AUTHORIZATION, "Bearer "+details.getTokenValue());
 				return clientHttpReqExec.execute(httpOut, bytes);
 			});
+			return restTemplate;
+		} else {
+			return restTemplate;
 		}
-		return restTemplate;
+	}
+	
+	@Bean
+	public MappingJackson2HttpMessageConverter mappingJacksonHttpMessageConverter() {
+	    MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+	    converter.setObjectMapper(objectMapper());
+	    return converter;
+	}
+	
+	@Bean
+	public ObjectMapper objectMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		SimpleModule module = new SimpleModule();
+		module.addDeserializer(IPropertyAttribute.class, new PropertyAttributeDeserializer());
+		module.addDeserializer(IReferenceType.class, new ModelReferenceDeserializer());
+		module.addDeserializer(IModel.class, new ModelDeserializer());
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.registerModule(module);
+		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
+		return mapper;
 	}
 	
 	class ClientResources {

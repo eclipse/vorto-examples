@@ -32,6 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -46,38 +47,37 @@ public class MappingsResource {
 	@Autowired
 	private IVortoRepository repository = null;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public Collection<Mapping> getMappings() {
+	@RequestMapping(value = "/{modelId}/resolve", method = RequestMethod.GET)
+	public Mapping resolveMapping(@PathVariable String modelId, @RequestParam String description) {
+		Optional<MappingSpecification> spec = repository.getById(modelId);
+		
+		if (spec.isPresent()) {
+			return new Mapping(false, spec.get().getInfoModel().getId(), spec.get().getInfoModel().getDescription(),false);
+		} else {
+			return new Mapping(false, ModelId.fromPrettyFormat(modelId), description,true);
+		}
+	}
+	
+	@RequestMapping(value = "/discovered",method = RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
+	public Collection<Mapping> getDiscoveredPossibleMappings() {
+		return this.repository.discoverUserInfomodels(
+					getInstalledMappings().stream().map(m -> m.getModelId()).collect(Collectors.toList()),SecurityContextHolder.getContext().getAuthentication().getName())
+					.stream().map(modelInfo ->new Mapping(false,modelInfo.getId(),modelInfo.getDescription(),true)).collect(Collectors.toList());
+	}
+	
+	@RequestMapping(value = "/installed",method = RequestMethod.GET)
+	public Collection<Mapping> getInstalledMappings() {
 		List<Mapping> mappings = new ArrayList<>();
 		
 		/**
 		 * First add all mappings that are already installed in the system
 		 */
 		mappings.addAll(mappingConfigDao.list().stream()
-				.map(config -> new Mapping(true, config.getInfoModel().getId(), config.getInfoModel().getDescription()))
+				.map(config -> new Mapping(true, config.getInfoModel().getId(), config.getInfoModel().getDescription(),false))
 				.collect(Collectors.toList()));
-		
-		/**
-		 * Load mappings for authenticated user from Vorto Repository and add them to the mappings result set
-		 */
-		if (isAuthenticated()) {
-			this.repository.list().stream().forEach(mapping -> {
-				if (!mappings.stream().filter(m -> m.getModelId().equals(mapping.getInfoModel().getId())).findAny().isPresent()) {
-					mappings.add(new Mapping(false,mapping.getInfoModel().getId(),mapping.getInfoModel().getDescription()));
-				}
-			});
-			
-		}
-		
+				
 		return mappings;
-	}
-
-	/**
-	 * Checks if it is an authenticated session
-	 * @return
-	 */
-	private boolean isAuthenticated() {
-		return SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
 	}
 
 	/**	 

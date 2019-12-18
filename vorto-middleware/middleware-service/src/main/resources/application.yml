@@ -3,9 +3,10 @@ hono:
   password: 
   
 admin:
-  password: 
+  password: secret
   
-cors: 
+cors: http://localhost:4200
+
 
 msg:
   queue: telemetry/${hono.tenantId}
@@ -16,6 +17,7 @@ session:
     
 spring:
   jackson.serialization.write-dates-as-timestamps: false
+
   
 
 github:

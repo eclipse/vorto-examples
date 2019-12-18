@@ -27,18 +27,26 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     //connect to websocket
     this.wsService.connect()
+
     //subscribe to plugin API
     interval(this.PLUGIN_UPDATE_INTERVAL).pipe(startWith(0), switchMap(() => this.pluginService.getPlugins()))
     .subscribe(
       async res => {
       }, (err) => console.log(err)
     )
-    //subscribe to plugin API
+    //subscribe to mapping API
     interval(this.PLUGIN_UPDATE_INTERVAL).pipe(startWith(0), switchMap(() => this.pluginService.getMappings()))
     .subscribe(
       async res => {
       }, (err) => console.log(err)
     )
+
+    this.pluginService.getUser().subscribe(
+      async res => {
+        console.log("res")
+      }, (err) => console.log(err)
+    )
+
   }
 
 

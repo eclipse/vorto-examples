@@ -56,17 +56,4 @@ public class PluginsConfiguration {
 
 		return dittoPlugin;
 	}
-
-	@Bean
-	public ObjectMapper objectMapper() {
-		ObjectMapper mapper = new ObjectMapper();
-		SimpleModule module = new SimpleModule();
-		module.addDeserializer(IPropertyAttribute.class, new PropertyAttributeDeserializer());
-		module.addDeserializer(IReferenceType.class, new ModelReferenceDeserializer());
-		module.addDeserializer(IModel.class, new ModelDeserializer());
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.registerModule(module);
-		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
-		return mapper;
-	}
 }

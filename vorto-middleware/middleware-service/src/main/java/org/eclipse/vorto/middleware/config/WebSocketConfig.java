@@ -36,4 +36,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 		registry.setApplicationDestinationPrefixes("/middleware");
 		registry.enableSimpleBroker("/topic/device");
 	}
+	
+
+
 }
