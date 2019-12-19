@@ -32,7 +32,7 @@ jobs:
         skip_cleanup: true
         region: "$VORTO_S3_REGION"
         app: Vorto-Payload-Normalizer-Service
-        env: Payload-Normalizer-Dev
+        env: Vorto-Middleware
         bucket_name: "$VORTO_S3_BUCKET"
         on:
           branch: master
