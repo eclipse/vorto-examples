@@ -250,6 +250,7 @@
 									the name of war-file for ex. as "app.war" then below value should be ${project.build.directory}/app/ 
 									Value given below is as per default war-file name -->
 								<outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
+								<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
 								<resources>
 									<resource>
 										<directory>${project.basedir}/frontend/dist</directory>
