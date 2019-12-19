@@ -60,6 +60,8 @@ export class APIService {
   private _discoveredMappingsList = new BehaviorSubject<any[]>([])
   readonly discoveredMappingsList = this._discoveredMappingsList.asObservable()
 
+  private _lastResolvedModelId = new BehaviorSubject<any[]>([])
+  readonly lastResolvedModelId = this._lastResolvedModelId.asObservable()
 
   private _mappingPollingState = new BehaviorSubject<PollingState>(PollingState.EMPTY)
   readonly mappingPollingState = this._mappingPollingState.asObservable()
@@ -122,13 +124,10 @@ export class APIService {
             this._mappingPollingState.next(PollingState.EMPTY)
           }
           this._discoveredMappingsList.next(res)
-
-       
             //only on first page load, dont check every time
             //resolve all received mappings
             this._discoveredMappingsList.getValue().forEach((mapping) => {
               if(mapping.unresolved){
-                console.log("Trying to resolve model with id: ", mapping.modelId.prettyFormat)
                 this.resolveMapping(mapping).subscribe()
               }
             })
@@ -157,6 +156,10 @@ export class APIService {
     discoveredMappingsToUpdate.forEach((mapping, index) => {
       if (mapping.modelId.prettyFormat === res.modelId.prettyFormat) {
         discoveredMappingsToUpdate[index] = res
+        console.log("Resolved: ", res)
+        // add to list of all resolved
+        var resolvedModelId = res.modelId.prettyFormat
+        this._lastResolvedModelId.next(resolvedModelId)
       }
     });
 

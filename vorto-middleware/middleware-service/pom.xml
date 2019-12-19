@@ -224,7 +224,7 @@
 								<goal>npm</goal>
 							</goals>
 							<configuration>
-								<arguments>run build</arguments>
+								<arguments>run build --prod --aot</arguments>
 							</configuration>
 						</execution>
 					</executions>
