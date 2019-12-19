@@ -13,10 +13,11 @@
 
 	<properties>
 		<amq.version>5.15.8</amq.version>
+		<angular.project.location>frontend</angular.project.location>
+		<angular.project.nodeinstallation>node_installation</angular.project.nodeinstallation>
 	</properties>
 	
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -52,7 +53,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -64,7 +65,6 @@
 			</exclusions>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -75,7 +75,7 @@
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 			<version>2.0.17.RELEASE</version>
-</dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -98,6 +98,24 @@
 			<groupId>org.eclipse.vorto.middleware</groupId>
 			<artifactId>middleware-ext-kinesis</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>model</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>plugin-api</artifactId>
+			<version>${vorto.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.vorto</groupId>
+			<artifactId>repository-java-client</artifactId>
+			<version>${vorto.version}</version>
 		</dependency>
 
 		<dependency>
@@ -141,16 +159,108 @@
 		</dependency>
 
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.4.1</version>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>${project.basedir}/src/main/resources/static</directory>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
+				<!-- In order to configure Maven so that the Angular project is compiled 
+					first. -->
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>1.0</version>
+					<configuration>
+						<workingDirectory>${angular.project.location}</workingDirectory>
+						<installDirectory>${angular.project.nodeinstallation}</installDirectory>
+					</configuration>
+					<executions>
+						<!-- It will install nodejs and npm -->
+						<execution>
+							<id>install node and npm</id>
+							<goals>
+								<goal>install-node-and-npm</goal>
+							</goals>
+							<configuration>
+								<nodeVersion>v10.16.3</nodeVersion>
+								<npmVersion>6.9.0</npmVersion>
+							</configuration>
+						</execution>
+
+						<!-- It will execute command "npm install" inside "/e2e-angular2" directory -->
+						<execution>
+							<id>npm install</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<configuration>
+								<arguments>install</arguments>
+							</configuration>
+						</execution>
+						<!-- It will execute command "npm build" inside "/e2e-angular2" directory 
+							to clean and create "/dist" directory -->
+						<execution>
+							<id>npm build</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<configuration>
+								<arguments>run build</arguments>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Plugin to copy the content of /angular/dist/ directory to output 
+					directory (ie/ /target/transactionManager-1.0/) -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.4.2</version>
+					<executions>
+						<execution>
+							<id>default-copy-resources</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>copy-resources</goal>
+							</goals>
+							<configuration>
+								<overwrite>true</overwrite>
+								<!-- This folder is the folder where your angular files will be copied 
+									to. It must match the resulting war-file name. So if you have customized 
+									the name of war-file for ex. as "app.war" then below value should be ${project.build.directory}/app/ 
+									Value given below is as per default war-file name -->
+								<outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
+								<resources>
+									<resource>
+										<directory>${project.basedir}/frontend/dist</directory>
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>

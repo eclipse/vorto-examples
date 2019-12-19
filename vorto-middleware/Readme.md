@@ -90,8 +90,6 @@ To run the middleware, you need to set the following environment variables:
 
 *  **-e amqp.password=**  _AMQP 1.0 Broker password for authentication_
 
-*  **-e cors=**  _Cross-Origin Resource Sharing (CORS) url, optional for connection to e.g the middleware ui_
-
 Start the image via e.g:
 
 `docker run -it -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
@@ -114,22 +112,6 @@ Here is an example how we can mount a volume with the directory ```mappings``` w
 
 `docker run -it -v //C/absolute_local_dir:/mappings -p 8080:8080   
 -e mapping_spec_dir=/mappings -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
-
-
-
-## **Running the middleware frontend**
-
-**Downloading the image:**
-
-1. Pull the image from docker hub:
-
-`docker pull eclipsevorto/vorto-normalizer-ui:nightly`
-
-**Running the image:**  
-
-3. Run the image:
-
-`docker run -p 4200:4200 eclipsevorto/vorto-normalizer-ui:nightly`
 
 
 ## What's next ?

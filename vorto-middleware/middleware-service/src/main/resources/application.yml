@@ -1,11 +1,12 @@
 hono:
-  tenantId:
-  password:
-  
-admin:
+  tenantId: 
   password: 
   
-cors: 
+admin:
+  password: secret
+  
+cors: http://localhost:4200
+
 
 msg:
   queue: telemetry/${hono.tenantId}
@@ -17,3 +18,14 @@ session:
 spring:
   jackson.serialization.write-dates-as-timestamps: false
 
+  
+
+github:
+  client:
+    clientId: 
+    clientSecret: 
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user 

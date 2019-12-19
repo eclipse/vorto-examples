@@ -2,63 +2,15 @@ sudo: required
 dist: trusty
 jobs:
   include:
-  - stage: push-middleware-frontend-docker
-    name: Pushes the middleware frontend to docker hub
-    services:
-      - docker
-    script:
-      - docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:nightly ./vorto-middleware/middleware-frontend;
-      - if [ -n "$TRAVIS_TAG" ]; then
-        docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:latest ./vorto-middleware/middleware-frontend;
-        docker build -f vorto-middleware/middleware-frontend/Dockerfile -t eclipsevorto/vorto-normalizer-ui:$TRAVIS_TAG ./vorto-middleware/middleware-frontend;
-        fi
-    deploy:
-      - provider: script
-        script: bash vorto-middleware/docker/normalizer-ui_docker_push
-        on:
-          branch: master
-  - stage: deploy-middleware-frontend-aws
-    name: Deploys the Vorto-Middleware Frontend to AWS Beanstalk
-    language: node_js
-    node_js:
-    - '10'
-    script:
-    before_install:
-    - cd vorto-middleware/middleware-frontend
-    install:
-    - npm install -g @angular/cli
-    - npm install
-    after_success:
-    - ng build --configuration aws --aot
-    before_deploy:
-    - cd dist
-    - zip -r middleware-frontend.zip .
-    - export ELASTIC_BEANSTALK_DESCRIPTION="Build-Job ${TRAVIS_JOB_NUMBER} - Git Revision
-      ${TRAVIS_COMMIT_SHORT} vorto-middleware-frontend "
-    - export ELASTIC_BEANSTALK_ENV=vorto-middleware-frontend-${TRAVIS_BRANCH}
-    - export ELASTIC_BEANSTALK_LABEL=git-$(git rev-parse --verify HEAD --short)
-    - export ARTIFACT=$(ls middleware-frontend.zip)
-    deploy:
-      provider: elasticbeanstalk
-      access_key_id: "$VORTO_AWS_ACCESS_KEY"
-      secret_access_key: "$VORTO_AWS_SECRET_KEY"
-      zip-file: "${ARTIFACT}"
-      skip_cleanup: true
-      region: "$VORTO_S3_REGION"
-      app: Vorto-Payload-Normalizer-Service
-      env: Vorto-Middleware-Frontend-Dev
-      bucket_name: "$VORTO_S3_BUCKET"
-      on:
-        branch: master
-  - stage: deploy-middleware-backend-aws
-    name: Deploys the Vorto-Middleware Backend to AWS Beanstalk
+  - stage: deploy-middleware-aws
+    name: Deploys the Vorto-Middleware to AWS Beanstalk
     language: java
     jdk: oraclejdk8
     services:
       - docker
     before_script:
     script:
-      - mvn --fail-fast -q clean package
+      - mvn --fail-fast -q clean install
       - docker build --build-arg JAR_FILE=./middleware-service/target/vorto-middleware-1.0.0.jar -f ./middleware-service/Dockerfile -t eclipsevorto/vorto-normalizer:nightly ./middleware-service;
       - if [ -n "$TRAVIS_TAG" ]; then
         docker build --build-arg JAR_FILE=./middleware-service/target/vorto-middleware-1.0.0.jar -f ./middleware-service/Dockerfile -t eclipsevorto/vorto-normalizer:latest ./middleware-service;
@@ -80,7 +32,7 @@ jobs:
         skip_cleanup: true
         region: "$VORTO_S3_REGION"
         app: Vorto-Payload-Normalizer-Service
-        env: Payload-Normalizer-Dev
+        env: Vorto-Middleware-Frontend-Dev
         bucket_name: "$VORTO_S3_BUCKET"
         on:
           branch: master
