@@ -62,6 +62,6 @@ public class VortoRepositoryAdapter implements IVortoRepository {
 				.getForEntity(BASE_URL + "/api/v1/search/models?expression=InformationModel author:{author}", ModelInfo[].class,author);
 		
 		LOG.info("Found "+informationModels.getBody().length+ " information models for user "+author);
-		return Arrays.asList(informationModels.getBody()).stream().filter(infomodel -> !excludes.contains(infomodel.getId()) || !infomodel.getState().equalsIgnoreCase("deprecated")).collect(Collectors.toList());
+		return Arrays.asList(informationModels.getBody()).stream().filter(infomodel -> !excludes.contains(infomodel.getId()) && !infomodel.getState().equalsIgnoreCase("deprecated")).collect(Collectors.toList());
 	}
 }
