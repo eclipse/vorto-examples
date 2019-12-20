@@ -6,6 +6,9 @@
       <div class="button-row-left">
         <span> <img [src]="vortoLogo">
           Vorto Normalizer</span>
+          <a href="https://github.com/eclipse/vorto-examples/tree/master/vorto-middleware" target="_blank">
+            Fork me on Github <img [src]="gitHubLogoWhite">
+          </a>
       </div>
     </a>
 
@@ -20,11 +23,6 @@
       <button *ngIf="isLoggedIn" (click)="gitHubLogout()" class="button github-button">
         <img [src]="gitHubLogo"> Log out
       </button>
-      <div class="button getting-started-button">
-        <a href="https://github.com/eclipse/vorto-examples/tree/master/vorto-middleware" target="_blank">
-          Get Started
-        </a>
-      </div>
     </div>
 
 
@@ -44,5 +42,8 @@
         true}">
       <li>Mappings</li>
     </a>
+    <a class="nav-container__element" target="_blank" href="https://github.com/eclipse/vorto-examples/blob/master/vorto-middleware/Readme.md" >
+    <li>Get Started</li>
+  </a>
   </ul>
 </div>

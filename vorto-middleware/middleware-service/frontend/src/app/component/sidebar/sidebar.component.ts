@@ -10,6 +10,7 @@ export class SidebarComponent implements OnInit {
 
   public vortoLogo = "../../assets/img/vorto-logo.png";
   public gitHubLogo = "../../assets/img/github-social.png";
+  public gitHubLogoWhite = "../../assets/img/github-social-white.png";
   public isLoggedIn = false
   public loginState
   public userName

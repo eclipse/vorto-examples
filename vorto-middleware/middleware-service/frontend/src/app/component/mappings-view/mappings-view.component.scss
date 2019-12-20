@@ -210,12 +210,17 @@
 
                   &-install {
                     background-color: #4BB543;
-
-
                   }
 
                   &-uninstall {
                     background-color: #E9161D;
+                  }
+                  &-create {
+                    background-color: rgb(24, 24, 24);
+                    color: white;
+                    &:focus {
+                      opacity: 1;
+                    }
                   }
                 }
 
@@ -239,9 +244,11 @@
             }
 
             &.unresolved {
-              opacity: 0.8;
+              opacity: 0.7;
               pointer-events: none;
-
+            }
+            &.noMapping {
+              opacity: 0.8;
             }
           }
         }

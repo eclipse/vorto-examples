@@ -94,6 +94,7 @@
 			<artifactId>middleware-ext-ditto</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.eclipse.vorto.middleware</groupId>
 			<artifactId>middleware-ext-kinesis</artifactId>

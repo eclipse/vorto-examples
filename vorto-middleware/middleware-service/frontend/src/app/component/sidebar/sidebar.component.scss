@@ -45,6 +45,25 @@ a{
       padding: 12px;
       align-self: flex-start;
     }
+    .button-row-left{
+      a{
+        margin-left: 8px;
+        font-weight: lighter;
+        color:rgb(211, 211, 211);
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 12px;
+        img{
+          margin-left: 8px;
+          height: 24px;
+        }
+        &:hover{
+          background: #161616;
+          color:rgb(255, 255, 255);
+          opacity: 0.9;
+        }
+      }
+    }
     .button-row-right{
       display: flex;
       flex-direction: row;
@@ -67,14 +86,16 @@ a{
       }
 
       .github-button{
-        padding: 0 8px;
+      
+        font-size: 1.1em;
+        padding: 8px;  
         img{
           margin-right: 8px;
         }
         display: flex;
         align-items: center;
         justify-items: center;
-        margin-right: 8px;
+        margin-right: 16px;
         border-radius: 5px;
         outline: none;
         border: none;
@@ -92,18 +113,6 @@ a{
           background:none;
         }
       }
-
-      .getting-started-button{
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-        font-size: 1.1em;
-        padding: 12px;  
-        a{
-          color: b;
-        }
-        
-      }
-     
 
 
   }
