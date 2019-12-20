@@ -72,27 +72,14 @@ export class MappingsViewComponent implements OnInit {
     this.apiService.installUpdateResult.subscribe(
       async res => {
         if (res.status === 200) {
-          // clear lists after successful install/uninstall update
-
-          // console.log("davor installed", this.installedMappingList)
-          // console.log("davor disc", this.discoveredMappingList)
-
           this.installedMappingList = []
           this.discoveredMappingList = []
+          
           this.apiService.getInstalledMappings().subscribe()
           this.apiService.getDiscoveredMappings().subscribe()
 
           this.removeFromCombinedMappingList(res.updatedId)
-          // console.log("jetzt danach installed", this.installedMappingList)
-          // console.log("jetzt danach disc", this.discoveredMappingList)
-
-
-          // console.log("Removing after update", res.updatedId)
-          // console.log("after removal", this.mappingList)
-
-
           this.combineMappingLists()
-
 
         }
       }, (err) => console.log(err)
@@ -185,8 +172,7 @@ export class MappingsViewComponent implements OnInit {
     this.mappingList.forEach((mapping, index) => {
       if (mapping.modelId === mapping2update.modelId) {
         this.mappingList[index] = mapping2update
-        // this.removeFromMappingList(mapping.modelId)
-        // this.mappingList.push(mapping2update)
+
       }
     })
   }
@@ -203,12 +189,10 @@ export class MappingsViewComponent implements OnInit {
 
   installMapping(modelId) {
     this.apiService.updateMappingInstallState(modelId, true)
-    //  this.removeFromMappingList(modelId)
   }
 
   uninstallMapping(modelId) {
     this.apiService.updateMappingInstallState(modelId, false)
-    //  this.removeFromMappingList(modelId)
   }
 
   getRepositoryUrl(id) {
