@@ -137,15 +137,25 @@ export class MappingsViewComponent implements OnInit {
       }
       //updated if unresolved state has changed
       if (this.hasUnresolvedStateChanged(mapping)) {
+        console.log("changing state of", mapping.modelId)
+        console.log(mapping)
         this.updateMappingInList(mapping)
       }
     })
 
+    var sortedMappings: { installed: boolean }[] = this.mappingList.sort((x,y) => {
+      return (x.isInstalled === y.isInstalled)? 0 : x.isInstalled? -1 : 1;
+  });
 
     //sort mapping list --> installed mappings first
     this.mappingList = this.mappingList.sort((x, y) => {
       return (x.isInstalled === y.isInstalled) ? 0 : x.isInstalled ? -1 : 1
     })
+
+  console.log("full list before sort", this.mappingList)
+
+  this.mappingList = sortedMappings
+  console.log("full list after sort", this.mappingList)
 
   }
 
@@ -186,6 +196,8 @@ export class MappingsViewComponent implements OnInit {
     this.mappingList.forEach((mapping, index) => {
       if (mapping.modelId === modelId) this.mappingList.splice(index, 1);
     });
+    this.installedMappingList = []
+    this.discoveredMappingList = []
   }
 
 
