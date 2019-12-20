@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService, LoginState, PollingState } from 'src/app/service/api/api.service';
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-mappings-view',
@@ -22,7 +21,6 @@ export class MappingsViewComponent implements OnInit {
   public isLoggedIn
 
   public mappingPollingState
-
   public pollingStateTypes = PollingState
 
   ngOnInit() {
@@ -43,7 +41,7 @@ export class MappingsViewComponent implements OnInit {
 
     this.apiService.installedMappingsList.subscribe(
       async res => {
-        console.log("Refreshing list of installed Mappings: ", res)
+        console.log("Installed Mappings: ", res)
         this.addToMappingList(res, this.installedMappingList)
         this.combineMappingLists()
       }, (err) => console.log(err)
@@ -51,29 +49,58 @@ export class MappingsViewComponent implements OnInit {
 
     this.apiService.discoveredMappingsList.subscribe(
       async res => {
+        console.log("Discovered Mappings: ", res)
         this.addToMappingList(res, this.discoveredMappingList)
         this.combineMappingLists()
-        console.log("Refreshing list of other discovered Mappings: ", res)
       }, (err) => console.log(err)
     )
 
     this.apiService.lastResolvedModelId.subscribe(
       async res => {
-        console.log("this is now resolved", res)
+        console.log("Resolved information model ", res)
         this.mappingList.forEach((mapping, index) => {
-         
-           if (mapping.modelId === res){
-             this.mappingList[index].checked = true 
-           }
+
+          if (mapping.modelId === res) {
+            this.mappingList[index].checked = true
+          }
         });
+      }, (err) => console.log(err)
+    )
+
+
+    // subscribe to succesfull install/uninstall 
+    this.apiService.installUpdateResult.subscribe(
+      async res => {
+        if (res.status === 200) {
+          // clear lists after successful install/uninstall update
+
+          // console.log("davor installed", this.installedMappingList)
+          // console.log("davor disc", this.discoveredMappingList)
+
+          this.installedMappingList = []
+          this.discoveredMappingList = []
+          this.apiService.getInstalledMappings().subscribe()
+          this.apiService.getDiscoveredMappings().subscribe()
+
+          this.removeFromCombinedMappingList(res.updatedId)
+          // console.log("jetzt danach installed", this.installedMappingList)
+          // console.log("jetzt danach disc", this.discoveredMappingList)
+
+
+          // console.log("Removing after update", res.updatedId)
+          // console.log("after removal", this.mappingList)
+
+
+          this.combineMappingLists()
+
+
+        }
       }, (err) => console.log(err)
     )
   }
 
 
-
   addToMappingList(mappingListToAdd, targetMappingList) {
-
 
     mappingListToAdd.map(element => {
 
@@ -95,57 +122,43 @@ export class MappingsViewComponent implements OnInit {
   }
 
   combineMappingLists() {
+
+    //go through all locally installed (github)
     this.installedMappingList.map(mapping => {
-      if (!this.isMappingIn(mapping)) {
+      if (!this.isMappingInCombinedList(mapping)) {
         this.mappingList.push(mapping)
-      } 
+      }
     })
-
-
-
+    //go through all discoverd (github)
     this.discoveredMappingList.map(mapping => {
 
-      if (!this.isMappingIn(mapping) && !this.isMappingInstalled(mapping)) {
+      if (!this.isMappingInCombinedList(mapping)) {
         this.mappingList.push(mapping)
       }
       //updated if unresolved state has changed
       if (this.hasUnresolvedStateChanged(mapping)) {
-        console.log("changing state of", mapping.modelId)
-        console.log(mapping)
         this.updateMappingInList(mapping)
       }
     })
 
-    var sortedMappings: { installed: boolean }[] = this.mappingList.sort((x,y) => {
-      return (x.isInstalled === y.isInstalled)? 0 : x.isInstalled? -1 : 1;
-  });
 
-
-  console.log("full list before sort", this.mappingList)
-
-  this.mappingList = sortedMappings
-  console.log("full list after sort", this.mappingList)
-
-  }
-
-  updateMappingInList(mapping2update) {
-    this.mappingList.forEach((mapping) => {
-      if (mapping.modelId === mapping2update.modelId) {
-        this.removeFromMappingList(mapping.modelId)
-        this.mappingList.push(mapping2update)
-        // this.mappingList[index] = mapping2update
-      }
+    //sort mapping list --> installed mappings first
+    this.mappingList = this.mappingList.sort((x, y) => {
+      return (x.isInstalled === y.isInstalled) ? 0 : x.isInstalled ? -1 : 1
     })
+
   }
 
-  isMappingInstalled(mapping){
-    return this.installedMappingList.some(x =>
+
+  // checks
+  isMappingInCombinedList(mapping) {
+    return this.mappingList.some(x =>
       x.modelId === mapping.modelId &&
       x.description === mapping.description)
   }
 
-  isMappingIn(mapping) {
-    return this.mappingList.some(x =>
+  isMappingInstalled(mapping) {
+    return this.installedMappingList.some(x =>
       x.modelId === mapping.modelId &&
       x.description === mapping.description)
   }
@@ -157,26 +170,41 @@ export class MappingsViewComponent implements OnInit {
   }
 
 
-  removeFromMappingList(id) {
+  // actions
+  updateMappingInList(mapping2update) {
     this.mappingList.forEach((mapping, index) => {
-      if (mapping.modelId === id) this.mappingList.splice(index, 1);
+      if (mapping.modelId === mapping2update.modelId) {
+        this.mappingList[index] = mapping2update
+        // this.removeFromMappingList(mapping.modelId)
+        // this.mappingList.push(mapping2update)
+      }
+    })
+  }
+
+  //remove from mappingList as it will be added again from other list
+  removeFromCombinedMappingList(modelId) {
+    this.mappingList.forEach((mapping, index) => {
+      if (mapping.modelId === modelId) this.mappingList.splice(index, 1);
     });
-    this.installedMappingList = []
-    this.discoveredMappingList = []
   }
 
 
   installMapping(modelId) {
     this.apiService.updateMappingInstallState(modelId, true)
-    this.removeFromMappingList(modelId)
+    //  this.removeFromMappingList(modelId)
   }
 
   uninstallMapping(modelId) {
     this.apiService.updateMappingInstallState(modelId, false)
-    this.removeFromMappingList(modelId)
+    //  this.removeFromMappingList(modelId)
   }
 
   getRepositoryUrl(id) {
     return "https://vorto.eclipse.org/#/details/" + id
+  }
+
+  createMapping(id) {
+    let url = "https://vorto.eclipse.org/#/payloadmapping/" + id  
+    window.open(url, '_blank') 
   }
 }

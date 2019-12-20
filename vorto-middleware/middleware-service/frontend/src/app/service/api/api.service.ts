@@ -24,26 +24,12 @@ export enum PollingState {
   SUCCESS = "SUCCESS"
 }
 
-const getErrorMessage = (maxRetry: number) =>
-  'Tried to load ' + maxRetry + ' times without success.'
-
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
 }
-
-// //try to reconnect on fail
-// export function delayedRetry(delayMs: number, maxRetry = DEFAULT_MAX_RETRIES) {
-//   let retries = maxRetry
-
-//   return (src: Observable<any>) =>
-//     src.pipe(retryWhen((errors: Observable<any>) => errors.pipe(
-//       delay(delayMs),
-//       mergeMap(error => retries-- > 0 ? of(error) : throwError(getErrorMessage(maxRetry)))
-//     )))
-// }
 
 @Injectable({ providedIn: 'root' })
 export class APIService {
@@ -62,6 +48,9 @@ export class APIService {
 
   private _lastResolvedModelId = new BehaviorSubject<any[]>([])
   readonly lastResolvedModelId = this._lastResolvedModelId.asObservable()
+
+  private _installUpdateResult = new BehaviorSubject<any>(-1)
+  readonly installUpdateResult = this._installUpdateResult.asObservable()
 
   private _mappingPollingState = new BehaviorSubject<PollingState>(PollingState.EMPTY)
   readonly mappingPollingState = this._mappingPollingState.asObservable()
@@ -107,6 +96,8 @@ export class APIService {
         }))
   }
 
+
+
   public getDiscoveredMappings() {
     this._mappingPollingState.next(PollingState.POLLING)
     return this.http
@@ -135,6 +126,8 @@ export class APIService {
         }))
   }
 
+
+
   public resolveMapping(mapping) {
     return this.http
       .get(BASE_URL + API_PATH + '/mappings/' + mapping.modelId.prettyFormat + '/resolve' + '?description=' + mapping.description, httpOptions)
@@ -156,30 +149,29 @@ export class APIService {
     discoveredMappingsToUpdate.forEach((mapping, index) => {
       if (mapping.modelId.prettyFormat === res.modelId.prettyFormat) {
         discoveredMappingsToUpdate[index] = res
-        console.log("Resolved: ", res)
-        // add to list of all resolved
+        // update that this mapping has been succesfully checked
         var resolvedModelId = res.modelId.prettyFormat
         this._lastResolvedModelId.next(resolvedModelId)
       }
     });
-
     this._discoveredMappingsList.next(discoveredMappingsToUpdate)
-
-
   }
 
+  
   // install or uninstall mapping
   public updateMappingInstallState(modelId, install) {
     var actionSelector = install ? '/install' : '/uninstall'
-
-
     this.http.put(BASE_URL + API_PATH + '/mappings/' + modelId + actionSelector, httpOptions,
       { observe: 'response' })
       .subscribe(res => {
-        if (res.status === 200) {
-          this.getInstalledMappings().subscribe()
-          this.getDiscoveredMappings().subscribe()
+        const result = {
+          status: res.status,
+          updatedId: modelId
         }
+        console.log(result)
+
+        this._installUpdateResult.next(result)
+
       })
   }
 
