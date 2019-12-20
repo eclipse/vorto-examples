@@ -26,4 +26,3 @@ The following environment variables are required by this plugin to run:
 * **kinesis.accessKey** _AWS Access Key credential_
 * **kinesis.secretKey**  _AWS Secret Key credential_
 * **kinesis.streamName**  _Kinesis Stream Name_
-* **kinesis.partitionKey**  _Kinesis Partition Key_

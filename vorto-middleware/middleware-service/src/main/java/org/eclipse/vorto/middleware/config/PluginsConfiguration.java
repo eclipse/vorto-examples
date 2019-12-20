@@ -52,9 +52,6 @@ public class PluginsConfiguration {
 	@Value(value = "${kinesis.streamName:#{null}}")
 	private String kinesisStreamName;
 	
-	@Value(value = "${kinesis.partitionKey:#{null}}")
-	private String kinesisPartitionKey;
-	
 	@Bean
 	public IPlugin vortoPlugin() {
 		EclipseVortoAMQPPlugin vortoPlugin = new EclipseVortoAMQPPlugin();
@@ -94,7 +91,6 @@ public class PluginsConfiguration {
 		AWSKinesisPlugin kinesisPlugin = new AWSKinesisPlugin();
 		kinesisPlugin.setAccessKey(kinesisAccessKey);
 		kinesisPlugin.setSecretKey(kinesisSecretKey);
-		kinesisPlugin.setPartitionKey(kinesisPartitionKey);
 		kinesisPlugin.setStreamName(kinesisStreamName);
 		try {
 			kinesisPlugin.start();	

@@ -1,6 +1,7 @@
 package org.eclipse.vorto.middleware.plugins.kinesis;
 
 import java.nio.ByteBuffer;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,6 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 	private String secretKey;
 	
 	private String streamName;
-	
-	private String partitionKey;
 
 	@Override
 	public String getId() {
@@ -56,7 +55,6 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 		Map<String, TextConfigurationItem> configuration = new HashMap<>();
 		configuration.put("accessKey", new TextConfigurationItem("accessKey", "accessKey", this.accessKey));
 		configuration.put("streamName", new TextConfigurationItem("streamName", "streamName", this.streamName));
-		configuration.put("partitionKey", new TextConfigurationItem("partitionKey", "partitionKey", this.partitionKey));
 		return configuration;
 	}
 
@@ -69,7 +67,7 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 		List<PutRecordsRequestEntry> entries = value.getProperties().keySet().stream().map(property -> {
 		    PutRecordsRequestEntry entry = new PutRecordsRequestEntry(); 
 		    entry.setData(ByteBuffer.wrap((new StreamData(value.get(property), property, context.getDeviceId())).serializeToString().getBytes())); 
-		    entry.setPartitionKey(this.partitionKey);
+		    entry.setPartitionKey(Long.toString(new Date().getTime()));
 		    return entry;
 		}).collect(Collectors.toList());
 		
@@ -87,8 +85,6 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 			throw new CannotStartPluginException("Access key is missing");
 		} else if(this.secretKey == null) {
 			throw new CannotStartPluginException("Secret key is missing");
-		} else if(this.partitionKey == null) {
-			throw new CannotStartPluginException("Partition key is missing");
 		} else if(this.streamName == null) {
 			throw new CannotStartPluginException("Stream Name is missing");
 		}
@@ -134,15 +130,5 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 	public void setStreamName(String streamName) {
 		this.streamName = streamName;
 	}
-
-	public String getPartitionKey() {
-		return partitionKey;
-	}
-
-	public void setPartitionKey(String partitionKey) {
-		this.partitionKey = partitionKey;
-	}
-
-	
 }
 
