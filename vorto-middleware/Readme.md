@@ -80,6 +80,8 @@ To run the middleware, you need to set a minimum of the following environment va
 
 *  **-e hono.tenantId=**  _Eclipse Hono tenant ID, for receiving device telemetry messages_
 *  **-e hono.password=**  _Eclipse Hono messaging password, for receiving device telemetry messages_
+*  **-e github.client.clientId=** _Github Client ID credentials_
+*  **-e github.client.clientSecret=** _Github Client Secret credentials_
 
 The middleware comes with 3 built-in plugins, that you can configure for usage. Take a look at the plugins to find out about their environment variables to set:
 
@@ -90,7 +92,7 @@ The middleware comes with 3 built-in plugins, that you can configure for usage. 
 
 Here is an example to start the docker using the [Eclipse Ditto plugin](middleware-ext-ditto/Readme.md):
 
-`docker run -it -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -amqp.topic.ditto=telemetry/vorto/ditto -e amqp.username=amqp_username -e amqp.password=amqp_password eclipsevorto/vorto-normalizer:nightly`
+`docker run -it -p 8080:8080 -e github.client.clientId=your_github_clientid -e github.client.clientSecret=your_github_clientsecret -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -amqp.topic.ditto=telemetry/vorto/ditto -e amqp.username=amqp_username -e amqp.password=amqp_password eclipsevorto/vorto-normalizer:nightly`
 
 
 **Adding your mapping specifications to the middleware**
