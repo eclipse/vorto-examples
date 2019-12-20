@@ -14,7 +14,10 @@ import org.eclipse.vorto.middleware.internal.plugins.PluginRepository;
 import org.eclipse.vorto.middleware.internal.service.IPluginService;
 import org.eclipse.vorto.middleware.plugins.AbstractPlugin;
 import org.eclipse.vorto.middleware.plugins.IPlugin;
+import org.eclipse.vorto.middleware.plugins.IPlugin.CannotStartPluginException;
 import org.eclipse.vorto.middleware.plugins.TextConfigurationItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ public class DefaultPluginService implements IPluginService {
 
 	@Autowired
 	private PluginRepository pluginRepository;
+	
+	protected static final Logger logger = LoggerFactory.getLogger(DefaultPluginService.class);
+
 
 	@Override
 	public Collection<IPlugin> listPlugins() {
@@ -74,12 +80,17 @@ public class DefaultPluginService implements IPluginService {
 				Map<String, TextConfigurationItem> configurationItems = (Map<String, TextConfigurationItem>) xstream
 						.fromXML(configuration.getConfigurationXml());
 				((AbstractPlugin) plugin).setConfiguration(configurationItems);
-				((AbstractPlugin) plugin).setIsStarted(configuration.isStarted());
+				
+				if (configuration.isStarted()) {
+					try {
+						start(plugin.getId());
+					} catch(CannotStartPluginException ex) {
+						logger.warn("Failed to start plugin. Reason:"+ex.getMessage());
+					}
+				}
 			}
 
-			if (plugin.isStarted()) {
-				start(plugin.getId());
-			}
+			
 		});
 	}
 
@@ -94,10 +105,10 @@ public class DefaultPluginService implements IPluginService {
 		AbstractPlugin plugin = (AbstractPlugin)_plugin.get();
 		
 		if (plugin.isStarted()) { // restart plugin by re-initializing configuration
-			plugin.destroy();
-			plugin.init();
+			plugin.stop();
+			plugin.start();
 		} else {
-			plugin.init();
+			plugin.start();
 		}
 		
 		savePlugin(plugin);
@@ -116,7 +127,7 @@ public class DefaultPluginService implements IPluginService {
 		AbstractPlugin plugin = (AbstractPlugin)_plugin.get();
 		
 		if (plugin.isStarted()) {
-			plugin.destroy();
+			plugin.stop();
 			savePlugin(plugin);
 		}
 		

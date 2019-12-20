@@ -31,13 +31,14 @@ Please follow [this link](https://github.com/eclipse/vorto/blob/development/docs
 
 ## Vorto Normalizer Frontend
 
-  
+The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 application, which lets you interact with the middleware to do the following:
 
-  
+* **Manage middleware plugins** and their configurations
+* **Manage Vorto mappings** for middleware configuration
+* **Monitor** inbound and outbound device telemetry messages
 
-  
 
-The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 application, able to visualize the in-and outbounding device payload as well as listing the configured plugins. You can see a running example of what to expect under [this link](http://vorto-middleware.eu-central-1.elasticbeanstalk.com/)
+You can see a running example of what to expect under [this link](http://vorto-middleware.eu-central-1.elasticbeanstalk.com/)
 
   
 
@@ -61,9 +62,6 @@ The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 app
 
 You can run the Vorto Normalizer service and frontend out of the box via **Docker**. Thus, getting started is as easy as downloading each of the container from the docker hub and running them as described in the following:
 
-  
-
-  
 
 ## **Running the Vorto Normalizer Service**
 
@@ -78,21 +76,21 @@ You can run the Vorto Normalizer service and frontend out of the box via **Docke
 
 **Running the image:**
 
-To run the middleware, you need to set the following environment variables:
+To run the middleware, you need to set a minimum of the following environment variables:
 
 *  **-e hono.tenantId=**  _Eclipse Hono tenant ID, for receiving device telemetry messages_
-
 *  **-e hono.password=**  _Eclipse Hono messaging password, for receiving device telemetry messages_
 
-*  **-e amqp.url=**  _AMQP 1.0 Broker url, for the middleware to publish normalized device payload to_
+The middleware comes with 3 built-in plugins, that you can configure for usage. Take a look at the plugins to find out about their environment variables to set:
 
-*  **-e amqp.username=**  _AMQP 1.0 Broker username for authentication_
+* [Eclipse Ditto Plugin](middleware-ext-ditto/Readme.md)
+* [AWS Kinesis Data Stream Plugin](middleware-ext-kinesis/Readme.md) 
+* [Eclipse Vorto AMQP Plugin](middleware-ext-amqp/Readme.md)
 
-*  **-e amqp.password=**  _AMQP 1.0 Broker password for authentication_
 
-Start the image via e.g:
+Here is an example to start the docker using the [Eclipse Ditto plugin](middleware-ext-ditto/Readme.md):
 
-`docker run -it -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
+`docker run -it -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -amqp.topic.ditto=telemetry/vorto/ditto -e amqp.username=amqp_username -e amqp.password=amqp_password eclipsevorto/vorto-normalizer:nightly`
 
 
 **Adding your mapping specifications to the middleware**

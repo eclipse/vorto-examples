@@ -25,10 +25,6 @@ import com.google.gson.JsonObject;
 
 public class EclipseDittoPlugin extends EclipseVortoAMQPPlugin {
 
-	public EclipseDittoPlugin() {
-		setTopic("telemetry/vorto/ditto");
-	}
-
 	@Override
 	public void doExecute(InfomodelValue infomodelValue, ExecutionContext context) {
 		if (context.getMimeType() == MimeType.ECLIPSE_DITTO) {

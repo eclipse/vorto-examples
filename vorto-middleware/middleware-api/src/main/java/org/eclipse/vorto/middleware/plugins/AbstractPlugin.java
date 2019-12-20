@@ -3,10 +3,15 @@ package org.eclipse.vorto.middleware.plugins;
 import java.util.Map;
 
 import org.eclipse.vorto.model.runtime.InfomodelValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractPlugin implements IPlugin {
 
 	protected boolean started = false;
+	
+	protected static final Logger logger = LoggerFactory.getLogger(AbstractPlugin.class);
+
 	
 	@Override
 	public boolean isStarted() {
@@ -26,15 +31,5 @@ public abstract class AbstractPlugin implements IPlugin {
 
 
 	public abstract void setConfiguration(Map<String, TextConfigurationItem> configuration);
-
-	/**
-	 * Initializes the plugin, for example setting up a connection 
-	 */
-	public abstract void init();
-
-	/**
-	 * Cleans up the plugin, for example any connections to a DB 
-	 */
-	public abstract void destroy();
 	
 }
