@@ -64,6 +64,9 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 
 	@Override
 	protected void doExecute(InfomodelValue value, ExecutionContext context) {
+		if (value == null) {
+			return;
+		}
 		List<PutRecordsRequestEntry> entries = value.getProperties().keySet().stream().map(property -> {
 		    PutRecordsRequestEntry entry = new PutRecordsRequestEntry(); 
 		    entry.setData(ByteBuffer.wrap((new StreamData(value.get(property), property, context.getDeviceId())).serializeToString().getBytes())); 
