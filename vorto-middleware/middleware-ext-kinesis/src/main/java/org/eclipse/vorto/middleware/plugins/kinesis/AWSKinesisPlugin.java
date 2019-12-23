@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
+import org.eclipse.vorto.middleware.monitoring.MonitorMessage.Severity;
 import org.eclipse.vorto.middleware.plugins.AbstractPlugin;
 import org.eclipse.vorto.middleware.plugins.ExecutionContext;
 import org.eclipse.vorto.middleware.plugins.TextConfigurationItem;
@@ -21,13 +23,13 @@ import com.amazonaws.services.kinesis.model.PutRecordsRequest;
 import com.amazonaws.services.kinesis.model.PutRecordsRequestEntry;
 
 public class AWSKinesisPlugin extends AbstractPlugin {
-	
+
 	private AmazonKinesis kinesisClient;
-	
+
 	private String accessKey;
-	
+
 	private String secretKey;
-	
+
 	private String streamName;
 
 	@Override
@@ -59,7 +61,7 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 	}
 
 	public void setConfiguration(Map<String, TextConfigurationItem> configuration) {
-		//NOOP
+		// NOOP
 	}
 
 	@Override
@@ -68,44 +70,49 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 			return;
 		}
 		List<PutRecordsRequestEntry> entries = value.getProperties().keySet().stream().map(property -> {
-		    PutRecordsRequestEntry entry = new PutRecordsRequestEntry(); 
-		    entry.setData(ByteBuffer.wrap((new StreamData(value.get(property), property, context.getDeviceId())).serializeToString().getBytes())); 
-		    entry.setPartitionKey(Long.toString(new Date().getTime()));
-		    return entry;
+			PutRecordsRequestEntry entry = new PutRecordsRequestEntry();
+			String kinesisData = new StreamData(value.get(property), property, context.getDeviceId())
+					.serializeToString();
+
+			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(),
+					context.getDeviceId(), kinesisData, Severity.INFO, getId()));
+
+			entry.setData(ByteBuffer.wrap(kinesisData.getBytes()));
+			entry.setPartitionKey(Long.toString(new Date().getTime()));
+			return entry;
 		}).collect(Collectors.toList());
-		
+
 		PutRecordsRequest createRecordsRequest = new PutRecordsRequest();
 		createRecordsRequest.setStreamName(this.streamName);
 		createRecordsRequest.setRecords(entries);
-		
+
 		kinesisClient.putRecords(createRecordsRequest);
 	}
 
 	@Override
 	public void start() {
-		logger.info("Trying to start plugin: "+getId());
+		logger.info("Trying to start plugin: " + getId());
 		if (this.accessKey == null) {
 			throw new CannotStartPluginException("Access key is missing");
-		} else if(this.secretKey == null) {
+		} else if (this.secretKey == null) {
 			throw new CannotStartPluginException("Secret key is missing");
-		} else if(this.streamName == null) {
+		} else if (this.streamName == null) {
 			throw new CannotStartPluginException("Stream Name is missing");
 		}
-		
+
 		BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKey, secretKey);
-	    kinesisClient = AmazonKinesisClientBuilder.standard()
-	      .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-	      .withRegion(Regions.EU_CENTRAL_1)
-	      .build();
-	    
-	    this.setIsStarted(true);
+		kinesisClient = AmazonKinesisClientBuilder.standard()
+				.withCredentials(new AWSStaticCredentialsProvider(awsCredentials)).withRegion(Regions.EU_CENTRAL_1)
+				.build();
+
+		this.setIsStarted(true);
 		logger.info("Started successfully");
 
 	}
 
 	@Override
 	public void stop() {
-		logger.info("Stopping plugin: "+getId());
+		logger.info("Stopping plugin: " + getId());
 		this.kinesisClient = null;
 		this.setIsStarted(false);
 	}
@@ -134,4 +141,3 @@ public class AWSKinesisPlugin extends AbstractPlugin {
 		this.streamName = streamName;
 	}
 }
-
