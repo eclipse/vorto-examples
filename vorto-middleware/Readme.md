@@ -119,4 +119,6 @@ Here is an example how we can mount a volume with the directory ```mappings``` w
 
 *  [Read tutorial](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md), that uses the Vorto Semantic Middleware for an IoT Geolocation use case
 
+* [Use the AWS Kinesis Vorto Plugin](https://github.com/eclipse/vorto/blob/master/docs/tutorials/integrate_aws_kinesis.md)
+
 * Read more about the [Vorto Mapping Engine](https://github.com/eclipse/vorto/blob/development/mapping-engine/Readme.md), the core of the Vorto Semantic Middleware
