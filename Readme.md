@@ -11,9 +11,9 @@ Node.js/React based web dashboard, that displays device data, which are modelled
 
 ## Eclipse Vorto Semantic Middleware
 
-The Eclipse Vorto Semantic Middleware is a small and light-weight microservice that is able to convert any device telemetry payload (binary, json, xml, ...) to semantic Vorto compliant data structures and exposes this "harmonized API" via AMQP. Other micro services can easily consume the datav to further process it, e.g. for running analytics on the data. 
+The Eclipse Vorto Semantic Middleware is a small and light-weight microservice that is able to convert any device telemetry payload (binary, json, xml, ...) to semantic Vorto compliant data structures and exposes the data via **AMQP** or push it to **AWS Kinesis**. Other micro services can easily consume the data to further process it, e.g. for running analytics on the data. 
 
-The middleware provides an API, where additional forward-handlers can be plugged in, e.g. forward the "harmonized data" to AWS Timeseries etc. 
+The middleware provides an Integration API, where data processors can be plugged in, such as integrating the "harmonized data" with any 3rd party IoT data service. 
 
 [Read more](vorto-middleware/Readme.md)
 
