@@ -38,7 +38,7 @@ export class MonitoringConsole {
     return this.addZero(timestamp.getHours()) + ":" +
       this.addZero(timestamp.getMinutes()) + ":" +
       this.addZero(timestamp.getSeconds()) + " " +
-      "[" + direction + "]" + pluginId + " " + deviceId + ": "
+      "[" + direction + "] | " + pluginId + " " + deviceId + ": "
   }
 
   getMessageDirection(message) {
@@ -51,7 +51,7 @@ export class MonitoringConsole {
   }
 
   getPluginId(message) {
-    return (message.outboundPluginId) ? " " + message.outboundPluginId + " " : " "
+    return (message.outboundPluginId) ? " Plugin: " + message.outboundPluginId + " | " : " "
   }
 
 

@@ -1,39 +1,26 @@
+@import "src/variables";
+
 .main-container {
-  position: fixed;
+  position: absolute;
   padding: 0;
   margin: 0;
   width: 100vw;
-  height: 100vh;
-  background: #000000e0;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: row;
+  min-width: 800px;
+
 
   .content {
-    background: rgb(247, 241, 241);  
-
-      margin: 80px 16px 20px 0;
+    background: $default-white;
+      margin: 79px 16px 20px 0;
       width: 100%;
-      min-width: 800px;
+      height: calc( 100vh - 80px);
       overflow-y: auto;
       overflow-x: hidden; // hide horizontal
-
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
-
   }
 }
-.unselectable {
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Safari */
-  -khtml-user-select: none;
-  /* Konqueror HTML */
-  -moz-user-select: none;
-  /* Old versions of Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-  user-select: none;
-  /* Non-prefixed version, currently
-                                  supported by Chrome, Opera and Firefox */
-}
+

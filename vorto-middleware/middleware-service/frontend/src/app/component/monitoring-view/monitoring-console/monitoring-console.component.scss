@@ -1,3 +1,5 @@
+@import "src/variables";
+
 .console{
     position: absolute;
     right: 0;
@@ -6,34 +8,32 @@
     top: 46px;
     overflow-x: hidden;
     overflow-y: auto;
-    background: rgb(15, 15, 15);
-    padding: 8px;
+    background: $default-black;
     margin: 8px;
-    padding-right: -17px;
-    border-radius: 2px;
-    border-bottom-right-radius: 5px;
-    color: grey;
+    padding: 8px -17px 8px 8px;
+    border-radius: 2px 2px 5px 2px;
+    color: $console-font-color;
 
 
     &__message-group{
       margin: 0 4px 8px 4px;
-      border-top: solid 1px rgba(163, 163, 163, 0.9);
+      border-top: solid 1px $console-message-title-color;
       padding: 4px;
       &__header{
         font-weight: bold;
       font-family: 'Inconsolata', monospace;
       font-size: 1.2em;
       margin: 0px 8px;
-      color:white
+      color: $default-white
 
       }
     }
 &__message{
     font-family: 'Inconsolata', monospace;
-    margin: 0 0 8px 0;
+    margin: 8px 0 8px 8px;
     font-size: 1rem;
     &-title{
-        color:rgb(180, 180, 180);
+        color: $console-message-title-color;
         font-weight: bolder;
     }
     .plugin-icon{
@@ -48,57 +48,57 @@
 .blinking-cursor {
     font-weight: 100;
     font-size: 1em;
-    color: grey;
+    color: $console-font-color;
     -webkit-animation: 1s blink step-end infinite;
     -moz-animation: 1s blink step-end infinite;
     -ms-animation: 1s blink step-end infinite;
     -o-animation: 1s blink step-end infinite;
     animation: 1s blink step-end infinite;
   }
-  
+
   @keyframes blink {
     from, to {
       color: transparent;
     }
     50% {
-      color: grey;
+      color: $console-font-color;
       ;
     }
   }
-  
+
   @-moz-keyframes blink {
     from, to {
       color: transparent;
     }
     50% {
-      color: grey;
+      color: $console-font-color;
     }
   }
-  
+
   @-webkit-keyframes blink {
     from, to {
       color: transparent;
     }
     50% {
-      color: grey;
+      color: $console-font-color;
     }
   }
-  
+
   @-ms-keyframes blink {
     from, to {
       color: transparent;
     }
     50% {
-      color: grey;
+      color: $console-font-color;
     }
   }
-  
+
   @-o-keyframes blink {
     from, to {
       color: transparent;
     }
     50% {
-      color: grey;
+      color: $console-font-color;
     }
   }
 

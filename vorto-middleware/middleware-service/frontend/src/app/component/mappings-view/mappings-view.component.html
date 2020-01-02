@@ -11,13 +11,13 @@
           <div class="triangle-background"></div>
         </div>
         <div *ngIf="mappingPollingState === pollingStateTypes.SUCCESS || (mappingPollingState !== pollingStateTypes.ERROR && mappingList.length !== 0)" class="row">
-  
+
           <div class="col-lg-4 mapping-item__container" *ngFor="let mapping of mappingList">
             <div [ngClass]="{'unresolved unselectable': mapping.unresolved && !mapping.checked && !mapping.isInstalled, 'noMapping' : mapping.checked && mapping.unresolved && !mapping.isInstalled }" class="container-content">
               <div class="mapping-name">
                 <img [src]="vortoLogo">
                 <span>{{mapping.displayName}}</span>
-                
+
                 <div *ngIf="(mapping.unresolved && !mapping.checked && !mapping.isInstalled)" class="polling-indicator">
                   <div class="circle-border">
                     <div class="circle-core"></div>
@@ -25,12 +25,11 @@
                 </div>
                 <span *ngIf="mapping.checked && mapping.unresolved && !mapping.isInstalled"> - No Mapping found</span>
               </div>
-              
-              
+
               <a class="url-button unselectable" href="{{mapping.url}}" target="_blank">
                 <span *ngIf="mapping.unresolved && !mapping.checked && !mapping.isInstalled">
                   Searching Mapping Specificaction...</span>
-                
+
                 <span *ngIf="!mapping.unresolved || mapping.checked">Go to Information Model</span>
               </a>
               <span class="mapping-info">
@@ -42,19 +41,19 @@
               <span class="mapping-info">
                 Version: <span class="light">{{mapping.version}}</span>
               </span>
- 
+
               <div *ngIf="isLoggedIn" class="bottom-button-row">
 
-                <div *ngIf="mapping.checked && mapping.unresolved && !mapping.isInstalled" class="centered-elements"> 
- 
+                <div *ngIf="mapping.checked && mapping.unresolved && !mapping.isInstalled" class="centered-elements">
+
                   <button (click)=createMapping(mapping.modelId) class="action-button action-button-create">Create Mapping</button>
-                </div> 
+                </div>
 
                 <div *ngIf="!mapping.unresolved" class="centered-elements">
                     <div class="updating-indicator"><div></div><div></div><div></div><div></div></div>
                     <button *ngIf="!mapping.isInstalled" (click)="installMapping(mapping.modelId)" class="action-button action-button-install">Install</button>
                     <button *ngIf="mapping.isInstalled" (click)="uninstallMapping(mapping.modelId)" class="action-button action-button-uninstall">Uninstall</button>
-                  </div> 
+                  </div>
                   </div>
             </div>
           </div>
