@@ -5,24 +5,18 @@
   padding: 0;
   margin: 0;
   width: 100vw;
-  //height: 100vh;
   overflow-x: scroll;
-  //overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  min-width: 660px;
-
-  //background: $main-background-color;
   display: flex;
   flex-direction: row;
-  min-width: 660px;
+  min-width: 800px;
 
 
   .content {
     background: $default-white;
       margin: 79px 16px 20px 0;
       width: 100%;
-    height: calc( 100vh - 80px);
-      //min-width: 500px;
+      height: calc( 100vh - 80px);
       overflow-y: auto;
       overflow-x: hidden; // hide horizontal
       border-top-right-radius: 5px;
