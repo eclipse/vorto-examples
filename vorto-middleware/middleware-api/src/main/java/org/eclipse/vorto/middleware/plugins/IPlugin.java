@@ -68,6 +68,16 @@ public interface IPlugin {
    */
   Map<String, TextConfigurationItem> getConfiguration();
   
+  /**
+   * Starts the plugin
+   * @throws CannotStartPluginException
+   */
+  void start() throws CannotStartPluginException;
+  
+  /**
+   * stops the plugin
+   */
+  void stop();
   
   /**
    * 
@@ -82,6 +92,20 @@ public interface IPlugin {
 
 	public ExecutionProblem(String message, Throwable t) {
 		  super(message,t);
+	  }
+  }
+  
+  public static class CannotStartPluginException extends RuntimeException {
+	  public CannotStartPluginException(String message, Throwable t) {
+		  super(message,t);
+	  }
+	  
+	  public CannotStartPluginException(String msg) {
+		  super(msg);
+	  }
+	  
+	  public CannotStartPluginException(Throwable t) {
+		  super(t);
 	  }
   }
 }

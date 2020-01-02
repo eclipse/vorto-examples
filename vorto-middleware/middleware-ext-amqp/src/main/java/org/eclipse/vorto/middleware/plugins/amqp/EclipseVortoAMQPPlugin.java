@@ -14,6 +14,9 @@ package org.eclipse.vorto.middleware.plugins.amqp;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
 import org.eclipse.vorto.middleware.monitoring.MonitorMessage;
@@ -25,6 +28,7 @@ import org.eclipse.vorto.model.runtime.FunctionblockValue;
 import org.eclipse.vorto.model.runtime.InfomodelValue;
 import org.springframework.jms.JmsException;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessagePostProcessor;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,7 +39,7 @@ public class EclipseVortoAMQPPlugin extends AbstractPlugin {
 
 	protected static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-	protected String topic = "telemetry/vorto";
+	protected String topic;
 	protected String username;
 	protected String password;
 	protected String amqpUrl;
@@ -45,10 +49,19 @@ public class EclipseVortoAMQPPlugin extends AbstractPlugin {
 		for (String fbProperty : infomodelValue.getProperties().keySet()) {
 			FunctionblockValue value = infomodelValue.get(fbProperty);
 			String functionblockCommand = gson.toJson(value.serialize());
-			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(), context.getDeviceId(), functionblockCommand, Severity.INFO,getId()));
+			context.getLogger().monitor(MonitorMessage.outboundMessage(context.getCorrelationId(),
+					context.getDeviceId(), functionblockCommand, Severity.INFO, getId()));
 			try {
-				jmsTemplate.convertAndSend(topic, functionblockCommand);
-			} catch(JmsException exception) {
+				jmsTemplate.convertAndSend(topic, functionblockCommand, new MessagePostProcessor() {
+					@Override
+					public Message postProcessMessage(Message message) throws JMSException {
+						message.setStringProperty("tag", fbProperty);
+						message.setStringProperty("modelId", value.getMeta().getId().getPrettyFormat());
+						message.setStringProperty("deviceId", context.getDeviceId());
+						return message;
+					}
+				});
+			} catch (JmsException exception) {
 				throw new ExecutionProblem("Could not send vorto data to AMQP", exception);
 			}
 		}
@@ -67,7 +80,7 @@ public class EclipseVortoAMQPPlugin extends AbstractPlugin {
 
 	@Override
 	public String getDescription() {
-		return "Publishes harmonized device telemetry data as AMQP topic 'telemetry/vorto' .";
+		return "Publishes harmonized device telemetry data as AMQP topic 'telemetry/vorto'.";
 	}
 
 	@Override
@@ -93,32 +106,42 @@ public class EclipseVortoAMQPPlugin extends AbstractPlugin {
 	}
 
 	@Override
-	public void init() {
-		if (jmsTemplate != null) {
-			destroy();
+	public void start() {
+		logger.info("Trying to start plugin: "+getId());
+		
+		if (this.topic == null) {
+			throw new CannotStartPluginException("Topic is not configured.");
 		}
 
-		final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(amqpUrl);
+		try {
 
-		// Pass the username and password.
-		connectionFactory.setUserName(username);
-		connectionFactory.setPassword(password);
-		// Create a pooled connection factory.
-		final PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
-		pooledConnectionFactory.setConnectionFactory(connectionFactory);
-		pooledConnectionFactory.setMaxConnections(10);
+			final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(amqpUrl);
 
-		this.jmsTemplate = new JmsTemplate(connectionFactory);
-		this.jmsTemplate.setExplicitQosEnabled(true);
-		this.jmsTemplate.setDeliveryPersistent(false);
-		this.jmsTemplate.setTimeToLive(1000 * 60);
-		
-		this.setIsStarted(true);
+			// Pass the username and password.
+			connectionFactory.setUserName(username);
+			connectionFactory.setPassword(password);
+			// Create a pooled connection factory.
+			final PooledConnectionFactory pooledConnectionFactory = new PooledConnectionFactory();
+			pooledConnectionFactory.setConnectionFactory(connectionFactory);
+			pooledConnectionFactory.setMaxConnections(10);
+
+			this.jmsTemplate = new JmsTemplate(connectionFactory);
+			this.jmsTemplate.setExplicitQosEnabled(true);
+			this.jmsTemplate.setDeliveryPersistent(false);
+			this.jmsTemplate.setTimeToLive(1000 * 60);
+
+			this.setIsStarted(true);
+			
+			logger.info("Started successfully");
+		} catch (Throwable t) {
+			throw new CannotStartPluginException(t);
+		}
 
 	}
 
 	@Override
-	public void destroy() {
+	public void stop() {
+		logger.info("Stopping plugin: "+getId());
 		this.jmsTemplate = null;
 		this.setIsStarted(false);
 
@@ -155,6 +178,5 @@ public class EclipseVortoAMQPPlugin extends AbstractPlugin {
 	public void setAmqpUrl(String amqpUrl) {
 		this.amqpUrl = amqpUrl;
 	}
-	
-	
+
 }
