@@ -10,6 +10,10 @@ The AMQP header contains the following meta fields
 * **modelId** _Function Block Model ID, e.g. org.eclipse.vorto:Temperature:1.0.0_
 * **deviceId** _Device ID which sent the messages_
 
+## Requirements
+
+In order to successfully run this service, you need to run an external AMQP 1.0 messaging server, such as [Amazon MQ](https://aws.amazon.com/amazon-mq/)
+
 
 ## Configuration
 
