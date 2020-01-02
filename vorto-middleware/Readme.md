@@ -31,13 +31,14 @@ Please follow [this link](https://github.com/eclipse/vorto/blob/development/docs
 
 ## Vorto Normalizer Frontend
 
-  
+The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 application, which lets you interact with the middleware to do the following:
 
-  
+* **Manage middleware plugins** and their configurations
+* **Manage mapping specifications** for device data harmonizations
+* **Monitor** inbound and outbound device telemetry messages
 
-  
 
-The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 application, able to visualize the in-and outbounding device payload as well as listing the configured plugins. You can see a running example of what to expect under [this link](http://vorto-middleware.eu-central-1.elasticbeanstalk.com/)
+You can see a running example of what to expect under [this link](http://vorto-middleware.eu-central-1.elasticbeanstalk.com/)
 
   
 
@@ -59,13 +60,10 @@ The Eclipse Vorto Middleware Frontend is an additional lightweight Angular 8 app
 
   
 
-You can run the Vorto Normalizer service and frontend out of the box via **Docker**. Thus, getting started is as easy as downloading each of the container from the docker hub and running them as described in the following:
+You can run the service out of the box via **Docker**. Thus, getting started is as easy as downloading the container from [docker hub](https://hub.docker.com/r/eclipsevorto/vorto-normalizer) and running it as described in the following:
 
-  
 
-  
-
-## **Running the Vorto Normalizer Service**
+## **Running the Vorto Normalization Middleware Service**
 
 **Downloading the image:**
 
@@ -78,26 +76,28 @@ You can run the Vorto Normalizer service and frontend out of the box via **Docke
 
 **Running the image:**
 
-To run the middleware, you need to set the following environment variables:
+To run the middleware, you need to set a minimum of the following environment variables:
 
 *  **-e hono.tenantId=**  _Eclipse Hono tenant ID, for receiving device telemetry messages_
-
 *  **-e hono.password=**  _Eclipse Hono messaging password, for receiving device telemetry messages_
+*  **-e github.client.clientId=** _Github Client ID credentials, needed to (un)install mapping specifications_
+*  **-e github.client.clientSecret=** _Github Client Secret credentials, needed to (un)install mapping specifications_
 
-*  **-e amqp.url=**  _AMQP 1.0 Broker url, for the middleware to publish normalized device payload to_
+The middleware comes with 3 built-in plugins, that you can configure for usage. Take a look at the plugins to find out about their environment variables to set:
 
-*  **-e amqp.username=**  _AMQP 1.0 Broker username for authentication_
+* [AWS Kinesis Data Stream Plugin](middleware-ext-kinesis/Readme.md) 
+* [Eclipse Vorto AMQP Plugin](middleware-ext-amqp/Readme.md)
+* [Eclipse Ditto Plugin](middleware-ext-ditto/Readme.md)
 
-*  **-e amqp.password=**  _AMQP 1.0 Broker password for authentication_
 
-Start the image via e.g:
+Here is an example to start the docker using the [AWS Kinesis plugin](middleware-ext-kinesis/Readme.md):
 
-`docker run -it -p 8080:8080 -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
+`docker run -it -p 8080:8080 -e github.client.clientId=your_github_clientid -e github.client.clientSecret=your_github_clientsecret -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e kinesis.streamName=mystreamName -kinesis.accessKey=mykey -e kinesis.secretKey=mysecret eclipsevorto/vorto-normalizer:nightly`
 
 
 **Adding your mapping specifications to the middleware**
 
-In order to configure the normalizer middleware with your mapping specifications, you can simply mount a docker volume via `-v` and then point the middleware to this mounted directory, where it can find all mappings. 
+In order to configure the middleware service with your mapping specifications, you can simply mount a docker volume via `-v` and then point the middleware to this mounted directory, where it can find all mappings. This mounted directory is also used to persist any mapping specifications, that had been installed via the web frontend.
 
 The following variables need to be passed when running the middleware docker container:
 
@@ -108,15 +108,17 @@ The following variables need to be passed when running the middleware docker con
 
 **Please note that `absolute_local_directory_path` has to be an absolute path in respect to the directory and operating system you are running the `docker run` command in.**
 
-Here is an example how we can mount a volume with the directory ```mappings``` when running ```docker run```:
+Here is an example of how we can mount a volume with the directory ```mappings``` when running ```docker run```:
 
 `docker run -it -v //C/absolute_local_dir:/mappings -p 8080:8080   
--e mapping_spec_dir=/mappings -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e amqp.url=amqp_url -e amqp.username=amqp_username -e amqp.password=amqp_password -e cors=http://localhost:4200 eclipsevorto/vorto-normalizer:nightly`
+-e mapping_spec_dir=/mappings -e hono.tenantId=your_tenantId -e hono.password=your_hono_password -e kinesis.streamName=mystreamName -kinesis.accessKey=mykey -e kinesis.secretKey=mysecret eclipsevorto/vorto-normalizer:nightly`
 
 
 ## What's next ?
 
 
 *  [Read tutorial](https://github.com/eclipse/vorto/blob/development/docs/tutorials/create_mapping_pipeline.md), that uses the Vorto Semantic Middleware for an IoT Geolocation use case
+
+* [Use the AWS Kinesis Vorto Plugin](https://github.com/eclipse/vorto/blob/master/docs/tutorials/integrate_aws_kinesis.md)
 
 * Read more about the [Vorto Mapping Engine](https://github.com/eclipse/vorto/blob/development/mapping-engine/Readme.md), the core of the Vorto Semantic Middleware
