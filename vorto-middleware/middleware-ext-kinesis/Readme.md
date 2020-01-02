@@ -1,6 +1,6 @@
 # AWS Kinesis Data Stream Plugin
 
-Publishes Vorto normalized device messages as an AWS Kinesis Data Stream.
+Publishes Vorto normalized device messages as an [AWS Kinesis Data Stream](https://aws.amazon.com/kinesis/).
 
 The Kinesis Data stream contains data point records for each mapped Vorto Function Block.
 
