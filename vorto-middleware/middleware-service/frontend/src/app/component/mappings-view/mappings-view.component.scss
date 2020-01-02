@@ -1,3 +1,5 @@
+@import "src/variables";
+
 .mapping-page-container {
   margin: 4px;
   border-top-left-radius: 5px;
@@ -19,10 +21,9 @@
         margin-left: 2px;
         margin-right: 2px;
 
-
         font-weight: 100;
-        background: #1f1e1f;
-        color: white;
+        background: $dark-background-color;
+        color: $default-white;
         display: inline-block;
         clear: both;
         font-size: 18px;
@@ -31,7 +32,7 @@
         span {
           border-top-right-radius: 5px;
           padding: 8px;
-          background: black;
+          background: $default-black;
           margin: 0;
         }
 
@@ -44,13 +45,13 @@
           height: 0;
           border-top: 0px solid transparent;
           border-bottom: 42px solid transparent;
-          border-left: 40px solid black;
+          border-left: 40px solid $default-black;
           margin-right: -48px;
           margin-bottom: -8px;
 
         }
 
-  
+
       }
 
       .row {
@@ -60,7 +61,7 @@
           display: flex;
           justify-content: center;
           align-content: center;
-          color: #312e31;
+          color: $dark-background-color;
 
           span {
             display: flex;
@@ -81,16 +82,16 @@
           padding: 0;
 
           .container-content {
-            background: #312e31;
+            background: $dark-background-color;
             border-radius: 2px;
             font-size: 0.9em;
             height: calc(100% - 4px);
-            color: white;
+            color: $default-white;
             position: relative;
             font-weight: lighter;
-            -webkit-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
-            -moz-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
-            box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+            -webkit-box-shadow: -1px 2px 13px 3px $box-shadow-color;
+            -moz-box-shadow: -1px 2px 13px 3px $box-shadow-color;
+            box-shadow: -1px 2px 13px 3px $box-shadow-color;
             display: flex;
             flex-direction: column;
             margin: 3px 2px;
@@ -99,13 +100,13 @@
               display: flex;
               align-content: center;
               padding: 8px;
-              background: #292829;
+              background: $dark-header-background-color;
               margin-bottom: 4px;
 
-              border-bottom: 1px solid black;
-              -webkit-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
-              -moz-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
-              box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+              border-bottom: 1px solid $default-black;
+              -webkit-box-shadow: -1px 2px 13px 3px $box-shadow-color;
+              -moz-box-shadow: -1px 2px 13px 3px $box-shadow-color;
+              box-shadow: -1px 2px 13px 3px $box-shadow-color;
 
               img {
                 height: 25px;
@@ -130,7 +131,7 @@
               text-decoration: none;
               cursor: pointer;
               transition: 0.5s;
-              color: #457599;
+              color: $url-color;
 
               span:before {
                 content: '\00bb  ';
@@ -140,7 +141,7 @@
 
               &:hover {
                 padding: 0 8px;
-                color: #4c83ad;
+                color: $url-color-hover;
 
                 span:before {
                   opacity: 1;
@@ -154,12 +155,12 @@
               .smaller {
                 font-size: smaller;
                 font-weight: lighter;
-                color: rgb(173, 173, 173);
+                color: $grey-font-color;
               }
 
               .light {
                 font-weight: lighter;
-                color: rgb(192, 192, 192);
+                color: $grey-font-color;
               }
             }
 
@@ -171,11 +172,9 @@
               height: 40px;
 
               .centered-elements {
-                background: red;
                 position: relative;
                 display: flex;
                 justify-self: flex-end;
-
                 width: 100%;
                 display: flex;
                 justify-content: flex-end;
@@ -190,14 +189,14 @@
                   display: inline-block;
                   min-width: 110px;
                   padding: 8px 1.6em;
-                  border: 0.05em solid #312e31;
+                  border: 0.05em solid $default-black;
                   border-radius: 0.12em;
                   box-sizing: border-box;
                   text-decoration: none;
                   font-family: 'Roboto', sans-serif;
                   font-weight: lighter;
-                  color: #312e31;
-                  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.6);
+                  color: $default-white;
+                  text-shadow: 0 0.04em 0.04em $default-black 60%;
                   text-align: center;
                   transition: all 0.15s;
                   bottom: -25px;
@@ -209,15 +208,15 @@
                   }
 
                   &-install {
-                    background-color: #4BB543;
+                    background-color: $install-button-color;
                   }
 
                   &-uninstall {
-                    background-color: #E9161D;
+                    background-color: $uninstall-button-color;
                   }
                   &-create {
-                    background-color: rgb(24, 24, 24);
-                    color: white;
+                    background-color: $create-button-color;
+                    color: $default-white;
                     &:focus {
                       opacity: 1;
                     }
@@ -225,9 +224,9 @@
                 }
 
                 .action-button:hover {
-                  text-shadow: 0 0 2em rgb(165, 165, 165);
-                  color: white;
-                  border-color: rgb(165, 165, 165);
+                  text-shadow: 0 0 2em $button-border-color-hover;
+                  color: $default-white;
+                  border-color: $button-border-color-hover;
                 }
 
                 @media all and (max-width:30em) {
@@ -261,7 +260,7 @@
     display: inline-flex;
     position: relative;
     align-items: center;
-    background: black;
+    background: $default-black;
 
     .circle-border {
       width: 20px;
@@ -271,14 +270,14 @@
       justify-content: center;
       align-items: center;
       border-radius: 50%;
-      background: linear-gradient(0deg, rgb(247, 241, 241)33%, #010c13 100%);
+      background: linear-gradient(0deg, $default-white 33%, $default-black 100%);
       animation: spin 1s linear 0s infinite;
     }
 
     .circle-core {
       width: 100%;
       height: 100%;
-      background: #212529;
+      background: $dark-background-color;
       border-radius: 50%;
     }
 
@@ -310,7 +309,7 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: rgb(228, 228, 228);
+    background: $updating-indicator-color;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
 

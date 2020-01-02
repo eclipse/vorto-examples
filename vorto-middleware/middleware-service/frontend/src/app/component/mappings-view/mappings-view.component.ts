@@ -8,20 +8,18 @@ import { APIService, LoginState, PollingState } from 'src/app/service/api/api.se
 })
 export class MappingsViewComponent implements OnInit {
 
-  constructor(private apiService: APIService) { }
-
   public mappingList = []
   public installedMappingList = []
   public discoveredMappingList = []
   public checked
-
   public toggleIcon = "../../assets/icon/single-toggle.svg";
   public urlIcon = "../../assets/icon/url.svg";
   public vortoLogo = "../../assets/img/vorto-logo.png";
   public isLoggedIn
-
   public mappingPollingState
   public pollingStateTypes = PollingState
+
+  constructor(private apiService: APIService) { }
 
   ngOnInit() {
 
@@ -57,7 +55,7 @@ export class MappingsViewComponent implements OnInit {
 
     this.apiService.lastResolvedModelId.subscribe(
       async res => {
-        console.log("Resolved information model ", res)
+        console.log("Successfully resolved information model:  ", res)
         this.mappingList.forEach((mapping, index) => {
 
           if (mapping.modelId === res) {
@@ -68,13 +66,13 @@ export class MappingsViewComponent implements OnInit {
     )
 
 
-    // subscribe to succesfull install/uninstall 
+    // subscribe to successful install/uninstall
     this.apiService.installUpdateResult.subscribe(
       async res => {
         if (res.status === 200) {
           this.installedMappingList = []
           this.discoveredMappingList = []
-          
+
           this.apiService.getInstalledMappings().subscribe()
           this.apiService.getDiscoveredMappings().subscribe()
 
@@ -124,8 +122,7 @@ export class MappingsViewComponent implements OnInit {
       }
       //updated if unresolved state has changed
       if (this.hasUnresolvedStateChanged(mapping)) {
-        console.log("changing state of", mapping.modelId)
-        console.log(mapping)
+        console.log("Updating: ", mapping.modelId)
         this.updateMappingInList(mapping)
       }
     })
@@ -139,11 +136,7 @@ export class MappingsViewComponent implements OnInit {
       return (x.isInstalled === y.isInstalled) ? 0 : x.isInstalled ? -1 : 1
     })
 
-  console.log("full list before sort", this.mappingList)
-
   this.mappingList = sortedMappings
-  console.log("full list after sort", this.mappingList)
-
   }
 
 
@@ -200,7 +193,7 @@ export class MappingsViewComponent implements OnInit {
   }
 
   createMapping(id) {
-    let url = "https://vorto.eclipse.org/#/payloadmapping/" + id  
-    window.open(url, '_blank') 
+    let url = "https://vorto.eclipse.org/#/payloadmapping/" + id
+    window.open(url, '_blank')
   }
 }

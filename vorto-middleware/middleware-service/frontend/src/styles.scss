@@ -1,13 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
+@import "variables";
+
 body{
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
-    min-width: 500px;
-}
+    background: $main-background-color;
+    position: absolute;
+  overflow-y: hidden;
 
+
+
+}
 
 .unselectable {
     -webkit-touch-callout: none;
@@ -21,6 +27,7 @@ body{
     -ms-user-select: none;
     /* Internet Explorer/Edge */
     user-select: none;
-    /* Non-prefixed version, currently
-                                    supported by Chrome, Opera and Firefox */
+    /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
   }
+
+

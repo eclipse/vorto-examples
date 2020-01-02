@@ -1,20 +1,22 @@
+@import "src/variables";
+
 .plugin-list {
   &__container {
     height: auto;
     width: 100%;
   }
-  
+
   &__item {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    background: #312e31;
-    color: white;
+    background: $dark-background-color;
+    color: $default-white;
     position: relative;
     font-weight: lighter;
     margin: 8px;
-    -webkit-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
-    box-shadow: -1px 2px 13px 3px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: -1px 2px 13px 3px $default-black 20%;
+    -moz-box-shadow: -1px 2px 13px 3px $default-black 20%;
+    box-shadow: -1px 2px 13px 3px $default-black 20%;
 
 
     &-name {
@@ -26,7 +28,7 @@
       span {
         padding: 8px;
 
-        background: black;
+        background: $default-black;
         margin: 0;
       }
 
@@ -39,7 +41,7 @@
         height: 0;
         border-top: 0px solid transparent;
         border-bottom: 42px solid transparent;
-        border-left: 40px solid black;
+        border-left: 40px solid $default-black;
         margin-right: -48px;
         margin-bottom: -8px;
 
@@ -54,10 +56,10 @@
       display: flex;
 
      span{
-         color:grey;
+         color: $grey-font-color;
          margin-right:4px;
          &.activated{
-             color:rgb(230, 227, 227);
+             color:$default-white
          }
      }
       .state-loading-ring {
@@ -65,7 +67,7 @@
         border-radius: 50%;
         height: 23px;
         width: 23px;
-        background: rgb(182, 19, 19);
+        background: $inactive-color;
         border: 0.5px solid rgb(51, 51, 51);
 
         &.updating {
@@ -75,7 +77,7 @@
         }
 
         &.activated {
-          background: rgb(50, 196, 50);
+          background: $activated-color;
         }
 
 
@@ -92,7 +94,7 @@
         align-content: center;
         border-radius: 50%;
         border: 3px solid;
-        border-color: white transparent rgb(224, 224, 224) transparent;
+        border-color: $default-white  $dark-background-color $default-white $dark-background-color;
         animation: state-loading-ring 1.2s linear infinite;
       }
 
@@ -113,7 +115,7 @@
       display: flex;
       align-content: center;
       margin-top: 8px;
-      background: rgba(241, 241, 241, 0.08);
+      background: $plugin-background-color;
 
       align-content: center;
 
@@ -131,8 +133,8 @@
       padding: 8px;
     }
     &-toggle-description{
-        color: white;
-        opacity: 0.1;
+        color: $default-white;
+        opacity: 0.5;
         display: inline;
         margin-right: 8px;
         transition: opacity 300ms;
@@ -140,7 +142,7 @@
         &.extended{
           opacity: 0;
         }
-      
+
     }
     &-toggle-button {
       position: absolute;
@@ -156,10 +158,8 @@
         height: 22px;
         width: 22px;
         -webkit-transition: transform 300ms;
-        /* Safari prior 6.1 */
         transition: transform 300ms;
         transform: rotate(90deg);
-
         &.extended {
           transform: rotate(0deg);
 
@@ -175,33 +175,33 @@
             }
         }
         .plugin-list__item-toggle-description{
-          opacity: 0.3;
+          opacity: 0.8;
         }
       }
 
     }
-   
+
 
     &-extension {
-      background: #312e31;
+      background: $dark-background-color;
       height: 0px;
       transition: height 600ms;
       margin: 8px;
       border-bottom-right-radius: 5px;
 
       &.extended {
-        border-top: 1px solid black;
+        border-top: 1px solid $default-black;
         height: auto;
         opacity: 1;
       }
 
       .configuration-container {
-        color: white;
+        color: $default-white;
         padding: 8px;
 
         &-header {
           font-size: 20px;
-          color: white;
+          color: $default-white;
           font-weight: normal;
 
         }
@@ -212,7 +212,7 @@
 
           .title {
             font-weight: lighter;
-            color: gray;
+            color: $grey-font-color;
           }
         }
       }
@@ -220,15 +220,15 @@
 
     &.extended {
       // item in extended state
-      -webkit-box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
-      box-shadow: 0px 2px 5px -1px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: 0px 2px 5px -1px $default-black 75%;
+      -moz-box-shadow: 0px 2px 5px -1px $default-black 75%;
+      box-shadow: 0px 2px 5px -1px $default-black 75%;
       border-bottom-right-radius: 0px;
       margin-bottom: -8px;
 
     }
 
-    
+
   }
 
 }

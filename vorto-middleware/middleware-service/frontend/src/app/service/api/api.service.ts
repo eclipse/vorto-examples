@@ -8,9 +8,6 @@ export const BASE_URL = environment.apiBaseUrl
 
 const API_PATH = '/api/v1'
 
-
-const DEFAULT_MAX_RETRIES = 5
-
 export enum LoginState {
   AUTHORIZED = "AUTHORIZED",
   ERROR = "ERROR",
@@ -122,7 +119,7 @@ export class APIService {
                 this.resolveMapping(mapping).subscribe()
               }
             })
-        
+
         }))
   }
 
@@ -157,7 +154,7 @@ export class APIService {
     this._discoveredMappingsList.next(discoveredMappingsToUpdate)
   }
 
-  
+
   // install or uninstall mapping
   public updateMappingInstallState(modelId, install) {
     var actionSelector = install ? '/install' : '/uninstall'
