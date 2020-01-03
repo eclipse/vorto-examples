@@ -12,6 +12,7 @@
 package org.eclipse.vorto.middleware.mappings;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.eclipse.vorto.mapping.engine.model.spec.IMappingSpecification;
 import org.eclipse.vorto.model.ModelId;
@@ -23,6 +24,13 @@ public interface IMappingConfigDao {
 	 * @param specification
 	 */
 	void save(IMappingSpecification specification);
+	
+	/**
+	 * Gets a mapping specification for a given modelID
+	 * @param modelId
+	 * @return
+	 */
+	Optional<IMappingSpecification> get(ModelId modelId);
 	
 	/**
 	 * Removes the mapping specification from the middleware
