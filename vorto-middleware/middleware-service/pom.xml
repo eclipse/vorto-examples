@@ -220,12 +220,12 @@
 						<!-- It will execute command "npm build" inside "/e2e-angular2" directory 
 							to clean and create "/dist" directory -->
 						<execution>
-							<id>npm build</id>
+							<id>Angular build</id>
 							<goals>
 								<goal>npm</goal>
 							</goals>
 							<configuration>
-								<arguments>run build --prod --aot</arguments>
+								<arguments>run build</arguments>
 							</configuration>
 						</execution>
 					</executions>

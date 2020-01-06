@@ -11,39 +11,39 @@ export class PluginsViewComponent implements OnInit {
 
   constructor(private apiService: APIService) { }
 
-  public result = ""
+  public result = '';
 
-  public pluginList: Array<Plugin> = []
-  public extendedPluginIds: Array<string> = []
-  public toggleIcon = "../../assets/icon/toggle.svg";
+  public pluginList: Array<Plugin> = [];
+  public extendedPluginIds: Array<string> = [];
+  public toggleIcon = '../../assets/icon/toggle.svg';
 
 
   ngOnInit() {
-    this.updatePluginStates()
-    this.apiService.getUser()
+    this.updatePluginStates();
+    this.apiService.getUser();
   }
 
 
 
   getPluginData(res) {
-    let refreshedPlugins: Array<Plugin> = []
+    const refreshedPlugins: Array<Plugin> = [];
     if (res) {
       res.map(element => {
         if (element.id) {
-          let plugin = new Plugin(element.id)
-          plugin.name = element.name ? element.name : ""
-          plugin.description = element.description ? element.description : ""
-          plugin.imageUrl = element.imageUrl ? element.imageUrl : ""
-          plugin.isActivated = element.started ? element.started : false
-          plugin.getConfiguration(element.configuration)
-          plugin.hidePassword()
-          refreshedPlugins.push(plugin)
+          const plugin = new Plugin(element.id);
+          plugin.name = element.name ? element.name : '';
+          plugin.description = element.description ? element.description : '';
+          plugin.imageUrl = element.imageUrl ? element.imageUrl : '';
+          plugin.isActivated = element.started ? element.started : false;
+          plugin.getConfiguration(element.configuration);
+          plugin.hidePassword();
+          refreshedPlugins.push(plugin);
 
         }
       }
       );
       if (JSON.stringify(this.pluginList) !== JSON.stringify(refreshedPlugins)) {
-        this.pluginList = refreshedPlugins
+        this.pluginList = refreshedPlugins;
        }
     }
   }
@@ -52,19 +52,19 @@ export class PluginsViewComponent implements OnInit {
 
   getConfiguration(plugin) {
     if (Object.keys(plugin).length !== 0) {
-      let result = new Map(Object.entries(plugin.configuration));
-      return result
+      const result = new Map(Object.entries(plugin.configuration));
+      return result;
     }
   }
 
 
 
   toggle(id) {
-    var found = this.extendedPluginIds.find(function (element) {
+    const found = this.extendedPluginIds.find(function(element) {
       return element === id;
     });
     if (!found) {
-      this.extendedPluginIds.push(id)
+      this.extendedPluginIds.push(id);
     } else {
       const index = this.extendedPluginIds.indexOf(id, 0);
       if (index > -1) {
@@ -74,10 +74,10 @@ export class PluginsViewComponent implements OnInit {
   }
 
   isExtended(id) {
-    var isExtended = this.extendedPluginIds.find((element) => {
+    const isExtended = this.extendedPluginIds.find((element) => {
       return element === id;
     });
-    return isExtended
+    return isExtended;
   }
 
 
@@ -85,9 +85,9 @@ export class PluginsViewComponent implements OnInit {
     this.apiService.pluginList
       .subscribe(
         async res => {
-          console.log("Refreshing list of Plugins: ", res)
-          this.getPluginData(res)
+          console.log('Refreshing list of Plugins: ', res);
+          this.getPluginData(res);
         }, (err) => console.log(err)
-      )
+      );
   }
 }

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -33,7 +33,7 @@
     "bootstrap": "4.4.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.13",
+    "@angular-devkit/build-angular": "^0.803.21",
     "@angular/cli": "^8.3.14",
     "@angular/compiler-cli": "^8.2.11",
     "@angular/language-service": "^8.2.11",
