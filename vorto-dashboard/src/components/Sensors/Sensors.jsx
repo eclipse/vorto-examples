@@ -159,15 +159,16 @@ export class Sensors extends Component {
 
 
     render() {
-        var sensors = {}
+        var sensors = []
         const device = this.state.selectedDevice
 
         if (device) {
-            sensors = (device.features === undefined) ? {}
+            sensors = (device.features === undefined) ? []
                 : Object.keys(device.features)
                     .sort()
                     .map((featureName, index) => {
                         const featureObj = device.features[featureName]
+
                         const featureDefs = featureObj.definition
 
                         const categorieType = mapDeftoCardCategorie(featureDefs)

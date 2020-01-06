@@ -59,37 +59,40 @@ class OSMap extends Component {
 
         for (var feature in features) {
           const featureObj = features[feature]
-          let definition = featureObj.definition
-          if (definition[0]) {
-            if (CATEGORIES.LOCATION.includes(definition[0])) {
-              const latitude = featureObj.properties.status.latitude
-              const longitude = featureObj.properties.status.longitude
+          if(featureObj && featureObj.definition){
+            let definition = featureObj.definition
+            if (definition[0]) {
+              if (CATEGORIES.LOCATION.includes(definition[0])) {
+                const latitude = featureObj.properties.status.latitude
+                const longitude = featureObj.properties.status.longitude
 
-              if (latitude, longitude) {
+                if (latitude, longitude) {
 
-                position = [parseFloat(latitude), parseFloat(longitude)]
-                positionGroup.push(position)
+                  position = [parseFloat(latitude), parseFloat(longitude)]
+                  positionGroup.push(position)
 
-                const popUp = this.props.displayTooltip
-                  ? (<Popup>
-                    <DeviceTooltip
-                      device={device}
-                      latitude={latitude}
-                      longitude={longitude}
-                    />
-                  </Popup>)
-                  : <div></div>
+                  const popUp = this.props.displayTooltip
+                      ? (<Popup>
+                        <DeviceTooltip
+                            device={device}
+                            latitude={latitude}
+                            longitude={longitude}
+                        />
+                      </Popup>)
+                      : <div></div>
 
-                return (
-                  <Marker position={position}
-                    value={deviceId}
-                    key={index} >
-                    {popUp}
-                  </Marker>
-                )
+                  return (
+                      <Marker position={position}
+                              value={deviceId}
+                              key={index} >
+                        {popUp}
+                      </Marker>
+                  )
+                }
               }
             }
           }
+
         }
       }
 
