@@ -7,7 +7,7 @@ import { MonitoringViewComponent } from './component/monitoring-view/monitoring-
 import { PluginsViewComponent } from './component/plugins-view/plugins-view.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MonitoringConsole } from './component/monitoring-view/monitoring-console/monitoring-console.component'; 
+import { MonitoringConsole } from './component/monitoring-view/monitoring-console/monitoring-console.component';
 import { FormsModule } from '@angular/forms';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
@@ -30,5 +30,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

@@ -52,7 +52,7 @@
                 <div *ngIf="!mapping.unresolved" class="centered-elements">
                     <div class="updating-indicator"><div></div><div></div><div></div><div></div></div>
                     <button *ngIf="!mapping.isInstalled" (click)="installMapping(mapping.modelId)" class="action-button action-button-install">Install</button>
-                    <button *ngIf="mapping.isInstalled" (click)="uninstallMapping(mapping.modelId)" class="action-button action-button-uninstall">Uninstall</button>
+                   <button *ngIf="mapping.isInstalled" (click)="uninstallMapping(mapping.modelId)" class="action-button action-button-uninstall">Uninstall</button>
                   </div>
                   </div>
             </div>

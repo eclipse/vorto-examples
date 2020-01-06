@@ -20,27 +20,26 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //connect to websocket
-    this.wsService.connect()
+    // connect to websocket
+    this.wsService.connect();
 
-    //subscribe to plugin API
-     this.apiService.getPlugins().subscribe()
-    //subscribe to mapping API
-     this.apiService.getInstalledMappings().subscribe() 
-    
-     this.apiService.loginState.subscribe(
+    // subscribe to plugin API
+    this.apiService.getPlugins().subscribe();
+    // subscribe to mapping API
+    this.apiService.getInstalledMappings().subscribe();
+
+    this.apiService.loginState.subscribe(
       async res => {
-        if(res === LoginState.AUTHORIZED){
-          this.apiService.getDiscoveredMappings().subscribe() 
+        if (res === LoginState.AUTHORIZED) {
+          this.apiService.getDiscoveredMappings().subscribe();
         }
       }, (err) => console.log(err)
-    )
+    );
 
-    
+
   }
 
-
   ngOnDestroy(): void {
-    this.wsService.disconnect()
+    this.wsService.disconnect();
   }
 }

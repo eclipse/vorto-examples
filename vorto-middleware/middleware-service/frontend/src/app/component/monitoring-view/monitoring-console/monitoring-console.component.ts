@@ -1,12 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { APIService } from 'src/app/service/api/api.service';
-import { Key } from 'selenium-webdriver';
-import { OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
-const enum Direction {
-  OUTBOUND = "OUTBOUND",
-  INBOUND = "INBOUND"
+export const enum Direction {
+  OUTBOUND = 'OUTBOUND',
+  INBOUND = 'INBOUND'
 }
 
 @Component({
@@ -14,49 +10,50 @@ const enum Direction {
   templateUrl: './monitoring-console.component.html',
   styleUrls: ['./monitoring-console.component.scss']
 })
+
 export class MonitoringConsole {
 
   constructor() { }
 
 
   @Input('messageGroups')
-  public messageGroups
+  public messageGroups;
 
 
   addZero(i) {
     if (i < 10) {
-      i = "0" + i
+      i = '0' + i;
     }
-    return i
+    return i;
   }
   getMessageTitle(message) {
-    let timestamp = new Date(message.timestamp)
-    let direction = this.getMessageDirection(message)
-    let pluginId = this.getPluginId(message)
-    let deviceId = (message.deviceId) ? message.deviceId.substring(message.deviceId.indexOf(":") + 1, message.deviceId.length) : "no-deviceId"
+    const timestamp = new Date(message.timestamp);
+    const direction = this.getMessageDirection(message);
+    const pluginId = this.getPluginId(message);
+    const deviceId = (message.deviceId) ? message.deviceId.substring(message.deviceId.indexOf(':') + 1, message.deviceId.length)
+                      : 'no-deviceId';
 
-    return this.addZero(timestamp.getHours()) + ":" +
-      this.addZero(timestamp.getMinutes()) + ":" +
-      this.addZero(timestamp.getSeconds()) + " " +
-      "[" + direction + "] | " + pluginId + " " + deviceId + ": "
+    return this.addZero(timestamp.getHours()) + ':' +
+      this.addZero(timestamp.getMinutes()) + ':' +
+      this.addZero(timestamp.getSeconds()) + ' ' +
+      '[' + direction + '] | ' + deviceId + '' + pluginId + ': ';
   }
 
   getMessageDirection(message) {
-    let direction: Direction = (message.direction === Direction.INBOUND) ? Direction.INBOUND : Direction.OUTBOUND
-    return direction
+    const direction: Direction = (message.direction === Direction.INBOUND) ? Direction.INBOUND : Direction.OUTBOUND;
+    return direction;
   }
 
   getMessageString(message) {
-    return (message.text)
+    return (message.text);
   }
 
   getPluginId(message) {
-    return (message.outboundPluginId) ? " Plugin: " + message.outboundPluginId + " | " : " "
+    return (message.outboundPluginId) ? ' | Plugin: ' + message.outboundPluginId : '';
   }
 
-
   messageGroupCount() {
-    return Object.keys(this.messageGroups).length
+    return Object.keys(this.messageGroups).length;
   }
 }
 
