@@ -17,18 +17,20 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.vorto.mapping.engine.model.spec.IMappingSpecification;
-import org.eclipse.vorto.middleware.internal.service.impl.DefaultMappingService;
 import org.eclipse.vorto.middleware.mappings.IMappingConfigDao;
 import org.eclipse.vorto.model.ModelId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -39,11 +41,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class MappingSpecsConfiguration implements IMappingConfigDao {
 
-	@Autowired
-	private DefaultMappingService mappingService;
-
 	@Value(value = "${mapping_spec_dir:null}")
 	private String mappingSpecDirectory;
+	
+	private List<IMappingSpecification> mappingSpecifications = new ArrayList<IMappingSpecification>();
 
 	private static final Logger logger = LoggerFactory.getLogger(MappingSpecsConfiguration.class);
 
@@ -51,14 +52,15 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 	public void addMappingSpecs() throws Exception {
 		/**
 		 * THESE ARE EXAMPLE MAPPINGS THAT ARE REGISTERED IN THE MIDDLEWARE
-		 */
-		mappingService.addMappingSpec(loadMappingFromFile(
+		 */	
+		mappingSpecifications.add(loadMappingFromFile(
 				new ClassPathResource("specs/org.eclipse.vorto.tutorial_PMSMotor_1.0.0-mappingspec.json")
-						.getInputStream()));
-		mappingService.addMappingSpec(loadMappingFromFile(
+				.getInputStream()));
+		
+		mappingSpecifications.add(loadMappingFromFile(
 				new ClassPathResource("specs/vorto.private.somesh_ACMEWaterSensor_1.0.0-mappingspec.json")
 						.getInputStream()));
-		mappingService.addMappingSpec(loadMappingFromFile(
+		mappingSpecifications.add(loadMappingFromFile(
 				new ClassPathResource("specs/vorto.private.timgrossmann_Plantect_1.0.0-mappingspec.json")
 						.getInputStream()));
 
@@ -83,7 +85,7 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 						IMappingSpecification specification = loadMappingFromFile(
 								new FileInputStream(specFile));
 						logger.info("Added mapping successfully.");
-						mappingService.addMappingSpec(specification);
+						mappingSpecifications.add(specification);
 					} catch (Throwable ex) {
 						logger.error("Mapping file could not be loaded", ex);
 					}
@@ -102,7 +104,6 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 	@Override
 	public void save(IMappingSpecification specification) {
 		saveFile(specification);
-		this.mappingService.addMappingSpec(specification);
 	}
 
 	
@@ -140,7 +141,7 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 
 	@Override
 	public Collection<IMappingSpecification> list() {
-		return this.mappingService.list();
+		return this.mappingSpecifications;
 	}
 
 	/**
@@ -149,6 +150,16 @@ public class MappingSpecsConfiguration implements IMappingConfigDao {
 	 */
 	@Override
 	public void remove(ModelId specificationId) {
-		this.mappingService.removeMappingSpec(specificationId);
+		for (Iterator<IMappingSpecification> iter = this.mappingSpecifications.iterator();iter.hasNext();) {
+			IMappingSpecification spec = iter.next();
+			if (spec.getInfoModel().getId().equals(specificationId)) {
+				iter.remove();
+			}
+		}
+	}
+
+	@Override
+	public Optional<IMappingSpecification> get(ModelId modelId) {
+		return this.mappingSpecifications.stream().filter(spec -> spec.getInfoModel().getId().equals(modelId)).findAny();
 	}
 }
