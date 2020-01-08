@@ -5,6 +5,7 @@ import TreeViewNav from './TreeViewNav'
 import log from 'loglevel'
 import logo from '../../assets/img/vorto_logo.png'
 
+const {store} = require('../../store')
 
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'debug')
 const DEVICE_REFRESH_MS = process.env.REACT_APP_DEVICE_REFRESH_MS || 5000
@@ -23,7 +24,7 @@ class Sidebar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      things: [],
+      things: store.getState().devices.devices,
       width: window.innerWidth
     }
   }

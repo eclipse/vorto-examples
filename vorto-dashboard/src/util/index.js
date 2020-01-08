@@ -19,9 +19,6 @@ export function countDevicesInTopoloy(thingsInTopo, allDevices){
           if(result.indexOf(thing.thingId) === -1 ) result.push(thing.thingId)
         } 
       })
-      
-    
-      
     }
     if (thingTopo) {
       //counting all referencable devices with topology and excluding suptopologies e.g Zone A
@@ -40,6 +37,9 @@ return result.length
 
 export function getThingsInTopology(topology, selectedDevice) {
   var thingsInTopology = []
+  if (!selectedDevice) {
+    return []
+  }
   Object.entries(topology).map(
     ([key, value]) => {
       // subnodes under root nodes

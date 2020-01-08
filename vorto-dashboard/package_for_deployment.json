@@ -1,6 +1,6 @@
 {
   "name": "vorto-dashboard",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "preferGlobal": true,
   "bin": {
     "vorto-dashboard": "./index.js"
