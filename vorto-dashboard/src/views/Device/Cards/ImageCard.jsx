@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Row, Col } from "react-bootstrap";
 import mediumZoom from 'medium-zoom'
 
 import { getRepositoryLink } from '../../../util'

@@ -27,14 +27,15 @@ const MainView = () => {
    var device = store.getState().selectedDevice
 
    const topology = (store.getState().topologyState) ? store.getState().topologyState : {}
-   var selectedDevice = (device.thingId) ? device.thingId : ''
+
+   var selectedDevice = (device.thingId) ? device.thingId : null
 
 
    const numDevices = countDevicesInTopoloy(getThingsInTopology(topology, selectedDevice), store.getState().devices.devices)
 
    const numDevicesString = (numDevices > 1) ? String(numDevices + " Devices") : String(numDevices + " Device")
 
-    if (device.thingId) {
+    if (device.thingId && store.getState().devices.devices.length !== 0) {
         return (
             <div className='content'>
                 <div className="content-header"><span>{device.attributes.thingName}</span>
@@ -44,9 +45,19 @@ const MainView = () => {
             </div>
         )
     }
+    else if (device.thingId && store.getState().devices.devices.length === 0){
+        return (
+            <div className='content'>
+                <div className="content-header"><span>{device.attributes.thingName}</span>
+
+                </div>
+                <MapCard />
+            </div>
+        )
+    }
     return (
         <div className='content'>
-                <div className="content-header"><span>No device selected</span></div>
+                <div className="content-header"><span>No Device selected</span></div>
             </div>
     )
     
