@@ -4,7 +4,7 @@
 
 	<groupId>org.eclipse.vorto.examples</groupId>
 	<artifactId>parent</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 
 	<name>Vorto Examples Parent</name>
 
@@ -28,7 +28,7 @@
 	<scm>
 		<developerConnection>scm:git:https://github.com/eclipse/vorto-examples.git</developerConnection>
 		<url>https://github.com/eclipse/vorto-examples</url>
-		<tag>parent-0.0.2</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
