@@ -83,7 +83,7 @@ class AuthToken {
       grant_type: 'client_credentials',
       client_id: clientId,
       client_secret: clientSecret,
-      'scope:service': scope
+      'scope': scope
     }
 
     return request(this.getReqOpts(tokenForm))
