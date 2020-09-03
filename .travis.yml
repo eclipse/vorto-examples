@@ -9,6 +9,7 @@ jobs:
     services:
       - docker
     before_script:
+      - true
     script:
       - mvn --fail-fast -q clean install
       - docker build --build-arg JAR_FILE=./middleware-service/target/vorto-middleware-1.0.0.jar -f ./middleware-service/Dockerfile -t eclipsevorto/vorto-normalizer:nightly ./middleware-service;
@@ -45,8 +46,10 @@ jobs:
     language: node_js
     node_js:
     - '10'
-    before_script: 
-    script: 
+    before_script:
+      - true
+    script:
+      - true
     before_install:
     - cd vorto-dashboard
     install:
@@ -91,6 +94,7 @@ jobs:
     install:
     - echo "Installing dependencies"
     - yarn install
+    - echo "Finished yarn install"
     after_success:
     - echo "Creating build"
     - npm run build
