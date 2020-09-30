@@ -1,4 +1,4 @@
-const CATEGORIES = {
+export const CATEGORIES = {
   LOCATION: [
     'org.eclipse.vorto:Location:1.0.0',
     'org.eclipse.vorto:Geolocation:1.0.0',
@@ -56,7 +56,7 @@ const CATEGORIES = {
   ]
 }
 
-function mapDeftoCardCategorie (featureDefs) {
+export function mapDeftoCardCategorie (featureDefs) {
   if (!featureDefs) {
     return CATEGORIES.JSON
   }
@@ -123,7 +123,4 @@ function mapDeftoCardCategorie (featureDefs) {
   return CATEGORIES.JSON
 }
 
-module.exports = {
-  CATEGORIES,
-  mapDeftoCardCategorie
-}
+
