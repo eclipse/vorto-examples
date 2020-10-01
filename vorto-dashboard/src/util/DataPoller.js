@@ -2,7 +2,7 @@ const request = require('request-promise-native')
 const log = require('loglevel')
 log.setLevel(process.env.REACT_APP_LOG_LEVEL || 'error')
 
-const PORT = process.env.REACT_APP_PORT || 8080
+const PORT = process.env.REACT_APP_PORT || 80
 
 const thingsReqOpts = (filterString) => ({
   url: `http://${window.location.hostname}:${PORT}/api/v1/devices?filterString=${filterString}`,
