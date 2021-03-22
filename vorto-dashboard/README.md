@@ -126,7 +126,7 @@ You can use the basic structre of a thing and define the attributes like this:
 > **Note** That the `"definition": "org.eclipse.vorto:Topology:1.0.0"` is the most important part since it defines this element as the root.
 <br />
 
-In order to add containers that hold entities, simply create another meta-model that holds similar content to the root (e.g. empyt features etc.).
+In order to add containers that hold entities, simply create another meta-model that holds similar content to the root (e.g. empty features etc.).
 Make sure to define the `references` and `referencedBy` fields in the attributes in order to tell the dashboard the structure.
 
 ```json
